@@ -36,6 +36,9 @@ Finished examples (README in each): `videos/web-design-7k-reel/` (split layout) 
 - **Instagram is blocked.** Ask the user to upload reference reels as files.
 - **Audio:**
   - Master the voice-over to about -16 LUFS (`acompressor` + two-pass `loudnorm`).
+    - A **mono** master plays on both channels at full level in the render, so -16 LUFS mono is -13 LUFS in the
+      mix.
+    - After the renderer's true-peak trim, the reels land around -14 LUFS, which suits Instagram.
   - There is no music library offline, so music is synthesised with numpy + scipy:
     - `videos/web-design-7k-reel/tools/make_bed.py` is a quiet lo-fi bed;
     - `videos/bought-portfolio-reel/tools/make_beat.py` is a dynamic trap beat. Its tempo grid bends between anchor
