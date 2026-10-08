@@ -18,7 +18,8 @@ The repo is **public**. Don't commit third-party reference videos or their frame
 
 ## Pipeline that works in the cloud sandbox
 
-The finished example is `videos/web-design-7k-reel/` (README there).
+Finished examples (README in each): `videos/web-design-7k-reel/` (split layout) and `videos/bought-portfolio-reel/`
+(listicle-crimson, with generated scenes and a synthesised beat).
 
 - **New project:** `npx hyperframes init "videos/<name>" --non-interactive --example=blank --skill=general-video`.
   - The CDN is blocked. Ship GSAP locally (`npm pack gsap@3.14.2` → `assets/vendor/gsap.min.js`) and fonts from
@@ -35,12 +36,25 @@ The finished example is `videos/web-design-7k-reel/` (README there).
 - **Instagram is blocked.** Ask the user to upload reference reels as files.
 - **Audio:**
   - Master the voice-over to about -16 LUFS (`acompressor` + two-pass `loudnorm`).
-  - There is no music library offline. `videos/web-design-7k-reel/tools/make_bed.py` synthesises a bed; carve it under the voice with
-    `.claude/skills/hyperframes-audio/scripts/carve.mjs`.
+  - There is no music library offline, so music is synthesised with numpy + scipy:
+    - `videos/web-design-7k-reel/tools/make_bed.py` is a quiet lo-fi bed;
+    - `videos/bought-portfolio-reel/tools/make_beat.py` is a dynamic trap beat. Its tempo grid bends between anchor
+      downbeats so the drops and stops land on chosen words.
+  - Carve the music under the voice with `.claude/skills/hyperframes-audio/scripts/carve.mjs` (needs
+    `npm i -D @hyperframes/core@<cli version>` in the project). Strength 0.45 keeps a beat about 10 dB under the
+    voice, and about 15 dB under it in the speech band.
+  - When the user may add their own music, also deliver a no-music version: remux the rendered picture with
+    `tools/simulate_mix.py --mute music-bed --out …` instead of rendering twice. Null-test that simulation against the
+    render's audio first.
   - SFX come from `.claude/skills/media-use/audio/assets/sfx/`. The `impact-bass-*` files are mastered at full
     scale: keep them at ≤0.06–0.2 volume and trimmed.
   - A `data-automation` volume lane **replaces** `data-volume` instead of scaling it. Bake trims and fades into the
     files.
-  - Simulate the mix before rendering. The renderer lowers the whole mix if the true peak exceeds -1 dBTP.
+  - Simulate the mix before rendering with `python tools/simulate_mix.py videos/<name>` (from a venv with numpy +
+    scipy). It applies carve chains and lanes and prints loudness and true peak. The renderer lowers the whole mix if
+    the true peak exceeds -1 dBTP.
+- **Check:** `npx hyperframes check` takes about 8 min for a 114s reel. Its terminal output is long, so run it with
+  `--json > file` to keep the findings. Ghost-typing letters show up as contrast warnings by design.
 - **Render:** `npx hyperframes render -q delivery --fps 30` takes about 7 min for 64s at 1080x1920 on this CPU.
-  Chat uploads are capped at 30 MB: send a 2-pass ~3.3 Mbps preview copy and keep the master in the repo.
+  - Chat uploads are capped at 30 MB, so keep the master in the repo and send a 2-pass preview copy.
+  - Use ~3.3 Mbps for a 60s reel. For longer reels, scale the bitrate down or encode at 720x1280 to stay under the cap.

@@ -16,7 +16,7 @@ ICONS = [
     # 02 mass outreach: paper plane
     '<svg viewBox="0 0 54 54"><rect x="3" y="3" width="48" height="48" rx="12" fill="#2f6bf0"/><path d="M12 27 L42 13 L33 42 L27 31 Z" fill="#fff"/><path d="M27 31 L42 13" stroke="#2f6bf0" stroke-width="2.6"/></svg>',
     # 03 the $350 client: bag
-    '<svg viewBox="0 0 54 54"><rect x="3" y="3" width="48" height="48" rx="12" fill="#e0902a"/><path d="M15 21h24l-2.4 21H17.4z" fill="#fff"/><path d="M21 21v-3.5a6 6 0 0 1 12 0V21" stroke="#fff" stroke-width="3.4" fill="none"/><text x="27" y="38" text-anchor="middle" font-family="Inter Tight, Arial" font-weight="800" font-size="13" fill="#e0902a">$</text></svg>',
+    '<svg viewBox="0 0 54 54"><rect x="3" y="3" width="48" height="48" rx="12" fill="#e0902a"/><path d="M15 21h24l-2.4 21H17.4z" fill="#fff"/><path d="M21 21v-3.5a6 6 0 0 1 12 0V21" stroke="#fff" stroke-width="3.4" fill="none"/><text x="27" y="38" text-anchor="middle" font-family="Inter Tight, Arial" font-weight="800" font-size="13" fill="#9a5c12">$</text></svg>',
     # 04 study the best: magnifier
     '<svg viewBox="0 0 54 54"><rect x="3" y="3" width="48" height="48" rx="12" fill="#5b5bd6"/><circle cx="24" cy="24" r="9.5" stroke="#fff" stroke-width="4" fill="none"/><path d="M31.5 31.5 L40 40" stroke="#fff" stroke-width="4.6" stroke-linecap="round"/></svg>',
 ]
