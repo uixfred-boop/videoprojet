@@ -116,7 +116,7 @@ def main():
                               extra_js='tl.to("#s01-ball", { scale: 1.12, duration: 0.25, ease: "power2.out", yoyo: true, repeat: 1 }, at(4.45));'),
         # "I cheated. I bought a ready-made portfolio." — hero 01 + crimson stamp
         "s02-hero-01": scene("s02-hero-01", 5.80, 9.92, 0, (5.8, 5.81, 5.8, 5.81), 7.05,
-                             extra_html='<div class="stamp" id="s02-stamp" style="left: 600px; top: 520px">I CHEATED</div>',
+                             extra_html='<div class="stamp" id="s02-stamp" data-layout-allow-overlap data-layout-allow-occlusion style="left: 600px; top: 520px">I CHEATED</div>',
                              extra_js='fx.stamp(tl, "#s02-stamp", at(5.9), 8); fx.shake(tl, "#s02-hero", at(6.12), 8);'),
         "s06-hub-02": scene("s06-hub-02", 23.42, 28.05, 1, (23.45, 23.9, 23.9, 24.6), 25.2),
         "s12-hub-03": scene("s12-hub-03", 46.97, 49.36, 2, (47.0, 47.3, 47.3, 47.8), 48.15),

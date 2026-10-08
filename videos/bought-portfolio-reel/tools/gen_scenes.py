@@ -199,7 +199,7 @@ def main():
 
     # ---------------------------------------------------------------- s08 500+ messages, spam
     cards = "".join(
-        f'<div class="gl s08-m" style="left: {150 + i * 26}px; top: {470 + i * 34}px; transform: rotate({[-6, -3, 0, 3, 6][i]}deg)"><span class="ph" style="position:absolute;left:30px;top:40px;width:260px"></span><span class="ph" style="position:absolute;left:30px;top:76px;width:420px"></span><span class="ph" style="position:absolute;left:30px;top:108px;width:380px"></span><span class="s08-hi">Hi! I\'m a web designer...</span></div>'
+        f'<div class="gl s08-m" data-layout-allow-occlusion style="left: {150 + i * 26}px; top: {470 + i * 34}px; transform: rotate({[-6, -3, 0, 3, 6][i]}deg)"><span class="ph" style="position:absolute;left:30px;top:40px;width:260px"></span><span class="ph" style="position:absolute;left:30px;top:76px;width:420px"></span><span class="ph" style="position:absolute;left:30px;top:108px;width:380px"></span><span class="s08-hi" data-layout-allow-overlap>Hi! I\'m a web designer...</span></div>'
         for i in range(5))
     panel("s08-spam", 32.72, 35.95, """
         .s08-m { width: 680px; height: 200px; }
@@ -211,7 +211,7 @@ def main():
         {cards}
         <div class="big-num" id="s08-n">0</div>
         <div id="s08-lbl">messages sent</div>
-        <div class="stamp" id="s08-stamp">SPAM</div>
+        <div class="stamp" id="s08-stamp" data-layout-allow-overlap data-layout-allow-occlusion>SPAM</div>
     """, """
           root.querySelectorAll(".s08-m").forEach((el, i) => {
             tl.fromTo(el, { opacity: 0, x: -300, rotation: -14 }, { opacity: 1, x: 0, rotation: [-6, -3, 0, 3, 6][i], duration: 0.4, ease: "power3.out" }, at(32.8 + i * 0.12));
