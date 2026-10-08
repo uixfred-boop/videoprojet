@@ -1,0 +1,335 @@
+/* Listicle hub, crimson glass: reusable components (see STYLE.md).
+   Copy into a project's assets/css/ and link it from each composition. Fonts are declared per composition file
+   with root-relative paths (HyperFrames lint requires in-file @font-face). */
+
+:root {
+  --bg: #0b0b0b;
+  --grid: rgba(255, 255, 255, 0.04);
+  --crimson: #99122b;
+  --crimson-hi: #b8193a;
+  --node: #f5c518;
+  --glass-top: #232325;
+  --glass-bot: #111113;
+  --glass-edge: rgba(255, 255, 255, 0.16);
+  --ink: #f5f5f5;
+  --ghost: #6b6b6b;
+  --sans: "Inter Tight", Arial, sans-serif;
+  --serif: "Instrument Serif", Georgia, serif;
+}
+
+/* ---------- background ---------- */
+.lc-bg {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: var(--bg);
+}
+.lc-grid {
+  position: absolute;
+  left: -80px;
+  top: -80px;
+  width: 1240px;
+  height: 2080px;
+  background-size: 40px 40px;
+  background-image:
+    linear-gradient(to right, var(--grid) 2px, transparent 2px),
+    linear-gradient(to bottom, var(--grid) 2px, transparent 2px);
+}
+.lc-vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 70% 55% at 50% 36%, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.8) 100%);
+}
+.lc-aura {
+  position: absolute;
+  width: 760px;
+  height: 760px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(184, 25, 58, 0.42) 0%, rgba(153, 18, 43, 0.12) 42%, rgba(153, 18, 43, 0) 70%);
+}
+
+/* ---------- hub title: line 1 on a crimson bar, line 2 plain ---------- */
+.lc-hub {
+  position: absolute;
+  left: 40px;
+  right: 40px;
+  top: 150px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--sans);
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  line-height: 1;
+  color: var(--ink);
+  text-align: center;
+}
+.lc-hub .l1 {
+  display: inline-block;
+  padding: 6px 18px 12px;
+  background: var(--crimson);
+  font-size: 100px;
+  box-shadow: 0 0 40px rgba(153, 18, 43, 0.35);
+}
+.lc-hub .l2 {
+  font-size: 66px;
+}
+
+/* ---------- section headline ---------- */
+.lc-head {
+  position: absolute;
+  left: 40px;
+  right: 40px;
+  top: 300px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  column-gap: 0.25em;
+  font-family: var(--sans);
+  font-weight: 800;
+  font-size: 60px;
+  letter-spacing: -0.035em;
+  line-height: 1.05;
+  color: var(--ink);
+  text-align: center;
+}
+.lc-it {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  font-size: 1.12em;
+}
+
+/* ghost typing: wrap each letter in <span class="ch">; untyped letters carry .gh */
+.ch {
+  display: inline-block;
+  white-space: pre;
+}
+
+/* ---------- breadcrumb with corner brackets ---------- */
+.lc-crumb {
+  position: absolute;
+  left: 50%;
+  top: 150px;
+  width: 520px;
+  margin-left: -260px;
+  height: 124px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  font-family: var(--sans);
+  color: var(--ink);
+  text-align: center;
+}
+.lc-crumb .k {
+  font-weight: 500;
+  font-size: 28px;
+  letter-spacing: -0.01em;
+}
+.lc-crumb .v {
+  font-weight: 800;
+  font-size: 38px;
+  letter-spacing: -0.03em;
+}
+.lc-crumb i {
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  border: 0 solid var(--crimson-hi);
+}
+.lc-crumb i.tl {
+  left: 0;
+  top: 0;
+  border-top-width: 3px;
+  border-left-width: 3px;
+}
+.lc-crumb i.tr {
+  right: 0;
+  top: 0;
+  border-top-width: 3px;
+  border-right-width: 3px;
+}
+.lc-crumb i.bl {
+  left: 0;
+  bottom: 0;
+  border-bottom-width: 3px;
+  border-left-width: 3px;
+}
+.lc-crumb i.br {
+  right: 0;
+  bottom: 0;
+  border-bottom-width: 3px;
+  border-right-width: 3px;
+}
+
+/* ---------- glass tile ---------- */
+.lc-tile {
+  position: absolute;
+  width: 190px;
+  height: 168px;
+  border-radius: 18px;
+  background: linear-gradient(180deg, var(--glass-top) 0%, var(--glass-bot) 100%);
+  border: 2px solid var(--glass-edge);
+  box-shadow:
+    0 0 26px rgba(255, 255, 255, 0.1),
+    0 26px 50px rgba(0, 0, 0, 0.6),
+    inset 0 2px 0 rgba(255, 255, 255, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: var(--sans);
+  color: var(--ink);
+  overflow: hidden;
+}
+.lc-tile .ico {
+  margin-top: 22px;
+  width: 54px;
+  height: 54px;
+}
+.lc-tile .rule {
+  width: 100%;
+  height: 2px;
+  margin-top: 16px;
+  background: rgba(255, 255, 255, 0.08);
+}
+.lc-tile .n {
+  margin-top: 10px;
+  font-weight: 600;
+  font-size: 20px;
+}
+.lc-tile .lab {
+  margin-top: 4px;
+  width: 110px;
+  height: 14px;
+  border-radius: 7px;
+  background: rgba(255, 255, 255, 0.3);
+  filter: blur(3px);
+}
+.lc-tile.hero {
+  width: 380px;
+  height: 336px;
+  border-radius: 26px;
+}
+.lc-tile.hero .ico {
+  margin-top: 40px;
+  width: 104px;
+  height: 104px;
+}
+.lc-tile.hero .rule {
+  margin-top: 30px;
+}
+.lc-tile.hero .n {
+  margin-top: 18px;
+  font-size: 32px;
+}
+.lc-tile.hero .name {
+  margin-top: 6px;
+  font-weight: 800;
+  font-size: 40px;
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+  text-align: center;
+}
+
+/* ---------- crimson badge ball ---------- */
+.lc-ball {
+  position: absolute;
+  width: 230px;
+  height: 230px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 34% 28%, #d23a55 0%, #a3172f 38%, #6e0c1d 100%);
+  box-shadow:
+    0 0 60px rgba(184, 25, 58, 0.55),
+    inset 0 -14px 30px rgba(0, 0, 0, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 56px;
+  line-height: 0.92;
+  color: #fff;
+}
+
+/* ---------- pills, chips, tags ---------- */
+.lc-pill {
+  position: absolute;
+  padding: 8px 26px 12px;
+  background: var(--crimson);
+  border: 2px solid rgba(255, 255, 255, 0.22);
+  box-shadow: 0 0 34px rgba(184, 25, 58, 0.5);
+  font-family: var(--sans);
+  font-weight: 800;
+  font-size: 54px;
+  letter-spacing: -0.03em;
+  color: #fff;
+}
+.lc-chip {
+  position: absolute;
+  padding: 12px 26px;
+  border-radius: 14px;
+  background: linear-gradient(180deg, #2a2a2c, #161618);
+  border: 2px solid rgba(184, 25, 58, 0.75);
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 32px;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+.lc-tag {
+  display: inline-block;
+  padding: 2px 14px 4px;
+  background: var(--crimson);
+  font-family: var(--sans);
+  font-weight: 800;
+  font-size: 26px;
+  color: #fff;
+}
+
+/* ---------- glass panel (CTA, database) ---------- */
+.lc-panel {
+  position: absolute;
+  border-radius: 22px;
+  background: linear-gradient(180deg, #1d1d1f, #0f0f11);
+  border: 3px solid rgba(255, 255, 255, 0.22);
+  box-shadow:
+    0 0 40px rgba(255, 255, 255, 0.08),
+    0 40px 90px rgba(0, 0, 0, 0.7);
+}
+.lc-page {
+  position: absolute;
+  background: #ffffff;
+  border-radius: 4px;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
+}
+.lc-page .ln {
+  position: absolute;
+  left: 12%;
+  height: 7px;
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.16);
+}
+
+/* ---------- wires (SVG): give paths these classes ---------- */
+.lc-wire {
+  fill: none;
+  stroke: var(--crimson-hi);
+  stroke-width: 4;
+  stroke-linecap: round;
+  filter: drop-shadow(0 0 6px rgba(184, 25, 58, 0.8));
+}
+.lc-wire-dash {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.7);
+  stroke-width: 2.5;
+  stroke-dasharray: 10 9;
+}
+.lc-node {
+  fill: var(--node);
+  filter: drop-shadow(0 0 8px rgba(245, 197, 24, 0.9));
+}

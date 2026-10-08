@@ -1,0 +1,46 @@
+# videoprojet: notes for Claude
+
+This repo holds the user's Instagram Reel edits: motion design over their voice-over and B-roll, built with
+HyperFrames (`.claude/skills/`, entry point `/hyperframes`). There is also a Remotion "Hello World" scaffold at the
+root (`src/`); it isn't used for the reels.
+
+## Default style for new edits
+
+**Follow `styles/listicle-crimson/STYLE.md`.** The user named it the reference for their next edits. It is a
+listicle hub card, numbered glass tiles, breadcrumb headers, ghost typing, crimson wires and a "Comment 'x'" CTA, on
+a dark grid with crimson `#99122B`. Reusable CSS is in `styles/listicle-crimson/components.css`. Style frames are in
+`styles/listicle-crimson/frames/`.
+
+The split layout (graphics on top, seam captions, B-roll card with head pop-out, full-screen cutaways) comes from the
+earlier references and is documented in `videos/web-design-7k-reel/DESIGN.md`.
+
+The repo is **public**. Don't commit third-party reference videos or their frames; describe them in text.
+
+## Pipeline that works in the cloud sandbox
+
+The finished example is `videos/web-design-7k-reel/` (README there).
+
+- **New project:** `npx hyperframes init "videos/<name>" --non-interactive --example=blank --skill=general-video`.
+  - The CDN is blocked. Ship GSAP locally (`npm pack gsap@3.14.2` → `assets/vendor/gsap.min.js`) and fonts from
+    `@fontsource/*`.
+  - Asset paths must be root-relative (`assets/...`), even inside `compositions/`.
+  - Each file needs its own `@font-face` block.
+  - Wrap every sub-composition script in an IIFE.
+- **Word timings:**
+  - `hyperframes transcribe` can't download Whisper here (huggingface.co is blocked).
+  - Force-align the script with PocketSphinx instead: `tools/align_vo.py` (run it from a venv with
+    `pip install pocketsphinx`). Example output: `videos/web-design-7k-reel/transcript.json`.
+- **Head pop-out:** `npx hyperframes remove-background broll.mp4 -o broll-cutout.webm` works offline (~5 min for
+  27s). Overlay it above the footage card, clipped to the strip just above the card's top edge.
+- **Instagram is blocked.** Ask the user to upload reference reels as files.
+- **Audio:**
+  - Master the voice-over to about -16 LUFS (`acompressor` + two-pass `loudnorm`).
+  - There is no music library offline. `videos/web-design-7k-reel/tools/make_bed.py` synthesises a bed; carve it under the voice with
+    `.claude/skills/hyperframes-audio/scripts/carve.mjs`.
+  - SFX come from `.claude/skills/media-use/audio/assets/sfx/`. The `impact-bass-*` files are mastered at full
+    scale: keep them at ≤0.06–0.2 volume and trimmed.
+  - A `data-automation` volume lane **replaces** `data-volume` instead of scaling it. Bake trims and fades into the
+    files.
+  - Simulate the mix before rendering. The renderer lowers the whole mix if the true peak exceeds -1 dBTP.
+- **Render:** `npx hyperframes render -q delivery --fps 30` takes about 7 min for 64s at 1080x1920 on this CPU.
+  Chat uploads are capped at 30 MB: send a 2-pass ~3.3 Mbps preview copy and keep the master in the repo.
