@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template id="f13-cta-template">
+      <link rel="stylesheet" href="assets/css/house.css" />
+      <style>
+        @font-face { font-family: "Inter Tight"; src: url("assets/fonts/inter-tight-latin-600-normal.woff2") format("woff2"); font-weight: 600; font-style: normal; }
+        @font-face { font-family: "Inter Tight"; src: url("assets/fonts/inter-tight-latin-700-normal.woff2") format("woff2"); font-weight: 700; font-style: normal; }
+        @font-face { font-family: "Inter Tight"; src: url("assets/fonts/inter-tight-latin-800-normal.woff2") format("woff2"); font-weight: 800; font-style: normal; }
+        @font-face { font-family: "Inter Tight"; src: url("assets/fonts/inter-tight-latin-900-normal.woff2") format("woff2"); font-weight: 900; font-style: normal; }
+        @font-face { font-family: "Instrument Serif"; src: url("assets/fonts/instrument-serif-latin-400-italic.woff2") format("woff2"); font-weight: 400; font-style: italic; }
+        #f13-root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+        }
+        #f13-hl .line.l2 {
+          font-size: 92px;
+        }
+        #f13-doc {
+          left: 170px;
+          top: 470px;
+          width: 740px;
+          height: 470px;
+        }
+        #f13-doc .t {
+          position: absolute;
+          left: 48px;
+          top: 42px;
+          font-family: "Inter Tight", Arial, sans-serif;
+          font-weight: 800;
+          font-size: 42px;
+          letter-spacing: -0.03em;
+          color: #111;
+        }
+        #f13-doc .s {
+          position: absolute;
+          left: 48px;
+          top: 100px;
+          font-size: 26px;
+          color: #6f6d6a;
+        }
+        #f13-doc .ln {
+          position: absolute;
+          left: 48px;
+          height: 16px;
+          border-radius: 8px;
+          background: rgba(0, 0, 0, 0.12);
+        }
+        #f13-sigline {
+          position: absolute;
+          left: 48px;
+          top: 388px;
+          width: 380px;
+          height: 3px;
+          background: rgba(0, 0, 0, 0.35);
+        }
+        #f13-siglab {
+          position: absolute;
+          left: 48px;
+          top: 400px;
+          font-size: 22px;
+          color: #6a6866;
+        }
+        #f13-sig {
+          position: absolute;
+          left: 60px;
+          top: 300px;
+          width: 360px;
+          height: 100px;
+          overflow: visible;
+        }
+        #f13-signed {
+          position: absolute;
+          right: 40px;
+          top: 360px;
+          background: #1fb35a;
+          border-color: #1fb35a;
+          color: #fff;
+          font-size: 32px;
+          padding: 12px 26px;
+          box-shadow: 0 14px 30px rgba(31, 179, 90, 0.4);
+        }
+        #f13-weeks {
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 980px;
+          display: flex;
+          justify-content: center;
+          gap: 22px;
+        }
+        #f13-weeks .pill {
+          font-size: 30px;
+          padding: 12px 28px;
+          color: #8e8c8a;
+        }
+        #f13-sub {
+          position: absolute;
+          left: 240px;
+          top: 640px;
+          width: 600px;
+          height: 150px;
+          border-radius: 75px;
+          background: #c00304;
+          box-shadow:
+            0 30px 70px rgba(192, 3, 4, 0.45),
+            inset 0 2px 0 rgba(255, 255, 255, 0.25);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 22px;
+          font-family: "Inter Tight", Arial, sans-serif;
+          font-weight: 800;
+          font-size: 64px;
+          letter-spacing: -0.03em;
+          color: #fff;
+        }
+        #f13-subd {
+          position: absolute;
+          left: 240px;
+          top: 640px;
+          width: 600px;
+          height: 150px;
+          border-radius: 75px;
+          background: #2f2e2f;
+          border: 2px solid rgba(255, 255, 255, 0.14);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 18px;
+          font-family: "Inter Tight", Arial, sans-serif;
+          font-weight: 800;
+          font-size: 58px;
+          letter-spacing: -0.03em;
+          color: #d8d6d3;
+        }
+        #f13-ripple {
+          position: absolute;
+          left: 570px;
+          top: 650px;
+          width: 220px;
+          height: 220px;
+          border-radius: 50%;
+          background: rgba(255, 90, 95, 0.45);
+        }
+        #f13-cursor {
+          position: absolute;
+          left: 660px;
+          top: 740px;
+          width: 70px;
+          height: 86px;
+          overflow: visible;
+        }
+      </style>
+
+      <div id="f13-root" data-composition-id="f13-cta" data-width="1080" data-height="1920">
+        <div class="hf-bg dark">
+          <div class="hf-grid" id="f13-grid" data-layout-allow-overflow></div>
+          <div class="hf-glow" id="f13-glow" data-layout-allow-overflow></div>
+          <div class="hf-vignette"></div>
+        </div>
+
+        <div class="hl" id="f13-hl">
+          <div class="line">
+            <span class="w" id="f13-w1">Web</span><span class="w" id="f13-w2">Designers:</span>
+          </div>
+          <div class="line l2">
+            <span class="w" id="f13-w3">Land</span><span class="w it" id="f13-w4">Real</span><span class="w" id="f13-w5">Contracts</span>
+          </div>
+        </div>
+
+        <div class="card paper" id="f13-doc">
+          <span class="t">Website Design Contract</span>
+          <span class="label s">Client agreement</span>
+          <span class="ln" style="top: 160px; width: 600px"></span>
+          <span class="ln" style="top: 192px; width: 560px"></span>
+          <span class="ln" style="top: 224px; width: 620px"></span>
+          <span class="ln" style="top: 256px; width: 430px"></span>
+          <svg id="f13-sig" viewBox="0 0 360 100">
+            <path
+              id="f13-sigp"
+              d="M8 74 C 30 20, 46 18, 40 60 S 70 92, 88 46 S 112 20, 118 58 C 122 80, 140 70, 152 50 C 162 36, 170 70, 186 62 S 214 30, 230 52 S 262 76, 290 40 C 304 24, 326 30, 352 44"
+              fill="none"
+              stroke="#1d2a6b"
+              stroke-width="5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              pathLength="1"
+              stroke-dasharray="1"
+              stroke-dashoffset="1"
+            />
+          </svg>
+          <span id="f13-sigline"></span>
+          <span class="label" id="f13-siglab">Client signature</span>
+          <span class="pill" id="f13-signed">
+            <svg width="28" height="28" viewBox="0 0 28 28"><path d="M4 15 L11 22 L24 6" fill="none" stroke="#fff" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" /></svg>
+            Signed
+          </span>
+        </div>
+
+        <div id="f13-weeks">
+          <span class="pill" id="f13-k1">Week 1</span><span class="pill" id="f13-k2">Week 2</span><span class="pill" id="f13-k3">Week 3</span>
+        </div>
+
+        <div id="f13-subd" data-layout-allow-overlap>
+          <svg width="52" height="52" viewBox="0 0 52 52"><path d="M10 27 L21 38 L43 13" fill="none" stroke="#d8d6d3" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" /></svg>
+          Subscribed
+        </div>
+        <div id="f13-sub">
+          <svg width="58" height="58" viewBox="0 0 58 58">
+            <path d="M29 8 C 19 8, 14 16, 14 25 V 36 L 9 43 H 49 L 44 36 V 25 C 44 16, 39 8, 29 8 Z" fill="#fff" />
+            <path d="M22 47 C 23 52, 35 52, 36 47" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" />
+          </svg>
+          Subscribe
+        </div>
+        <div id="f13-ripple"></div>
+        <svg id="f13-cursor" viewBox="0 0 70 86">
+          <path d="M6 4 L6 66 L22 52 L33 78 L45 73 L34 47 L56 47 Z" fill="#ffffff" stroke="#111" stroke-width="4" stroke-linejoin="round" />
+        </svg>
+      </div>
+
+      <script>
+        (function () {
+          const T0 = 58.52;
+          const at = (t) => Math.max(0, t - T0);
+          const tl = gsap.timeline({ paused: true });
+          const D = 64 - T0;
+
+          tl.fromTo("#f13-glow", { scale: 0.85, opacity: 0.6 }, { scale: 1.2, opacity: 1, duration: D, ease: "sine.inOut" }, 0);
+          tl.fromTo("#f13-grid", { y: 0 }, { y: -40, duration: D, ease: "none" }, 0);
+
+          // "And if you're a web designer who wants to land real contracts"
+          const words = [["#f13-w1", 59.09], ["#f13-w2", 59.24], ["#f13-w3", 60.21], ["#f13-w4", 60.48], ["#f13-w5", 60.69]];
+          words.forEach(([id, t]) => {
+            tl.fromTo(id, { opacity: 0, y: 28, filter: "blur(12px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.3, ease: "power3.out" }, at(t - 0.04));
+          });
+          tl.fromTo("#f13-doc", { opacity: 0, y: 90, rotation: 3, filter: "blur(16px)" }, { opacity: 1, y: 0, rotation: -1.5, filter: "blur(0px)", duration: 0.6, ease: "expo.out" }, at(58.6));
+          tl.fromTo("#f13-sigp", { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 0.95, ease: "power1.inOut" }, at(60.2));
+          tl.fromTo("#f13-signed", { opacity: 0, scale: 0.4, rotation: -12 }, { opacity: 1, scale: 1, rotation: 4, duration: 0.38, ease: "back.out(2.4)" }, at(61.28));
+          // "in the coming weeks"
+          tl.fromTo("#f13-weeks", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.35, ease: "power3.out" }, at(61.4));
+          [["#f13-k1", 61.52], ["#f13-k2", 61.85], ["#f13-k3", 62.1]].forEach(([id, t]) => {
+            tl.to(id, { backgroundColor: "#c00304", borderColor: "#e3191f", color: "#ffffff", scale: 1.08, duration: 0.16, ease: "power2.out" }, at(t));
+            tl.to(id, { scale: 1, duration: 0.25, ease: "power2.out" }, at(t + 0.16));
+          });
+
+          // "subscribe": everything steps back, the button pops and gets clicked
+          tl.to(["#f13-doc", "#f13-weeks"], { opacity: 0.18, scale: 0.94, filter: "blur(6px)", duration: 0.35, ease: "power2.out" }, at(62.45));
+          tl.fromTo("#f13-sub", { opacity: 0, scale: 0.3 }, { opacity: 1, scale: 1, duration: 0.42, ease: "back.out(2.2)" }, at(62.5));
+          tl.fromTo("#f13-cursor", { opacity: 0, x: 260, y: 300 }, { opacity: 1, x: 0, y: 0, duration: 0.38, ease: "power3.out" }, at(62.55));
+          tl.to("#f13-cursor", { scale: 0.82, duration: 0.07, ease: "power2.in" }, at(62.9));
+          tl.to("#f13-cursor", { scale: 1, duration: 0.18, ease: "back.out(2)" }, at(62.97));
+          tl.to("#f13-sub", { scale: 0.93, duration: 0.07, ease: "power2.in" }, at(62.9));
+          tl.fromTo("#f13-ripple", { opacity: 0, scale: 0.1 }, { opacity: 1, scale: 0.4, duration: 0.05, ease: "none" }, at(62.9));
+          tl.to("#f13-ripple", { opacity: 0, scale: 1.6, duration: 0.5, ease: "power2.out" }, at(62.95));
+          tl.to("#f13-sub", { opacity: 0, scale: 1.02, duration: 0.14, ease: "power1.out" }, at(62.98));
+          tl.fromTo("#f13-subd", { opacity: 0, scale: 0.93 }, { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(2.6)" }, at(62.98));
+          tl.to("#f13-cursor", { x: 140, y: 160, opacity: 0, duration: 0.5, ease: "power2.in" }, at(63.35));
+
+          window.__timelines["f13-cta"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

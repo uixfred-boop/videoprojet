@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template id="f03-cut-for-me-template">
+      <style>
+        #f03-root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          background: #030303;
+        }
+        #f03-cam {
+          position: absolute;
+          inset: 0;
+          transform-origin: 50% 24%;
+        }
+        #f03-cam video {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 1080px;
+          height: 1920px;
+          object-fit: cover;
+        }
+        #f03-shade {
+          position: absolute;
+          inset: 0;
+          background:
+            radial-gradient(ellipse 80% 60% at 50% 30%, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.55) 100%),
+            linear-gradient(180deg, rgba(0, 0, 0, 0) 45%, rgba(0, 0, 0, 0.45) 100%);
+        }
+      </style>
+      <div id="f03-root" data-composition-id="f03-cut-for-me" data-width="1080" data-height="1920">
+        <div id="f03-cam">
+          <video
+            id="f03-v"
+            class="clip"
+            src="assets/video/broll.mp4"
+            data-start="0"
+            data-duration="2.62"
+            data-media-start="17"
+            data-track-index="0"
+            muted
+            playsinline
+          ></video>
+        </div>
+        <div id="f03-shade"></div>
+      </div>
+      <script>
+        (function () {
+          const tl = gsap.timeline({ paused: true });
+          // whip in tight on the face, then a slow push while the line lands
+          tl.fromTo("#f03-cam", { scale: 1.75, y: 160, filter: "blur(10px)" }, { scale: 1.48, y: 170, filter: "blur(0px)", duration: 0.28, ease: "power3.out" }, 0);
+          tl.to("#f03-cam", { y: 210, duration: 2.3, ease: "sine.inOut" }, 0.3);
+          tl.to("#f03-cam", { scale: 1.58, duration: 2.3, ease: "sine.inOut" }, 0.3);
+          window.__timelines["f03-cut-for-me"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

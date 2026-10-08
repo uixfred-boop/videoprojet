@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template id="f06-tried-everything-template">
+      <link rel="stylesheet" href="assets/css/house.css" />
+      <style>
+        @font-face { font-family: "Inter Tight"; src: url("assets/fonts/inter-tight-latin-600-normal.woff2") format("woff2"); font-weight: 600; font-style: normal; }
+        @font-face { font-family: "Inter Tight"; src: url("assets/fonts/inter-tight-latin-700-normal.woff2") format("woff2"); font-weight: 700; font-style: normal; }
+        @font-face { font-family: "Inter Tight"; src: url("assets/fonts/inter-tight-latin-800-normal.woff2") format("woff2"); font-weight: 800; font-style: normal; }
+        @font-face { font-family: "Inter Tight"; src: url("assets/fonts/inter-tight-latin-900-normal.woff2") format("woff2"); font-weight: 900; font-style: normal; }
+        @font-face { font-family: "Instrument Serif"; src: url("assets/fonts/instrument-serif-latin-400-italic.woff2") format("woff2"); font-weight: 400; font-style: italic; }
+        #f06-root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+        }
+        #f06-hl .line {
+          font-size: 96px;
+        }
+        #f06-r1 {
+          top: 480px;
+        }
+        #f06-r2 {
+          top: 636px;
+        }
+        #f06-r3 {
+          top: 792px;
+        }
+        .row .chip {
+          position: absolute;
+          right: 26px;
+          top: 30px;
+          padding: 8px 18px;
+          border-radius: 10px;
+          border: 3px solid #e3191f;
+          color: #ff4a4e;
+          font-weight: 800;
+          font-size: 30px;
+          letter-spacing: -0.01em;
+          background: rgba(192, 3, 4, 0.12);
+        }
+        #f06-inbox {
+          left: 220px;
+          top: 520px;
+          width: 640px;
+          height: 420px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          gap: 18px;
+        }
+        #f06-inbox .t1 {
+          font-weight: 800;
+          font-size: 54px;
+          letter-spacing: -0.03em;
+        }
+        #f06-inbox .t2 {
+          font-size: 32px;
+        }
+        #f06-badge {
+          position: absolute;
+          left: 600px;
+          top: 556px;
+          width: 64px;
+          height: 64px;
+          border-radius: 50%;
+          background: #2a292a;
+          border: 2px solid rgba(255, 255, 255, 0.2);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-weight: 800;
+          font-size: 34px;
+          color: #8e8c8a;
+        }
+      </style>
+
+      <div id="f06-root" data-composition-id="f06-tried-everything" data-width="1080" data-height="1920">
+        <div class="hf-bg dark">
+          <div class="hf-grid" id="f06-grid" data-layout-allow-overflow></div>
+          <div class="hf-glow" id="f06-glow" data-layout-allow-overflow></div>
+          <div class="hf-vignette"></div>
+        </div>
+
+        <div class="hl" id="f06-hl">
+          <div class="line">
+            <span class="w" id="f06-w1">I</span><span class="w" id="f06-w2">Tried</span><span class="w it" id="f06-w3">Everything</span>
+          </div>
+        </div>
+
+        <div class="row" id="f06-r1"><span class="tab"></span><span class="num">01</span><span class="txt">Fiverr</span><span class="chip" id="f06-c1">0 replies</span></div>
+        <div class="row" id="f06-r2"><span class="tab"></span><span class="num">02</span><span class="txt">Upwork</span><span class="chip" id="f06-c2">0 clients</span></div>
+        <div class="row" id="f06-r3"><span class="tab"></span><span class="num">03</span><span class="txt">Mass Cold Emails</span><span class="chip" id="f06-c3">0 replies</span></div>
+
+        <div class="card" id="f06-inbox" data-layout-allow-overlap>
+          <svg width="120" height="96" viewBox="0 0 120 96">
+            <rect x="4" y="4" width="112" height="88" rx="14" fill="none" stroke="#8e8c8a" stroke-width="6" />
+            <path d="M8 12 L60 54 L112 12" fill="none" stroke="#8e8c8a" stroke-width="6" stroke-linejoin="round" />
+          </svg>
+          <span class="t1">Inbox</span>
+          <span class="label t2">No new messages</span>
+        </div>
+        <div id="f06-badge">0</div>
+      </div>
+
+      <script>
+        (function () {
+          const T0 = 24.9;
+          const at = (t) => Math.max(0, t - T0);
+          const tl = gsap.timeline({ paused: true });
+          const D = 34.3 - T0;
+
+          tl.fromTo("#f06-glow", { scale: 0.9, opacity: 0.7 }, { scale: 1.12, opacity: 1, duration: 4, ease: "sine.inOut", yoyo: true, repeat: 1 }, 0);
+          tl.fromTo("#f06-grid", { y: 0 }, { y: -60, duration: D, ease: "none" }, 0);
+
+          // "So I tried everything."
+          tl.fromTo("#f06-w1", { opacity: 0, y: 28, filter: "blur(12px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.3, ease: "power3.out" }, at(25.58));
+          tl.fromTo("#f06-w2", { opacity: 0, y: 28, filter: "blur(12px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.3, ease: "power3.out" }, at(25.7));
+          tl.fromTo("#f06-w3", { opacity: 0, scale: 0.7, filter: "blur(14px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.45, ease: "back.out(1.8)" }, at(26.48));
+
+          // the list arrives blurred (ref3 rack focus), each row snaps sharp on its word
+          const rows = ["#f06-r1", "#f06-r2", "#f06-r3"];
+          rows.forEach((id, i) => {
+            tl.fromTo(id, { opacity: 0, x: -60, filter: "blur(10px)" }, { opacity: 0.4, x: 0, filter: "blur(7px)", duration: 0.45, ease: "power3.out" }, at(26.5 + i * 0.1));
+          });
+          const hits = [27.1, 28.17, 29.0];
+          hits.forEach((t, i) => {
+            tl.to(rows[i], { opacity: 1, filter: "blur(0px)", scale: 1.05, duration: 0.22, ease: "power3.out" }, at(t));
+            tl.to(rows[i], { scale: 1, duration: 0.35, ease: "power2.out" }, at(t + 0.5));
+          });
+
+          // "And every single time" — a rejection stamp on each row
+          [[ "#f06-c1", 30.84 ], [ "#f06-c2", 31.25 ], [ "#f06-c3", 31.65 ]].forEach(([id, t]) => {
+            tl.fromTo(id, { opacity: 0, scale: 2.2, rotation: -14 }, { opacity: 1, scale: 1, rotation: -4, duration: 0.22, ease: "power4.in" }, at(t - 0.04));
+          });
+
+          // "nothing but silence" — the list drains away to an empty inbox
+          tl.to(rows, { opacity: 0, filter: "blur(16px)", scale: 0.94, duration: 0.6, ease: "power2.in", stagger: 0.06 }, at(32.28));
+          tl.to("#f06-hl", { opacity: 0.35, filter: "blur(4px)", duration: 0.8, ease: "power2.out" }, at(32.4));
+          tl.fromTo("#f06-inbox", { opacity: 0, scale: 0.9, filter: "blur(18px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.7, ease: "expo.out" }, at(32.75));
+          tl.fromTo("#f06-badge", { opacity: 0, scale: 0.3 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(2.4)" }, at(33.05));
+          tl.to("#f06-glow", { opacity: 0, duration: 0.9, ease: "power2.out" }, at(33.0));
+          tl.to("#f06-inbox", { scale: 0.97, duration: 1.2, ease: "sine.inOut" }, at(33.5));
+
+          window.__timelines["f06-tried-everything"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

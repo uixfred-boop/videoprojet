@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template id="f08-rebuild-template">
+      <link rel="stylesheet" href="assets/css/house.css" />
+      <style>
+        @font-face { font-family: "Inter Tight"; src: url("assets/fonts/inter-tight-latin-600-normal.woff2") format("woff2"); font-weight: 600; font-style: normal; }
+        @font-face { font-family: "Inter Tight"; src: url("assets/fonts/inter-tight-latin-700-normal.woff2") format("woff2"); font-weight: 700; font-style: normal; }
+        @font-face { font-family: "Inter Tight"; src: url("assets/fonts/inter-tight-latin-800-normal.woff2") format("woff2"); font-weight: 800; font-style: normal; }
+        @font-face { font-family: "Inter Tight"; src: url("assets/fonts/inter-tight-latin-900-normal.woff2") format("woff2"); font-weight: 900; font-style: normal; }
+        @font-face { font-family: "Instrument Serif"; src: url("assets/fonts/instrument-serif-latin-400-italic.woff2") format("woff2"); font-weight: 400; font-style: italic; }
+        #f08-root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+        }
+        #f08-card {
+          left: 190px;
+          top: 452px;
+          width: 700px;
+          height: 712px;
+        }
+        #f08-card .top {
+          position: absolute;
+          left: 34px;
+          right: 34px;
+          top: 30px;
+          display: flex;
+          align-items: center;
+          gap: 18px;
+        }
+        #f08-card .top img {
+          width: 60px;
+          height: 60px;
+          border-radius: 50%;
+          object-fit: cover;
+          border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+        #f08-card .top .blur-bar {
+          width: 170px;
+        }
+        #f08-pause {
+          margin-left: auto;
+          font-size: 26px;
+          padding: 8px 20px 8px 16px;
+        }
+        #f08-pause .pz {
+          display: inline-flex;
+          gap: 5px;
+        }
+        #f08-pause .pz i {
+          display: block;
+          width: 7px;
+          height: 22px;
+          border-radius: 2px;
+          background: #ffffff;
+        }
+        .f08-t {
+          position: absolute;
+          width: 180px;
+          height: 180px;
+          border-radius: 14px;
+          object-fit: cover;
+        }
+        .f08-d {
+          position: absolute;
+          width: 180px;
+          height: 180px;
+          border-radius: 14px;
+          border: 3px dashed rgba(255, 255, 255, 0.32);
+        }
+        #f08-plus {
+          position: absolute;
+          left: 68px;
+          top: 120px;
+          width: 180px;
+          height: 180px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        #f08-plus span {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 84px;
+          height: 84px;
+          border-radius: 50%;
+          background: #c00304;
+          box-shadow: 0 0 40px rgba(227, 25, 31, 0.6);
+          color: #fff;
+          font-weight: 800;
+          font-size: 64px;
+          line-height: 1;
+        }
+      </style>
+
+      <div id="f08-root" data-composition-id="f08-rebuild" data-width="1080" data-height="1920">
+        <div class="hf-bg dark">
+          <div class="hf-grid" id="f08-grid" data-layout-allow-overflow></div>
+          <div class="hf-glow" id="f08-glow" data-layout-allow-overflow></div>
+          <div class="hf-vignette"></div>
+        </div>
+
+        <div class="hl" id="f08-hl">
+          <div class="line">
+            <span class="w" id="f08-w1">I</span><span class="w" id="f08-w2">Stopped</span><span class="w it" id="f08-w3">Posting</span>
+          </div>
+          <div class="line">
+            <span class="w" id="f08-w4">To</span><span class="w" id="f08-w5">Rebuild</span><span class="w" id="f08-w6">From</span
+            ><span class="w it" id="f08-w7">Scratch</span>
+          </div>
+        </div>
+
+        <div class="card" id="f08-card">
+          <div class="top">
+            <img src="assets/img/avatar.jpg" alt="" />
+            <span class="blur-bar"></span>
+            <span class="pill red" id="f08-pause"><span class="pz"><i></i><i></i></span>Posting paused</span>
+          </div>
+          <div id="f08-dashes">
+            <span class="f08-d" style="left: 68px; top: 120px"></span>
+            <span class="f08-d" style="left: 260px; top: 120px"></span>
+            <span class="f08-d" style="left: 452px; top: 120px"></span>
+            <span class="f08-d" style="left: 68px; top: 312px"></span>
+            <span class="f08-d" style="left: 260px; top: 312px"></span>
+            <span class="f08-d" style="left: 452px; top: 312px"></span>
+            <span class="f08-d" style="left: 68px; top: 504px"></span>
+            <span class="f08-d" style="left: 260px; top: 504px"></span>
+            <span class="f08-d" style="left: 452px; top: 504px"></span>
+          </div>
+          <div id="f08-tiles">
+            <img class="f08-t" src="assets/img/tile0.jpg" alt="" style="left: 68px; top: 120px" />
+            <img class="f08-t" src="assets/img/tile1.jpg" alt="" style="left: 260px; top: 120px" />
+            <img class="f08-t" src="assets/img/tile2.jpg" alt="" style="left: 452px; top: 120px" />
+            <img class="f08-t" src="assets/img/tile3.jpg" alt="" style="left: 68px; top: 312px" />
+            <img class="f08-t" src="assets/img/tile4.jpg" alt="" style="left: 260px; top: 312px" />
+            <img class="f08-t" src="assets/img/tile5.jpg" alt="" style="left: 452px; top: 312px" />
+            <img class="f08-t" src="assets/img/tile6.jpg" alt="" style="left: 68px; top: 504px" />
+            <img class="f08-t" src="assets/img/tile7.jpg" alt="" style="left: 260px; top: 504px" />
+            <img class="f08-t" src="assets/img/tile8.jpg" alt="" style="left: 452px; top: 504px" />
+          </div>
+          <div id="f08-plus"><span>+</span></div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          const T0 = 37.18;
+          const at = (t) => Math.max(0, t - T0);
+          const tl = gsap.timeline({ paused: true });
+          const D = 40.66 - T0;
+          const tiles = Array.from(document.querySelectorAll("#f08-tiles .f08-t"));
+          const dashes = Array.from(document.querySelectorAll("#f08-dashes .f08-d"));
+
+          tl.fromTo("#f08-glow", { scale: 0.85, opacity: 0.8 }, { scale: 1.05, opacity: 0.4, duration: D, ease: "sine.inOut" }, 0);
+          tl.fromTo("#f08-grid", { x: 0 }, { x: -40, duration: D, ease: "none" }, 0);
+
+          const words = [["#f08-w1", 37.29], ["#f08-w2", 37.53], ["#f08-w3", 37.88], ["#f08-w4", 39.48], ["#f08-w5", 39.57], ["#f08-w6", 39.88], ["#f08-w7", 40.08]];
+          words.forEach(([id, t]) => {
+            tl.fromTo(id, { opacity: 0, y: 28, filter: "blur(12px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.28, ease: "power3.out" }, at(t - 0.04));
+          });
+
+          tl.fromTo("#f08-card", { opacity: 0, y: 80, scale: 0.94, filter: "blur(18px)" }, { opacity: 1, y: 0, scale: 1, filter: "blur(0px)", duration: 0.55, ease: "expo.out" }, at(37.2));
+          tl.fromTo("#f08-pause", { opacity: 0, scale: 0.5 }, { opacity: 1, scale: 1, duration: 0.32, ease: "back.out(2.4)" }, at(37.52));
+
+          // "for a while": the feed goes grey, tile by tile
+          tiles.forEach((el, i) => {
+            tl.fromTo(el, { filter: "grayscale(0) brightness(1)", opacity: 1 }, { filter: "grayscale(1) brightness(0.45)", opacity: 0.85, duration: 0.3, ease: "power1.out" }, at(38.35 + i * 0.07));
+          });
+          // "rebuild": the old feed drops away
+          tiles.slice().reverse().forEach((el, i) => {
+            tl.to(el, { y: 70, rotation: i % 2 ? 6 : -6, opacity: 0, scale: 0.85, duration: 0.35, ease: "power2.in" }, at(39.5 + i * 0.035));
+          });
+          // "from scratch": empty dashed slots, then a fresh first post
+          dashes.forEach((el, i) => {
+            tl.fromTo(el, { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.28, ease: "back.out(2)" }, at(39.86 + i * 0.03));
+          });
+          tl.fromTo("#f08-plus", { opacity: 0, scale: 0.2 }, { opacity: 1, scale: 1, duration: 0.35, ease: "back.out(2.6)" }, at(40.12));
+          tl.to("#f08-pause", { opacity: 0.4, duration: 0.3, ease: "power1.out" }, at(39.6));
+
+          window.__timelines["f08-rebuild"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template id="f02-not-much-template">
+      <link rel="stylesheet" href="assets/css/house.css" />
+      <style>
+        @font-face { font-family: "Inter Tight"; src: url("assets/fonts/inter-tight-latin-600-normal.woff2") format("woff2"); font-weight: 600; font-style: normal; }
+        @font-face { font-family: "Inter Tight"; src: url("assets/fonts/inter-tight-latin-700-normal.woff2") format("woff2"); font-weight: 700; font-style: normal; }
+        @font-face { font-family: "Inter Tight"; src: url("assets/fonts/inter-tight-latin-800-normal.woff2") format("woff2"); font-weight: 800; font-style: normal; }
+        @font-face { font-family: "Inter Tight"; src: url("assets/fonts/inter-tight-latin-900-normal.woff2") format("woff2"); font-weight: 900; font-style: normal; }
+        @font-face { font-family: "Instrument Serif"; src: url("assets/fonts/instrument-serif-latin-400-italic.woff2") format("woff2"); font-weight: 400; font-style: italic; }
+        #f02-root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+        }
+        #f02-tile {
+          left: 270px;
+          top: 610px;
+          width: 540px;
+          height: 300px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          gap: 6px;
+        }
+        #f02-tile .label {
+          font-size: 30px;
+        }
+        #f02-amt {
+          font-family: "Inter Tight", Arial, sans-serif;
+          font-weight: 900;
+          font-size: 140px;
+          letter-spacing: -0.05em;
+          line-height: 1;
+          color: #f4f3f1;
+        }
+        .f02-c {
+          position: absolute;
+          display: flex;
+          align-items: center;
+          gap: 18px;
+          padding: 20px 28px 20px 20px;
+          border-radius: 26px;
+          background: #ffffff;
+          border: 2px solid rgba(0, 0, 0, 0.07);
+          box-shadow:
+            0 26px 60px rgba(0, 0, 0, 0.16),
+            0 3px 10px rgba(0, 0, 0, 0.06);
+          font-family: "Inter Tight", Arial, sans-serif;
+          color: #111;
+        }
+        .f02-c .av {
+          flex: none;
+          width: 64px;
+          height: 64px;
+          border-radius: 50%;
+        }
+        .f02-c .meta {
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+        }
+        .f02-c .who {
+          display: block;
+          width: 150px;
+          height: 16px;
+          border-radius: 8px;
+          background: rgba(0, 0, 0, 0.18);
+          filter: blur(2.5px);
+        }
+        .f02-c .msg {
+          font-weight: 700;
+          font-size: 38px;
+          letter-spacing: -0.02em;
+          white-space: nowrap;
+        }
+        .f02-c .heart {
+          margin-left: 10px;
+          font-size: 30px;
+          color: rgba(0, 0, 0, 0.25);
+        }
+        #f02-c1 {
+          left: 64px;
+          top: 448px;
+        }
+        #f02-c2 {
+          left: 470px;
+          top: 520px;
+        }
+        #f02-c3 {
+          left: 70px;
+          top: 950px;
+        }
+        #f02-c4 {
+          left: 520px;
+          top: 1032px;
+        }
+        #f02-c4 .msg {
+          color: #c00304;
+        }
+      </style>
+
+      <div id="f02-root" data-composition-id="f02-not-much" data-width="1080" data-height="1920">
+        <div class="hf-bg light">
+          <div class="hf-grid" id="f02-grid" data-layout-allow-overflow></div>
+          <div class="hf-glow" id="f02-glow" data-layout-allow-overflow></div>
+          <div class="hf-vignette"></div>
+        </div>
+
+        <div class="hl dk" id="f02-hl">
+          <div class="line">
+            <span class="w" id="f02-w1">For</span><span class="w" id="f02-w2">Some</span
+            ><span class="w" id="f02-w3">Of</span><span class="w" id="f02-w4">You...</span>
+          </div>
+          <div class="line">
+            <span class="w" id="f02-w5">That's</span><span class="w it" id="f02-w6">Not Much</span>
+          </div>
+        </div>
+
+        <div class="card" id="f02-tile">
+          <span class="label">One project</span>
+          <span id="f02-amt">$7,000</span>
+        </div>
+
+        <div class="f02-c" id="f02-c1">
+          <span class="av" style="background: linear-gradient(135deg, #b9b6b0, #7d7a75)"></span>
+          <span class="meta"><span class="who"></span><span class="msg">only $7k?</span></span>
+        </div>
+        <div class="f02-c" id="f02-c2">
+          <span class="av" style="background: linear-gradient(135deg, #8f8b85, #4d4a46)"></span>
+          <span class="meta"><span class="who"></span><span class="msg">that's not much...</span></span>
+        </div>
+        <div class="f02-c" id="f02-c3">
+          <span class="av" style="background: linear-gradient(135deg, #a7a39d, #5d5a55)"></span>
+          <span class="meta"><span class="who"></span><span class="msg">I make that in a week</span></span>
+        </div>
+        <div class="f02-c" id="f02-c4">
+          <span class="av" style="background: linear-gradient(135deg, #c9c5bf, #8a8680)"></span>
+          <span class="meta"><span class="who"></span><span class="msg">lol ridiculous</span></span>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          const T0 = 5.86;
+          const at = (t) => Math.max(0, t - T0);
+          const tl = gsap.timeline({ paused: true });
+          const D = 12.06 - T0;
+
+          tl.fromTo("#f02-glow", { scale: 0.9, opacity: 0.6 }, { scale: 1.1, opacity: 1, duration: D / 2, ease: "sine.inOut", yoyo: true, repeat: 1 }, 0);
+          tl.fromTo("#f02-grid", { y: 0 }, { y: -40, duration: D, ease: "none" }, 0);
+
+          // the $7,000 tile carries over from the hook, small and plain on the light grid
+          tl.fromTo("#f02-tile", { opacity: 0, scale: 1.25, filter: "blur(20px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.55, ease: "expo.out" }, 0.02);
+          tl.to("#f02-tile", { scale: 0.94, duration: D - 0.6, ease: "sine.inOut" }, 0.6);
+
+          // headline words on the voice
+          const words = [["#f02-w1", 7.88], ["#f02-w2", 8.05], ["#f02-w3", 8.26], ["#f02-w4", 8.42], ["#f02-w5", 9.01], ["#f02-w6", 9.28]];
+          words.forEach(([id, t]) => {
+            tl.fromTo(id, { opacity: 0, y: 28, filter: "blur(12px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.32, ease: "power3.out" }, at(t - 0.04));
+          });
+
+          // comment bubbles pop around the number
+          const pops = [["#f02-c1", 7.86, -4], ["#f02-c2", 8.99, 3], ["#f02-c3", 10.14, -3], ["#f02-c4", 11.18, 4]];
+          pops.forEach(([id, t, rot]) => {
+            tl.fromTo(id, { opacity: 0, scale: 0.4, rotation: rot * 3, y: 30 }, { opacity: 1, scale: 1, rotation: rot, y: 0, duration: 0.42, ease: "back.out(1.9)" }, at(t));
+            tl.to(id, { y: -14, duration: 1.6, ease: "sine.inOut", yoyo: true, repeat: 1 }, at(t + 0.45));
+          });
+
+          // "ridiculous": the whole cluster shudders once
+          const shake = [10, -9, 7, -5, 3, 0];
+          shake.forEach((x, i) => {
+            tl.to(["#f02-tile", "#f02-c1", "#f02-c2", "#f02-c3"], { x: x, duration: 0.05, ease: "none" }, at(11.22 + i * 0.05));
+          });
+
+          window.__timelines["f02-not-much"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>
