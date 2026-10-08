@@ -7,6 +7,7 @@ Timing source: transcript.json (voice-over aligned word by word). Re-run after e
 import json
 import pathlib
 import re
+import subprocess
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 WORDS = json.loads((ROOT / "transcript.json").read_text())
@@ -381,26 +382,38 @@ def build_caps():
     return [slot]
 
 
+def trimmed_sfx(name, length):
+    """Bake a trim + tail fade into its own file (a volume lane would replace data-volume, not scale it)."""
+    out = ROOT / f"assets/sfx/{name}-{length:g}s.mp3"
+    if not out.exists():
+        fade = min(0.4, length / 3)
+        subprocess.run(
+            ["ffmpeg", "-v", "error", "-y", "-i", str(ROOT / f"assets/sfx/{name}.mp3"),
+             "-af", f"atrim=0:{length},afade=t=out:st={length - fade:.3f}:d={fade:.3f}", str(out)],
+            check=True,
+        )
+    return out.name
+
+
 def build_audio():
     out = []
     lanes_end = []  # greedy track assignment so no two SFX overlap on one track
     for k, item in enumerate(SFX):
         t, name, vol = item[0], item[1], item[2]
-        length = item[3] if len(item) > 3 else SFX_LEN[name]
-        length = min(length, DURATION - t)
+        if len(item) > 3:
+            length = min(item[3], DURATION - t)
+            src = trimmed_sfx(name, item[3])
+        else:
+            length = min(SFX_LEN[name], DURATION - t)
+            src = f"{name}.mp3"
         lane = next((i for i, end in enumerate(lanes_end) if end <= t + 1e-6), None)
         if lane is None:
             lanes_end.append(0.0)
             lane = len(lanes_end) - 1
         lanes_end[lane] = t + length
-        auto = ""
-        if len(item) > 3:  # trimmed clip: fade the tail
-            env = {"version": 1, "lanes": [{"target": "volume", "points": [
-                {"t": 0, "v": 1}, {"t": round(length - 0.4, 2), "v": 1}, {"t": round(length, 2), "v": 0}]}]}
-            auto = f" data-automation='{json.dumps(env, separators=(',', ':'))}'"
         out.append(
-            f'<audio id="sfx-{k:02d}-{name}" src="assets/sfx/{name}.mp3" data-start="{f(t)}" '
-            f'data-duration="{f(length)}" data-track-index="{21 + lane}" data-volume="{vol}"{auto}></audio>'
+            f'<audio id="sfx-{k:02d}-{name}" src="assets/sfx/{src}" data-start="{f(t)}" '
+            f'data-duration="{f(length)}" data-track-index="{21 + lane}" data-volume="{vol}"></audio>'
         )
     return out
 
