@@ -1,0 +1,156 @@
+/* Film-specific pieces on top of components.css (listicle-crimson). Fonts are declared per file. */
+
+.scene-root {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+/* glass card (generic container) */
+.gl {
+  position: absolute;
+  border-radius: 24px;
+  background: linear-gradient(180deg, #232325 0%, #111113 100%);
+  border: 2px solid rgba(255, 255, 255, 0.16);
+  box-shadow:
+    0 0 30px rgba(255, 255, 255, 0.07),
+    0 40px 90px rgba(0, 0, 0, 0.7),
+    inset 0 2px 0 rgba(255, 255, 255, 0.08);
+  color: #f5f5f5;
+  font-family: "Inter Tight", Arial, sans-serif;
+  overflow: hidden;
+}
+.gl.crim {
+  border-color: rgba(184, 25, 58, 0.85);
+  box-shadow:
+    0 0 40px rgba(184, 25, 58, 0.35),
+    0 40px 90px rgba(0, 0, 0, 0.7);
+}
+.gl .hd {
+  position: absolute;
+  left: 34px;
+  top: 28px;
+  font-weight: 700;
+  font-size: 30px;
+  letter-spacing: -0.02em;
+  color: #bdbbb8;
+}
+.big-num {
+  font-family: "Inter Tight", Arial, sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.045em;
+  font-variant-numeric: tabular-nums;
+  color: #f5f5f5;
+  line-height: 1;
+}
+
+/* crimson outlined stamp */
+.stamp {
+  position: absolute;
+  padding: 8px 26px 12px;
+  border: 6px solid #d4223f;
+  border-radius: 14px;
+  color: #ff5a6e;
+  background: rgba(153, 18, 43, 0.18);
+  font-family: "Inter Tight", Arial, sans-serif;
+  font-weight: 900;
+  font-size: 76px;
+  letter-spacing: 0.02em;
+  text-shadow: 0 0 18px rgba(212, 34, 63, 0.6);
+  box-shadow: 0 0 30px rgba(212, 34, 63, 0.35);
+}
+
+/* browser chrome */
+.bar3 {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-left: 22px;
+  background: rgba(255, 255, 255, 0.05);
+  border-bottom: 2px solid rgba(255, 255, 255, 0.08);
+}
+.bar3 i {
+  display: block;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.25);
+}
+.bar3 i:nth-child(1) {
+  background: #c2304b;
+}
+.bar3 b {
+  display: block;
+  margin-left: 16px;
+  width: 300px;
+  height: 26px;
+  border-radius: 13px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* blurred placeholder line */
+.ph {
+  display: block;
+  height: 16px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.22);
+  filter: blur(2.5px);
+}
+.check {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 2px solid rgba(255, 255, 255, 0.18);
+  font-weight: 700;
+  font-size: 24px;
+  color: #f5f5f5;
+}
+.check.on {
+  background: #99122b;
+  border-color: #b8193a;
+}
+
+/* numbered list row with crimson tab (used by s23) */
+.row {
+  position: absolute;
+  left: 140px;
+  width: 800px;
+  height: 116px;
+  border-radius: 14px;
+  background: linear-gradient(180deg, #2c2b2d 0%, #1b1a1c 100%);
+  border: 2px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 24px 50px rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  font-family: "Inter Tight", Arial, sans-serif;
+  color: #f5f5f5;
+  overflow: hidden;
+}
+.row .tab {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 26px;
+  background: #99122b;
+}
+.row .num {
+  margin-left: 62px;
+  width: 92px;
+  font-weight: 800;
+  font-size: 46px;
+  letter-spacing: -0.02em;
+}
+.row .txt {
+  font-weight: 800;
+  font-size: 50px;
+  letter-spacing: -0.03em;
+}

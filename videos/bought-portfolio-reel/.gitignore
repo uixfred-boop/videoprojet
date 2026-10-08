@@ -1,0 +1,9 @@
+node_modules/
+.hyperframes/
+snapshots/
+renders/.hf-segments/
+*.log
+.transcode-cache/
+__pycache__/
+renders/work-*/
+renders/.*

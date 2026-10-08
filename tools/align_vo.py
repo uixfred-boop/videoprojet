@@ -19,6 +19,12 @@ from pocketsphinx import Decoder, get_model_path
 EXTRA = {
     "fiverr": "F AY V ER",
     "upwork": "AH P W ER K",
+    "dms": "D IY EH M Z",
+    "shopify": "SH AA P IH F AY",
+    "monetize": "M AA N AH T AY Z",
+    "spamming": "S P AE M IH NG",
+    "instagram": "IH N S T AH G R AE M",
+    "unfiltered": "AH N F IH L T ER D",
 }
 
 
