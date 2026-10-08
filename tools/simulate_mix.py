@@ -27,9 +27,15 @@ SR = 48000
 
 
 def decode(path):
-    raw = subprocess.run(["ffmpeg", "-v", "error", "-i", str(path), "-ac", "2", "-ar", str(SR), "-f", "f32le", "-"],
+    """Stereo float at SR. A mono source plays at full level on both channels, the way the renderer (WebAudio)
+    up-mixes it; ffmpeg's own `-ac 2` would put it 3 dB lower."""
+    probe = subprocess.run(["ffprobe", "-v", "error", "-select_streams", "a:0", "-show_entries", "stream=channels",
+                            "-of", "csv=p=0", str(path)], capture_output=True, text=True, check=True).stdout
+    ac = 1 if probe.strip() == "1" else 2
+    raw = subprocess.run(["ffmpeg", "-v", "error", "-i", str(path), "-ac", str(ac), "-ar", str(SR), "-f", "f32le", "-"],
                          capture_output=True, check=True).stdout
-    return np.frombuffer(raw, dtype=np.float32).reshape(-1, 2).astype(np.float64)
+    x = np.frombuffer(raw, dtype=np.float32).reshape(-1, ac).astype(np.float64)
+    return np.repeat(x, 2, axis=1) if ac == 1 else x
 
 
 def lane_values(points, n, t0=0.0):
@@ -152,7 +158,9 @@ def main():
             stems[eid] = np.zeros((n, 2))
             stems[eid][i:j] += x[: j - i]
 
-    print(f"mix     integrated {integrated(mix):6.1f} LUFS   true peak {true_peak_db(mix):5.1f} dBTP")
+    tp = true_peak_db(mix)
+    print(f"mix     integrated {integrated(mix):6.1f} LUFS   true peak {tp:5.1f} dBTP"
+          + (f"   (the renderer will lower it by about {tp + 1:.1f} dB)" if tp > -1 else ""))
     if args.voice in stems and args.bed in stems:
         tv, lv = block_loudness(stems[args.voice], 3.0, 0.5)
         _, lb = block_loudness(stems[args.bed], 3.0, 0.5)
