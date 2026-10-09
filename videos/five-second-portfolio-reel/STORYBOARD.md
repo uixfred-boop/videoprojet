@@ -5,7 +5,7 @@ seam captions; cutaways are full-screen footage with a centred caption.
 
 | #   | Scene           | Time        | Voice                                                     | Picture                                                                                                                                                                            |
 | --- | --------------- | ----------- | --------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 1   | s01-hub-hook    | 0.00–3.08   | "Forget the animations. If you want real contracts,"      | Hub title types "Forget The Animations". Over-animated clutter (spinning rings, bouncing WOW, sparkles, loader) gets struck through, then three tiles float in around a "5 Seconds" ball. Line 2 types "If You Want Real Contracts". |
+| 1   | s01-hub-hook    | 0.00–3.08   | "Forget the animations. If you want real contracts,"      | Hub title types "Forget The Animations" over the user's clip of over-animated portfolio sites (2x, in a crimson browser window). It gets struck through as "animations" ends and collapses, then three tiles float in around a "5 Seconds" ball. Line 2 types "If You Want Real Contracts". |
 | 2   | s02-five-seconds | 3.08–7.21  | "you need a portfolio people understand in five seconds." | Headline "Understood In 5 Seconds" types with the voice. A clean portfolio card, a crimson timer ring drawing round, and two rows ticking: "Who you are", "What you do".            |
 | 3   | s03-cut-reality | 7.21–9.02   | "After my reality check,"                                 | Cutaway: hand on chin, eyes up (desk 9.0s).                                                                                                                                        |
 | 4   | s04-hub-01      | 9.02–11.27  | "I started studying the best"                             | Hub return: tile 01 flies to the centre, label types "Study The Best".                                                                                                             |
@@ -21,4 +21,4 @@ seam captions; cutaways are full-screen footage with a centred caption.
 | 14  | s14-cta         | 32.84–38.00 | "And if you're a web designer, follow me, and I'll show you what worked for me." | Hub-style CTA: "Web Designers" bar / "Follow Me". The three tiles are recapped. A Follow button is clicked on "follow me" and becomes "Following". Then "I'll Show You What Worked". |
 
 Sound: whooshes on hub returns and cuts, pops on tiles and chips, typing ticks under ghost typing, clicks on the
-strike and the Follow button. No music (the user adds their own).
+strike and the Follow button, all kept about 20 dB under the voice. No music (the user adds their own).

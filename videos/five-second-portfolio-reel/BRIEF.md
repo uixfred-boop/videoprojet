@@ -34,6 +34,8 @@ And for the background sound, leave it, I'll do it myself."
   It alternates between looking down at the screen and thinking poses (hand on chin at 3.5–5s and 9–12.5s). He
   leans back and looks up at 18–19.5s.
 - `assets/video/desk-cutout.webm`: `desk.mp4` with the background removed, for the head pop-out.
+- `assets/video/intro.mp4`: the user's second upload (10092.mp4, 4.4s), cropped to its 16:9 band. It is a fast
+  montage of the same animated portfolio sites, used under "Forget the animations".
 - `assets/video/screen.mp4`: 21.33–38.9s of the upload, cropped to its 16:9 content (1080x608). Screen recordings
   of portfolio sites, in this order (times in screen.mp4 seconds):
 
@@ -63,3 +65,13 @@ And for the background sound, leave it, I'll do it myself."
   breadcrumb) over the clean portfolio footage, and invents no logo or URL.
 - The labels on the mock-ups ("Who you are", "What you do", "Work", "Contact") come from the script's own wording.
   Nothing quotes statistics.
+
+## Feedback round 1 (2026-10-09)
+
+The user's words: "use this clip at the beginning of the video to illustrate «forget the animations.» lower the volume
+of the sound effects, especially on the wow."
+
+- The hook now plays their clip (`intro.mp4`, 2x) in a crimson browser window instead of the synthetic animation
+  clutter. It is struck out as "animations" ends.
+- Sound effects are ~7 dB quieter overall (`SFX_GAIN` in `tools/assemble.py`), now about 20 dB under the voice.
+- The WOW moment is softer still: no sparkle and no error buzz, 22 dB under the voice (it was 9 dB).

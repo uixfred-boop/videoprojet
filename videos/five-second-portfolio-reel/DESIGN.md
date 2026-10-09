@@ -11,16 +11,18 @@ file) plus `assets/css/house.css`. Layout follows the split layout of `../web-de
 
 ## What this reel adds
 
+- **Opening:** the user's clip of over-animated sites plays in the browser panel at 2x and is struck out on
+  "animations". That's the hook's whole point: show the noise, then cross it out.
 - **Browser panel with footage:** a glass window with crimson edge and the 3-dot bar (`.gl.crim` + `.bar3`), with
   `screen.mp4` playing inside, cropped 16:9. Used for the clean portfolio and for Perry Wang's hero.
 - **Floating window collage:** smaller browser windows (`.bw`) tilting around the hub's crimson ball, each playing a
   different busy site. When the voice says "way too much", more windows pile in, chips swarm, everything shakes.
 - **Timer ring:** a crimson SVG ring that draws over the words "in five seconds", with "5s" in serif italic in the
   middle.
-- **Who / What callouts:** crimson tags (`.lc-tag`) wired with `.lc-wire` curves to the two lines of the portfolio
-  hero that answer them, each ending on the yellow node.
+- **Who / What callouts:** crimson boxes (`.lc-wire` strokes) draw around the two lines of the portfolio hero that
+  answer them, each labelled with a crimson tag (`.lc-tag`); the yellow node sits on the What box.
 - **Strike:** a crimson bar with glow that wipes across a word or an over-animated mock-up ("WOW", the opening
-  clutter).
+  clip).
 - **Wireframe rebuild:** dashed outline blocks of a page that fill in one by one (hero, what I do, work, contact).
 
 ## Rules kept from the style
@@ -28,4 +30,5 @@ file) plus `assets/css/house.css`. Layout follows the split layout of `../web-de
 - Dark from start to finish, crimson `#99122B` as the only accent, the yellow node used once per scene at most.
 - Headlines ghost-type while the voice says them; hard cuts on the word; no wipes between scenes.
 - Labels that aren't real data are blurred placeholder bars.
-- Soft UI SFX only (pop, click, whoosh, typing ticks), no impacts. No music: the user adds their own.
+- Soft UI SFX only (pop, click, whoosh, typing ticks), about 20 dB under the voice, no impacts. No music: the user
+  adds their own.

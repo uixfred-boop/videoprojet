@@ -43,5 +43,7 @@ npm run render    # MP4 into renders/
   - `desk-cutout.webm` is the same shot with the background removed (`npx hyperframes remove-background`). It
     powers the head pop-out.
   - The strip alternates two framings of it, 0.9x and 1.15x.
+- **Opening clip:** `assets/video/intro.mp4` is the user's montage of animated portfolio sites, cropped to 16:9. It
+  plays under "Forget the animations".
 - **Screen recording:** `assets/video/screen.mp4` is the rest of the upload, cropped to its 16:9 content. The table
   in `BRIEF.md` lists which site plays when.
