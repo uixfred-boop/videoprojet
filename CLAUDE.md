@@ -57,15 +57,28 @@ Finished examples (README in each): `videos/web-design-7k-reel/` (split layout) 
     scipy). It applies carve chains and lanes and prints loudness and true peak. The renderer lowers the whole mix if
     the true peak exceeds -1 dBTP.
 - **Dark footage:**
-  - Choose and validate a correction with `npx hyperframes media-treatment --analyze` / `--grading`, then judge it
-    in a snapshot.
+  - Choose and validate a correction with `npx hyperframes media-treatment --analyze` / `--grading`.
+  - Don't lift the shadows. The `shadows` control also raises the black point, and on reel 4 the user saw black
+    hair and a black t-shirt turn grey and "yellowish".
+    - Brighten with `exposure` and hold the floor with negative `blacks`.
+    - Check the white balance: warm indoor light reads yellow.
+    - Measure hair, clothes, face and wall before and after.
+  - Compare candidates with `npx hyperframes grade-compare --for frame.png --grades grades.json`. Re-save ffmpeg's
+    PNGs with PIL first: their cICP/gAMA chunks make Chrome darken the shadows in every cell.
   - Don't ship it as realtime `data-color-grading` on many `<video>`s: with no WebGL here, it crashed
     `hyperframes check` ("Target closed").
-  - Bake it into the files instead, with an ffmpeg `curves` fitted to the treatment's rendered output. See
-    `videos/views-vs-clients-reel/tools/bake_grade.sh`. Grade the background-removed cutout the same way so the
-    pop-out matches.
+  - Bake it into the files instead:
+    - build the treatment's `adjust` values into a LUT with `npx hyperframes media-use resolve --type lut --params`;
+    - apply it with ffmpeg `lut3d`, with explicit BT.709 conversions and tags.
+
+    See `videos/views-vs-clients-reel/tools/bake_grade.sh`.
+  - Grade the background-removed cutout the same way so the pop-out matches. Choke its alpha, or its soft matte
+    draws a wall-coloured rim around the hair.
 - **Check:** `npx hyperframes check` takes about 8 min for a 114s reel. Its terminal output is long, so run it with
   `--json > file` to keep the findings. Ghost-typing letters show up as contrast warnings by design.
-- **Render:** `npx hyperframes render -q delivery --fps 30` takes about 7 min for 64s at 1080x1920 on this CPU.
+- **Render:** `npx hyperframes render -q delivery --fps 30 --video-frame-format png` takes about 7 min for 64s at
+  1080x1920 on this CPU.
+  - Keep `--video-frame-format png` whenever footage or screen recordings are in the reel. The default extracts
+    video frames as JPEG (q:v 7), which smears dark footage and small UI text.
   - Chat uploads are capped at 30 MB, so keep the master in the repo and send a 2-pass preview copy.
   - Use ~3.3 Mbps for a 60s reel. For longer reels, scale the bitrate down or encode at 720x1280 to stay under the cap.
