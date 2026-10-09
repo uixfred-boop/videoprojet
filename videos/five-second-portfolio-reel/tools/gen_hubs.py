@@ -122,53 +122,35 @@ def scene(sid, t0, t1, focus=None, title=(0.0, 0.0, 0.0, 0.0), label=None, cloud
 """
 
 
-# the hook's "animation clutter": over-designed motion that gets struck out on "animations"
-CLUTTER_HTML = """
-        <div id="s01-clutter" data-layout-allow-overflow>
-          <svg class="s01-ring" style="left: 110px; top: 470px" viewBox="0 0 240 240"><circle cx="120" cy="120" r="100" fill="none" stroke="#b8193a" stroke-width="14" stroke-dasharray="40 22" stroke-linecap="round"/><circle cx="120" cy="120" r="64" fill="none" stroke="#f5f5f5" stroke-width="6" stroke-dasharray="10 14" stroke-linecap="round"/></svg>
-          <div class="s01-blob" style="left: 700px; top: 760px"></div>
-          <div class="s01-wow" style="left: 560px; top: 430px">Wow!</div>
-          <div class="s01-load" style="left: 240px; top: 860px"><i></i></div>
-          <svg class="s01-star" style="left: 860px; top: 400px" viewBox="0 0 40 40"><path d="M20 0 L24 16 L40 20 L24 24 L20 40 L16 24 L0 20 L16 16 Z" fill="#f5c518"/></svg>
-          <svg class="s01-star" style="left: 470px; top: 700px" viewBox="0 0 40 40"><path d="M20 0 L24 16 L40 20 L24 24 L20 40 L16 24 L0 20 L16 16 Z" fill="#f5f5f5"/></svg>
-          <svg class="s01-star" style="left: 150px; top: 760px" viewBox="0 0 40 40"><path d="M20 0 L24 16 L40 20 L24 24 L20 40 L16 24 L0 20 L16 16 Z" fill="#f5c518"/></svg>
-          <svg id="s01-cursor" style="left: 420px; top: 560px" viewBox="0 0 70 86"><path d="M6 4 L6 66 L22 52 L33 78 L45 73 L34 47 L56 47 Z" fill="#ffffff" stroke="#111" stroke-width="4" stroke-linejoin="round"/></svg>
-        </div>
-        <div id="s01-strike"></div>"""
-CLUTTER_CSS = """
-        #s01-clutter { position: absolute; inset: 0; }
-        #s01-clutter > * { position: absolute; }
-        .s01-ring { width: 240px; height: 240px; }
-        .s01-blob { width: 230px; height: 230px; border-radius: 42% 58% 61% 39% / 45% 39% 61% 55%; background: radial-gradient(circle at 30% 30%, #ff8aa0 0%, #b8193a 45%, #4a0815 100%); box-shadow: 0 0 60px rgba(184,25,58,0.6); }
-        .s01-wow { font-family: "Instrument Serif", Georgia, serif; font-style: italic; font-size: 150px; line-height: 1; color: #f5f5f5; text-shadow: 0 0 30px rgba(245,197,24,0.7), 6px 6px 0 #b8193a; }
-        .s01-load { width: 420px; height: 34px; border-radius: 17px; background: rgba(255,255,255,0.08); border: 2px solid rgba(255,255,255,0.2); overflow: hidden; }
-        .s01-load i { position: absolute; left: 0; top: 0; bottom: 0; width: 100%; background: linear-gradient(90deg, #b8193a, #f5c518, #b8193a); transform-origin: 0% 50%; }
-        .s01-star { width: 64px; height: 64px; opacity: 0; }
-        #s01-cursor { width: 64px; height: 80px; }
-        #s01-strike { position: absolute; left: 60px; top: 735px; width: 960px; height: 16px; border-radius: 8px; background: #e0324f; box-shadow: 0 0 24px rgba(224,50,79,0.8); transform: rotate(-12deg) scaleX(0); transform-origin: 0% 50%; }"""
-CLUTTER_JS = """
-          // over-animated clutter: everything spins, bounces and flickers…
-          tl.fromTo("#s01-clutter > :not(.s01-star)", { opacity: 0, scale: 0.3 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(2.4)", stagger: 0.04 }, 0.02);
-          tl.to(".s01-star", { opacity: 1, duration: 0.2, stagger: 0.05 }, 0.08);
-          tl.fromTo(".s01-ring", { rotation: 0 }, { rotation: 540, duration: 1.4, ease: "none" }, 0);
-          tl.fromTo(".s01-blob", { rotation: 0, borderRadius: "42% 58% 61% 39% / 45% 39% 61% 55%" }, { rotation: 160, borderRadius: "61% 39% 42% 58% / 55% 61% 39% 45%", duration: 1.4, ease: "sine.inOut" }, 0);
-          tl.fromTo(".s01-wow", { y: 0, rotation: -8 }, { y: -40, rotation: 8, duration: 0.23, ease: "sine.inOut", yoyo: true, repeat: 5 }, 0.05);
-          tl.fromTo(".s01-load i", { scaleX: 0 }, { scaleX: 1, duration: 0.45, ease: "none", repeat: 2 }, 0.05);
-          tl.fromTo(".s01-star", { rotation: 0, scale: 0.6 }, { rotation: 180, scale: 1.3, duration: 0.35, ease: "sine.inOut", yoyo: true, repeat: 3, stagger: 0.1 }, 0.05);
-          tl.fromTo("#s01-cursor", { x: 0, y: 0 }, { x: 220, y: -120, duration: 0.35, ease: "sine.inOut", yoyo: true, repeat: 3 }, 0.05);
-          // …until "animations" ends: one crimson strike, and it all collapses
+# the hook: the user's clip of over-animated portfolio sites (assets/video/intro.mp4, the 16:9 band of their upload),
+# played at 2x in a browser window under "Forget the animations", struck out as the word ends, then collapsed
+INTRO_HTML = """
+        <div class="gl crim" id="s01-box" data-layout-allow-overflow><div class="bar3"><i></i><i></i><i></i><b></b></div>
+          <div id="s01-view"><video id="s01-v" class="clip" src="assets/video/intro.mp4" data-start="0" data-duration="1.7" data-media-start="0" data-playback-rate="2" data-track-index="0" muted playsinline></video></div></div>
+        <div id="s01-strike" data-layout-allow-occlusion></div>"""
+INTRO_CSS = """
+        #s01-box { left: 72px; top: 400px; width: 936px; height: 579px; }
+        #s01-view { position: absolute; left: 0; top: 52px; width: 936px; height: 527px; overflow: hidden; background: #f3f3f3; }
+        #s01-view video { position: absolute; left: 0; top: 0; width: 936px; height: 527px; object-fit: cover; }
+        #s01-strike { position: absolute; left: 60px; top: 680px; width: 960px; height: 18px; border-radius: 9px; background: #e0324f; box-shadow: 0 0 26px rgba(224,50,79,0.85); transform: rotate(-12deg) scaleX(0); transform-origin: 0% 50%; z-index: 3; }"""
+INTRO_JS = """
+          // the clip is on screen from the first frame (the hook), settling in...
+          tl.fromTo("#s01-box", { scale: 1.08, rotationX: 10, transformPerspective: 1600, filter: "blur(6px)" }, { scale: 1, rotationX: 0, filter: "blur(0px)", duration: 0.35, ease: "expo.out" }, 0);
+          tl.to("#s01-box", { scale: 1.03, duration: 0.7, ease: "sine.inOut" }, 0.38);
+          // ...struck out as "animations" ends, then it collapses into the hub
           tl.fromTo("#s01-strike", { scaleX: 0, rotation: -12 }, { scaleX: 1, rotation: -12, duration: 0.22, ease: "power3.out", immediateRender: false }, 1.08);
-          tl.to("#s01-clutter", { opacity: 0, scale: 0.85, filter: "blur(18px)", duration: 0.32, ease: "power2.in" }, 1.36);
+          fx.shake(tl, "#s01-box", 1.16, 10);
+          tl.to("#s01-box", { opacity: 0, scale: 0.85, filter: "blur(18px)", duration: 0.32, ease: "power2.in" }, 1.36);
           tl.to("#s01-strike", { opacity: 0, duration: 0.25, ease: "power2.in" }, 1.42);"""
 
 
 def main():
     out = {
-        # hook: the title types as spoken, the clutter is struck out, then the tile cloud and ball arrive
+        # hook: the title types as spoken over the user's clip, which is struck out; then the tile cloud and ball arrive
         "s01-hub-hook": scene(
-            "s01-hub-hook", 0.0, 3.08, title=(0.02, 1.30, 1.60, 2.94), extra_html=CLUTTER_HTML,
-            extra_js=CLUTTER_JS,
-        ).replace("{CLOUD_IN}", "1.62").replace("        #s01-l1 { font-size: 80px; }", "        #s01-l1 { font-size: 80px; }" + CLUTTER_CSS),
+            "s01-hub-hook", 0.0, 3.08, title=(0.02, 1.30, 1.60, 2.94), extra_html=INTRO_HTML,
+            extra_js=INTRO_JS,
+        ).replace("{CLOUD_IN}", "1.62").replace("        #s01-l1 { font-size: 80px; }", "        #s01-l1 { font-size: 80px; }" + INTRO_CSS),
         # "I started studying the best" — hero 01
         "s04-hub-01": scene("s04-hub-01", 9.02, 11.27, focus=0, title=(9.04, 9.30, 9.30, 9.62), label=(10.15, 11.20))
         .replace("{CLOUD_IN}", "9.04"),

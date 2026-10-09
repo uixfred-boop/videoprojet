@@ -255,7 +255,9 @@ def build_caps():
 
 
 # ---------------- SFX (soft UI sounds only; no music, no impacts) ----------------
-# (time, file in assets/sfx, volume[, trimmed length])
+# (time, file in assets/sfx, volume[, trimmed length]). Every volume is scaled by SFX_GAIN: the user asked for quieter
+# sound effects (2026-10-09), "especially on the wow", so the table keeps the relative balance and this sets the level.
+SFX_GAIN = 0.45  # -7 dB
 SFX = [
     # scene changes: whooshes on hub returns, short whooshes on cuts and cutaways
     *[(t, "whoosh", 0.26) for t in (9.02, 14.25, 29.40)],
@@ -264,8 +266,8 @@ SFX = [
     (0.03, "typing", 0.11), (1.62, "typing", 0.10), (5.30, "typing", 0.10), (10.16, "typing", 0.10),
     (15.62, "typing", 0.10, 0.6), (17.62, "typing", 0.10, 0.8), (20.38, "typing", 0.10, 0.8), (25.64, "typing", 0.10, 0.5),
     (27.72, "typing", 0.10), (29.80, "typing", 0.10), (33.40, "typing", 0.10, 0.85), (35.98, "typing", 0.10),
-    # s01 hook: clutter sparkles, the strike, tiles + ball
-    (0.08, "sparkle", 0.12), (1.08, "click", 0.42), (1.12, "whoosh-short", 0.2), (1.62, "pop", 0.24), (1.70, "pop", 0.22),
+    # s01 hook: the clip gets struck out, then tiles + ball
+    (1.08, "click", 0.42), (1.12, "whoosh-short", 0.2), (1.62, "pop", 0.24), (1.70, "pop", 0.22),
     (1.78, "pop", 0.22),
     # s02 five seconds
     (3.14, "pop", 0.2), (5.62, "click-soft", 0.32), (6.42, "click-soft", 0.32), (6.93, "ping", 0.24),
@@ -274,17 +276,17 @@ SFX = [
     # s05 too much
     (11.30, "pop", 0.2), (11.42, "pop", 0.2), (11.54, "pop", 0.2), (13.00, "pop", 0.24), (13.12, "pop", 0.24),
     *[(13.05 + i * 0.08, "click-soft", 0.24) for i in range(4)],
-    (13.29, "pop", 0.34), (13.64, "error", 0.14),
+    (13.29, "pop", 0.34), (13.64, "error", 0.08),
     # s06 hub 02
-    (14.90, "whoosh-short", 0.18), (16.20, "sparkle", 0.12),
+    (14.90, "whoosh-short", 0.18), (16.20, "sparkle", 0.06),
     # s07 different
     (18.71, "pop", 0.32), (19.52, "pop", 0.32),
     # s08 who / what
     (20.40, "pop", 0.22), (21.15, "ping", 0.22), (21.88, "click-soft", 0.3), (22.87, "click-soft", 0.3), (23.13, "pop", 0.2),
     # s09 clicked
     (24.14, "chime", 0.16),
-    # s10 not wow
-    (26.20, "pop", 0.3), (26.25, "sparkle", 0.14), (26.84, "click", 0.45), (26.92, "error", 0.12),
+    # s10 not wow: kept very soft (no sparkle, no error buzz)
+    (26.20, "pop", 0.12), (26.84, "click", 0.2),
     # s11 understood
     (27.95, "click-soft", 0.3), (28.20, "click-soft", 0.3), (28.45, "ping", 0.22),
     # s12 hub 03
@@ -334,7 +336,7 @@ def build_audio():
             lane = len(lanes_end) - 1
         lanes_end[lane] = t + length
         out.append(f'<audio id="sfx-{k:03d}-{name}" src="assets/sfx/{src}" data-start="{f(t)}" data-duration="{f(length)}" '
-                   f'data-track-index="{21 + lane}" data-volume="{vol}"></audio>')
+                   f'data-track-index="{21 + lane}" data-volume="{round(vol * SFX_GAIN, 3)}"></audio>')
     return out
 
 
