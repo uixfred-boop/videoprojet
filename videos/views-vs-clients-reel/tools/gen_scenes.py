@@ -119,7 +119,8 @@ TILE_CSS = """
 
 # The user's Instagram profile (assets/video/instagram.mp4: their own screen recording, 384x848, trimmed before
 # Control Center slides in) shown in a phone at 0.9x, so the low-res recording is never upscaled. The iOS status bar
-# (with the red recording pill) is cropped off the top of the screen. UI fidelity: no grade on it.
+# (with the red recording pill) is cropped off the top of the screen, so the video overflows its screen on purpose.
+# UI fidelity: no grade on it.
 PHONE_CSS = """
         .ph { position: absolute; left: 353px; top: 352px; width: 374px; height: 755px; padding: 12px; border-radius: 56px;
           background: linear-gradient(180deg, #1c1c1e, #0c0c0d); border: 2px solid rgba(255,255,255,0.2);
@@ -133,7 +134,7 @@ PHONE_SHADOW = "0 0 60px rgba(184,25,58,0.35), 0 40px 90px rgba(0,0,0,0.7), inse
 def phone(pid, dur, media_start, rate):
     return (f'<div class="ph" id="{pid}"><div class="scr"><video id="{pid}-v" class="clip" src="assets/video/instagram.mp4" '
             f'data-start="0" data-duration="{dur:.2f}" data-media-start="{media_start}" data-playback-rate="{rate}" '
-            f'data-track-index="0" muted playsinline></video></div></div>')
+            f'data-track-index="0" muted playsinline data-layout-allow-overflow></video></div></div>')
 
 
 # sparkle (4-point star) for "beautiful"
