@@ -39,8 +39,8 @@ SHOTS = {
     "T": {"src": (5.2, 10.3), "w": 1242, "h": 2208, "left": -18, "top": 1196},  # 1.15x
 }
 STRIP_RATE = 0.8
-# The footage carries a gentle exposure/shadow lift (it was shot dark), baked into desk.mp4 and desk-cutout.webm by
-# tools/bake_grade.sh so the head above the card edge matches the face inside it.
+# The footage grade (deep blacks, neutral white balance, brighter face, light sharpening) is baked into desk.mp4 and
+# desk-cutout.webm by tools/bake_grade.sh, identically, so the head above the card edge matches the face inside it.
 CARD = (72, 1408)
 
 
@@ -270,8 +270,8 @@ SFX = [
     (6.54, "ping", 0.18),
     # s03 zero
     (8.66, "click", 0.25),
-    # s04 beautiful work
-    (9.42, "pop", 0.16), (9.60, "pop", 0.16), (9.78, "pop", 0.16), (10.00, "sparkle", 0.05),
+    # s04 beautiful work: the Instagram phone lands, its tag pops, sparkles on "beautiful"
+    (9.42, "pop", 0.18), (9.62, "click-soft", 0.2), (10.00, "sparkle", 0.05),
     # s05 neither trust nor expertise
     (12.10, "click", 0.3), (12.20, "pop", 0.15), (13.95, "click", 0.3), (14.05, "pop", 0.15),
     # s06 liked... then left. No prospects.

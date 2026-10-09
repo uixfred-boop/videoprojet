@@ -2,15 +2,15 @@
  "preset": null,
  "intensity": 1,
  "adjust": {
-  "exposure": 0.35,
+  "exposure": 0.36,
   "contrast": 0,
-  "highlights": 0,
-  "shadows": 0.3,
+  "highlights": -0.12,
+  "shadows": 0,
   "whites": 0,
-  "blacks": 0,
-  "temperature": 0,
-  "tint": 0,
-  "vibrance": 0,
+  "blacks": -0.25,
+  "temperature": -0.24,
+  "tint": 0.02,
+  "vibrance": 0.05,
   "saturation": 0
  },
  "details": {

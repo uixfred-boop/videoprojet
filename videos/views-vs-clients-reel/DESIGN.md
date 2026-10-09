@@ -15,6 +15,10 @@ file) plus `assets/css/house.css`. Layout follows the split layout of `../web-de
   same thing". The CTA brings them back, with Views dimmed and Clients lit.
 - **Stat cards:** two glass cards counting up to "1M+" views and "100K+" likes, with hearts rising underneath.
 - **Bank card:** "$0" thumps and turns crimson on "zero".
+- **Phone with the user's feed:** their Instagram profile recording plays in a dark phone with a crimson glow, at
+  0.9x so it is never upscaled. The iOS status bar is cropped off the top of the screen.
+  - A crimson "My Instagram" tag sits on its corner, and sparkles pop on "beautiful".
+  - In the next scene the same phone (same pose at the cut) shrinks and dims behind the verdict.
 - **Struck rows:** "01 Trust" and "02 Expertise" each get a crimson strike and an ✗ on their word.
 - **Cutaway overlays:** hearts pop on "liked" and fly off on "left"; a crimson "NO PROSPECTS" stamp lands on "No
   prospects".

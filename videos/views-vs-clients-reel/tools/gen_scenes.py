@@ -117,26 +117,27 @@ TILE_CSS = """
         .vt .ico svg { display: block; width: 100%; height: 100%; }
         .vt .nm { margin-top: 4px; font-weight: 800; font-size: 34px; letter-spacing: -0.03em; line-height: 1.05; text-align: center; }"""
 
-# six polished "beautiful work" cards (abstract UI, no text)
-LOOKS = [("#111", "#e0324f"), ("#f2f2f2", "#111"), ("#1a1714", "#e0902a"), ("#f6efe6", "#c26b2e"), ("#0f0f10", "#f5f5f5"), ("#f3eef2", "#99122b")]
+# The user's Instagram profile (assets/video/instagram.mp4: their own screen recording, 384x848, trimmed before
+# Control Center slides in) shown in a phone at 0.9x, so the low-res recording is never upscaled. The iOS status bar
+# (with the red recording pill) is cropped off the top of the screen. UI fidelity: no grade on it.
+PHONE_CSS = """
+        .ph { position: absolute; left: 353px; top: 352px; width: 374px; height: 755px; padding: 12px; border-radius: 56px;
+          background: linear-gradient(180deg, #1c1c1e, #0c0c0d); border: 2px solid rgba(255,255,255,0.2);
+          box-shadow: 0 0 60px rgba(184,25,58,0.35), 0 40px 90px rgba(0,0,0,0.7), inset 0 2px 0 rgba(255,255,255,0.08); }
+        .ph .scr { position: relative; width: 346px; height: 727px; border-radius: 44px; overflow: hidden; background: #000; }
+        .ph video { position: absolute; left: 0; top: -36px; width: 346px; height: 764px; object-fit: cover; }"""
+PHONE_GLOW = "0 0 110px rgba(224,50,79,0.7), 0 40px 90px rgba(0,0,0,0.7), inset 0 2px 0 rgba(255,255,255,0.08)"
+PHONE_SHADOW = "0 0 60px rgba(184,25,58,0.35), 0 40px 90px rgba(0,0,0,0.7), inset 0 2px 0 rgba(255,255,255,0.08)"
 
 
-def work_cards(prefix, xy, w=280, h=190):
-    out = []
-    for i, ((x, y, r), (bg, ac)) in enumerate(zip(xy, LOOKS)):
-        out.append(
-            f'<div class="wk {prefix}-c" id="{prefix}-c{i}" style="left: {x}px; top: {y}px; width: {w}px; height: {h}px; background: {bg}" data-r="{r}">'
-            f'<i style="left: 16px; top: 16px; width: 70px; height: 10px; background: {ac}"></i>'
-            f'<i style="left: 16px; top: 44px; width: 150px; height: 22px; background: {ac}; opacity: 0.85"></i>'
-            f'<i style="left: 16px; top: 74px; width: 110px; height: 22px; background: {ac}; opacity: 0.6"></i>'
-            f'<i style="left: {w - 104}px; top: 40px; width: 88px; height: {h - 70}px; background: {ac}; opacity: 0.35"></i>'
-            f'<i style="left: 16px; top: {h - 62}px; width: 70px; height: 24px; border-radius: 12px; background: {ac}"></i></div>')
-    return "\n        ".join(out)
+def phone(pid, dur, media_start, rate):
+    return (f'<div class="ph" id="{pid}"><div class="scr"><video id="{pid}-v" class="clip" src="assets/video/instagram.mp4" '
+            f'data-start="0" data-duration="{dur:.2f}" data-media-start="{media_start}" data-playback-rate="{rate}" '
+            f'data-track-index="0" muted playsinline></video></div></div>')
 
 
-WORK_CSS = """
-        .wk { position: absolute; border-radius: 14px; overflow: hidden; border: 2px solid rgba(255,255,255,0.22); box-shadow: 0 0 26px rgba(255,255,255,0.08), 0 30px 60px rgba(0,0,0,0.6); }
-        .wk i { position: absolute; display: block; border-radius: 5px; }"""
+# sparkle (4-point star) for "beautiful"
+SPARK = '<path d="M20 0 C21 13 27 19 40 20 C27 21 21 27 20 40 C19 27 13 21 0 20 C13 19 19 13 20 0 Z"/>'
 
 
 def main():
@@ -223,43 +224,51 @@ def main():
           tl.to("#s03-card", { borderColor: "rgba(184,25,58,0.85)", boxShadow: "0 0 50px rgba(184,25,58,0.45), 0 40px 90px rgba(0,0,0,0.7)", duration: 0.3 }, at(8.66));
     """, aura=(160, 380))
 
-    # ---------------------------------------------------------------- s04 my work was beautiful
-    grid = [(80, 440, -4), (400, 410, 3), (720, 440, -3), (80, 680, 3), (400, 650, -2), (720, 680, 4)]
-    panel("s04-beautiful", 9.37, 10.92, WORK_CSS + """
+    # ---------------------------------------------------------------- s04 my work was beautiful: their Instagram feed
+    # The feed plays at 2.4x from 0.5s (profile header, then the grid scrolls from 1.17s): 0.5 -> 4.22 by the cut.
+    sparks = [(254, 470, 44, "#fff"), (296, 870, 34, "#fff"), (772, 410, 40, "#fff"), (806, 760, 46, "#fff"), (748, 1000, 30, "#e0324f")]
+    spark_html = "\n".join(
+        f'        <svg class="s04-sp" viewBox="0 0 40 40" style="left: {x}px; top: {y}px; width: {w}px; height: {w}px; fill: {c}">{SPARK}</svg>'
+        for x, y, w, c in sparks)
+    panel("s04-beautiful", 9.37, 10.92, PHONE_CSS + """
         #s04-head { top: 250px; font-size: 66px; }
+        #s04-tag { position: absolute; left: 292px; top: 338px; z-index: 3; font-size: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .s04-sp { position: absolute; z-index: 3; opacity: 0; filter: drop-shadow(0 0 10px rgba(224,50,79,0.9)); }
     """, f"""
         <div class="lc-head" id="s04-head"><span id="s04-h1">My Work Was</span><span class="lc-it" id="s04-h2">Beautiful</span></div>
-        {work_cards("s04", grid)}
-    """, """
+        {phone("s04-ph", 1.55, 0.5, 2.4)}
+        <div class="lc-tag" id="s04-tag" data-layout-allow-overlap>My Instagram</div>
+{spark_html}
+    """, f"""
           fx.typeSpan(tl, "#s04-h1", at(9.37), at(9.92));
           fx.typeSpan(tl, "#s04-h2", at(9.94), at(10.55));
-          root.querySelectorAll(".s04-c").forEach((el, i) => {
-            const r = parseFloat(el.dataset.r);
-            tl.fromTo(el, { opacity: 0, scale: 0.6, rotation: r * 3, filter: "blur(12px)" }, { opacity: 1, scale: 1, rotation: r, filter: "blur(0px)", duration: 0.45, ease: "expo.out" }, at(9.42 + i * 0.09));
-            tl.to(el, { y: [-12, 10, -10, 12, -8, 10][i], duration: 1.1, ease: "sine.inOut" }, at(9.9));
-          });
+          tl.fromTo("#s04-ph", {{ opacity: 0, y: 140, scale: 0.9, rotation: -7, filter: "blur(14px)" }}, {{ opacity: 1, y: 0, scale: 1, rotation: -2.5, filter: "blur(0px)", duration: 0.5, ease: "expo.out" }}, at(9.38));
+          tl.to("#s04-ph", {{ scale: 1.035, duration: 1.0, ease: "sine.inOut" }}, at(9.9));
+          fx.pop(tl, "#s04-tag", at(9.62), {{ rot0: -16, rot: -6 }});
+          // "beautiful": the phone lights up crimson, sparkles pop around it
+          tl.fromTo("#s04-ph", {{ boxShadow: "{PHONE_SHADOW}", borderColor: "rgba(255,255,255,0.2)" }}, {{ boxShadow: "{PHONE_GLOW}", borderColor: "rgba(224,50,79,0.85)", duration: 0.3, ease: "power2.out", immediateRender: false }}, at(10.0));
+          root.querySelectorAll(".s04-sp").forEach((el, i) => {{
+            tl.fromTo(el, {{ opacity: 0, scale: 0.2, rotation: -40 }}, {{ opacity: 1, scale: 1, rotation: 0, duration: 0.3, ease: "back.out(2.4)" }}, at(10.0 + i * 0.08));
+            tl.to(el, {{ scale: 0.72, opacity: 0.75, duration: 0.18, ease: "sine.inOut", yoyo: true, repeat: 1 }}, at(10.34 + i * 0.08));
+          }});
     """, aura=(160, 380))
 
     # ---------------------------------------------------------------- s05 neither trust nor an image of expertise
-    small = [(110, 860, -4), (410, 840, 3), (710, 860, -3)]
-    panel("s05-no-trust", 10.92, 14.86, WORK_CSS + """
+    # The feed carries on from s04 (media 4.22, 0.8x), starting in s04's last state, then shrinks and dims under the rows.
+    panel("s05-no-trust", 10.92, 14.86, PHONE_CSS + """
         #s05-head { top: 250px; font-size: 66px; }
         .s05-row { left: 140px; }
         .s05-row .strike { position: absolute; left: 140px; width: 560px; top: 55px; height: 7px; border-radius: 4px; background: #e0324f; box-shadow: 0 0 14px rgba(224,50,79,0.7); transform-origin: 0% 50%; }
         .s05-row .x { position: absolute; right: 34px; top: 30px; width: 56px; height: 56px; }
-        .wk.s05-c { opacity: 0.35; }
     """, f"""
         <div class="lc-head" id="s05-head"><span id="s05-h1">It Created</span><span class="lc-it" id="s05-h2">Neither</span></div>
         <div class="row s05-row" id="s05-r1" style="top: 450px"><span class="tab"></span><span class="num">01</span><span class="txt">Trust</span><span class="strike" id="s05-s1"></span><svg class="x" id="s05-x1" viewBox="0 0 56 56"><circle cx="28" cy="28" r="26" fill="#99122b"/><path d="M19 19 L37 37 M37 19 L19 37" stroke="#fff" stroke-width="6" stroke-linecap="round"/></svg></div>
         <div class="row s05-row" id="s05-r2" style="top: 610px"><span class="tab"></span><span class="num">02</span><span class="txt">Expertise</span><span class="strike" id="s05-s2"></span><svg class="x" id="s05-x2" viewBox="0 0 56 56"><circle cx="28" cy="28" r="26" fill="#99122b"/><path d="M19 19 L37 37 M37 19 L19 37" stroke="#fff" stroke-width="6" stroke-linecap="round"/></svg></div>
-        {work_cards("s05", small, 260, 176)}
+        {phone("s05-ph", 3.94, 4.22, 0.8)}
     """, """
           fx.typeSpan(tl, "#s05-h1", at(11.06), at(11.64));
           fx.typeSpan(tl, "#s05-h2", at(11.65), at(11.97));
-          root.querySelectorAll(".s05-c").forEach((el, i) => {
-            const r = parseFloat(el.dataset.r);
-            tl.fromTo(el, { opacity: 0, y: 30 }, { opacity: 0.35, y: 0, rotation: r, duration: 0.4, ease: "power3.out" }, at(10.96 + i * 0.08));
-          });
+          tl.fromTo("#s05-ph", { opacity: 1, y: 0, scale: 1.035, rotation: -2.5, boxShadow: "__GLOW__", borderColor: "rgba(224,50,79,0.85)" }, { opacity: 0.35, y: 240, scale: 0.56, rotation: 3, boxShadow: "__SHADOW__", borderColor: "rgba(255,255,255,0.2)", duration: 0.6, ease: "power3.inOut" }, at(10.95));
           fx.blurIn(tl, "#s05-r1", at(11.62), { y: 0, blur: 8 });
           tl.fromTo("#s05-s1", { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: "power2.out" }, at(12.10));
           fx.pop(tl, "#s05-x1", at(12.20), { from: 0 });
@@ -268,7 +277,7 @@ def main():
           tl.fromTo("#s05-s2", { scaleX: 0 }, { scaleX: 1, duration: 0.3, ease: "power2.out" }, at(13.95));
           fx.pop(tl, "#s05-x2", at(14.05), { from: 0 });
           tl.to("#s05-r2", { opacity: 0.55, duration: 0.3 }, at(14.4));
-    """, aura=(160, 360))
+    """.replace("__GLOW__", PHONE_GLOW).replace("__SHADOW__", PHONE_SHADOW), aura=(160, 360))
 
     # ---------------------------------------------------------------- s06 cutaway: people liked... then left. No prospects.
     cut_hearts = "\n".join(
