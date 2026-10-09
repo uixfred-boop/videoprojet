@@ -1,0 +1,188 @@
+#!/usr/bin/env python3
+"""Generate the listicle hub scenes (s01, s04, s06, s12) from one template.
+
+The hub is the film's recurring title card (STYLE.md §1): the title, three chapter tiles floating around the crimson
+"5 Seconds" ball, and on each return one tile flying to the centre as the hero while its label types in.
+All times are GLOBAL voice-over seconds (transcript.json).
+    python3 tools/gen_hubs.py
+"""
+import pathlib
+
+ROOT = pathlib.Path(__file__).resolve().parent.parent
+FONTS = (ROOT / "tools/fonts.css.snippet").read_text()
+
+ICONS = [
+    # 01 study the best: magnifier
+    '<svg viewBox="0 0 54 54"><rect x="3" y="3" width="48" height="48" rx="12" fill="#c2304b"/><circle cx="24" cy="24" r="9.5" stroke="#fff" stroke-width="4" fill="none"/><path d="M31.5 31.5 L40 40" stroke="#fff" stroke-width="4.6" stroke-linecap="round"/></svg>',
+    # 02 cofolio: a clean, readable page (no brand logo is known, so a generic browser glyph)
+    '<svg viewBox="0 0 54 54"><rect x="3" y="3" width="48" height="48" rx="12" fill="#f5f5f5"/><rect x="11" y="13" width="32" height="28" rx="4" fill="none" stroke="#99122b" stroke-width="3"/><path d="M11 20 H43" stroke="#99122b" stroke-width="3"/><path d="M16 27 H32 M16 33 H26" stroke="#99122b" stroke-width="3.4" stroke-linecap="round"/></svg>',
+    # 03 rebuilt from scratch: stacked blocks
+    '<svg viewBox="0 0 54 54"><rect x="3" y="3" width="48" height="48" rx="12" fill="#e0902a"/><rect x="13" y="30" width="12" height="11" rx="2" fill="#fff"/><rect x="29" y="30" width="12" height="11" rx="2" fill="#fff"/><rect x="21" y="16" width="12" height="11" rx="2" fill="#fff"/></svg>',
+]
+NAMES = ["Study The Best", "Cofolio", "Rebuilt From Scratch"]
+# cloud positions (left, top) of the small tiles; the ball sits at 425,600 (230x230)
+CLOUD = [(120, 500), (770, 470), (445, 900)]
+ROT0 = [(-8, -5), (6, 4), (5, 3)]
+DRIFT = [-16, 12, -10]
+HERO = (350, 600)  # hero tile 380x336
+
+
+def tile_html(p, i):
+    return (
+        f'<div class="lc-tile {p}-cloud" id="{p}-t{i}" style="left: {CLOUD[i][0]}px; top: {CLOUD[i][1]}px">'
+        f'<span class="ico">{ICONS[i]}</span><span class="rule"></span><span class="n">0{i + 1}</span><span class="lab"></span></div>'
+    )
+
+
+def scene(sid, t0, t1, focus=None, title=(0.0, 0.0, 0.0, 0.0), label=None, cloud=True, extra_html="", extra_js="",
+          ball=True):
+    """title = (l1 typing start, end, l2 typing start, end); label = (typing start, end) for the hero's name."""
+    p = sid.split("-")[0]
+    hero = hero_js = ""
+    if focus is not None:
+        hx, hy = HERO
+        cx, cy = CLOUD[focus]
+        lt0, lt1 = label
+        fly = max(t0, lt0 - 0.7)
+        hero = (
+            f'<div class="lc-tile hero" id="{p}-hero" style="left: {hx}px; top: {hy}px">'
+            f'<span class="ico">{ICONS[focus]}</span><span class="rule"></span><span class="n">0{focus + 1}</span>'
+            f'<span class="name" id="{p}-name">{NAMES[focus]}</span></div>'
+        )
+        dx = cx + 95 - (hx + 190)
+        dy = cy + 84 - (hy + 168)
+        hero_js = f"""
+          tl.fromTo("#{p}-hero", {{ x: {dx}, y: {dy}, scale: 0.5, opacity: 0.9 }}, {{ x: 0, y: 0, scale: 1, opacity: 1, duration: 0.6, ease: "expo.out" }}, at({fly:.2f}));
+          fx.typeSpan(tl, "#{p}-name", at({lt0:.2f}), at({lt1:.2f}));
+          tl.to("#{p}-hero", {{ y: -12, duration: 1.4, ease: "sine.inOut", yoyo: true, repeat: 1 }}, at({fly + 0.6:.2f}));"""
+        if cloud:
+            hero_js += f"""
+          tl.to(".{p}-cloud", {{ opacity: 0, filter: "blur(14px)", scale: 0.8, duration: 0.4, ease: "power2.in", stagger: 0.04 }}, at({fly:.2f}));
+          tl.to("#{p}-ball", {{ opacity: 0, scale: 0.6, filter: "blur(10px)", duration: 0.4, ease: "power2.in" }}, at({fly:.2f}));"""
+    tiles = "\n        ".join(tile_html(p, i) for i in range(3) if i != focus) if cloud else ""
+    ball_html = f'<div class="lc-ball" id="{p}-ball" style="left: 425px; top: 600px">5 Seconds</div>' if ball and cloud else ""
+    cloud_js = ""
+    if cloud:
+        cloud_js = f"""
+          root.querySelectorAll(".{p}-cloud").forEach((el) => {{
+            const i = parseInt(el.id.slice(-1), 10);
+            const r0 = {[r[0] for r in ROT0]}[i], r1 = {[r[1] for r in ROT0]}[i], dy = {DRIFT}[i];
+            tl.fromTo(el, {{ opacity: 0, scale: 0.6, filter: "blur(14px)", rotation: r0 }}, {{ opacity: 1, scale: 1, filter: "blur(0px)", rotation: r1, duration: 0.5, ease: "expo.out" }}, at({{CLOUD_IN}} + i * 0.08));
+            tl.to(el, {{ y: dy, duration: {max(1.0, t1 - t0 - 0.6):.2f}, ease: "sine.inOut" }}, at({{CLOUD_IN}} + 0.5));
+          }});"""
+        if ball:
+            cloud_js += f"""
+          tl.fromTo("#{p}-ball", {{ scale: 0.3, opacity: 0 }}, {{ scale: 1, opacity: 1, duration: 0.55, ease: "back.out(1.8)" }}, at({{CLOUD_IN}} + 0.1));"""
+    a0, a1, b0, b1 = title
+    return f"""<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <!-- Generated by tools/gen_hubs.py: edit the generator, not this file. -->
+    <template id="{sid}-template">
+      <link rel="stylesheet" href="assets/css/components.css" />
+      <link rel="stylesheet" href="assets/css/house.css" />
+      <style>
+{FONTS}        #{p}-root .lc-tile .ico {{ display: block; }}
+        #{p}-root .lc-tile .ico svg {{ display: block; width: 100%; height: 100%; }}
+        #{p}-root .lc-tile.hero .name {{ max-width: 330px; }}
+        #{p}-l1 {{ font-size: 80px; }}
+      </style>
+      <div id="{p}-root" class="scene-root" data-composition-id="{sid}" data-width="1080" data-height="1920">
+        <div class="lc-bg"><div class="lc-grid" data-layout-allow-overflow></div><div class="lc-aura" style="left: 160px; top: 340px" data-layout-allow-overflow></div><div class="lc-vignette"></div></div>
+        <div class="lc-hub" id="{p}-hub">
+          <span class="l1" id="{p}-l1">Forget The Animations</span>
+          <span class="l2" id="{p}-l2">If You Want Real Contracts</span>
+        </div>
+        {extra_html}
+        {tiles}
+        {ball_html}
+        {hero}
+      </div>
+      <script>
+        (function () {{
+          const T0 = {t0};
+          const at = (t) => Math.max(0, t - T0);
+          const tl = gsap.timeline({{ paused: true }});
+          const root = document.getElementById("{p}-root");
+          fx.ambient(tl, root, {t1 - t0:.2f});
+          fx.typeSpan(tl, "#{p}-l1", at({a0}), at({a1}));
+          fx.typeSpan(tl, "#{p}-l2", at({b0}), at({b1}));
+          {cloud_js}
+          {hero_js}
+          {extra_js}
+          window.__timelines["{sid}"] = tl;
+        }})();
+      </script>
+    </template>
+  </body>
+</html>
+"""
+
+
+# the hook's "animation clutter": over-designed motion that gets struck out on "animations"
+CLUTTER_HTML = """
+        <div id="s01-clutter" data-layout-allow-overflow>
+          <svg class="s01-ring" style="left: 110px; top: 470px" viewBox="0 0 240 240"><circle cx="120" cy="120" r="100" fill="none" stroke="#b8193a" stroke-width="14" stroke-dasharray="40 22" stroke-linecap="round"/><circle cx="120" cy="120" r="64" fill="none" stroke="#f5f5f5" stroke-width="6" stroke-dasharray="10 14" stroke-linecap="round"/></svg>
+          <div class="s01-blob" style="left: 700px; top: 760px"></div>
+          <div class="s01-wow" style="left: 560px; top: 430px">Wow!</div>
+          <div class="s01-load" style="left: 240px; top: 860px"><i></i></div>
+          <svg class="s01-star" style="left: 860px; top: 400px" viewBox="0 0 40 40"><path d="M20 0 L24 16 L40 20 L24 24 L20 40 L16 24 L0 20 L16 16 Z" fill="#f5c518"/></svg>
+          <svg class="s01-star" style="left: 470px; top: 700px" viewBox="0 0 40 40"><path d="M20 0 L24 16 L40 20 L24 24 L20 40 L16 24 L0 20 L16 16 Z" fill="#f5f5f5"/></svg>
+          <svg class="s01-star" style="left: 150px; top: 760px" viewBox="0 0 40 40"><path d="M20 0 L24 16 L40 20 L24 24 L20 40 L16 24 L0 20 L16 16 Z" fill="#f5c518"/></svg>
+          <svg id="s01-cursor" style="left: 420px; top: 560px" viewBox="0 0 70 86"><path d="M6 4 L6 66 L22 52 L33 78 L45 73 L34 47 L56 47 Z" fill="#ffffff" stroke="#111" stroke-width="4" stroke-linejoin="round"/></svg>
+        </div>
+        <div id="s01-strike"></div>"""
+CLUTTER_CSS = """
+        #s01-clutter { position: absolute; inset: 0; }
+        #s01-clutter > * { position: absolute; }
+        .s01-ring { width: 240px; height: 240px; }
+        .s01-blob { width: 230px; height: 230px; border-radius: 42% 58% 61% 39% / 45% 39% 61% 55%; background: radial-gradient(circle at 30% 30%, #ff8aa0 0%, #b8193a 45%, #4a0815 100%); box-shadow: 0 0 60px rgba(184,25,58,0.6); }
+        .s01-wow { font-family: "Instrument Serif", Georgia, serif; font-style: italic; font-size: 150px; line-height: 1; color: #f5f5f5; text-shadow: 0 0 30px rgba(245,197,24,0.7), 6px 6px 0 #b8193a; }
+        .s01-load { width: 420px; height: 34px; border-radius: 17px; background: rgba(255,255,255,0.08); border: 2px solid rgba(255,255,255,0.2); overflow: hidden; }
+        .s01-load i { position: absolute; left: 0; top: 0; bottom: 0; width: 100%; background: linear-gradient(90deg, #b8193a, #f5c518, #b8193a); transform-origin: 0% 50%; }
+        .s01-star { width: 64px; height: 64px; opacity: 0; }
+        #s01-cursor { width: 64px; height: 80px; }
+        #s01-strike { position: absolute; left: 60px; top: 735px; width: 960px; height: 16px; border-radius: 8px; background: #e0324f; box-shadow: 0 0 24px rgba(224,50,79,0.8); transform: rotate(-12deg) scaleX(0); transform-origin: 0% 50%; }"""
+CLUTTER_JS = """
+          // over-animated clutter: everything spins, bounces and flickers…
+          tl.fromTo("#s01-clutter > :not(.s01-star)", { opacity: 0, scale: 0.3 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(2.4)", stagger: 0.04 }, 0.02);
+          tl.to(".s01-star", { opacity: 1, duration: 0.2, stagger: 0.05 }, 0.08);
+          tl.fromTo(".s01-ring", { rotation: 0 }, { rotation: 540, duration: 1.4, ease: "none" }, 0);
+          tl.fromTo(".s01-blob", { rotation: 0, borderRadius: "42% 58% 61% 39% / 45% 39% 61% 55%" }, { rotation: 160, borderRadius: "61% 39% 42% 58% / 55% 61% 39% 45%", duration: 1.4, ease: "sine.inOut" }, 0);
+          tl.fromTo(".s01-wow", { y: 0, rotation: -8 }, { y: -40, rotation: 8, duration: 0.23, ease: "sine.inOut", yoyo: true, repeat: 5 }, 0.05);
+          tl.fromTo(".s01-load i", { scaleX: 0 }, { scaleX: 1, duration: 0.45, ease: "none", repeat: 2 }, 0.05);
+          tl.fromTo(".s01-star", { rotation: 0, scale: 0.6 }, { rotation: 180, scale: 1.3, duration: 0.35, ease: "sine.inOut", yoyo: true, repeat: 3, stagger: 0.1 }, 0.05);
+          tl.fromTo("#s01-cursor", { x: 0, y: 0 }, { x: 220, y: -120, duration: 0.35, ease: "sine.inOut", yoyo: true, repeat: 3 }, 0.05);
+          // …until "animations" ends: one crimson strike, and it all collapses
+          tl.fromTo("#s01-strike", { scaleX: 0, rotation: -12 }, { scaleX: 1, rotation: -12, duration: 0.22, ease: "power3.out", immediateRender: false }, 1.08);
+          tl.to("#s01-clutter", { opacity: 0, scale: 0.85, filter: "blur(18px)", duration: 0.32, ease: "power2.in" }, 1.36);
+          tl.to("#s01-strike", { opacity: 0, duration: 0.25, ease: "power2.in" }, 1.42);"""
+
+
+def main():
+    out = {
+        # hook: the title types as spoken, the clutter is struck out, then the tile cloud and ball arrive
+        "s01-hub-hook": scene(
+            "s01-hub-hook", 0.0, 3.08, title=(0.02, 1.30, 1.60, 2.94), extra_html=CLUTTER_HTML,
+            extra_js=CLUTTER_JS,
+        ).replace("{CLOUD_IN}", "1.62").replace("        #s01-l1 { font-size: 80px; }", "        #s01-l1 { font-size: 80px; }" + CLUTTER_CSS),
+        # "I started studying the best" — hero 01
+        "s04-hub-01": scene("s04-hub-01", 9.02, 11.27, focus=0, title=(9.04, 9.30, 9.30, 9.62), label=(10.15, 11.20))
+        .replace("{CLOUD_IN}", "9.04"),
+        # "But then, I found Cofolio" — hero 02
+        "s06-hub-02": scene("s06-hub-02", 14.25, 17.23, focus=1, title=(14.27, 14.55, 14.55, 14.95), label=(15.60, 16.20))
+        .replace("{CLOUD_IN}", "14.27"),
+        # "So I rebuilt everything from scratch" — hero 03 (no time for the cloud)
+        "s12-hub-03": scene("s12-hub-03", 29.40, 31.45, focus=2, title=(29.42, 29.62, 29.62, 29.85), label=(29.80, 31.40),
+                            cloud=False),
+    }
+    for sid, html in out.items():
+        (ROOT / f"compositions/{sid}.html").write_text(html)
+        print("wrote", sid)
+
+
+if __name__ == "__main__":
+    main()
