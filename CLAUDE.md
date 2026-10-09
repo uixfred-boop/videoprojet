@@ -56,6 +56,14 @@ Finished examples (README in each): `videos/web-design-7k-reel/` (split layout) 
   - Simulate the mix before rendering with `python tools/simulate_mix.py videos/<name>` (from a venv with numpy +
     scipy). It applies carve chains and lanes and prints loudness and true peak. The renderer lowers the whole mix if
     the true peak exceeds -1 dBTP.
+- **Dark footage:**
+  - Choose and validate a correction with `npx hyperframes media-treatment --analyze` / `--grading`, then judge it
+    in a snapshot.
+  - Don't ship it as realtime `data-color-grading` on many `<video>`s: with no WebGL here, it crashed
+    `hyperframes check` ("Target closed").
+  - Bake it into the files instead, with an ffmpeg `curves` fitted to the treatment's rendered output. See
+    `videos/views-vs-clients-reel/tools/bake_grade.sh`. Grade the background-removed cutout the same way so the
+    pop-out matches.
 - **Check:** `npx hyperframes check` takes about 8 min for a 114s reel. Its terminal output is long, so run it with
   `--json > file` to keep the findings. Ghost-typing letters show up as contrast warnings by design.
 - **Render:** `npx hyperframes render -q delivery --fps 30` takes about 7 min for 64s at 1080x1920 on this CPU.

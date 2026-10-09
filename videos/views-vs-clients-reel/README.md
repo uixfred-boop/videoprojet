@@ -24,5 +24,6 @@ npm run render    # MP4 into renders/
   global voice-over seconds via `at(t)`.
 - `python3 tools/assemble.py` writes the scene slots, the footage strip, the captions and the SFX into
   `index.html`.
-- The footage grade (a gentle exposure/shadow lift) is `tools/grade.json`, validated with
-  `npx hyperframes media-treatment`. Both generators put it on every footage video.
+- The footage grade (a gentle exposure/shadow lift) is baked into `desk.mp4` and `desk-cutout.webm` by
+  `tools/bake_grade.sh`, from the `*-raw` files. The look itself was validated as a canonical treatment
+  (`tools/grade.json`). For the original look, copy the raw files over the graded ones.

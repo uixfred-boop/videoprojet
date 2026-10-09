@@ -30,7 +30,8 @@ The user's words: "Okay, here is the script, the voice-over and the sequences. D
   - `voiceover-master.wav` is the same take, high-passed, gently compressed and normalised to -16 LUFS.
   - Words are force-aligned in `transcript.json` and snapped to pauses. "So if you're a web designer" was
     corrected by hand from the energy envelope.
-- `assets/video/desk.mp4`: the user's footage (rec.mp4, 10.5s), one high-angle shot at the laptop.
+- `assets/video/desk.mp4`: the user's footage (rec.mp4, 10.5s, graded; `desk-raw.mp4` is ungraded), one
+  high-angle shot at the laptop.
   - 0–4.7s: typing.
   - 5–10.4s: hand over the mouth, thinking.
 - `assets/video/desk-cutout.webm`: the same shot with the background removed, for the head pop-out.
@@ -39,10 +40,13 @@ The user's words: "Okay, here is the script, the voice-over and the sequences. D
 
 - Hub card: "Views Or Clients?" with two tiles (Views, Clients) and a "vs" ball that becomes ≠.
 - The footage is short, so the strip cycles its two halves at 0.8x in two framings (0.9x and 1.15x).
-- The footage was shot dark, so it gets a gentle canonical correction everywhere it appears: strip, pop-out and
-  cutaways. That's exposure +0.35 and shadows +0.3, validated with `hyperframes media-treatment` and stored in
-  `tools/grade.json`. The analyzer saw no technical imbalance: the shot is low-key. The lift only makes the face
-  read in the small card. Delete `tools/grade.json`'s use in the generators to return to the original look.
+- The footage was shot dark, so it gets a gentle correction everywhere it appears: strip, pop-out and cutaways.
+  - It's exposure +0.35 and shadows +0.3, chosen and validated as a canonical treatment with
+    `hyperframes media-treatment` (`tools/grade.json`). The analyzer saw no technical imbalance: the shot is
+    low-key, and the lift only makes the face read in the small card.
+  - The realtime grade on ~18 videos crashed `hyperframes check` in this GPU-less sandbox. So `tools/bake_grade.sh`
+    bakes the same look into `desk.mp4` and `desk-cutout.webm` with a curve fitted to the treatment's own output.
+  - The ungraded files stay as `desk-raw.mp4` and `desk-cutout-raw.webm`.
 
 ## Notes
 

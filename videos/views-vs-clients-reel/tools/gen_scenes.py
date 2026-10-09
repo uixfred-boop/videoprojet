@@ -6,14 +6,10 @@ full-screen footage with an optional overlay. All times are GLOBAL voice-over se
 converts to scene-local time.
     python3 tools/gen_scenes.py
 """
-import html
-import json
 import pathlib
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 FONTS = (ROOT / "tools/fonts.css.snippet").read_text()
-# same footage grade as the strip (see tools/assemble.py)
-GRADE = html.escape(json.dumps(json.loads((ROOT / "tools/grade.json").read_text()), separators=(",", ":")))
 CHECK = '<svg width="34" height="34" viewBox="0 0 34 34"><path d="M7 18 L14 25 L27 10" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>'
 ICON_VIEWS = '<svg viewBox="0 0 54 54"><rect x="3" y="3" width="48" height="48" rx="12" fill="#c2304b"/><path d="M9 27 C 15 17, 39 17, 45 27 C 39 37, 15 37, 9 27 Z" fill="none" stroke="#fff" stroke-width="3.6" stroke-linejoin="round"/><circle cx="27" cy="27" r="5.5" fill="#fff"/></svg>'
 ICON_CLIENTS = '<svg viewBox="0 0 54 54"><rect x="3" y="3" width="48" height="48" rx="12" fill="#e0902a"/><rect x="11" y="19" width="32" height="22" rx="4" fill="#fff"/><path d="M21 19 V15 a2 2 0 0 1 2 -2 h8 a2 2 0 0 1 2 2 V19" stroke="#fff" stroke-width="3.4" fill="none"/><path d="M11 28 H43" stroke="#e0902a" stroke-width="2.6"/></svg>'
@@ -87,7 +83,7 @@ def cut(sid, t0, t1, media_start, origin="50% 26%", s0=1.0, s1=1.1, y1=0, rate=1
       </style>
       <div id="{p}-root" data-composition-id="{sid}" data-width="1080" data-height="1920">
         <div id="{p}-cam">
-          <video id="{p}-v" class="clip" data-color-grading="{GRADE}" src="assets/video/desk.mp4" data-start="0" data-duration="{t1 - t0:.2f}" data-media-start="{media_start}" data-playback-rate="{rate}" data-track-index="0" muted playsinline></video>
+          <video id="{p}-v" class="clip" src="assets/video/desk.mp4" data-start="0" data-duration="{t1 - t0:.2f}" data-media-start="{media_start}" data-playback-rate="{rate}" data-track-index="0" muted playsinline></video>
         </div>
         <div id="{p}-shade"></div>
 {over_html}

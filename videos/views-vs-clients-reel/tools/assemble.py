@@ -5,7 +5,6 @@ Timing source: transcript.json (word-aligned voice-over) + tools/spoken.txt (dis
     python3 tools/assemble.py
 No music: the user adds their own track.
 """
-import html
 import json
 import pathlib
 import re
@@ -40,10 +39,8 @@ SHOTS = {
     "T": {"src": (5.2, 10.3), "w": 1242, "h": 2208, "left": -18, "top": 1196},  # 1.15x
 }
 STRIP_RATE = 0.8
-# A gentle exposure/shadow lift on the footage (it was shot dark): validated with `hyperframes media-treatment`
-# (tools/grade.json is its normalised payload) and applied identically to the strip, the pop-out cutout and the
-# cutaways so the head above the card edge matches the face inside it.
-GRADE = html.escape(json.dumps(json.loads((ROOT / "tools/grade.json").read_text()), separators=(",", ":")))
+# The footage carries a gentle exposure/shadow lift (it was shot dark), baked into desk.mp4 and desk-cutout.webm by
+# tools/bake_grade.sh so the head above the card edge matches the face inside it.
 CARD = (72, 1408)
 
 
@@ -101,11 +98,11 @@ def build_strip():
         style_card = f"left:{f(g['left'] - CARD[0])}px;top:{f(g['top'] - CARD[1])}px;width:{f(g['w'])}px;height:{f(g['h'])}px"
         style_frame = f"left:{f(g['left'])}px;top:{f(g['top'])}px;width:{f(g['w'])}px;height:{f(g['h'])}px"
         strip.append(
-            f'<video id="strip-{k:02d}" class="clip" data-color-grading="{GRADE}" src="assets/video/desk.mp4" data-start="{f(t)}" data-duration="{f(d)}" '
+            f'<video id="strip-{k:02d}" class="clip" src="assets/video/desk.mp4" data-start="{f(t)}" data-duration="{f(d)}" '
             f'data-media-start="{f(m)}" data-playback-rate="{STRIP_RATE}" data-track-index="3" muted playsinline style="{style_card}"></video>'
         )
         pop.append(
-            f'<video id="pop-{k:02d}" class="clip" data-color-grading="{GRADE}" src="assets/video/desk-cutout.webm" data-start="{f(t)}" data-duration="{f(d)}" '
+            f'<video id="pop-{k:02d}" class="clip" src="assets/video/desk-cutout.webm" data-start="{f(t)}" data-duration="{f(d)}" '
             f'data-media-start="{f(m)}" data-playback-rate="{STRIP_RATE}" data-track-index="4" muted playsinline style="{style_frame}"></video>'
         )
     return strip, pop
