@@ -88,6 +88,9 @@ Finished examples (README in each): `videos/web-design-7k-reel/` (split layout),
     draws a wall-coloured rim around the hair.
 - **Check:** `npx hyperframes check` takes about 8 min for a 114s reel. Its terminal output is long, so run it with
   `--json > file` to keep the findings. Ghost-typing letters show up as contrast warnings by design.
+  - From CLI 0.8.157 the check stops after a fixed 120s ("Check did not finish within its deadline", with
+    `browserSkipped: true`), and a whole reel runs past that on this CPU. `--timeout` doesn't change it. Check in
+    ranges instead, e.g. `--range 0,12.4 --samples 3`, which takes about 1 min each.
 - **Render:** `npx hyperframes render -q delivery --fps 30 --video-frame-format png` takes about 7 min for 64s at
   1080x1920 on this CPU.
   - Keep `--video-frame-format png` whenever footage or screen recordings are in the reel. The default extracts

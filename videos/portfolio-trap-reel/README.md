@@ -28,6 +28,9 @@ npm run check     # lint, layout, motion and contrast gates
 npm run render    # MP4 into renders/ (delivery quality, 30fps, PNG frame extraction)
 ```
 
+On the cloud sandbox's CPU, the whole check runs past the CLI's fixed 120s limit. Run it in three ranges instead:
+`npx hyperframes@0.8.157 check --json --range 0,12.4 --samples 3`, then `12.4,24.8` and `24.8,37.2`.
+
 - `python3 tools/gen_scenes.py` writes every scene (`compositions/s01-…s13-*.html`). Each keeps its timing in
   global voice-over seconds via `at(t)`.
   - The style's pieces are helpers: `title()` (hub title on the red bar), `rows()` and `hub_return()` (the list
