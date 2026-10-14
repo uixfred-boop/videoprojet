@@ -26,6 +26,7 @@ EXTRA = {
     "instagram": "IH N S T AH G R AE M",
     "unfiltered": "AH N F IH L T ER D",
     "cofolio": "K OW F OW L IY OW",
+    "waitlist": "W EY T L IH S T",
 }
 
 
