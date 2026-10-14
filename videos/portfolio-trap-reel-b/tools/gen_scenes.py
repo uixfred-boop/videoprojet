@@ -160,7 +160,7 @@ PHONE_CSS = """
         .pg .nm { position: absolute; left: 76px; top: 75px; width: 130px; height: 14px; border-radius: 7px; background: #cfcdc8; display: block; }
         .pg .h { position: absolute; left: 24px; top: 116px; font: 800 26px/1 "Inter Tight", Arial, sans-serif; letter-spacing: -0.02em; color: #111; }
         .pg .th { position: absolute; border-radius: 10px; display: block; }
-        .pg .k { position: absolute; left: 24px; font: 700 15px/1 "Inter Tight", Arial, sans-serif; letter-spacing: 0.12em; text-transform: uppercase; color: #8a8a8a; }
+        .pg .k { position: absolute; left: 24px; font: 700 15px/1 "Inter Tight", Arial, sans-serif; letter-spacing: 0.12em; text-transform: uppercase; color: #6b6b6b; }
         .pg .bio { position: absolute; left: 24px; font: 800 32px/1 "Inter Tight", Arial, sans-serif; letter-spacing: -0.02em; color: #111; white-space: nowrap; }
         .pg .ln { position: absolute; left: 24px; height: 11px; border-radius: 6px; background: #d6d4cf; display: block; }
         .cl { position: absolute; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #ff4a3a 0%, #c00000 45%, #6a0000 100%);
@@ -324,6 +324,7 @@ def main():
     panel("b04-spoke-01", 11.50, 13.53, """
         #b04-mask { position: absolute; inset: 0; """ + zoom_mask(250, 845) + """ }
         #b04-ph { left: 325px; top: 260px; transform-origin: 215px 300px; }
+        #b04-pg .tm, #b04-pg .bat { visibility: hidden; }
         .rq { position: absolute; padding: 3px 10px 5px; border-radius: 5px; border: 2px dashed #b80000; background: rgba(255,255,255,0.94);
           font: 800 17px/1.1 "Inter Tight", Arial, sans-serif; color: #b80000; white-space: nowrap; }
         #b04-q { left: 286px; top: 896px; }
@@ -358,6 +359,7 @@ def main():
     panel("b06-spoke-02", 15.80, 18.12, """
         #b06-mask { position: absolute; inset: 0; """ + zoom_mask(250, 790) + """ }
         #b06-ph { left: 325px; top: 25px; transform-origin: 215px 515px; }
+        #b06-pg .tm, #b06-pg .bat { visibility: hidden; }
         .b06-bx { position: absolute; left: 14px; width: 320px; height: 52px; border: 3px solid #b80000; border-radius: 10px; opacity: 0; }
         .b06-st { position: absolute; left: 18px; width: 302px; height: 6px; border-radius: 3px; background: #e0324f; box-shadow: 0 0 10px rgba(224,50,79,0.7); transform-origin: 0% 50%; }
         #b06-ping { left: 540px; top: 870px; }
