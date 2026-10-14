@@ -268,7 +268,7 @@ def main():
     services = [("Logos", 170, 330, -8), ("Websites", 600, 300, 5), ("Video", 380, 430, 3), ("Branding", 700, 470, -4),
                 ("Photo", 140, 560, 6), ("UI/UX", 520, 610, -6), ("Motion", 790, 650, 4), ("3D", 300, 720, -3),
                 ("Illustration", 600, 800, 7), ("Social Media", 150, 880, -5), ("Print", 820, 900, -7), ("Copywriting", 390, 980, 4)]
-    tags = "".join(f'<div class="lr-tag md c08-tg" id="c08-g{k}" style="left: {x}px; top: {y}px; transform: rotate({r}deg)">{n}</div>'
+    tags = "".join(f'<div class="lr-tag md c08-tg" id="c08-g{k}" style="left: {x}px; top: {y}px; transform: rotate({r}deg)" data-layout-allow-overlap>{n}</div>'
                    for k, (n, x, y, r) in enumerate(services))
     # each tag flies to the centre of the label that replaces them (constants: the tag width is estimated from its text)
     collapse = "\n".join(
@@ -283,7 +283,7 @@ def main():
         #c08-ping { left: 540px; top: 640px; z-index: 4; }
     """, f"""
         {tags}
-        {cx(470, '<div class="big" id="c08-q">?</div>')}
+        {cx(470, '<div class="big" id="c08-q" data-layout-allow-overlap>?</div>')}
         {cx(590, '<div class="lr-label" id="c08-vc">“Versatile Creative”</div>')}
         <div id="c08-st"></div>
         <div class="lr-tag md" id="c08-no">Speaks To No One</div>
