@@ -18,6 +18,7 @@ It is motion design over the creator's voice-over:
 about 26 dB under the voice, as in reel 4.
 
 - Render: `renders/portfolio-trap-reel.mp4`.
+- Story and carousel images: `social/` (4 stories at 1080x1920 and 4 carousel slides at 1080x1350).
 - Plan: `BRIEF.md`, `DESIGN.md` and `STORYBOARD.md`.
 
 ## Edit and re-render
