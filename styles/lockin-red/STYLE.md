@@ -8,8 +8,9 @@ It comes from the same creator family as `../listicle-crimson/STYLE.md` and uses
 file lists what is the same and what changes. The reference video and its frames are not stored, because this repo is
 public; everything below is measured and described in text.
 
-**Status:** analysis only. There is no demo or reusable CSS yet. `listicle-crimson` stays the default style until the
-user says otherwise.
+**Status:** analysis plus reusable CSS (`components.css`). Reel 5 (`videos/portfolio-trap-reel/`) is the first edit
+in this style and the working example; there are no separate style frames. `listicle-crimson` stays the default style
+until the user says otherwise.
 
 All positions are in **1080x1920** px (the reference measured at 720x1280, ×1.5).
 
@@ -268,6 +269,16 @@ Pure red here has **no blue in it**: R 184, G 0–5, B 2–9. Logos and screensh
 - the "Comment "x" To Get The Doc" CTA over document pages.
 
 ## 11. Building it in HyperFrames (when asked)
+
+**Start from reel 5** (`videos/portfolio-trap-reel/`). It has:
+- `components.css` as `assets/css/lockin.css`;
+- `tools/gen_scenes.py` helpers: `title()` (the title bar grows with the typing), `rows()` and `hub_return()` (the
+  list hub and its re-type), `crumb()` (breadcrumb) and `cut()` (cutaway with a slow push);
+- `assets/js/fx.js` with `grow`, `ping`, `sheen`, `push` and `flash` added;
+- `tools/assemble.py` with one-word captions (the term and the CTA keyword in serif italic) and a low whoosh 0.2s
+  before each graphic scene (`assets/sfx/whoosh-low.mp3`: `whoosh-short` pitched down and low-passed).
+
+The notes below are the original plan for the first build.
 
 - **Reuse unchanged:** the house layout in `index.html` (strip, pop-out, captions) and the assembler pattern.
   - From `fx.js`, `type`/`typeSpan` with `GHOST = "#9E9E9E"` and a faster pace, plus `blurIn`, `pop`, `draw` and

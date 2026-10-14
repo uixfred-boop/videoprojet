@@ -1,0 +1,387 @@
+/* Lock-in, pure red on a black dot grid: reusable components (see STYLE.md).
+   Copy into a project's assets/css/ and link it from each composition. Fonts are declared per composition file
+   with root-relative paths (HyperFrames lint requires in-file @font-face). Sizes are px at 1080x1920.
+   First used in videos/portfolio-trap-reel/ (as assets/css/lockin.css). */
+
+:root {
+  --lr-bg: #000000;
+  --lr-dot: #333333;
+  --lr-red: #b80000;
+  --lr-red-deep: #96050f;
+  --lr-red-hi: #e0625b;
+  --lr-yellow: #ece512;
+  --lr-green: #18de3a;
+  --lr-ink: #fbfbfb;
+  --lr-ghost: #9e9e9e;
+  --lr-line: #6e6e70;
+  --sans: "Inter Tight", Arial, sans-serif;
+  --serif: "Instrument Serif", Georgia, serif;
+}
+
+/* background: pure black with a uniform dot grid (2px dots every 17px), no aura, no vignette */
+.lr-bg {
+  position: absolute;
+  inset: 0;
+  background-color: var(--lr-bg);
+  background-image: radial-gradient(circle, var(--lr-dot) 1.1px, rgba(0, 0, 0, 0) 1.7px);
+  background-size: 17px 17px;
+  background-position: 8px 8px;
+}
+
+/* ---------- hub title: line 1 white, line 2 white on a red bar that grows with the typing ---------- */
+.lr-title {
+  position: absolute;
+  left: 30px;
+  right: 30px;
+  top: 104px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: var(--sans);
+  font-weight: 800;
+  font-size: 54px;
+  line-height: 1.04;
+  letter-spacing: -0.03em;
+  color: var(--lr-ink);
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+  white-space: nowrap;
+}
+.lr-title .l2 {
+  position: relative;
+  padding: 0 12px;
+}
+/* the bar comes first in the DOM and the text span is positioned, so the text paints over it (no negative z-index) */
+.lr-title .l2 .bar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 4px;
+  bottom: 0;
+  background: var(--lr-red);
+  transform-origin: 0% 50%;
+}
+.lr-title .l2 .tx {
+  position: relative;
+}
+.lr-title .it,
+.lr-head .it {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+/* ---------- single-line header with a red underline ---------- */
+.lr-head {
+  position: absolute;
+  left: 30px;
+  right: 30px;
+  top: 92px;
+  text-align: center;
+  font-family: var(--sans);
+  font-weight: 800;
+  font-size: 74px;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--lr-ink);
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+  white-space: nowrap;
+}
+.lr-head .w {
+  position: relative;
+  display: inline-block;
+  padding: 0 24px;
+}
+.lr-head .ul {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -18px;
+  height: 9px;
+  background: var(--lr-red);
+  box-shadow: 0 0 12px rgba(184, 0, 0, 0.55);
+  transform-origin: 0% 50%;
+}
+
+/* ---------- numbered list rows (red-edged glass, labels blurred until spoken) ---------- */
+.lr-row {
+  position: absolute;
+  left: 214px;
+  width: 652px;
+  height: 128px;
+  display: flex;
+  align-items: center;
+  font-family: var(--sans);
+  color: var(--lr-ink);
+}
+.lr-row .bar {
+  position: absolute;
+  inset: 0;
+  border-radius: 12px;
+  overflow: hidden;
+  background: linear-gradient(90deg, #121212 0%, #1a1a1a 45%, #2e2e2e 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    0 18px 40px rgba(0, 0, 0, 0.55);
+}
+.lr-row .edge {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 26px;
+  background: var(--lr-red);
+}
+.lr-row .sheen {
+  position: absolute;
+  top: -20px;
+  bottom: -20px;
+  left: 0;
+  width: 220px;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.38) 50%, rgba(255, 255, 255, 0) 100%);
+  transform: translateX(-260px) skewX(-18deg);
+}
+.lr-row .num {
+  position: relative;
+  margin-left: 66px;
+  width: 112px;
+  font-weight: 800;
+  font-size: 52px;
+  letter-spacing: -0.02em;
+}
+.lr-row .lbl {
+  position: relative;
+  flex: 1;
+  padding-right: 34px;
+  text-align: center;
+  font-weight: 700;
+  font-size: 34px;
+  line-height: 1.06;
+  letter-spacing: -0.02em;
+  filter: blur(7px);
+}
+
+/* ---------- breadcrumb bar: heads each explanation ---------- */
+.lr-crumb {
+  position: absolute;
+  left: 225px;
+  top: 105px;
+  width: 630px;
+  height: 123px;
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  font-family: var(--sans);
+  color: var(--lr-ink);
+  background: linear-gradient(90deg, #121212 0%, #1a1a1a 50%, #2e2e2e 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.14),
+    0 20px 50px rgba(0, 0, 0, 0.6);
+}
+.lr-crumb .edge {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 24px;
+  background: var(--lr-red);
+}
+.lr-crumb .num {
+  margin-left: 56px;
+  width: 100px;
+  font-weight: 800;
+  font-size: 47px;
+  letter-spacing: -0.02em;
+}
+.lr-crumb .lbl {
+  flex: 1;
+  padding-right: 30px;
+  text-align: center;
+  font-weight: 700;
+  font-size: 31px;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+}
+
+/* ---------- glass panel with a white glowing border (documents, site mock-ups) ---------- */
+.lr-panel {
+  position: absolute;
+  border-radius: 22px;
+  background: linear-gradient(180deg, #111112 0%, #070707 100%);
+  border: 2px solid rgba(255, 255, 255, 0.92);
+  box-shadow:
+    0 0 14px rgba(255, 255, 255, 0.32),
+    0 0 44px rgba(255, 255, 255, 0.1),
+    inset 0 0 26px rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+}
+
+/* ---------- tags and buttons ---------- */
+.lr-tag {
+  position: absolute;
+  padding: 3px 16px 6px;
+  border-radius: 4px;
+  background: linear-gradient(180deg, #a8060f 0%, #85040c 100%);
+  border: 1px solid rgba(255, 150, 150, 0.35);
+  font-family: var(--sans);
+  font-weight: 800;
+  font-size: 27px;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+  white-space: nowrap;
+}
+.lr-tag.md {
+  padding: 4px 22px 7px;
+  font-size: 36px;
+}
+.lr-btn {
+  position: absolute;
+  padding: 10px 36px 14px;
+  border-radius: 8px;
+  background: linear-gradient(180deg, #d40000 0%, #a00000 55%, #700000 100%);
+  box-shadow:
+    inset 0 2px 0 rgba(255, 255, 255, 0.25),
+    0 0 26px rgba(184, 0, 0, 0.35),
+    0 14px 34px rgba(0, 0, 0, 0.55);
+  font-family: var(--sans);
+  font-weight: 800;
+  font-size: 58px;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: #ffffff;
+  white-space: nowrap;
+}
+
+/* ---------- label box: white-bordered dark box (the client's voice, statements) ---------- */
+.lr-label {
+  position: absolute;
+  padding: 14px 28px 16px;
+  border-radius: 5px;
+  background: rgba(16, 16, 16, 0.97);
+  border: 3px solid rgba(255, 255, 255, 0.94);
+  box-shadow: 0 0 18px rgba(255, 255, 255, 0.18);
+  font-family: var(--sans);
+  font-weight: 800;
+  font-size: 38px;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+  text-align: center;
+  white-space: nowrap;
+}
+
+/* ---------- ping circle: grows on the focal word, then fades ---------- */
+.lr-ping {
+  position: absolute;
+  width: 210px;
+  height: 210px;
+  margin: -105px 0 0 -105px;
+  border-radius: 50%;
+  background: rgba(205, 0, 0, 0.5);
+  border: 3px solid rgba(255, 120, 120, 0.9);
+  box-shadow: 0 0 34px rgba(220, 0, 0, 0.6);
+  opacity: 0;
+}
+
+/* ---------- white screenshot-style card with a red glow border ---------- */
+.lr-card {
+  position: absolute;
+  border-radius: 12px;
+  background: #f4f4f2;
+  border: 3px solid var(--lr-red-hi);
+  box-shadow:
+    0 0 0 2px rgba(150, 5, 15, 0.7),
+    0 0 30px rgba(205, 0, 0, 0.55),
+    0 24px 50px rgba(0, 0, 0, 0.6);
+  overflow: hidden;
+}
+
+/* ---------- document (script / template): serif italic heading, bullet rows, grey lines ---------- */
+.lr-doc .hd {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 26px;
+  text-align: center;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 56px;
+  color: #ffffff;
+}
+.lr-doc .rw {
+  position: absolute;
+  left: 40px;
+  right: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-family: var(--sans);
+  font-weight: 800;
+  font-size: 32px;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+}
+.lr-doc .rw .sq {
+  width: 32px;
+  height: 32px;
+  flex: none;
+}
+.lr-doc .rw .ln {
+  flex: 1;
+  height: 10px;
+  border-radius: 2px;
+  transform-origin: 0% 50%;
+}
+.lr-doc .gl {
+  position: absolute;
+  left: 40px;
+  right: 40px;
+  height: 11px;
+  border-radius: 2px;
+  background: var(--lr-line);
+}
+.lr-doc .hl {
+  position: absolute;
+  height: 11px;
+  border-radius: 2px;
+  background: var(--lr-yellow);
+  box-shadow: 0 0 12px rgba(236, 229, 18, 0.55);
+  transform-origin: 0% 50%;
+}
+
+/* ---------- white document page with blurred text (CTA grid) ---------- */
+.lr-page {
+  position: absolute;
+  width: 210px;
+  height: 284px;
+  border-radius: 3px;
+  background: #f7f7f5;
+  box-shadow:
+    0 0 18px rgba(255, 255, 255, 0.22),
+    0 20px 40px rgba(0, 0, 0, 0.6);
+  overflow: hidden;
+}
+.lr-page i {
+  position: absolute;
+  left: 18px;
+  height: 6px;
+  border-radius: 2px;
+  background: #9a9a9a;
+  filter: blur(1.2px);
+}
+
+/* horizontal centring wrapper: animate the child, never a translateX(-50%) */
+.lr-cx {
+  position: absolute;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+}
+.lr-cx > * {
+  position: relative;
+}

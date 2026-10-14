@@ -20,14 +20,15 @@ A second reference from the same creator family is analysed in `styles/lockin-re
 - a "Video Script" document with yellow highlights;
 - one-word captions.
 
-It is analysis only (no CSS or demo yet) and not the default: use it when the user asks for that look.
+Reusable CSS is in `styles/lockin-red/components.css`, and reel 5 (`videos/portfolio-trap-reel/`) uses it.
+It is not the default: use it when the user asks for that look or sends that reference with a script.
 
 The repo is **public**. Don't commit third-party reference videos or their frames; describe them in text.
 
 ## Pipeline that works in the cloud sandbox
 
-Finished examples (README in each): `videos/web-design-7k-reel/` (split layout) and `videos/bought-portfolio-reel/`
-(listicle-crimson, with generated scenes and a synthesised beat).
+Finished examples (README in each): `videos/web-design-7k-reel/` (split layout), `videos/bought-portfolio-reel/`
+(listicle-crimson, with generated scenes and a synthesised beat) and `videos/portfolio-trap-reel/` (lockin-red).
 
 - **New project:** `npx hyperframes init "videos/<name>" --non-interactive --example=blank --skill=general-video`.
   - The CDN is blocked. Ship GSAP locally (`npm pack gsap@3.14.2` → `assets/vendor/gsap.min.js`) and fonts from
@@ -35,6 +36,9 @@ Finished examples (README in each): `videos/web-design-7k-reel/` (split layout) 
   - Asset paths must be root-relative (`assets/...`), even inside `compositions/`.
   - Each file needs its own `@font-face` block.
   - Wrap every sub-composition script in an IIFE.
+  - From CLI 0.8.157, lint fails on a sub-composition root styled by class. Give the root `id="root"`, style it as
+    `#root`, and find it in the script with `[data-composition-id="…"]`. Lint also warns on a negative `z-index` (use
+    DOM order) and on `tl.set` hides at 0 (use inline styles).
 - **Word timings:**
   - `hyperframes transcribe` can't download Whisper here (huggingface.co is blocked).
   - Force-align the script with PocketSphinx instead: `tools/align_vo.py` (run it from a venv with
