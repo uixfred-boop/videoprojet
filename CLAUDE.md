@@ -14,6 +14,14 @@ a dark grid with crimson `#99122B`. Reusable CSS is in `styles/listicle-crimson/
 The split layout (graphics on top, seam captions, B-roll card with head pop-out, full-screen cutaways) comes from the
 earlier references and is documented in `videos/web-design-7k-reel/DESIGN.md`.
 
+A second reference from the same creator family is analysed in `styles/lockin-red/STYLE.md` (2026-10-14). It has:
+- pure red `#B80000` on a black dot grid;
+- a numbered-list hub with blurred labels;
+- a "Video Script" document with yellow highlights;
+- one-word captions.
+
+It is analysis only (no CSS or demo yet) and not the default: use it when the user asks for that look.
+
 The repo is **public**. Don't commit third-party reference videos or their frames; describe them in text.
 
 ## Pipeline that works in the cloud sandbox
