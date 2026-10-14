@@ -104,10 +104,11 @@
     grow(tl, sel, t0, t1) {
       tl.fromTo(sel, { scaleX: 0 }, { scaleX: 1, duration: Math.max(0.05, t1 - t0), ease: "none" }, t0);
     },
-    /** Ping circle: grows on the focal word, holds a beat, fades. */
+    /** Ping circle: grows on the focal word, holds a beat, fades. Both tweens wait for their time (immediateRender:
+        false), so before the ping the circle keeps its CSS opacity 0 instead of showing as a small dot. */
     ping(tl, sel, t) {
-      tl.fromTo(sel, { opacity: 0.95, scale: 0.05 }, { opacity: 0.95, scale: 1, duration: 0.22, ease: "power2.out" }, t);
-      tl.to(sel, { opacity: 0, scale: 1.12, duration: 0.32, ease: "power1.in" }, t + 0.3);
+      tl.fromTo(sel, { opacity: 0.95, scale: 0.05 }, { opacity: 0.95, scale: 1, duration: 0.22, ease: "power2.out", immediateRender: false }, t);
+      tl.fromTo(sel, { opacity: 0.95, scale: 1 }, { opacity: 0, scale: 1.12, duration: 0.32, ease: "power1.in", immediateRender: false }, t + 0.3);
     },
     /** White sheen sweeping across an active bar. */
     sheen(tl, sel, t, dist = 900) {

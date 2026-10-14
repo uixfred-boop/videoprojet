@@ -39,6 +39,12 @@ Finished examples (README in each): `videos/web-design-7k-reel/` (split layout),
   - From CLI 0.8.157, lint fails on a sub-composition root styled by class. Give the root `id="root"`, style it as
     `#root`, and find it in the script with `[data-composition-id="…"]`. Lint also warns on a negative `z-index` (use
     DOM order) and on `tl.set` hides at 0 (use inline styles).
+  - A `fromTo` draws its from-state as soon as the timeline is built. An element that must stay invisible until its
+    tween needs `immediateRender: false` or an opacity-0 from-state. Reel 5's first render showed every ping circle
+    as a small red dot before it fired.
+- **Trial-reel versions of one reel:** copy the project folder (`videos/portfolio-trap-reel-b/`, `-c/`). Git stores
+  identical media once, so the copies cost no repo space. Change the hook, the scene ideas and the footage moments. The
+  "fast cut" version also trims the voice-over's pauses with `videos/portfolio-trap-reel-c/tools/tighten_vo.py`.
 - **Word timings:**
   - `hyperframes transcribe` can't download Whisper here (huggingface.co is blocked).
   - Force-align the script with PocketSphinx instead: `tools/align_vo.py` (run it from a venv with
