@@ -1,0 +1,1708 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>First Client Playbook</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap">
+<style>
+/* Layout: the PDF's "page" becomes a single reading column (~680px) beside a sticky contents rail.
+   Palette and type are lifted directly from the First Client Playbook PDF. */
+:root {
+  --paper: #F4EDE1;      /* page background */
+  --paper-2: #EDE3D2;    /* cover background */
+  --grid: #E5DAC7;       /* cover grid lines */
+  --card: #FBF8F2;       /* white cards */
+  --tint: #EADFCC;       /* callout background */
+  --peach: #F2DDCF;      /* highlighted row / box */
+  --accent: #AE5230;     /* terracotta */
+  --ink: #1F1A15;        /* headings */
+  --body: #2F2822;       /* running text */
+  --muted: #736C64;      /* captions, labels */
+  --rule: #DBD4C9;       /* hairlines */
+  --line: #E3D9C8;       /* card borders */
+  --sketch: #C9B699;     /* cover wireframe */
+  --good: #4F7A4A;
+  --serif: "Lora", Georgia, "Times New Roman", serif;
+  --sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --col: 680px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #191511; --paper-2: #1D1814; --grid: #241E18; --card: #221D18; --tint: #2C241C;
+    --peach: #3B261B; --accent: #DE8259; --ink: #F3EADC; --body: #DCD2C3; --muted: #A2978A;
+    --rule: #3A3129; --line: #362D25; --sketch: #6E5C47; --good: #8DBB86;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #191511; --paper-2: #1D1814; --grid: #241E18; --card: #221D18; --tint: #2C241C;
+  --peach: #3B261B; --accent: #DE8259; --ink: #F3EADC; --body: #DCD2C3; --muted: #A2978A;
+  --rule: #3A3129; --line: #362D25; --sketch: #6E5C47; --good: #8DBB86;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 24px; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; animation: none !important; } }
+body {
+  margin: 0; background: var(--paper); color: var(--body);
+  font-family: var(--sans); font-size: 15px; line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 30; background: var(--paper); }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 3px; }
+h1, h2, h3 { font-family: var(--serif); color: var(--ink); font-weight: 500; text-wrap: balance; margin: 0; }
+p { margin: 0; }
+strong { color: var(--ink); font-weight: 600; }
+.num { font-variant-numeric: tabular-nums; }
+
+/* ---------- shell ---------- */
+.shell { display: grid; grid-template-columns: 268px minmax(0, 1fr); min-height: 100vh; }
+.rail {
+  position: sticky; top: 0; height: 100vh; overflow-y: auto;
+  border-right: 1px solid var(--rule); background: var(--paper);
+  padding: 28px 22px 32px max(22px, env(safe-area-inset-left, 0px));
+  display: flex; flex-direction: column; gap: 22px;
+}
+.rail-brand { font-family: var(--serif); font-size: 20px; color: var(--ink); line-height: 1.15; text-decoration: none; }
+.rail-brand em { color: var(--accent); }
+.progress { display: grid; gap: 8px; }
+.progress-top { display: flex; justify-content: space-between; align-items: baseline; }
+.bar { height: 4px; background: var(--rule); border-radius: 2px; overflow: hidden; }
+.bar > i { display: block; height: 100%; width: 0; background: var(--accent); transition: width .4s ease; }
+.toc { display: grid; gap: 18px; }
+.toc-group { display: grid; gap: 2px; }
+.toc-group .eyebrow { margin-bottom: 6px; }
+.toc a {
+  display: grid; grid-template-columns: 26px 1fr 14px; align-items: center; gap: 6px;
+  text-decoration: none; font-size: 13.5px; color: var(--body); padding: 5px 8px; margin-inline: -8px; border-radius: 6px;
+}
+.toc a:hover { background: var(--tint); }
+.toc a.active { background: var(--tint); color: var(--ink); font-weight: 500; }
+.toc a .n { font-family: var(--serif); color: var(--accent); font-size: 13px; }
+.toc a .ck { width: 12px; height: 12px; border-radius: 50%; border: 1.5px solid var(--rule); justify-self: end; }
+.toc a.done .ck { background: var(--accent); border-color: var(--accent); }
+.rail-foot { margin-top: auto; font-size: 12px; color: var(--muted); display: grid; gap: 8px; }
+.linkbtn { background: none; border: 0; padding: 0; font: inherit; color: var(--muted); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; text-align: left; }
+.linkbtn.armed { color: var(--accent); }
+
+.topbar { display: none; }
+
+main { min-width: 0; }
+.wrap { max-width: calc(var(--col) + 2 * 56px); margin: 0 auto; padding-left: max(56px, env(safe-area-inset-left, 0px)); padding-right: max(56px, env(safe-area-inset-right, 0px)); }
+
+.wrap.wide { max-width: calc(1080px + 2 * 56px); }
+.wrap.wide .sec-head, .wrap.wide > p, .wrap.wide > .callout { max-width: var(--col); }
+
+/* ---------- type atoms ---------- */
+.eyebrow { font: 600 11px/1.3 var(--sans); letter-spacing: .16em; text-transform: uppercase; color: var(--accent); }
+.eyebrow.muted { color: var(--muted); }
+.lede { font-family: var(--serif); font-style: italic; font-size: 19px; line-height: 1.45; color: var(--muted); max-width: 600px; }
+.small { font-size: 12.5px; color: var(--muted); line-height: 1.5; }
+.ph { color: var(--accent); font-weight: 500; }
+.fill { color: var(--ink); background: var(--peach); border-radius: 3px; padding: 0 2px; }
+
+/* ---------- cover ---------- */
+.cover {
+  background-color: var(--paper-2);
+  background-image: linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 36px 36px;
+  border-bottom: 1px solid var(--rule);
+}
+.cover .wrap { padding-block: 48px 56px; display: grid; gap: 0; }
+.cover-top { display: flex; justify-content: space-between; gap: 16px; padding-bottom: 16px; border-bottom: 1px solid var(--sketch); }
+.cover h1 { font-size: clamp(54px, 9vw, 92px); line-height: .98; letter-spacing: -.01em; margin-top: clamp(56px, 10vw, 110px); }
+.cover h1 em { display: block; color: var(--accent); font-style: italic; }
+.cover-sub { font-size: 17px; line-height: 1.6; max-width: 560px; margin-top: 44px; color: var(--body); }
+.stats { display: grid; grid-template-columns: 1fr auto 1fr auto 1fr; align-items: center; gap: 12px; border-block: 1px solid var(--sketch); padding-block: 22px; margin-top: 56px; }
+.stat b { display: block; font-family: var(--serif); font-weight: 400; font-size: clamp(34px, 5vw, 44px); line-height: 1.05; color: var(--ink); }
+.stat.hot b { color: var(--accent); }
+.stat span { font: 600 10.5px/1 var(--sans); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); display: block; margin-top: 8px; }
+.arrow { color: var(--accent); font-size: 20px; }
+.cover-foot { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; margin-top: 40px; flex-wrap: wrap; }
+.byline { font-family: var(--serif); font-size: 22px; color: var(--ink); }
+.byline small { display: block; font-family: var(--sans); font-size: 12.5px; color: var(--muted); }
+.cover svg { width: 280px; max-width: 100%; height: auto; }
+.cover-cta { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
+
+/* ---------- buttons & form controls ---------- */
+.btn {
+  appearance: none; border: 1px solid var(--accent); background: var(--accent); color: var(--card);
+  font: 500 13.5px/1 var(--sans); padding: 11px 16px; border-radius: 7px; cursor: pointer; text-decoration: none;
+  display: inline-flex; align-items: center; gap: 8px; transition: transform .15s ease, background .15s;
+}
+.btn:hover { transform: translateY(-1px); }
+.btn.ghost { background: transparent; color: var(--accent); }
+.btn.ghost:hover { background: var(--peach); }
+.btn.sm { padding: 7px 11px; font-size: 12.5px; }
+.btn.done-on { background: var(--ink); border-color: var(--ink); color: var(--paper); }
+
+label.f { display: grid; gap: 5px; font-size: 12.5px; font-weight: 500; color: var(--ink); min-width: 0; }
+input[type=text], input[type=number], input[type=date], input[type=email], select, textarea {
+  font: 14px/1.4 var(--sans); color: var(--ink); background: var(--card);
+  border: 1px solid var(--line); border-radius: 7px; padding: 9px 11px; width: 100%; min-width: 0;
+}
+textarea { resize: vertical; min-height: 64px; }
+input:focus, select:focus, textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--peach); }
+.fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 14px; }
+.fields .full { grid-column: 1 / -1; }
+
+.check { display: grid; grid-template-columns: 18px 1fr; gap: 11px; align-items: start; cursor: pointer; padding: 4px 0; }
+.check input { appearance: none; width: 16px; height: 16px; margin: 3px 0 0; border: 1.25px solid var(--muted); border-radius: 4px; background: transparent; cursor: pointer; display: grid; place-content: center; }
+.check input::after { content: ""; width: 9px; height: 5px; border-left: 2px solid var(--card); border-bottom: 2px solid var(--card); transform: rotate(-45deg) translate(1px, -1px); opacity: 0; }
+.check input:checked { background: var(--accent); border-color: var(--accent); }
+.check input:checked::after { opacity: 1; }
+.check input:checked + span { color: var(--muted); text-decoration: line-through; text-decoration-color: var(--rule); }
+.checks { display: grid; gap: 2px; }
+.checks.two { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 28px; }
+
+/* ---------- sections ---------- */
+.sec { padding-block: 84px 72px; border-bottom: 1px solid var(--rule); }
+.sec > .wrap { display: grid; gap: 22px; }
+.sec-head { display: grid; gap: 10px; padding-bottom: 26px; border-bottom: 1px solid var(--rule); margin-bottom: 8px; }
+.sec-head h2 { font-size: clamp(34px, 5vw, 44px); line-height: 1.1; }
+.stepnum { font-family: var(--serif); font-size: 64px; line-height: .9; color: var(--accent); }
+h3 { font-size: 21px; line-height: 1.3; margin-top: 18px; }
+.sec p { max-width: 66ch; }
+
+.dash { list-style: none; padding: 0; margin: 0; display: grid; gap: 9px; }
+.dash li { position: relative; padding-left: 24px; }
+.dash li::before { content: ""; position: absolute; left: 2px; top: .72em; width: 10px; height: 2.5px; background: var(--accent); border-radius: 1px; }
+.dash.two { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 28px; }
+.nums { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; counter-reset: n; }
+.nums > li { display: grid; grid-template-columns: 31px 1fr; counter-increment: n; }
+.nums > li::before { content: counter(n); font-family: var(--serif); color: var(--accent); font-size: 17px; line-height: 1.45; }
+
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 11px; padding: 22px 24px; display: grid; gap: 12px; min-width: 0; }
+.callout { background: var(--tint); border-left: 3px solid var(--accent); padding: 20px 24px; display: grid; gap: 8px; }
+.callout.light { background: var(--card); border-top: 1px solid var(--line); border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.callout .say { font-family: var(--serif); font-style: italic; font-size: 17.5px; line-height: 1.5; color: var(--ink); }
+.pull { display: grid; grid-template-columns: 46px 1fr; border-block: 1px solid var(--rule); padding-block: 26px; margin-block: 8px; }
+.pull::before { content: "\201C"; font-family: var(--serif); font-size: 46px; line-height: .8; color: var(--accent); }
+.pull p { font-family: var(--serif); font-style: italic; font-size: 25px; line-height: 1.35; color: var(--ink); }
+
+.tbl-wrap { overflow-x: auto; min-width: 0; }
+table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+th { font: 600 10.5px/1.35 var(--sans); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); text-align: left; padding: 0 10px 10px 0; border-bottom: 1px solid var(--ink); vertical-align: bottom; }
+td { padding: 12px 10px 12px 0; border-bottom: 1px solid var(--rule); vertical-align: top; }
+td:first-child { font-weight: 600; color: var(--ink); }
+tr.hl td { background: var(--peach); }
+tr.hl td:first-child { padding-left: 8px; }
+
+.bignums { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-block: 1px solid var(--rule); }
+.bignums > div { padding: 18px 18px 18px 0; display: grid; gap: 8px; }
+.bignums > div + div { border-left: 1px solid var(--rule); padding-left: 18px; }
+.bignums b { font-family: var(--serif); font-weight: 400; font-size: 38px; line-height: 1; color: var(--accent); }
+.bignums span { font: 600 10.5px/1.3 var(--sans); letter-spacing: .13em; text-transform: uppercase; color: var(--muted); }
+
+.done-row { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; margin-top: 18px; padding-top: 22px; border-top: 1px dashed var(--rule); }
+.next-link { font-size: 13px; color: var(--muted); text-decoration: none; }
+.next-link:hover { color: var(--accent); }
+.next-link b { color: var(--ink); font-weight: 500; font-family: var(--serif); font-size: 15px; }
+
+/* tool frame: interactive blocks get a labelled header so they read as tools */
+.tool { background: var(--card); border: 1px solid var(--line); border-radius: 11px; overflow: hidden; min-width: 0; }
+.tool-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; padding: 14px 20px; border-bottom: 1px solid var(--line); }
+.tool-head .tag { font: 600 10px/1 var(--sans); letter-spacing: .14em; text-transform: uppercase; color: var(--card); background: var(--accent); padding: 5px 7px; border-radius: 4px; }
+.tool-body { padding: 20px; display: grid; gap: 16px; }
+.tool-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+
+/* method flow */
+.flow { display: grid; gap: 10px; }
+.flow-row { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 22px; position: relative; }
+.flow-box { position: relative; background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 10px 8px; text-align: center; text-decoration: none; display: grid; gap: 2px; transition: border-color .15s, transform .15s; }
+.flow-box:hover { border-color: var(--accent); transform: translateY(-2px); }
+.flow-box b { font-size: 13.5px; font-weight: 600; color: var(--ink); }
+.flow-box span { font-size: 11.5px; color: var(--muted); }
+.flow-box.hot { background: var(--peach); border: 1.5px solid var(--accent); }
+.flow-box:not(:last-child)::after { content: "\2192"; position: absolute; right: -18px; top: 50%; transform: translateY(-50%); color: var(--sketch); font-size: 14px; }
+.flow .eyebrow { margin-top: 6px; }
+.steps-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.step-card { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 16px 18px; text-decoration: none; display: grid; gap: 4px; position: relative; transition: border-color .15s; }
+.step-card:hover { border-color: var(--accent); }
+.step-card b { font-size: 14.5px; font-weight: 600; color: var(--ink); }
+.step-card b i { font-family: var(--serif); font-style: normal; font-weight: 400; color: var(--accent); font-size: 17px; margin-right: 4px; }
+.step-card span { font-size: 13px; color: var(--muted); }
+.step-card .state { position: absolute; top: 16px; right: 16px; font: 600 9.5px/1 var(--sans); letter-spacing: .12em; text-transform: uppercase; color: var(--good); display: none; }
+.step-card.done .state { display: block; }
+
+/* niche scorer */
+.score-tbl td, .score-tbl th { text-align: center; }
+.score-tbl td:first-child, .score-tbl th:first-child { text-align: left; }
+.score-tbl select { width: 58px; padding: 6px 4px; text-align: center; }
+.score-tbl input[type=text] { min-width: 150px; }
+.score-tbl td.total { font-family: var(--serif); font-size: 19px; color: var(--ink); }
+.score-tbl tr.hl td.total { color: var(--accent); }
+.pick { display: inline-block; margin-left: 6px; font: 600 9.5px/1 var(--sans); letter-spacing: .12em; text-transform: uppercase; color: var(--accent); }
+.xbtn { background: none; border: 0; color: var(--muted); cursor: pointer; font-size: 18px; line-height: 1; padding: 4px 6px; border-radius: 5px; }
+.xbtn:hover { color: var(--accent); background: var(--peach); }
+
+/* price gauge */
+.gauge { position: relative; height: 34px; margin-top: 8px; }
+.gauge .track { position: absolute; left: 0; right: 0; top: 14px; height: 6px; background: var(--rule); border-radius: 3px; }
+.gauge .band { position: absolute; top: 14px; height: 6px; background: var(--accent); opacity: .35; border-radius: 3px; }
+.gauge .dot { position: absolute; top: 9px; width: 16px; height: 16px; border-radius: 50%; background: var(--accent); border: 3px solid var(--card); box-shadow: 0 0 0 1px var(--accent); transform: translateX(-50%); transition: left .25s ease; }
+.gauge .lbl { position: absolute; top: 26px; font-size: 10.5px; color: var(--muted); transform: translateX(-50%); }
+.readout { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.readout > div { border-top: 1px solid var(--rule); padding-top: 10px; display: grid; gap: 4px; }
+.readout b { font-family: var(--serif); font-weight: 400; font-size: 26px; color: var(--ink); line-height: 1.1; }
+.readout b.acc { color: var(--accent); }
+.verdict { font-size: 13.5px; padding: 10px 12px; border-radius: 7px; background: var(--tint); }
+
+/* email */
+.mail { display: grid; gap: 12px; font-size: 14px; line-height: 1.6; color: var(--body); white-space: pre-line; }
+.mail .subj { white-space: normal; display: flex; gap: 10px; align-items: baseline; padding-bottom: 12px; border-bottom: 1px solid var(--line); }
+.mail .subj .eyebrow { color: var(--muted); }
+.subjects { display: grid; gap: 4px; }
+.subjects label { display: grid; grid-template-columns: 18px 1fr; gap: 10px; font-size: 13.5px; cursor: pointer; padding: 3px 0; }
+.subjects input { accent-color: var(--accent); margin-top: 4px; }
+
+/* call timer */
+.timer { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
+.clock { font-family: var(--serif); font-size: 40px; color: var(--ink); line-height: 1; min-width: 4ch; }
+.clock small { font-size: 15px; color: var(--muted); }
+.script > li { padding: 10px 12px 10px 0; border-radius: 8px; transition: background .2s; }
+.script > li.live { background: var(--peach); }
+.script > li.live::before { color: var(--accent); }
+.script .hd { font-weight: 600; color: var(--ink); font-size: 14px; display: flex; gap: 8px; align-items: baseline; flex-wrap: wrap; }
+.script .hd span { font-weight: 500; color: var(--muted); font-size: 12.5px; }
+.script q, .script .q { display: block; font-family: var(--serif); font-style: italic; font-size: 16.5px; line-height: 1.5; color: var(--ink); margin-top: 4px; quotes: "\201C" "\201D"; }
+.script .dash { margin-top: 8px; font-size: 14px; }
+
+/* plan */
+.plan-week { display: grid; gap: 6px; }
+.plan-week header { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+.plan-week header .small { font-variant-numeric: tabular-nums; }
+
+/* troubleshoot */
+.faq details { border-top: 1px solid var(--rule); }
+.faq details:last-child { border-bottom: 1px solid var(--rule); }
+.faq summary { list-style: none; cursor: pointer; padding: 18px 34px 18px 0; position: relative; font-family: var(--serif); font-size: 19px; color: var(--ink); font-weight: 500; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; position: absolute; right: 4px; top: 14px; font-family: var(--sans); font-weight: 400; font-size: 22px; color: var(--accent); transition: transform .2s; }
+.faq details[open] summary::after { transform: rotate(45deg); }
+.faq details p { padding-bottom: 20px; }
+
+/* quote doc */
+.quote-doc { background: var(--card); border: 1px solid var(--line); border-radius: 11px; padding: 34px 34px 30px; display: grid; gap: 18px; font-size: 13.5px; }
+.quote-doc .qh { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; padding-bottom: 18px; border-bottom: 1.5px solid var(--ink); }
+.quote-doc .qh h4 { font-family: var(--serif); font-weight: 500; font-size: 36px; color: var(--ink); margin: 0 0 6px; line-height: 1; }
+.quote-doc .meta { text-align: right; color: var(--muted); line-height: 1.7; }
+.quote-doc .two { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.quote-doc table td:first-child { width: 30%; }
+.sig { display: grid; grid-template-columns: 1fr 1fr; gap: 36px; margin-top: 18px; }
+.sig div { border-top: 1px solid var(--ink); padding-top: 8px; font-size: 12px; color: var(--muted); }
+
+/* tracker */
+.kpis { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0; border-block: 1px solid var(--rule); }
+.kpis > div { padding: 14px 12px 14px 0; display: grid; gap: 6px; }
+.kpis > div + div { border-left: 1px solid var(--rule); padding-left: 14px; }
+.kpis b { font-family: var(--serif); font-weight: 400; font-size: 28px; line-height: 1; color: var(--ink); }
+.kpis span { font: 600 9.5px/1.3 var(--sans); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+.kpis .meter { height: 3px; background: var(--rule); border-radius: 2px; overflow: hidden; }
+.kpis .meter i { display: block; height: 100%; background: var(--accent); }
+.track-tbl { min-width: 900px; }
+.track-tbl td { padding: 6px 6px 6px 0; vertical-align: middle; }
+.track-tbl input, .track-tbl select { padding: 7px 8px; font-size: 13px; background: transparent; border-color: transparent; }
+.track-tbl input:hover, .track-tbl select:hover { border-color: var(--line); background: var(--card); }
+.track-tbl tr.due td { background: var(--peach); }
+.pill { display: inline-block; font: 600 9.5px/1 var(--sans); letter-spacing: .1em; text-transform: uppercase; padding: 4px 6px; border-radius: 4px; background: var(--accent); color: var(--card); white-space: nowrap; }
+.pill.ex { background: transparent; color: var(--muted); border: 1px solid var(--rule); }
+
+/* outline */
+.outline label.f { font-size: 13.5px; }
+
+/* toast */
+.toast { position: fixed; left: 50%; bottom: calc(24px + env(safe-area-inset-bottom, 0px)); transform: translate(-50%, 20px); background: var(--ink); color: var(--paper); font-size: 13px; padding: 10px 16px; border-radius: 8px; opacity: 0; pointer-events: none; transition: opacity .2s, transform .2s; z-index: 50; }
+.toast.on { opacity: 1; transform: translate(-50%, 0); }
+
+.finale { font-family: var(--serif); font-style: italic; font-size: clamp(36px, 6vw, 50px); color: var(--ink); line-height: 1.1; margin-top: 26px; }
+.sign { font-family: var(--serif); font-size: 20px; color: var(--muted); }
+.page-foot { display: flex; justify-content: space-between; font: 500 10.5px/1 var(--sans); letter-spacing: .16em; text-transform: uppercase; color: var(--muted); padding-block: 28px 40px; }
+
+/* ---------- responsive ---------- */
+@media (max-width: 980px) {
+  .shell { grid-template-columns: minmax(0, 1fr); }
+  .rail {
+    position: fixed; z-index: 40; inset: 0 auto 0 0; width: min(310px, 86vw); height: 100%;
+    transform: translateX(-102%); transition: transform .25s ease; box-shadow: 0 0 0 100vmax transparent;
+    padding-top: calc(24px + env(safe-area-inset-top, 0px));
+  }
+  body.nav-open .rail { transform: none; box-shadow: 0 0 0 100vmax rgba(20, 15, 10, .35); }
+  .topbar {
+    display: flex; position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; align-items: center; justify-content: space-between; gap: 12px;
+    background: var(--paper); border-bottom: 1px solid var(--rule);
+    padding: 10px max(16px, env(safe-area-inset-right, 0px)) 10px max(16px, env(safe-area-inset-left, 0px));
+  }
+  .topbar .bar { flex: 1; max-width: 140px; }
+  .topbar-title { font-family: var(--serif); font-size: 16px; color: var(--ink); }
+  .topbar-title em { color: var(--accent); }
+  html { scroll-padding-top: 64px; }
+}
+@media (max-width: 640px) {
+  .wrap { padding-left: max(18px, env(safe-area-inset-left, 0px)); padding-right: max(18px, env(safe-area-inset-right, 0px)); }
+  .sec { padding-block: 60px 52px; }
+  .stats { grid-template-columns: 1fr; gap: 14px; }
+  .stats .arrow { display: none; }
+  .fields, .checks.two, .dash.two, .steps-grid, .quote-doc .two, .readout { grid-template-columns: minmax(0, 1fr); }
+  .flow-row { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .flow-box::after { display: none; }
+  .bignums b { font-size: 28px; }
+  .bignums > div { padding-right: 10px; }
+  .bignums > div + div { padding-left: 10px; }
+  .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .kpis > div:nth-child(odd) { border-left: 0; padding-left: 0; }
+  .kpis > div:nth-child(n+3) { border-top: 1px solid var(--rule); }
+  .quote-doc { padding: 22px 18px; }
+  .pull p { font-size: 21px; }
+  .card, .callout { padding: 18px; }
+  .tool-body { padding: 16px; }
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <button class="btn ghost sm" id="navToggle" aria-controls="rail" aria-expanded="false">Contents</button>
+  <span class="topbar-title">First Client <em>Playbook</em></span>
+  <div class="bar" aria-hidden="true"><i class="js-bar"></i></div>
+</div>
+
+<div class="shell">
+  <aside class="rail" id="rail" aria-label="Contents">
+    <a class="rail-brand" href="#cover">First Client<br><em>Playbook</em></a>
+    <div class="progress">
+      <div class="progress-top"><span class="eyebrow muted">Your progress</span><span class="small num" id="progressTxt">0 / 22</span></div>
+      <div class="bar"><i class="js-bar"></i></div>
+    </div>
+    <nav class="toc" id="toc"></nav>
+    <div class="rail-foot">
+      <span>Your answers save in this browser automatically.</span>
+      <button class="linkbtn" id="resetBtn" type="button">Reset all my data</button>
+    </div>
+  </aside>
+
+  <main>
+  <!-- ================= COVER ================= -->
+  <header class="cover" id="cover">
+    <div class="wrap">
+      <div class="cover-top"><span class="eyebrow">Guide + portfolio template</span><span class="eyebrow">2026 edition</span></div>
+      <h1>First Client <em>Playbook</em></h1>
+      <p class="cover-sub">How I went from 1M views and 0 clients to a $7,000 website deal, and the 8 steps to sign your first real client, even as a beginner.</p>
+      <div class="cover-cta">
+        <a class="btn" href="#intro" id="startBtn">Start reading</a>
+        <a class="btn ghost" href="#t4">Open the prospect tracker</a>
+      </div>
+      <div class="stats">
+        <div class="stat"><b>50</b><span>Cold emails</span></div>
+        <span class="arrow">&rarr;</span>
+        <div class="stat"><b>1</b><span>Reply</span></div>
+        <span class="arrow">&rarr;</span>
+        <div class="stat hot"><b>$7,000</b><span>First project</span></div>
+      </div>
+      <div class="cover-foot">
+        <div class="byline">By Fred<small>@ui_fred_designer</small></div>
+        <svg viewBox="0 0 280 184" fill="none" stroke="var(--sketch)" stroke-width="1.3" aria-hidden="true">
+          <rect x="1" y="1" width="278" height="182" rx="7"/>
+          <line x1="1" y1="24" x2="279" y2="24"/>
+          <circle cx="14" cy="12.5" r="3.5"/><circle cx="26" cy="12.5" r="3.5"/><circle cx="38" cy="12.5" r="3.5"/>
+          <rect x="21" y="45" width="118" height="11"/>
+          <rect x="21" y="68" width="80" height="8"/>
+          <rect x="21" y="92" width="52" height="15" rx="3" stroke="var(--accent)"/>
+          <rect x="159" y="45" width="99" height="71"/>
+          <polyline points="159,116 189,86 210,104 231,84 258,111"/>
+          <rect x="21" y="132" width="72" height="35"/><rect x="104" y="132" width="72" height="35"/><rect x="187" y="132" width="71" height="35"/>
+        </svg>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= INTRO ================= -->
+  <section class="sec" id="intro" data-title="Introduction" data-group="Start here">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">Introduction</span>
+        <h2>1M views. 0 clients.<br>Then $7,000.</h2>
+        <p class="lede">I had the attention. I did not have a single client. This guide is about what changed.</p>
+      </div>
+      <p>For months, I made funny &ldquo;designer vs developer&rdquo; videos on Instagram. Some of them reached almost 3 million views. They brought me zero clients.</p>
+      <p>People came for the joke, not for a website. The views made me feel successful, but no business owner ever wrote to me.</p>
+      <p>So I stopped posting and went looking for clients directly. This is what failed first:</p>
+      <ul class="dash">
+        <li><strong>Cold emails with no portfolio.</strong> Nobody answered.</li>
+        <li><strong>A beginner portfolio template I bought.</strong> It looked cheap, and nobody cared.</li>
+        <li><strong>Writing to every kind of business:</strong> hairdressers, restaurants, anyone. My message spoke to no one.</li>
+      </ul>
+      <p>Then I understood the real problem: <strong>I had no niche.</strong></p>
+      <p>I picked one industry, construction. I built a simple portfolio for it, wrote a case study for construction companies, and emailed only them.</p>
+      <p>Out of 50 companies, one answered. That answer became a call, then a $7,000 project delivered in two months. Today, that website keeps bringing my client new, qualified leads every month.</p>
+      <div class="pull"><p>The client did not pay for a design. They paid for more clients.</p></div>
+      <h3>What this guide is, and what it is not</h3>
+      <p>This guide is the path I followed, step by step, with the templates I use. It is based on one real deal, not on a magic formula. Your results will depend on your niche, your work, and how many companies you contact.</p>
+      <p>What you get is a clear path: where to find clients, what to send them, what to say on a call, how to price, and how to get paid.</p>
+      <h3>How to use this guide</h3>
+      <ol class="nums">
+        <li><span><strong>Read it once, from start to finish.</strong> It takes about an hour.</span></li>
+        <li><span><strong>Open the portfolio template</strong> that comes with this guide, and customize it during Steps 1 and 2.</span></li>
+        <li><span><strong>Follow the 30-day action plan</strong> at the end. One small task a day.</span></li>
+        <li><span><strong>Use the built-in tools.</strong> Every template here fills itself in: type your details once, and the <span class="ph">[brackets]</span> update everywhere.</span></li>
+      </ol>
+      <div class="card">
+        <span class="eyebrow">What is in this pack</span>
+        <p><strong>This guide.</strong> The 8-step method, from choosing a niche to getting paid.</p>
+        <p><strong>The portfolio template.</strong> The structure that got me the call, ready to customize.</p>
+        <p><strong>6 interactive templates.</strong> Cold email, call script with timer, quote, prospect tracker, portfolio checklist, testimonial request.</p>
+      </div>
+      <div class="callout">
+        <span class="eyebrow">A note on English</span>
+        <p>This guide is written in simple English on purpose. You do not need perfect English to sign a client. English is not my first language either.</p>
+      </div>
+      <div class="done-row" data-done-for="intro"></div>
+    </div>
+  </section>
+
+  <!-- ================= METHOD ================= -->
+  <section class="sec" id="method" data-title="The method at a glance" data-group="Start here">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">Overview</span>
+        <h2>The method at a glance</h2>
+        <p class="lede">Eight steps. Each one feeds the next.</p>
+      </div>
+      <h3 style="margin-top:0">One reply out of 50 emails became a $7,000 project</h3>
+      <div class="flow">
+        <span class="eyebrow">Find and approach &middot; Steps 3&ndash;4</span>
+        <div class="flow-row">
+          <a class="flow-box" href="#step3"><b>50 companies</b><span>found on Google Maps</span></a>
+          <a class="flow-box" href="#step4"><b>Cold email</b><span>sent to all 50</span></a>
+          <a class="flow-box" href="#step4"><b>Follow-up</b><span>2 days later</span></a>
+          <a class="flow-box hot" href="#t4"><b>1 reply</b><span>out of 50 (2%)</span></a>
+        </div>
+        <span class="eyebrow">Present, price and sign &middot; Steps 5&ndash;7</span>
+        <div class="flow-row">
+          <a class="flow-box" href="#step2"><b>Portfolio visit</b><span>read the case study</span></a>
+          <a class="flow-box" href="#step5"><b>Discovery call</b><span>case study on screen</span></a>
+          <a class="flow-box" href="#step6"><b>Quote + contract</b><span>$7,000 &middot; 2 months</span></a>
+          <a class="flow-box" href="#step7"><b>Paid in 2 parts</b><span>$1,500 + $5,500</span></a>
+        </div>
+      </div>
+      <h3>The 8 steps</h3>
+      <div class="steps-grid" id="stepsGrid"></div>
+      <div class="callout">
+        <span class="eyebrow">Remember this</span>
+        <p class="say">The email gets the reply. The portfolio gets the call. The case study gets the deal.</p>
+      </div>
+      <div class="done-row" data-done-for="method"></div>
+    </div>
+  </section>
+
+  <!-- ================= STEP 1 ================= -->
+  <section class="sec" id="step1" data-title="Pick a niche" data-num="01" data-group="The 8 steps" data-blurb="One industry where one client is worth a lot.">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="stepnum">01</span>
+        <span class="eyebrow">Step one</span>
+        <h2>Pick a niche</h2>
+        <p class="lede">Clients do not hire &ldquo;a web designer&rdquo;. They hire someone who understands their business.</p>
+      </div>
+      <p>A niche is one type of client you speak to. When I wrote to every kind of business, my message was vague. When I wrote only to construction companies, my portfolio, my case study and my email all said the same thing to the same person.</p>
+      <h3>Why construction worked for me</h3>
+      <ul class="dash">
+        <li><strong>One client is worth a lot.</strong> My client&rsquo;s projects start at &euro;50,000. One extra client pays for the website many times over.</li>
+        <li><strong>They focus on the work, not on marketing.</strong> Construction companies are busy on job sites. Most do not think about how their website brings clients, so a clear proposal stands out.</li>
+        <li><strong>The value is easy to explain.</strong> Even two extra clients a month, converted through the website, is a great deal for them. Any business owner understands that.</li>
+      </ul>
+      <p>I also chose a country: Germany, where companies can afford a professional website. The whole deal happened remotely, by email and by call.</p>
+      <h3>The 4 tests for your niche</h3>
+      <ol class="nums">
+        <li><span><strong>High value per client.</strong> One new client is worth much more than your price.</span></li>
+        <li><span><strong>Weak websites.</strong> On Google Maps, many sites in this industry look old, unclear, or hard to use on a phone.</span></li>
+        <li><span><strong>Easy to reach.</strong> You can find an email or a contact form on their website.</span></li>
+        <li><span><strong>You understand how they win clients.</strong> You know what they need to show: past work, process, trust.</span></li>
+      </ol>
+
+      <div class="tool">
+        <div class="tool-head"><span class="eyebrow">Score your options</span><span class="tag">Interactive</span></div>
+        <div class="tool-body">
+          <p class="small">Give each niche a score from 1 (weak) to 5 (strong) on each test. The highest total is highlighted. Keep that one, and pick only one.</p>
+          <div class="tbl-wrap">
+            <table class="score-tbl" id="nicheTbl">
+              <thead><tr><th>Niche</th><th>Value per client</th><th>Weak websites</th><th>Easy to reach</th><th>You understand it</th><th>Total</th><th><span class="sr" hidden>Remove</span></th></tr></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+          <div class="tool-actions">
+            <button class="btn sm" type="button" id="addNiche">+ Add a niche</button>
+            <button class="btn ghost sm" type="button" id="clearNicheEx">Remove example rows</button>
+          </div>
+          <p class="small">The first four rows are my example scores. Score your own options from what you see on Google Maps in your target country.</p>
+        </div>
+      </div>
+
+      <h3>Choose a country, too</h3>
+      <p>Pick a market where businesses can pay for a professional website, and where you can write emails they understand. You do not need to live there: everything happens by email and video call.</p>
+      <div class="fields">
+        <label class="f">My niche <input type="text" data-k="niche" placeholder="e.g. construction companies"></label>
+        <label class="f">My target country <input type="text" data-k="country" placeholder="e.g. Germany"></label>
+      </div>
+      <div class="callout">
+        <span class="eyebrow">The rule</span>
+        <p class="say">One niche, one message, one portfolio. Test it on at least 50 companies before you judge it.</p>
+      </div>
+      <div class="done-row" data-done-for="step1"></div>
+    </div>
+  </section>
+
+  <!-- ================= STEP 2 ================= -->
+  <section class="sec" id="step2" data-title="Build a portfolio for your niche" data-short="Build your portfolio" data-num="02" data-group="The 8 steps" data-blurb="Simple, clear, with one case study for that niche.">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="stepnum">02</span>
+        <span class="eyebrow">Step two</span>
+        <h2>Build a portfolio for your niche</h2>
+        <p class="lede">Your portfolio has one job: make a business owner think &ldquo;this person understands my business&rdquo;.</p>
+      </div>
+      <p>It does not need to impress other designers. My first portfolios had lots of animations and visual effects. They looked cool and explained nothing. The one that worked was simple, clean, and easy to understand in a few seconds.</p>
+      <h3>What goes on it</h3>
+      <ol class="nums">
+        <li><span><strong>A headline</strong> that names your niche and the result you bring.</span></li>
+        <li><span><strong>One or two case studies</strong> written for your niche. This is the most important part.</span></li>
+        <li><span><strong>Your process</strong> in 3 to 5 steps, so the client knows what working with you looks like.</span></li>
+        <li><span><strong>A short about section</strong>, human and simple.</span></li>
+        <li><span><strong>A contact button</strong> on every page.</span></li>
+      </ol>
+      <div class="card">
+        <span class="eyebrow">Headline examples</span>
+        <p>&ldquo;Websites that bring construction companies more qualified clients.&rdquo;</p>
+        <p>&ldquo;I design websites for architects that turn visitors into project requests.&rdquo;</p>
+        <p>&ldquo;Clear, modern websites for law firms that want more consultations.&rdquo;</p>
+        <label class="f" style="margin-top:6px">Write yours <input type="text" data-k="headline" placeholder="Websites that bring [your niche] more [the result they want]."></label>
+      </div>
+      <h3>The case study, even with no client</h3>
+      <p>I had no past client when I signed my first deal. My case study was a <strong>concept project</strong>: a redesign for a construction company, built to show how I think. Here is the structure I used.</p>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th style="width:30%">Part</th><th>What I wrote</th></tr></thead>
+          <tbody>
+            <tr><td>Problem</td><td>The company does excellent work, but its website does not show the quality of its services.</td></tr>
+            <tr><td>Solution</td><td>Rebuild the site structure, show their projects better, explain their work process, and add a form that qualifies prospects by budget and timeline.</td></tr>
+            <tr><td>Pages shown</td><td>The projects page, the about page, and the key numbers.</td></tr>
+            <tr><td>Expected result</td><td>A clearer site can bring 1 to 2 more prospects per month, which can mean up to 2 more clients.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>The expected result is what sells. A business owner does not buy a nice design. They buy more clients.</p>
+      <h3>Example: a concept case study, filled in</h3>
+      <div class="card">
+        <span class="eyebrow">Concept project &middot; Musterbau GmbH, Munich <span class="small" style="text-transform:none;letter-spacing:0;font-weight:400">(fictional company)</span></span>
+        <p><strong>Problem.</strong> Musterbau builds high-end family homes. Their website shows three small photos, no project details, and only a phone number. Visitors cannot see the quality of the work, and cannot ask for a quote online.</p>
+        <p><strong>Solution.</strong> A projects page with one detailed page per house: photos, size, duration, what the client wanted. A 4-step process page: first call, plan, build, handover. A quote form that asks for the project type, the budget range and the start date.</p>
+        <p><strong>Pages shown.</strong> Home, Projects, Project detail, Process, Contact.</p>
+        <p><strong>Expected result.</strong> If the new site brings 1 extra qualified request a month and Musterbau signs 1 in 4, that is 3 new projects a year. At &euro;50,000 or more per project, the website pays for itself with the first one.</p>
+      </div>
+      <div class="callout light">
+        <span class="eyebrow">Be honest</span>
+        <p>Label it clearly as a concept: write &ldquo;Concept project&rdquo; on the case study, and use words like &ldquo;estimated&rdquo; or &ldquo;could&rdquo; for the result. Never invent a client, a logo or results. A good concept, well explained, is enough to get a call. That is exactly what happened to me.</p>
+      </div>
+      <h3>Use the template</h3>
+      <p>The portfolio template in this pack follows this structure. Replace the texts with your niche, put your concept case study in the case study section, and skip the weeks of building from scratch. Write your own case study outline in <a href="#t5">Template 5</a>, then go through the portfolio checklist before you publish.</p>
+      <div class="done-row" data-done-for="step2"></div>
+    </div>
+  </section>
+
+  <!-- ================= STEP 3 ================= -->
+  <section class="sec" id="step3" data-title="Find prospects" data-num="03" data-group="The 8 steps" data-blurb="50 companies on Google Maps with weak websites.">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="stepnum">03</span>
+        <span class="eyebrow">Step three</span>
+        <h2>Find prospects</h2>
+        <p class="lede">I found every prospect on Google Maps. I contacted exactly 50 construction companies in Germany.</p>
+      </div>
+      <h3 style="margin-top:0">How to search</h3>
+      <ol class="nums">
+        <li><span><strong>Open Google Maps and search your niche plus a city.</strong> Use the local language: in Germany, search &ldquo;Bauunternehmen M&uuml;nchen&rdquo; rather than &ldquo;construction company Munich&rdquo;.</span></li>
+        <li><span><strong>Open each result</strong> and look at the website.</span></li>
+        <li><span><strong>Keep the companies whose website does not match their work.</strong></span></li>
+        <li><span><strong>Find a contact email:</strong> the contact page, the footer, or the legal notice page (called &ldquo;Impressum&rdquo; in Germany). It often gives the owner&rsquo;s name too.</span></li>
+        <li><span><strong>Add each company to your tracker</strong> (<a href="#t4">Template 4</a>), with one specific problem you noticed on their site.</span></li>
+      </ol>
+
+      <div class="tool">
+        <div class="tool-head"><span class="eyebrow">Search link builder</span><span class="tag">Interactive</span></div>
+        <div class="tool-body">
+          <div class="fields">
+            <label class="f">Niche, in the local language <input type="text" data-k="searchTerm" placeholder="Bauunternehmen"></label>
+            <label class="f">Cities, separated by commas <input type="text" data-k="searchCities" placeholder="München, Hamburg, Köln"></label>
+          </div>
+          <ul class="dash" id="searchLinks"></ul>
+          <p class="small">Each link opens a Google Maps search in a new tab.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <span class="eyebrow">Search examples</span>
+        <p><strong>Germany:</strong> Bauunternehmen Hamburg &middot; Bauunternehmen K&ouml;ln &middot; Bauunternehmen Frankfurt</p>
+        <p><strong>Renovation, Germany:</strong> Sanierung M&uuml;nchen &middot; Renovierung Berlin</p>
+        <p><strong>English-speaking markets:</strong> construction company Manchester &middot; home builder Austin</p>
+      </div>
+      <h3>Signs of a weak website</h3>
+      <p class="small" style="margin-top:-12px">Use it as a quick check while you look at each site.</p>
+      <div class="checks">
+        <label class="check"><input type="checkbox" data-k="weak1"><span>The design looks more than five years old.</span></label>
+        <label class="check"><input type="checkbox" data-k="weak2"><span>It is hard to read or use on a phone.</span></label>
+        <label class="check"><input type="checkbox" data-k="weak3"><span>Projects are missing, or shown as a few small photos.</span></label>
+        <label class="check"><input type="checkbox" data-k="weak4"><span>There is no clear way to ask for a quote.</span></label>
+        <label class="check"><input type="checkbox" data-k="weak5"><span>The text talks about the company, not about what the client gets.</span></label>
+      </div>
+      <p class="verdict" id="weakVerdict"></p>
+      <div class="card">
+        <span class="eyebrow">Example notes <span class="small" style="text-transform:none;letter-spacing:0;font-weight:400">(fictional companies)</span></span>
+        <p><strong>Musterbau GmbH:</strong> only 3 small photos, no project details.</p>
+        <p><strong>Beispiel Bau:</strong> no quote form, only a phone number.</p>
+        <p><strong>Muster Sanierung:</strong> text too small to read on a phone.</p>
+        <p class="small">Each note becomes the specific problem in your email (Step 4).</p>
+      </div>
+      <h3>Qualify before you write</h3>
+      <p>A good prospect has a real business with reviews on Google Maps, good work that its website does not show, and projects big enough that one extra client pays for your price. Skip companies that already have a recent, strong website: you will have little to offer them.</p>
+      <h3>Why 50 is the minimum</h3>
+      <div class="bignums">
+        <div><b>50</b><span>Emails sent</span></div>
+        <div><b>1</b><span>Reply &middot; 2%</span></div>
+        <div><b>$7,000</b><span>Project signed</span></div>
+      </div>
+      <p>Plan for volume. If you send 10 emails and get nothing, you have not tested anything yet. Building a list of 50 good prospects takes one or two evenings.</p>
+      <div class="done-row" data-done-for="step3"></div>
+    </div>
+  </section>
+
+  <!-- ================= STEP 4 ================= -->
+  <section class="sec" id="step4" data-title="Approach with a cold email" data-short="Approach" data-num="04" data-group="The 8 steps" data-blurb="A short, specific email, and a follow-up 2 days later.">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="stepnum">04</span>
+        <span class="eyebrow">Step four</span>
+        <h2>Approach with a cold email</h2>
+        <p class="lede">One email to each company. One follow-up two days later. My only reply came after the follow-up.</p>
+      </div>
+      <p>Without the follow-up, I would still have zero clients. Many people miss the first email, or read it and forget to answer.</p>
+      <h3>The goal of the first email</h3>
+      <p>Your first email has one goal: get the person to open your portfolio. Do not try to sell the website in the email.</p>
+      <h3>The 5 rules</h3>
+      <ol class="nums">
+        <li><span><strong>Short.</strong> Readable on a phone in 20 seconds.</span></li>
+        <li><span><strong>About them</strong>, not about you.</span></li>
+        <li><span><strong>One specific problem</strong> you saw on their website.</span></li>
+        <li><span><strong>One link:</strong> your portfolio or your case study.</span></li>
+        <li><span><strong>One simple question</strong> at the end.</span></li>
+      </ol>
+      <h3>The follow-up</h3>
+      <p>Two days after the first email, reply in the same thread with 2 or 3 lines. Remind them who you are and ask your question again.</p>
+      <h3>Your sending schedule</h3>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th style="width:24%">When</th><th>What you do</th></tr></thead>
+          <tbody>
+            <tr><td>Days 1 to 5</td><td>Send 10 emails a day.</td></tr>
+            <tr><td>Days 3 to 7</td><td>Follow up each email 2 days after you sent it.</td></tr>
+            <tr><td>Day 8</td><td>Count the replies and update your tracker.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <h3>Example email</h3>
+      <div class="card">
+        <span class="eyebrow">First email <span class="small" style="text-transform:none;letter-spacing:0;font-weight:400">(fictional example)</span></span>
+        <div class="mail">
+          <div class="subj"><span class="eyebrow">Subject</span><span>Quick idea for Musterbau&rsquo;s website</span></div>
+          <p>Hi Mr. Mustermann,</p>
+          <p>I came across Musterbau on Google Maps. Your family homes in Munich look excellent, and your reviews say the same.</p>
+          <p>But your website does not show that quality. Your projects are hard to find, and there is no simple way to ask for a quote.</p>
+          <p>I help construction companies turn their website into a source of qualified requests. Here is a case study I made for a company like yours: <span class="ph">[link]</span></p>
+          <p>Would you be open to a 15-minute call this week?</p>
+          <p>Best regards,
+Fred
+<span class="ph">[portfolio link]</span></p>
+        </div>
+      </div>
+      <div class="card">
+        <span class="eyebrow">Follow-up, 2 days later, in the same thread</span>
+        <div class="mail">
+          <p>Hi Mr. Mustermann,</p>
+          <p>Just following up on my message. I think Musterbau could get more qualified requests with a clearer website.</p>
+          <p>Would a 15-minute call this week work for you?</p>
+          <p>Best regards,
+Fred</p>
+        </div>
+      </div>
+      <div class="callout">
+        <span class="eyebrow">Before you hit send</span>
+        <p>Use a professional address, ideally on your own domain. Send plain text, with no attachment and one link. Write short, simple sentences, in English or in the client&rsquo;s language if you can.</p>
+      </div>
+      <p>Ready to write yours? <a href="#t1">Template 1</a> builds the email for you from your tracker.</p>
+      <div class="done-row" data-done-for="step4"></div>
+    </div>
+  </section>
+
+  <!-- ================= STEP 5 ================= -->
+  <section class="sec" id="step5" data-title="Present on the discovery call" data-short="Present" data-num="05" data-group="The 8 steps" data-blurb="A discovery call where your case study does the talking.">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="stepnum">05</span>
+        <span class="eyebrow">Step five</span>
+        <h2>Present on the discovery call</h2>
+        <p class="lede">The client asked me one question: &ldquo;Have you done a website like this before?&rdquo; I had not. I answered with my case study, and we signed.</p>
+      </div>
+      <h3 style="margin-top:0">Before the call: 15 minutes</h3>
+      <div class="checks two">
+        <label class="check"><input type="checkbox" data-k="pre1"><span>Note 3 problems on their website.</span></label>
+        <label class="check"><input type="checkbox" data-k="pre4"><span>Have a price range in mind.</span></label>
+        <label class="check"><input type="checkbox" data-k="pre2"><span>Check their projects and reviews.</span></label>
+        <label class="check"><input type="checkbox" data-k="pre5"><span>Test your microphone and connection.</span></label>
+        <label class="check"><input type="checkbox" data-k="pre3"><span>Open your case study, ready to share.</span></label>
+      </div>
+      <button class="linkbtn" type="button" data-clear="pre1,pre2,pre3,pre4,pre5">Clear for the next call</button>
+      <h3>During the call</h3>
+      <ol class="nums">
+        <li><span><strong>Let them talk first.</strong> Ask how they get clients today, what projects they want more of, and what they think of their website.</span></li>
+        <li><span><strong>Connect their answers to your case study.</strong> Show why they need a better site, how you would build it, and what it would bring to their business.</span></li>
+        <li><span><strong>Talk results, not design.</strong> Use their numbers: if one project is worth &euro;50,000, one extra client already pays for the site.</span></li>
+        <li><span><strong>Agree on the next step before you hang up:</strong> you send a quote within 48 hours.</span></li>
+      </ol>
+      <h3>&ldquo;Have you done this before?&rdquo;</h3>
+      <p>Every beginner fears this question. Do not lie, and do not panic. I showed my case study. It explained, step by step, why a new site, how the site would work, and what it would add to their business. The client did not need a past project. They needed to believe I understood their problem. Say it simply, then share your screen and walk them through your case study. The full call script, with a timer, is in <a href="#t2">Template 2</a>.</p>
+      <div class="callout">
+        <span class="eyebrow">What you can say</span>
+        <p class="say">&ldquo;Not yet for a paying client. But I built this case study for a <span data-out="nicheSingular">construction company</span> like yours. Let me show you how this structure would bring you more qualified requests.&rdquo;</p>
+      </div>
+      <div class="done-row" data-done-for="step5"></div>
+    </div>
+  </section>
+
+  <!-- ================= STEP 6 ================= -->
+  <section class="sec" id="step6" data-title="Price your project" data-short="Price" data-num="06" data-group="The 8 steps" data-blurb="On the value of one new client, not on your hours.">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="stepnum">06</span>
+        <span class="eyebrow">Step six</span>
+        <h2>Price your project</h2>
+        <p class="lede">$7,000 for a full website: all pages, delivered in 2 months, with a quote sent before we started.</p>
+      </div>
+      <p>The price made sense because of what one new client is worth to a construction company.</p>
+      <h3>Price on value, not on hours</h3>
+      <p>A beginner thinks: &ldquo;I am new, so I must be cheap.&rdquo; The client does not think about your experience. They compare your price to what the website brings them.</p>
+      <h3>The value math</h3>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>My deal</th><th style="width:34%">Amount</th></tr></thead>
+          <tbody>
+            <tr><td>What one new project is worth to my client</td><td>&euro;50,000 or more</td></tr>
+            <tr><td>Extra projects the site needs to pay for itself</td><td>1</td></tr>
+            <tr><td>My price for the full website</td><td>$7,000</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout">
+        <span class="eyebrow">A simple rule of thumb</span>
+        <p>Price the website at around <strong>10 to 15% of what one new client is worth</strong> to your prospect. My $7,000 was roughly 13% of one &euro;50,000 project.</p>
+      </div>
+
+      <div class="tool">
+        <div class="tool-head"><span class="eyebrow">Your number</span><span class="tag">Calculator</span></div>
+        <div class="tool-body">
+          <div class="fields">
+            <label class="f">One new client is worth, to my prospect
+              <input type="number" min="0" step="500" data-k="clientValue" inputmode="numeric"></label>
+            <label class="f">Currency
+              <select data-k="currency"><option value="$">$ US dollar</option><option value="€">€ Euro</option><option value="£">£ Pound</option><option value="CHF ">CHF Swiss franc</option><option value="C$">C$ Canadian dollar</option><option value="A$">A$ Australian dollar</option></select></label>
+          </div>
+          <div class="readout">
+            <div><span class="eyebrow muted">&times; 10% (low)</span><b class="num" id="pLow">&mdash;</b></div>
+            <div><span class="eyebrow muted">&times; 15% (high)</span><b class="num" id="pHigh">&mdash;</b></div>
+            <div><span class="eyebrow muted">Pays for itself after</span><b class="num acc" id="pBreak">&mdash;</b></div>
+          </div>
+          <label class="f">My price
+            <input type="number" min="0" step="100" data-k="price" inputmode="numeric"></label>
+          <div class="gauge" aria-hidden="true">
+            <div class="track"></div><div class="band" id="gBand"></div><div class="dot" id="gDot"></div>
+            <span class="lbl" id="gL10">10%</span><span class="lbl" id="gL15">15%</span>
+          </div>
+          <p class="verdict" id="pVerdict"></p>
+        </div>
+      </div>
+
+      <h3>What my $7,000 included</h3>
+      <ul class="dash two">
+        <li>every page of the site,</li>
+        <li>the full build,</li>
+        <li>the mockups, approved before the build,</li>
+        <li>delivery within 2 months.</li>
+      </ul>
+      <p>Write down what is included, and what is not: hosting fees, photos, texts, changes after delivery. An unclear scope is the first cause of problems with a client.</p>
+      <h3>How to say your price</h3>
+      <ol class="nums">
+        <li><span><strong>Start from the value:</strong> what is one new client worth to them?</span></li>
+        <li><span><strong>Say the number once</strong>, with confidence, then explain what it includes.</span></li>
+        <li><span><strong>Do not apologize, and do not drop your price.</strong> If the budget is too tight, reduce the scope: fewer pages now, the rest in a second phase.</span></li>
+      </ol>
+      <h3>If they ask &ldquo;How much?&rdquo; on the call</h3>
+      <div class="callout">
+        <span class="eyebrow">What you can say</span>
+        <p class="say">&ldquo;For a full website like this, my projects are around <span data-out="range"></span>. I&rsquo;ll send you an exact quote with everything included within 48 hours.&rdquo;</p>
+      </div>
+      <p>Then move on: do not negotiate on the call. You do not have to start at $7,000, but price on the value you bring, not on how new you feel. Send the quote within 48 hours, using <a href="#t3">Template 3</a>.</p>
+      <div class="done-row" data-done-for="step6"></div>
+    </div>
+  </section>
+
+  <!-- ================= STEP 7 ================= -->
+  <section class="sec" id="step7" data-title="Sign and get paid" data-short="Sign" data-num="07" data-group="The 8 steps" data-blurb="A simple contract, a deposit, mockups first.">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="stepnum">07</span>
+        <span class="eyebrow">Step seven</span>
+        <h2>Sign and get paid</h2>
+        <p class="lede">A $1,500 deposit first. Mockups until the client loved the vision. Then the build, and the remaining $5,500.</p>
+      </div>
+      <h3 style="margin-top:0">The payment plan</h3>
+      <div class="fields">
+        <label class="f">Deposit on signature <input type="number" min="0" step="100" data-k="deposit" inputmode="numeric"></label>
+        <label class="f">Total price <span class="small" style="font-weight:400">(from Step 6)</span><input type="number" min="0" step="100" data-k="price" inputmode="numeric"></label>
+      </div>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th style="width:22%">Stage</th><th>What happens</th><th style="width:24%">Payment</th></tr></thead>
+          <tbody>
+            <tr><td>1. Signature</td><td>Contract signed, project starts</td><td><strong class="num" data-out="depositFmt"></strong> deposit</td></tr>
+            <tr><td>2. Mockups</td><td>I design the key pages until the client approves the vision</td><td>&mdash;</td></tr>
+            <tr><td>3. Build</td><td>I build the full site</td><td>&mdash;</td></tr>
+            <tr><td>4. Delivery</td><td>The site is delivered</td><td><strong class="num" data-out="balanceFmt"></strong> balance</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small" id="depositNote"></p>
+      <h3>Why this works</h3>
+      <ul class="dash">
+        <li><strong>Never start the mockups before the deposit has arrived.</strong></li>
+        <li>The deposit proves the client is serious and protects your time.</li>
+        <li>The mockups let the client see the result before you spend weeks building.</li>
+        <li>Once the mockups are approved, the build has fewer surprises.</li>
+      </ul>
+      <h3>Your contract: one or two pages</h3>
+      <div class="checks two">
+        <label class="check"><input type="checkbox" data-k="c1"><span>The scope: pages and features.</span></label>
+        <label class="check"><input type="checkbox" data-k="c5"><span>What the client provides, and when.</span></label>
+        <label class="check"><input type="checkbox" data-k="c2"><span>The timeline.</span></label>
+        <label class="check"><input type="checkbox" data-k="c6"><span>No refund once the mockups start.</span></label>
+        <label class="check"><input type="checkbox" data-k="c3"><span>The price and the payment plan.</span></label>
+        <label class="check"><input type="checkbox" data-k="c7"><span>The site is theirs after the final payment.</span></label>
+        <label class="check"><input type="checkbox" data-k="c4"><span>Rounds of changes (e.g. 2 on mockups).</span></label>
+      </div>
+      <p class="small">I am not a lawyer. If you are unsure, have your contract checked by a professional in your country.</p>
+      <h3>Getting paid from abroad</h3>
+      <p>Agree on the payment method before you start: bank transfer, Wise, Payoneer or PayPal are common options. Check what works between your two countries, compare the fees, and test it with the deposit, not at the end.</p>
+      <div class="done-row" data-done-for="step7"></div>
+    </div>
+  </section>
+
+  <!-- ================= STEP 8 ================= -->
+  <section class="sec" id="step8" data-title="After the deal" data-short="Grow" data-num="08" data-group="The 8 steps" data-blurb="Turn client 1 into a real case study for client 2.">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="stepnum">08</span>
+        <span class="eyebrow">Step eight</span>
+        <h2>After the deal</h2>
+        <p class="lede">The client did not pay for a design. They paid for more clients.</p>
+      </div>
+      <p>The site was delivered, and it keeps working. According to my client, the new site and their ads now bring them 3 extra qualified leads a month, and about 30% of those leads become signed projects. Their projects start at &euro;50,000, so the website has paid for itself more than 10 times over.</p>
+      <div class="bignums">
+        <div><b>+3</b><span>Qualified leads a month</span></div>
+        <div><b>~30%</b><span>Become projects</span></div>
+        <div><b>10&times;+</b><span>Return on the site</span></div>
+      </div>
+      <p class="small">Results reported by my client, from the new website and their ads together.</p>
+      <h3>Turn client 1 into client 2</h3>
+      <ol class="nums">
+        <li><span><strong>Ask for results.</strong> A month after launch, ask what changed: more calls, more quote requests, better prospects.</span></li>
+        <li><span><strong>Ask for a testimonial.</strong> Two or three sentences with their name and company, with their permission (<a href="#t6">Template 6</a>).</span></li>
+        <li><span><strong>Replace your concept case study</strong> with this real one. Real numbers from a real client are your strongest sales tool.</span></li>
+        <li><span><strong>Go back to Step 3.</strong> Write to the same niche again, this time with a real result you can name.</span></li>
+      </ol>
+      <div class="pull"><p>Your second client is easier than your first. Now you have proof.</p></div>
+      <div class="done-row" data-done-for="step8"></div>
+    </div>
+  </section>
+
+  <!-- ================= 30 DAY PLAN ================= -->
+  <section class="sec" id="plan" data-title="Your 30-day action plan" data-group="Put it into action">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">Put it into action</span>
+        <h2>Your 30-day action plan</h2>
+        <p class="lede">One small task a day. In 30 days, you will have a portfolio, 50 prospects contacted, and real conversations.</p>
+      </div>
+      <div class="progress">
+        <div class="progress-top"><span class="eyebrow muted">Plan completed</span><span class="small num" id="planTxt"></span></div>
+        <div class="bar"><i id="planBar"></i></div>
+      </div>
+      <div id="planWeeks" style="display:grid;gap:26px"></div>
+      <div class="done-row" data-done-for="plan"></div>
+    </div>
+  </section>
+
+  <!-- ================= TROUBLESHOOT ================= -->
+  <section class="sec" id="trouble" data-title="If it does not work yet" data-group="Put it into action">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">Put it into action</span>
+        <h2>If it does not work yet</h2>
+        <p class="lede">Silence is not failure. It is information. Change one thing at a time.</p>
+      </div>
+      <div class="faq">
+        <details open><summary>No replies after 50 emails</summary><p>Check three things, in this order. Is your niche high-value? Does each email name one specific problem on their website? Does your portfolio speak to that niche in 10 seconds? Fix one thing, then send the next 50.</p></details>
+        <details><summary>&ldquo;Not interested.&rdquo;</summary><p>That is normal. Thank them, and ask if you can check back in three months. Keep them in your tracker.</p></details>
+        <details><summary>&ldquo;It&rsquo;s too expensive.&rdquo;</summary><p>Do not cut your price: cut the scope. Offer a first phase with the key pages, and the rest later.</p></details>
+        <details><summary>&ldquo;Do you have real client projects?&rdquo;</summary><p>Show your concept case study and explain your reasoning. Then offer to design the homepage mockup first, right after the deposit. That is how my client saw the vision before the build.</p></details>
+        <details><summary>They do not show up to the call</summary><p>Send a short, friendly message the same day with two new time slots.</p></details>
+        <details><summary>&ldquo;My English is not good enough.&rdquo;</summary><p>Mine is not perfect either. Use short sentences, check them with a spelling tool, and keep the structure of the templates. Clients care about clarity, not style.</p></details>
+      </div>
+      <div class="done-row" data-done-for="trouble"></div>
+    </div>
+  </section>
+
+  <!-- ================= YOUR DETAILS (shared) + T1 ================= -->
+  <section class="sec" id="t1" data-title="Cold email and follow-up" data-num="T1" data-group="Templates">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">Template 1</span>
+        <h2>Cold email and follow-up</h2>
+        <p class="lede">Change the words in brackets. Keep the specific detail about their company: it shows you really looked.</p>
+      </div>
+
+      <div class="tool">
+        <div class="tool-head"><span class="eyebrow">Your details</span><span class="small">Used in every template</span></div>
+        <div class="tool-body">
+          <div class="fields">
+            <label class="f">Your name <input type="text" data-k="yourName" placeholder="Fred"></label>
+            <label class="f">Your niche (plural) <input type="text" data-k="niche" placeholder="construction companies"></label>
+            <label class="f">Portfolio link <input type="text" data-k="portfolio" placeholder="yourname.com"></label>
+            <label class="f">Case study link <input type="text" data-k="caseLink" placeholder="yourname.com/case-study"></label>
+          </div>
+        </div>
+      </div>
+
+      <div class="tool">
+        <div class="tool-head"><span class="eyebrow">This prospect</span>
+          <label class="f" style="flex-direction:row;display:flex;align-items:center;gap:8px;font-weight:400">Fill from tracker
+            <select id="fromTracker" style="width:auto;max-width:200px"><option value="">Choose a company</option></select></label>
+        </div>
+        <div class="tool-body">
+          <div class="fields">
+            <label class="f">Mr./Ms. Last name <input type="text" data-k="lastName" placeholder="Mr. Mustermann"></label>
+            <label class="f">Company <input type="text" data-k="company" placeholder="Musterbau"></label>
+            <label class="f">Type of work <input type="text" data-k="work" placeholder="family homes"></label>
+            <label class="f">City <input type="text" data-k="city" placeholder="Munich"></label>
+            <label class="f full">One specific problem on their website <textarea data-k="problem" rows="2" placeholder="Your projects are hard to find, and there is no simple way to ask for a quote."></textarea></label>
+          </div>
+          <div class="checks two">
+            <label class="check"><input type="checkbox" data-k="singular"><span>Use &ldquo;looks&rdquo; (one thing, e.g. &ldquo;your work looks&rdquo;)</span></label>
+            <label class="check"><input type="checkbox" data-k="reviews"><span>Mention their good reviews</span></label>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <span class="eyebrow">Subject line &middot; 5 to test</span>
+        <div class="subjects" id="subjects"></div>
+      </div>
+
+      <div class="card">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap"><span class="eyebrow">First email</span><button class="btn sm" type="button" data-copy="email1">Copy email</button></div>
+        <div class="mail" id="email1"></div>
+      </div>
+      <div class="card">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap"><span class="eyebrow">Follow-up &middot; 2 days later &middot; same thread</span><button class="btn sm" type="button" data-copy="email2">Copy follow-up</button></div>
+        <div class="mail" id="email2"></div>
+      </div>
+      <p class="small">Highlighted words come from your answers. Words in <span class="ph">[brackets]</span> are still empty.</p>
+      <div class="done-row" data-done-for="t1"></div>
+    </div>
+  </section>
+
+  <!-- ================= T2 ================= -->
+  <section class="sec" id="t2" data-title="Discovery call script" data-num="T2" data-group="Templates">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">Template 2</span>
+        <h2>Discovery call script</h2>
+        <p class="lede">About 25 minutes. Your goal is not to sell on the call. It is to understand their business and agree on the next step.</p>
+      </div>
+      <div class="tool">
+        <div class="tool-head"><span class="eyebrow">Call timer</span><span class="tag">Interactive</span></div>
+        <div class="tool-body">
+          <div class="timer">
+            <div class="clock num" id="clock">00:00 <small>/ 25:00</small></div>
+            <div class="tool-actions">
+              <button class="btn" type="button" id="tStart">Start call</button>
+              <button class="btn ghost" type="button" id="tReset">Reset</button>
+            </div>
+          </div>
+          <div class="bar"><i id="tBar"></i></div>
+          <p class="small" id="tHint">Start the timer when the call begins. The current part of the script is highlighted.</p>
+        </div>
+      </div>
+      <ol class="nums script" id="script">
+        <li data-min="2"><div><div class="hd">Open the call <span>2 min</span></div><span class="q">&ldquo;Thanks for your time. I&rsquo;d like to understand how you get clients today, then show you an idea for your website. Does that work for you?&rdquo;</span></div></li>
+        <li data-min="10"><div><div class="hd">Ask, then listen <span>10 min</span></div>
+          <ul class="dash">
+            <li>How do new clients find you today?</li>
+            <li>What kind of projects do you want more of?</li>
+            <li>What is a typical project worth for you?</li>
+            <li>What do you think of your current website?</li>
+            <li>Do clients ever contact you through it?</li>
+          </ul>
+          <label class="f" style="margin-top:10px">Notes from this call <textarea data-k="callNotes" rows="3" placeholder="Typical project worth… Wants more…"></textarea></label>
+        </div></li>
+        <li data-min="8"><div><div class="hd">Show your case study <span>8 min</span></div><p>Share your screen. Walk through the problem, the solution and the expected result, and link each part to what they just told you.</p></div></li>
+        <li data-min="0"><div><div class="hd">Answer &ldquo;Have you done this before?&rdquo; <span>if asked</span></div><span class="q">&ldquo;Not yet for a paying client. But I built this case study for a company like yours, and here is how the same structure would bring you more qualified requests.&rdquo;</span></div></li>
+        <li data-min="3"><div><div class="hd">Value and price <span>3 min</span></div><span class="q">&ldquo;If the site brings you even one extra project, it pays for itself. For a full website like this, my projects are around <span data-out="range"></span>.&rdquo;</span></div></li>
+        <li data-min="2"><div><div class="hd">Next step <span>2 min</span></div><span class="q">&ldquo;I&rsquo;ll send you a quote with the scope, timeline and price by <span data-out="quoteDay"></span>. Can we book 15 minutes on <span data-out="reviewDay"></span> to go through it together?&rdquo;</span>
+          <div class="fields" style="margin-top:10px">
+            <label class="f">Quote sent by <input type="text" data-k="quoteDay" placeholder="Thursday"></label>
+            <label class="f">Review call on <input type="text" data-k="reviewDay" placeholder="Friday"></label>
+          </div>
+        </div></li>
+      </ol>
+      <div class="done-row" data-done-for="t2"></div>
+    </div>
+  </section>
+
+  <!-- ================= T3 ================= -->
+  <section class="sec" id="t3" data-title="Quote" data-num="T3" data-group="Templates">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">Template 3</span>
+        <h2>Quote</h2>
+        <p class="lede">Fill it in here, copy it into your own document and export it as a PDF. The amounts start as the ones from my deal.</p>
+      </div>
+      <div class="tool">
+        <div class="tool-head"><span class="eyebrow">Quote details</span><span class="small">Price and deposit come from Steps 6 and 7</span></div>
+        <div class="tool-body">
+          <div class="fields">
+            <label class="f">Quote no. <input type="text" data-k="qNo" placeholder="001"></label>
+            <label class="f">Date <input type="date" data-k="qDate"></label>
+            <label class="f">Your email <input type="email" data-k="yourEmail" placeholder="hello@yourname.com"></label>
+            <label class="f">Your name <input type="text" data-k="yourName" placeholder="Fred"></label>
+            <label class="f">Client company <input type="text" data-k="qCompany" placeholder="Musterbau GmbH"></label>
+            <label class="f">Contact name <input type="text" data-k="qContact" placeholder="Max Mustermann"></label>
+            <label class="f full">Client address <input type="text" data-k="qAddress" placeholder="Musterstraße 1, 80331 München"></label>
+            <label class="f full">Pages <input type="text" data-k="qPages"></label>
+            <label class="f">Built on <input type="text" data-k="qPlatform"></label>
+            <label class="f">Timeline <input type="text" data-k="qTimeline"></label>
+            <label class="f">Total price <input type="number" min="0" step="100" data-k="price"></label>
+            <label class="f">Deposit <input type="number" min="0" step="100" data-k="deposit"></label>
+            <label class="f full">Included changes <input type="text" data-k="qChanges"></label>
+            <label class="f full">Not included <input type="text" data-k="qExcluded"></label>
+          </div>
+        </div>
+      </div>
+      <div class="quote-doc" id="quoteDoc"></div>
+      <div class="tool-actions"><button class="btn" type="button" data-copy="quoteDoc">Copy quote as text</button></div>
+      <div class="done-row" data-done-for="t3"></div>
+    </div>
+  </section>
+
+  <!-- ================= T4 ================= -->
+  <section class="sec" id="t4" data-title="Prospect tracker" data-num="T4" data-group="Templates">
+    <div class="wrap wide">
+      <div class="sec-head">
+        <span class="eyebrow">Template 4</span>
+        <h2>Prospect tracker</h2>
+        <p class="lede">One row per company. Update the status after every action, so you always know who to follow up.</p>
+      </div>
+      <div class="kpis" id="kpis"></div>
+      <p class="verdict" id="dueNote"></p>
+      <div class="tbl-wrap">
+        <table class="track-tbl" id="trackTbl">
+          <thead><tr><th style="width:17%">Company</th><th style="width:11%">City</th><th style="width:20%">Website problem</th><th style="width:15%">Email</th><th style="width:11%">Sent</th><th style="width:11%">Follow-up</th><th style="width:13%">Status</th><th></th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <div class="tool-actions">
+        <button class="btn sm" type="button" id="addProspect">+ Add a company</button>
+        <button class="btn ghost sm" type="button" id="copyTsv">Copy for Google Sheets</button>
+        <button class="btn ghost sm" type="button" id="clearProspectEx">Remove example rows</button>
+      </div>
+      <p class="small"><strong>Status options:</strong> To contact &middot; Sent &middot; Followed up &middot; Replied &middot; Call booked &middot; Quote sent &middot; Signed &middot; Not interested. Set the sent date and the follow-up date fills itself in (2 days later). Rows marked <span class="pill ex">example</span> are fictional.</p>
+      <div class="callout">
+        <span class="eyebrow">Tip</span>
+        <p>Work in batches of 50. Seeing the numbers grow keeps you going. &ldquo;Copy for Google Sheets&rdquo; copies the whole table so you can paste it into a spreadsheet.</p>
+      </div>
+      <div class="done-row" data-done-for="t4"></div>
+    </div>
+  </section>
+
+  <!-- ================= T5 ================= -->
+  <section class="sec" id="t5" data-title="Portfolio checklist" data-num="T5" data-group="Templates">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">Template 5</span>
+        <h2>Portfolio checklist</h2>
+        <p class="lede">Go through it before you publish, and again before you send your first 50 emails.</p>
+      </div>
+      <div class="progress">
+        <div class="progress-top"><span class="eyebrow muted">Ready to publish</span><span class="small num" id="pfTxt"></span></div>
+        <div class="bar"><i id="pfBar"></i></div>
+      </div>
+      <div class="checks" id="pfChecks">
+        <label class="check"><input type="checkbox" data-k="pf1"><span>The headline names your niche and the result you bring.</span></label>
+        <label class="check"><input type="checkbox" data-k="pf2"><span>A visitor understands what you do in under 10 seconds.</span></label>
+        <label class="check"><input type="checkbox" data-k="pf3"><span>At least one case study is written for your niche.</span></label>
+        <label class="check"><input type="checkbox" data-k="pf4"><span>The case study shows the problem, the solution, the pages and the expected result.</span></label>
+        <label class="check"><input type="checkbox" data-k="pf5"><span>Concept projects are clearly labeled as concepts.</span></label>
+        <label class="check"><input type="checkbox" data-k="pf6"><span>Your process is explained in 3 to 5 steps.</span></label>
+        <label class="check"><input type="checkbox" data-k="pf7"><span>The about section is short and human.</span></label>
+        <label class="check"><input type="checkbox" data-k="pf8"><span>There is a contact button on every page.</span></label>
+        <label class="check"><input type="checkbox" data-k="pf9"><span>The site is fast and easy to read on a phone.</span></label>
+        <label class="check"><input type="checkbox" data-k="pf10"><span>No animation slows down understanding.</span></label>
+      </div>
+      <h3>Your case study outline</h3>
+      <div class="card outline">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap"><span class="eyebrow">Fill it in before you design</span><button class="btn sm ghost" type="button" data-copy="outlineText">Copy outline</button></div>
+        <label class="f">Niche and city <input type="text" data-k="csNiche" placeholder="Construction companies, Munich"></label>
+        <label class="f">Problem: what is wrong with a typical website in this niche? <textarea data-k="csProblem" rows="2"></textarea></label>
+        <label class="f">Solution: what you change (structure, projects, process, quote form) <textarea data-k="csSolution" rows="2"></textarea></label>
+        <label class="f">Pages you show <input type="text" data-k="csPages" placeholder="Home, Projects, Project detail, Process, Contact"></label>
+        <label class="f">Expected result (estimated) <textarea data-k="csResult" rows="2" placeholder="If the new site brings 1 extra qualified request a month…"></textarea></label>
+        <div id="outlineText" hidden></div>
+      </div>
+      <div class="done-row" data-done-for="t5"></div>
+    </div>
+  </section>
+
+  <!-- ================= T6 ================= -->
+  <section class="sec" id="t6" data-title="Results and testimonial request" data-num="T6" data-group="Templates">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">Template 6</span>
+        <h2>Results and testimonial request</h2>
+        <p class="lede">Send it one month after launch. Publish only what the client actually says, with their written permission.</p>
+      </div>
+      <label class="f" style="max-width:320px">Client first name <input type="text" data-k="clientName" placeholder="Max"></label>
+      <div class="card">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap"><span class="eyebrow">One month after launch</span><button class="btn sm" type="button" data-copy="email3">Copy email</button></div>
+        <div class="mail" id="email3"></div>
+      </div>
+      <h3>What a useful testimonial contains</h3>
+      <ol class="nums">
+        <li><span><strong>Before:</strong> the problem the client had.</span></li>
+        <li><span><strong>The work:</strong> what you did, in one sentence.</span></li>
+        <li><span><strong>After:</strong> what changed, with a number if possible.</span></li>
+      </ol>
+      <h3>Where to use it</h3>
+      <ul class="dash">
+        <li>On your portfolio home page, right under your headline.</li>
+        <li>At the end of your real case study, next to the numbers.</li>
+        <li>In your next cold emails, as one short line: &ldquo;I recently helped a <span data-out="nicheSingular">construction company</span> in <span data-out="cityPh"></span> get more qualified requests.&rdquo;</li>
+      </ul>
+      <div class="done-row" data-done-for="t6"></div>
+    </div>
+  </section>
+
+  <!-- ================= NEXT ================= -->
+  <section class="sec" id="next" data-title="Your next move" data-group="Your next move" style="border-bottom:0">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">Your next move</span>
+        <h2>Now it is your turn</h2>
+        <p class="lede">You have the method. The template gives you the tool. The only missing part is your first 50 emails.</p>
+      </div>
+      <div class="checks">
+        <label class="check"><input type="checkbox" data-k="nx1"><span><strong>Open the portfolio template</strong> that comes with this guide.</span></label>
+        <label class="check"><input type="checkbox" data-k="nx2"><span><strong>Start Day 1</strong> of the <a href="#plan">30-day action plan</a> today.</span></label>
+        <label class="check"><input type="checkbox" data-k="nx3"><span><strong>Send your first 10 emails</strong> before you feel ready. Nobody does.</span></label>
+      </div>
+      <div class="callout">
+        <span class="eyebrow">Stay in touch</span>
+        <p>Questions, or signed your first client? Send me a message on Instagram: <a href="https://www.instagram.com/ui_fred_designer/" target="_blank" rel="noopener"><strong>@ui_fred_designer</strong></a>. I would love to hear your story.</p>
+      </div>
+      <p class="finale">Go get your first client.</p>
+      <p class="sign">Fred</p>
+      <p class="small" style="border-top:1px solid var(--rule);padding-top:22px;margin-top:20px"><strong>About the author.</strong> I am Fred, a web designer. After millions of views and zero clients, I signed my first $7,000 project by focusing on one niche and one clear portfolio. I share what I learn about finding clients on Instagram at <strong>@ui_fred_designer</strong>.</p>
+      <p class="small">&copy; 2026 Fred (@ui_fred_designer). All rights reserved. This guide is for your personal use. Please do not share, copy or resell it. This guide describes what worked for me in one real project. It is not a promise of results: yours will depend on your niche, your work and your effort. Company names used in the examples are fictional.</p>
+      <div class="done-row" data-done-for="next"></div>
+      <div class="page-foot"><span>First Client Playbook</span><span>2026 edition</span></div>
+    </div>
+  </section>
+  </main>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function () {
+  "use strict";
+  var KEY = "first-client-playbook-v1";
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+
+  function iso(d) { var z = new Date(d.getTime() - d.getTimezoneOffset() * 60000); return z.toISOString().slice(0, 10); }
+  function addDays(s, n) { var d = new Date(s + "T12:00:00"); d.setDate(d.getDate() + n); return iso(d); }
+  var TODAY = iso(new Date());
+
+  var DEFAULTS = {
+    clientValue: 50000, currency: "$", price: 7000, deposit: 1500,
+    reviews: true, subject: 0, qNo: "001", qDate: TODAY,
+    qPages: "Home, Projects, Project detail, Services, About, Process, Contact",
+    qPlatform: "Framer / Webflow", qTimeline: "2 months",
+    qChanges: "2 rounds of changes on the mockups",
+    qExcluded: "domain and hosting fees, photography, writing of texts, changes after delivery",
+    searchTerm: "Bauunternehmen", searchCities: "München, Hamburg, Köln"
+  };
+  var EX_NICHES = [
+    { name: "Construction (my niche)", s: [5, 4, 4, 4], ex: true },
+    { name: "Architecture firms", s: [4, 3, 4, 3], ex: true },
+    { name: "Law firms", s: [4, 3, 4, 2], ex: true },
+    { name: "Restaurants", s: [1, 4, 3, 4], ex: true },
+    { name: "", s: [0, 0, 0, 0] }
+  ];
+  var EX_PROSPECTS = [
+    { company: "Musterbau GmbH", city: "Munich", problem: "Projects not shown", email: "info@musterbau.example", sent: addDays(TODAY, -6), follow: addDays(TODAY, -4), status: "Call booked", ex: true },
+    { company: "Beispiel Bau", city: "Hamburg", problem: "No quote form", email: "kontakt@beispielbau.example", sent: addDays(TODAY, -6), follow: addDays(TODAY, -4), status: "Replied", ex: true },
+    { company: "Muster Sanierung", city: "Cologne", problem: "Hard to use on phone", email: "info@muster-sanierung.example", sent: addDays(TODAY, -3), follow: addDays(TODAY, -1), status: "Sent", ex: true }
+  ];
+  var STATUSES = ["To contact", "Sent", "Followed up", "Replied", "Call booked", "Quote sent", "Signed", "Not interested"];
+
+  var state;
+  try { state = JSON.parse(localStorage.getItem(KEY)); } catch (e) { state = null; }
+  if (!state || typeof state !== "object") state = {};
+  state.fields = state.fields || {};
+  state.done = state.done || {};
+  if (!Array.isArray(state.niches)) state.niches = JSON.parse(JSON.stringify(EX_NICHES));
+  if (!Array.isArray(state.prospects)) state.prospects = JSON.parse(JSON.stringify(EX_PROSPECTS));
+  state.timer = state.timer || { elapsed: 0 };
+
+  var saveT;
+  function save() { clearTimeout(saveT); saveT = setTimeout(function () { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {} }, 150); }
+  function get(k) { var v = state.fields[k]; return (v === undefined || v === null) ? (DEFAULTS[k] !== undefined ? DEFAULTS[k] : "") : v; }
+  function num(k) { var n = parseFloat(get(k)); return isFinite(n) ? n : 0; }
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+  function money(n) { return get("currency") + Math.round(n).toLocaleString("en-US"); }
+  function nice(n) { if (n >= 10000) return Math.round(n / 500) * 500; if (n >= 1000) return Math.round(n / 100) * 100; return Math.round(n); }
+
+  var toastT;
+  function toast(msg) { var t = $("#toast"); t.textContent = msg; t.classList.add("on"); clearTimeout(toastT); toastT = setTimeout(function () { t.classList.remove("on"); }, 1800); }
+  function copyText(text) {
+    function fallback() {
+      var ta = document.createElement("textarea"); ta.value = text; ta.setAttribute("readonly", ""); ta.style.position = "fixed"; ta.style.opacity = "0";
+      document.body.appendChild(ta); ta.select();
+      var ok = false; try { ok = document.execCommand("copy"); } catch (e) {}
+      document.body.removeChild(ta);
+      toast(ok ? "Copied" : "Select the text and copy it with Ctrl/Cmd + C");
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(function () { toast("Copied"); }, fallback);
+    else fallback();
+  }
+
+  /* ---------- sections, contents, progress ---------- */
+  var sections = $$("section.sec");
+  function buildToc() {
+    var groups = {}, order = [];
+    sections.forEach(function (s) { var g = s.dataset.group; if (!groups[g]) { groups[g] = []; order.push(g); } groups[g].push(s); });
+    $("#toc").innerHTML = order.map(function (g) {
+      return '<div class="toc-group"><span class="eyebrow">' + esc(g) + '</span>' + groups[g].map(function (s) {
+        return '<a href="#' + s.id + '" data-id="' + s.id + '"><span class="n">' + (s.dataset.num || "") + '</span><span>' + esc(s.dataset.title) + '</span><span class="ck" aria-hidden="true"></span></a>';
+      }).join("") + "</div>";
+    }).join("");
+    $("#stepsGrid").innerHTML = sections.filter(function (s) { return /^step/.test(s.id); }).map(function (s) {
+      return '<a class="step-card" href="#' + s.id + '" data-id="' + s.id + '"><b><i>' + s.dataset.num + "</i>" + esc(s.dataset.short || s.dataset.title) + "</b><span>" + esc(s.dataset.blurb) + '</span><span class="state">Done</span></a>';
+    }).join("");
+    $$(".done-row").forEach(function (row) {
+      var id = row.dataset.doneFor, i = sections.findIndex(function (s) { return s.id === id; }), nx = sections[i + 1];
+      row.innerHTML = '<button class="btn ghost" type="button" data-toggle-done="' + id + '"></button>' +
+        (nx ? '<a class="next-link" href="#' + nx.id + '">Next &nbsp;<b>' + esc(nx.dataset.title) + " &rarr;</b></a>" : '<a class="next-link" href="#cover">Back to the cover &uarr;</a>');
+    });
+  }
+  function renderDone() {
+    var n = 0;
+    sections.forEach(function (s) { if (state.done[s.id]) n++; });
+    $$("[data-toggle-done]").forEach(function (b) {
+      var on = !!state.done[b.dataset.toggleDone];
+      b.classList.toggle("done-on", on);
+      b.innerHTML = on ? "&#10003;&nbsp; Done" : "Mark as done";
+      b.setAttribute("aria-pressed", on);
+    });
+    $$("#toc a, .step-card").forEach(function (a) { a.classList.toggle("done", !!state.done[a.dataset.id]); });
+    $("#progressTxt").textContent = n + " / " + sections.length;
+    $$(".js-bar").forEach(function (b) { b.style.width = (n / sections.length * 100) + "%"; });
+    $("#startBtn").textContent = n ? "Continue reading" : "Start reading";
+    var firstOpen = sections.find(function (s) { return !state.done[s.id]; });
+    $("#startBtn").setAttribute("href", "#" + (n && firstOpen ? firstOpen.id : "intro"));
+  }
+  document.addEventListener("click", function (e) {
+    var b = e.target.closest("[data-toggle-done]");
+    if (b) { var id = b.dataset.toggleDone; state.done[id] = !state.done[id]; save(); renderDone(); if (state.done[id]) toast("Section marked as done"); }
+    var c = e.target.closest("[data-copy]");
+    if (c) { var src = document.getElementById(c.dataset.copy); copyText(src.dataset.text || src.innerText); }
+    var cl = e.target.closest("[data-clear]");
+    if (cl) { cl.dataset.clear.split(",").forEach(function (k) { state.fields[k] = false; }); save(); syncInputs(); renderAll(); }
+    if (e.target.closest("#toc a")) closeNav();
+  });
+
+  /* ---------- generic field binding ---------- */
+  var bound = $$("[data-k]");
+  function syncInputs(except) {
+    bound.forEach(function (el) {
+      if (el === except) return;
+      var v = get(el.dataset.k);
+      if (el.type === "checkbox") el.checked = !!v;
+      else if (el.value !== String(v)) el.value = v;
+    });
+  }
+  bound.forEach(function (el) {
+    var ev = (el.type === "checkbox" || el.tagName === "SELECT") ? "change" : "input";
+    el.addEventListener(ev, function () {
+      state.fields[el.dataset.k] = el.type === "checkbox" ? el.checked : el.value;
+      save(); syncInputs(el); renderAll();
+    });
+  });
+
+  /* ---------- template segments ---------- */
+  function F(k, label) { return { k: k, label: label }; }
+  function renderSegs(paras) {
+    var html = "", text = "";
+    paras.forEach(function (p) {
+      var h = "", t = "";
+      p.forEach(function (seg) {
+        if (typeof seg === "string") { h += esc(seg); t += seg; return; }
+        var v = String(get(seg.k)).trim();
+        if (v) { h += '<span class="fill">' + esc(v) + "</span>"; t += v; }
+        else { h += '<span class="ph">[' + esc(seg.label) + "]</span>"; t += "[" + seg.label + "]"; }
+      });
+      html += "<p>" + h + "</p>"; text += t + "\n\n";
+    });
+    return { html: html, text: text.trim() };
+  }
+  var SUBJECTS = [
+    ["Quick idea for ", F("company", "Company"), "’s website"],
+    [F("company", "Company"), "’s projects deserve a better website"],
+    ["A question about ", F("company", "Company"), "’s website"],
+    ["Your ", F("work", "type of work"), " in ", F("city", "City")],
+    ["More quote requests for ", F("company", "Company"), "?"]
+  ];
+  function renderEmails() {
+    var si = +get("subject") || 0;
+    $("#subjects").innerHTML = SUBJECTS.map(function (s, i) {
+      return '<label><input type="radio" name="subj" value="' + i + '"' + (i === si ? " checked" : "") + "><span>" + renderSegs([s]).html.replace(/^<p>|<\/p>$/g, "") + "</span></label>";
+    }).join("");
+    var subj = renderSegs([SUBJECTS[si]]);
+    var body = renderSegs([
+      ["Hi ", F("lastName", "Mr./Ms. Last name"), ","],
+      ["I came across ", F("company", "Company"), " on Google Maps. Your ", F("work", "type of work"), " in ", F("city", "City"), get("singular") ? " looks" : " look", " excellent", get("reviews") ? ", and your reviews say the same." : "."],
+      ["But your website does not show that quality. ", F("problem", "One specific problem: e.g. Your projects are hard to find, and there is no simple way to ask for a quote.")],
+      ["I help ", F("niche", "your niche"), " turn their website into a source of qualified requests. Here is a case study I made for a company like yours: ", F("caseLink", "link")],
+      ["Would you be open to a 15-minute call this week?"],
+      ["Best regards,\n", F("yourName", "Your name"), "\n", F("portfolio", "Portfolio link")]
+    ]);
+    var e1 = $("#email1");
+    e1.innerHTML = '<div class="subj"><span class="eyebrow">Subject</span><span>' + subj.html.replace(/^<p>|<\/p>$/g, "") + "</span></div>" + body.html;
+    e1.dataset.text = "Subject: " + subj.text + "\n\n" + body.text;
+    var fu = renderSegs([
+      ["Hi ", F("lastName", "Mr./Ms. Last name"), ","],
+      ["Just following up on my message. I think ", F("company", "Company"), " could get more qualified requests with a clearer website."],
+      ["Would a 15-minute call this week work for you?"],
+      ["Best regards,\n", F("yourName", "Your name")]
+    ]);
+    $("#email2").innerHTML = fu.html; $("#email2").dataset.text = fu.text;
+    var t6 = renderSegs([
+      ["Hi ", F("clientName", "Name"), ","],
+      ["It has been a month since we launched the new website. I hope it is working well for you."],
+      ["Two quick questions:"],
+      ["1. Have you noticed any change: more calls, more quote requests, better prospects?\n2. Would you be happy to write 2 or 3 sentences about working with me? I would like to share them on my portfolio, with your name and company."],
+      ["Thank you again for your trust,\n", F("yourName", "Your name")]
+    ]);
+    var e3 = $("#email3");
+    e3.innerHTML = '<div class="subj"><span class="eyebrow">Subject</span><span>Quick question about the new website</span></div>' + t6.html;
+    e3.dataset.text = "Subject: Quick question about the new website\n\n" + t6.text;
+  }
+  $("#subjects").addEventListener("change", function (e) { if (e.target.name === "subj") { state.fields.subject = +e.target.value; save(); renderEmails(); } });
+
+  /* ---------- small outputs ---------- */
+  function renderOutputs() {
+    var low = nice(num("clientValue") * 0.10), high = nice(num("clientValue") * 0.15);
+    var niche = String(get("niche")).trim();
+    var singular = niche ? niche.replace(/ies$/i, "y").replace(/([^s])s$/i, "$1") : "construction company";
+    var outs = {
+      range: num("clientValue") ? money(low) + " to " + money(high) : "[your range]",
+      depositFmt: money(num("deposit")),
+      balanceFmt: money(Math.max(0, num("price") - num("deposit"))),
+      nicheSingular: singular,
+      cityPh: String(get("city")).trim() || "[City]",
+      quoteDay: String(get("quoteDay")).trim() || "[day]",
+      reviewDay: String(get("reviewDay")).trim() || "[day]"
+    };
+    $$("[data-out]").forEach(function (el) {
+      var v = outs[el.dataset.out];
+      el.textContent = v;
+      el.classList.toggle("ph", /^\[.*\]$/.test(v));
+    });
+  }
+
+  /* ---------- price calculator ---------- */
+  function renderPrice() {
+    var cv = num("clientValue"), p = num("price");
+    $("#pLow").textContent = cv ? money(nice(cv * .10)) : "—";
+    $("#pHigh").textContent = cv ? money(nice(cv * .15)) : "—";
+    $("#pBreak").textContent = cv && p ? (Math.ceil(p / cv) === 1 ? "1 client" : Math.ceil(p / cv) + " clients") : "—";
+    var pct = cv ? p / cv * 100 : 0, max = 30;
+    var pos = function (x) { return Math.min(100, Math.max(0, x / max * 100)) + "%"; };
+    $("#gBand").style.left = pos(10); $("#gBand").style.width = (5 / max * 100) + "%";
+    $("#gDot").style.left = pos(pct);
+    $("#gL10").style.left = pos(10); $("#gL15").style.left = pos(15);
+    var v = $("#pVerdict");
+    if (!cv || !p) v.textContent = "Enter what one new client is worth, and your price, to see where you land.";
+    else if (pct < 8) v.innerHTML = "Your price is <strong>" + pct.toFixed(1) + "%</strong> of one client. You are probably underpricing: the site would pay for itself many times over.";
+    else if (pct <= 16) v.innerHTML = "Your price is <strong>" + pct.toFixed(1) + "%</strong> of one client. That is in the 10 to 15% zone. One extra client pays for the whole site.";
+    else v.innerHTML = "Your price is <strong>" + pct.toFixed(1) + "%</strong> of one client. That is high for a first deal. Reduce the scope, or find a niche where one client is worth more.";
+    var d = num("deposit");
+    $("#depositNote").textContent = p ? "Your deposit is " + Math.round(d / p * 100) + "% of the total. Mine was about 21% ($1,500 of $7,000)." : "";
+  }
+
+  /* ---------- niche scorer ---------- */
+  function renderNiches() {
+    var best = -1, bestI = -1;
+    state.niches.forEach(function (n, i) { var t = n.s.reduce(function (a, b) { return a + (+b || 0); }, 0); if (t > best && t > 0) { best = t; bestI = i; } });
+    var opts = function (v) { var o = '<option value="0"' + (!v ? " selected" : "") + ">—</option>"; for (var i = 1; i <= 5; i++) o += '<option value="' + i + '"' + (+v === i ? " selected" : "") + ">" + i + "</option>"; return o; };
+    $("#nicheTbl tbody").innerHTML = state.niches.map(function (n, i) {
+      var t = n.s.reduce(function (a, b) { return a + (+b || 0); }, 0);
+      return '<tr class="' + (i === bestI ? "hl" : "") + '" data-i="' + i + '"><td><input type="text" data-f="name" value="' + esc(n.name) + '" placeholder="Your niche" aria-label="Niche name"></td>' +
+        n.s.map(function (v, j) { return '<td><select data-f="s' + j + '" aria-label="Score ' + (j + 1) + '">' + opts(v) + "</select></td>"; }).join("") +
+        '<td class="total num">' + (t || "—") + (i === bestI ? '<span class="pick">Top</span>' : "") + '</td><td><button class="xbtn" type="button" data-del aria-label="Remove row">&times;</button></td></tr>';
+    }).join("");
+  }
+  $("#nicheTbl").addEventListener("input", function (e) {
+    var tr = e.target.closest("tr"); if (!tr || e.target.dataset.f !== "name") return;
+    var n = state.niches[+tr.dataset.i]; n.name = e.target.value; n.ex = false; save();
+  });
+  $("#nicheTbl").addEventListener("change", function (e) {
+    var tr = e.target.closest("tr"), f = e.target.dataset.f; if (!tr || !f || f === "name") return;
+    var i = tr.dataset.i, n = state.niches[+i]; n.s[+f.slice(1)] = +e.target.value; n.ex = false; save(); renderNiches();
+    var again = $('#nicheTbl tr[data-i="' + i + '"] [data-f="' + f + '"]'); if (again) again.focus();
+  });
+  $("#nicheTbl").addEventListener("click", function (e) { if (e.target.closest("[data-del]")) { state.niches.splice(+e.target.closest("tr").dataset.i, 1); save(); renderNiches(); } });
+  $("#addNiche").addEventListener("click", function () { state.niches.push({ name: "", s: [0, 0, 0, 0] }); save(); renderNiches(); var ins = $$("#nicheTbl tbody input"); ins[ins.length - 1].focus(); });
+  $("#clearNicheEx").addEventListener("click", function () { state.niches = state.niches.filter(function (n) { return !n.ex; }); if (!state.niches.length) state.niches.push({ name: "", s: [0, 0, 0, 0] }); save(); renderNiches(); });
+
+  /* ---------- search links ---------- */
+  function renderSearch() {
+    var term = String(get("searchTerm")).trim();
+    var cities = String(get("searchCities")).split(",").map(function (c) { return c.trim(); }).filter(Boolean);
+    $("#searchLinks").innerHTML = (term && cities.length ? cities : []).map(function (c) {
+      var q = term + " " + c;
+      return '<li><a href="https://www.google.com/maps/search/' + encodeURIComponent(q) + '" target="_blank" rel="noopener">' + esc(q) + " &nearr;</a></li>";
+    }).join("") || '<li class="small">Type a niche and at least one city.</li>';
+    var w = ["weak1", "weak2", "weak3", "weak4", "weak5"].filter(function (k) { return get(k); }).length;
+    $("#weakVerdict").innerHTML = w === 0 ? "Tick the signs you see on the site you are looking at." :
+      w === 1 ? "<strong>1 sign.</strong> Maybe. Keep it only if their work is clearly better than their site." :
+      "<strong>" + w + " signs.</strong> Good prospect. Add it to your tracker with the most visible problem.";
+  }
+
+  /* ---------- tracker ---------- */
+  function rowDue(p) { return (p.status === "Sent") && p.follow && p.follow <= TODAY; }
+  function renderTracker() {
+    var rows = state.prospects;
+    $("#trackTbl tbody").innerHTML = rows.map(function (p, i) {
+      return '<tr data-i="' + i + '" class="' + (rowDue(p) ? "due" : "") + '">' +
+        '<td><input type="text" data-f="company" value="' + esc(p.company) + '" placeholder="Company" aria-label="Company"></td>' +
+        '<td><input type="text" data-f="city" value="' + esc(p.city) + '" placeholder="City" aria-label="City"></td>' +
+        '<td><input type="text" data-f="problem" value="' + esc(p.problem) + '" placeholder="One problem" aria-label="Website problem"></td>' +
+        '<td><input type="text" data-f="email" value="' + esc(p.email) + '" placeholder="info@…" aria-label="Email"></td>' +
+        '<td><input type="date" data-f="sent" value="' + esc(p.sent || "") + '" aria-label="Sent date"></td>' +
+        '<td><input type="date" data-f="follow" value="' + esc(p.follow || "") + '" aria-label="Follow-up date"></td>' +
+        '<td><select data-f="status" aria-label="Status">' + STATUSES.map(function (s) { return "<option" + (s === p.status ? " selected" : "") + ">" + s + "</option>"; }).join("") + "</select></td>" +
+        '<td style="white-space:nowrap">' + (p.ex ? '<span class="pill ex">example</span> ' : rowDue(p) ? '<span class="pill">Follow up</span> ' : "") + '<button class="xbtn" type="button" data-del aria-label="Remove company">&times;</button></td></tr>';
+    }).join("") || '<tr><td colspan="8" class="small" style="font-weight:400">No companies yet. Add your first one.</td></tr>';
+    renderKpis();
+    var sel = $("#fromTracker"), cur = sel.value;
+    sel.innerHTML = '<option value="">Choose a company</option>' + rows.map(function (p, i) { return p.company ? '<option value="' + i + '">' + esc(p.company) + "</option>" : ""; }).join("");
+    sel.value = cur;
+  }
+  function renderKpis() {
+    var rows = state.prospects.filter(function (p) { return !p.ex; });
+    var exOnly = !rows.length; if (exOnly) rows = state.prospects;
+    var c = function (list) { return rows.filter(function (p) { return list.indexOf(p.status) > -1; }).length; };
+    var sent = rows.filter(function (p) { return p.status !== "To contact"; }).length;
+    var replies = c(["Replied", "Call booked", "Quote sent", "Signed", "Not interested"]);
+    var calls = c(["Call booked", "Quote sent", "Signed"]);
+    var signed = c(["Signed"]);
+    var k = [
+      [rows.length + '<small style="font-size:14px;color:var(--muted)"> / 50</small>', "Prospects", Math.min(100, rows.length / 50 * 100)],
+      [sent, "Emails sent", Math.min(100, sent / 50 * 100)],
+      [replies, "Replies" + (sent ? " · " + Math.round(replies / sent * 100) + "%" : ""), null],
+      [calls, "Calls", null],
+      [signed, "Signed", null]
+    ];
+    $("#kpis").innerHTML = k.map(function (x) { return "<div><b class=\"num\">" + x[0] + "</b><span>" + x[1] + "</span>" + (x[2] !== null ? '<div class="meter"><i style="width:' + x[2] + '%"></i></div>' : "") + "</div>"; }).join("");
+    var due = state.prospects.filter(rowDue);
+    $("#dueNote").innerHTML = (exOnly ? "Showing the example rows. Add your own companies and the numbers will count only yours. " : "") +
+      (due.length ? "<strong>" + due.length + " follow-up" + (due.length > 1 ? "s" : "") + " due:</strong> " + due.map(function (p) { return esc(p.company || "unnamed"); }).join(", ") + ". Reply in the same thread with 2 or 3 lines." : "No follow-ups due today.");
+  }
+  $("#trackTbl").addEventListener("change", function (e) {
+    var tr = e.target.closest("tr"); if (!tr || tr.dataset.i === undefined || e.target.type === "text") return;
+    var p = state.prospects[+tr.dataset.i], f = e.target.dataset.f;
+    p[f] = e.target.value; p.ex = false;
+    if (f === "sent" && p.sent && !p.follow) p.follow = addDays(p.sent, 2);
+    if (f === "sent" && p.sent && p.status === "To contact") p.status = "Sent";
+    save(); renderTracker();
+  });
+  $("#trackTbl").addEventListener("input", function (e) {
+    if (e.target.type !== "text") return;
+    var tr = e.target.closest("tr"); var p = state.prospects[+tr.dataset.i]; p[e.target.dataset.f] = e.target.value; save();
+    if (e.target.dataset.f === "company") { var o = $('#fromTracker option[value="' + tr.dataset.i + '"]'); if (o) o.textContent = p.company; }
+  });
+  $("#trackTbl").addEventListener("click", function (e) { if (e.target.closest("[data-del]")) { state.prospects.splice(+e.target.closest("tr").dataset.i, 1); save(); renderTracker(); } });
+  $("#addProspect").addEventListener("click", function () { state.prospects.push({ company: "", city: "", problem: "", email: "", sent: "", follow: "", status: "To contact" }); save(); renderTracker(); var ins = $$('#trackTbl [data-f="company"]'); ins[ins.length - 1].focus(); });
+  $("#clearProspectEx").addEventListener("click", function () { state.prospects = state.prospects.filter(function (p) { return !p.ex; }); save(); renderTracker(); });
+  $("#copyTsv").addEventListener("click", function () {
+    var head = ["Company", "City", "Website problem", "Email", "Sent", "Follow-up", "Status"];
+    var lines = [head.join("\t")].concat(state.prospects.map(function (p) { return [p.company, p.city, p.problem, p.email, p.sent, p.follow, p.status].map(function (v) { return String(v || "").replace(/\t|\n/g, " "); }).join("\t"); }));
+    copyText(lines.join("\n"));
+  });
+  $("#fromTracker").addEventListener("change", function (e) {
+    var p = state.prospects[+e.target.value]; if (!p) return;
+    state.fields.company = p.company; state.fields.city = p.city;
+    if (p.problem) state.fields.problem = p.problem;
+    save(); syncInputs(); renderAll(); toast("Filled from " + p.company);
+  });
+
+  /* ---------- quote ---------- */
+  function renderQuote() {
+    var v = function (k, label) { var x = String(get(k)).trim(); return x ? esc(x) : '<span class="ph">[' + label + "]</span>"; };
+    var p = num("price"), d = num("deposit");
+    var date = get("qDate"); var dateTxt = date ? new Date(date + "T12:00:00").toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" }) : "";
+    $("#quoteDoc").innerHTML =
+      '<div class="qh"><div><h4>Quote</h4><div>' + v("yourName", "Your name") + ' <span class="small">&middot; Web designer</span></div><div>' + v("yourEmail", "email") + " &middot; " + v("portfolio", "portfolio link") + '</div></div>' +
+      '<div class="meta">No. ' + v("qNo", "001") + "<br>Date: " + (dateTxt ? esc(dateTxt) : '<span class="ph">[date]</span>') + "<br>Valid for 15 days</div></div>" +
+      '<div class="two"><div><span class="eyebrow">For</span><div>' + v("qCompany", "Company name") + "<br>" + v("qContact", "Contact name") + "<br>" + v("qAddress", "Address") + '</div></div>' +
+      '<div><span class="eyebrow">Project</span><div>New website for ' + v("qCompany", "Company") + ". Goal: show the quality of your work and turn visitors into qualified quote requests.</div></div></div>" +
+      '<div class="tbl-wrap"><table><thead><tr><th>Item</th><th>Details</th></tr></thead><tbody>' +
+      "<tr><td>Pages</td><td>" + v("qPages", "Home, Projects, Contact") + "</td></tr>" +
+      "<tr><td>Quote request form</td><td>Qualifies prospects by budget and timeline</td></tr>" +
+      "<tr><td>Mockups</td><td>Design of the key pages, approved before the build</td></tr>" +
+      "<tr><td>Build</td><td>Full site on " + v("qPlatform", "Framer / Webflow") + ", works on phone and desktop</td></tr>" +
+      "<tr><td>Timeline</td><td>" + v("qTimeline", "2 months") + "</td></tr>" +
+      '<tr><td>Total</td><td class="num"><strong>' + money(p) + "</strong></td></tr></tbody></table></div>" +
+      '<div class="tbl-wrap"><table><thead><tr><th>Payment</th><th>Amount</th></tr></thead><tbody>' +
+      '<tr><td>On signature (deposit)</td><td class="num">' + money(d) + "</td></tr>" +
+      '<tr><td>On delivery (balance)</td><td class="num">' + money(Math.max(0, p - d)) + "</td></tr></tbody></table></div>" +
+      "<p><strong>Included changes:</strong> " + v("qChanges", "2 rounds of changes on the mockups") + "</p>" +
+      "<p><strong>Not included:</strong> " + v("qExcluded", "hosting, photography, texts") + "</p>" +
+      '<div class="sig"><div>Client signature</div><div>Date</div></div>';
+    var t = function (k, label) { return String(get(k)).trim() || "[" + label + "]"; };
+    $("#quoteDoc").dataset.text = [
+      "QUOTE", t("yourName", "Your name") + " · Web designer", t("yourEmail", "email") + " · " + t("portfolio", "portfolio link"),
+      "No. " + t("qNo", "001") + " · Date: " + (dateTxt || "[date]") + " · Valid for 15 days", "",
+      "FOR", t("qCompany", "Company name"), t("qContact", "Contact name"), t("qAddress", "Address"), "",
+      "PROJECT", "New website for " + t("qCompany", "Company") + ". Goal: show the quality of your work and turn visitors into qualified quote requests.", "",
+      "Pages: " + t("qPages", "Pages"), "Quote request form: Qualifies prospects by budget and timeline", "Mockups: Design of the key pages, approved before the build",
+      "Build: Full site on " + t("qPlatform", "platform") + ", works on phone and desktop", "Timeline: " + t("qTimeline", "timeline"), "Total: " + money(p), "",
+      "PAYMENT", "On signature (deposit): " + money(d), "On delivery (balance): " + money(Math.max(0, p - d)), "",
+      "Included changes: " + t("qChanges", "changes"), "Not included: " + t("qExcluded", "exclusions"), "",
+      "Client signature: ____________________     Date: ____________"
+    ].join("\n");
+  }
+
+  /* ---------- 30-day plan ---------- */
+  var PLAN = [
+    ["Week 1 · Niche and portfolio", [["Day 1.", "Score 3 niches with the table in Step 1, and pick one."], ["Day 2.", "Pick a country and 3 target cities."], ["Day 3.", "Look at 20 websites in your niche. Note the most common problems."], ["Day 4.", "Write your concept case study: problem, solution, pages, expected result."], ["Day 5.", "Customize the portfolio template: headline, process, about."], ["Day 6.", "Design the case study pages."], ["Day 7.", "Go through the portfolio checklist (Template 5), then publish."]]],
+    ["Week 2 · Build your list", [["Days 8 to 12.", "Find 10 qualified prospects a day on Google Maps."], ["Day 13.", "Write one specific problem for each of your 50 prospects."], ["Day 14.", "Set up a professional email address and adapt Template 1."]]],
+    ["Week 3 · Send", [["Days 15 to 19.", "Send 10 emails a day."], ["Days 17 to 21.", "Follow up each email 2 days after you sent it."]]],
+    ["Week 4 · Calls and quotes", [["", "Answer every reply within 24 hours."], ["", "Book calls, and prepare each one with Template 2."], ["", "Send each quote within 48 hours of the call."], ["Day 30.", "Count your replies, calls and quotes. Then start your next 50."]]]
+  ];
+  function buildPlan() {
+    var k = 0;
+    $("#planWeeks").innerHTML = PLAN.map(function (w, wi) {
+      return '<div class="plan-week"><header><span class="eyebrow">' + w[0] + '</span><span class="small" data-week="' + wi + '"></span></header><div class="checks">' +
+        w[1].map(function (t) { k++; return '<label class="check"><input type="checkbox" data-k="d' + k + '" data-wk="' + wi + '"><span>' + (t[0] ? "<strong>" + t[0] + "</strong> " : "") + t[1] + "</span></label>"; }).join("") + "</div></div>";
+    }).join("");
+  }
+  function renderPlan() {
+    var all = $$("#planWeeks input"), on = all.filter(function (i) { return i.checked; }).length;
+    $("#planTxt").textContent = on + " of " + all.length + " tasks";
+    $("#planBar").style.width = (on / all.length * 100) + "%";
+    PLAN.forEach(function (w, wi) { var ins = $$('#planWeeks input[data-wk="' + wi + '"]'); $('[data-week="' + wi + '"]').textContent = ins.filter(function (i) { return i.checked; }).length + " / " + ins.length; });
+    var pf = $$("#pfChecks input"), pon = pf.filter(function (i) { return i.checked; }).length;
+    $("#pfTxt").textContent = pon + " of " + pf.length + (pon === pf.length ? " · ready to publish" : "");
+    $("#pfBar").style.width = (pon / pf.length * 100) + "%";
+    var t = function (k) { return String(get(k)).trim() || "—"; };
+    $("#outlineText").dataset.text = "CASE STUDY OUTLINE\n\nNiche and city: " + t("csNiche") + "\n\nProblem: " + t("csProblem") + "\n\nSolution: " + t("csSolution") + "\n\nPages shown: " + t("csPages") + "\n\nExpected result (estimated): " + t("csResult");
+  }
+
+  /* ---------- call timer ---------- */
+  var tickT = null, startAt = 0, TOTAL = 25 * 60;
+  function fmt(s) { s = Math.floor(s); return String(Math.floor(s / 60)).padStart(2, "0") + ":" + String(s % 60).padStart(2, "0"); }
+  function elapsed() { return state.timer.elapsed + (tickT ? (Date.now() - startAt) / 1000 : 0); }
+  function renderTimer() {
+    var e = elapsed();
+    $("#clock").innerHTML = fmt(e) + " <small>/ 25:00</small>";
+    $("#tBar").style.width = Math.min(100, e / TOTAL * 100) + "%";
+    var lis = $$("#script > li"), acc = 0, live = -1;
+    lis.forEach(function (li, i) { var m = +li.dataset.min * 60; if (m && e >= acc && e < acc + m) live = i; acc += m; });
+    if (e >= TOTAL) live = lis.length - 1;
+    var running = !!tickT;
+    lis.forEach(function (li, i) { li.classList.toggle("live", (running || e > 0) && i === live); });
+    $("#tStart").textContent = running ? "Pause" : (e > 0 ? "Resume" : "Start call");
+    $("#tHint").textContent = e >= TOTAL ? "25 minutes reached. Agree on the next step and end the call." : e > 0 ? "Current part of the script is highlighted below." : "Start the timer when the call begins. The current part of the script is highlighted.";
+  }
+  $("#tStart").addEventListener("click", function () {
+    if (tickT) { state.timer.elapsed = elapsed(); clearInterval(tickT); tickT = null; save(); }
+    else { startAt = Date.now(); tickT = setInterval(renderTimer, 500); }
+    renderTimer();
+  });
+  $("#tReset").addEventListener("click", function () { clearInterval(tickT); tickT = null; state.timer.elapsed = 0; save(); renderTimer(); });
+
+  /* ---------- nav ---------- */
+  function closeNav() { document.body.classList.remove("nav-open"); $("#navToggle").setAttribute("aria-expanded", "false"); }
+  $("#navToggle").addEventListener("click", function () { var o = document.body.classList.toggle("nav-open"); this.setAttribute("aria-expanded", o); });
+  document.addEventListener("click", function (e) { if (document.body.classList.contains("nav-open") && !e.target.closest(".rail") && !e.target.closest("#navToggle")) closeNav(); });
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeNav(); });
+  if ("IntersectionObserver" in window) {
+    var io = new IntersectionObserver(function (ents) {
+      ents.forEach(function (en) { if (en.isIntersecting) $$("#toc a").forEach(function (a) { a.classList.toggle("active", a.dataset.id === en.target.id); }); });
+    }, { rootMargin: "-35% 0px -60% 0px" });
+    sections.forEach(function (s) { io.observe(s); });
+  }
+
+  /* ---------- reset ---------- */
+  var armT;
+  $("#resetBtn").addEventListener("click", function () {
+    var b = this;
+    if (!b.classList.contains("armed")) { b.classList.add("armed"); b.textContent = "Click again to erase everything"; armT = setTimeout(function () { b.classList.remove("armed"); b.textContent = "Reset all my data"; }, 4000); return; }
+    clearTimeout(armT);
+    try { localStorage.removeItem(KEY); } catch (e) {}
+    state = { fields: {}, done: {}, niches: JSON.parse(JSON.stringify(EX_NICHES)), prospects: JSON.parse(JSON.stringify(EX_PROSPECTS)), timer: { elapsed: 0 } };
+    clearInterval(tickT); tickT = null;
+    b.classList.remove("armed"); b.textContent = "Reset all my data";
+    syncInputs(); renderNiches(); renderTracker(); renderAll(); toast("All data erased");
+  });
+
+  function renderAll() { renderEmails(); renderOutputs(); renderPrice(); renderSearch(); renderQuote(); renderPlan(); renderDone(); renderTimer(); }
+
+  buildToc();
+  buildPlan();
+  bound = $$("[data-k]");
+  $$("#planWeeks [data-k]").forEach(function (el) {
+    el.addEventListener("change", function () { state.fields[el.dataset.k] = el.checked; save(); renderPlan(); });
+  });
+  syncInputs();
+  renderNiches();
+  renderTracker();
+  renderAll();
+})();
+</script>
+</body>
+</html>
