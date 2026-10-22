@@ -1,0 +1,50 @@
+{
+  "name": "cozy-editorial-yap",
+  "references": ["ref1: Starting from scratch ep.6 (2:46)", "ref2: How I edit my yapping reels ep.2 (1:59)"],
+  "format": { "width": 720, "height": 1280, "aspect": "9:16", "fps": 30, "export_min": "1080x1920" },
+  "audio": {
+    "voice": "mono, voice-forward",
+    "integrated_lufs": -14.5,
+    "music_bed": false,
+    "silence_removal": { "threshold_db": -40, "max_gap_s": 0.25 }
+  },
+  "cutting": {
+    "jump_cut_interval_s": { "median": 1.8, "min": 0.2, "max": 9.0 },
+    "cuts_per_min": [23, 29],
+    "transitions": "hard cuts only",
+    "speech_starts_frame": 0
+  },
+  "zoom": {
+    "base_scale": 1.0,
+    "slow_zoom": { "to_scale": 1.15, "duration_s": [1.0, 1.5], "ease": "linear-to-ease-in", "anchor": "face", "exit": "snap back on next cut" },
+    "snap_zoom": { "to_scale": [1.15, 1.2], "ramp_frames": [2, 5], "hold_s": [0.3, 0.6], "sfx": "swish", "anchor": "face" },
+    "zooms_per_min": [3, 6]
+  },
+  "typography": {
+    "color": "#FFFFFF",
+    "shadow": "very soft, low opacity, no stroke",
+    "title": { "font_class": "tight editorial display serif (Instrument Serif / Playfair Display)", "y_pct": [8, 12], "align": "center", "animation": "typewriter 0.5-1s", "persist": "whole section", "sfx": "soft_pop" },
+    "series_tag": { "font_class": "handwritten script", "rotation_deg": -20, "position": "above title, top-left", "delay_s": [1, 3] },
+    "subnote": { "font_class": "rounded hand-print (Google 'Coming Soon')", "scale_vs_title": 0.5, "delay_after_title_s": [1, 3], "lines": [1, 3], "side_items_rotation_deg": [-15, 15], "sfx_per_list_item": "ding" },
+    "captions": { "mode": "one word at a time", "font_class": "serif (same family as title)", "height_pct": [2.5, 3], "x_pct": [15, 30], "y_pct": [48, 50], "highlight": false, "box": false, "animation": "none" },
+    "pill": { "bg": "#FFFFFF", "text": "#000000", "radius_px_at_720w": 12, "y_pct": [12, 15], "font": "mono/typewriter for CTA, serif for chapter labels" }
+  },
+  "overlays": {
+    "reaction_gif": { "width_pct": [30, 45], "max_width_pct": 65, "position": "top-center/left above head", "duration_s": [1.5, 3], "in_out": "hard cut", "every_s": [20, 40] },
+    "proof_card": { "position": "lower-left/center floating", "sfx": "soft_pop", "emoji_sticker": true },
+    "emoji_row": { "position": "top-center", "size": "small" },
+    "icons": "thin line icons appearing one by one under list header",
+    "profile_card": { "position": "top-center", "timing": "last ~3s", "sfx": "soft_pop or ding" },
+    "screen_recording": { "width_pct": 70, "background": "A-roll keeps playing full frame", "annotations": ["red hand-drawn curved arrow", "white/yellow pointing-hand icons"] }
+  },
+  "broll": { "style": "handheld selfie, natural light, 1-2s shots, 5-8s sequences", "transitions": "hard cut", "captions_continue": true },
+  "sfx": {
+    "intro_whoosh_boom": { "duration_s": [0.8, 1.0], "character": "~75Hz low hit + airy whoosh", "peak_dbfs": -10, "use": ["frame 1", "big section transition"] },
+    "soft_pop": { "duration_s": [0.15, 0.2], "character": "tonal ~690Hz bubble, soft attack", "peak_dbfs": -33, "use": ["section header", "pill", "card"] },
+    "ding": { "duration_s": [0.2, 0.35], "character": "bright chime ~2.4kHz", "peak_dbfs": -20, "use": ["emoji aside", "list item", "surprise stat"] },
+    "swish": { "duration_s": 0.17, "character": "airy HF whoosh ~6.7kHz centroid", "peak_dbfs": -24, "use": ["snap zoom"] },
+    "typing_ticks": { "peak_dbfs": -50, "use": ["typewriter reveals"] },
+    "align": "SFX attack on first frame of the visual"
+  },
+  "grade": { "temperature": "warm", "contrast": "low-medium", "blacks": "slightly lifted", "saturation": "slightly reduced greens", "skin": "warm/peachy" }
+}
