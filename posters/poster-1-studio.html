@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Lora:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<style>
+  :root { --bg:#EEEBE6; --ink:#1E1C1A; --accent:#B4532F; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  html, body { width:1080px; height:1350px; }
+  body { background:var(--bg); font-family:Inter, sans-serif; color:var(--ink); position:relative; overflow:hidden; }
+  /* soft studio falloff */
+  body::before { content:""; position:absolute; inset:0;
+    background: radial-gradient(ellipse 70% 55% at 55% 45%, #F6F4F0 0%, rgba(246,244,240,0) 70%); }
+
+  .top { position:absolute; top:56px; left:64px; right:64px; display:flex; justify-content:space-between; align-items:center; z-index:2; }
+  .pill { border:1.5px solid var(--ink); border-radius:999px; padding:7px 18px; font-size:19px; font-weight:500; letter-spacing:-.01em; }
+  .pills { display:flex; gap:12px; }
+
+  .book { position:absolute; left:50%; top:178px; width:600px; height:849px; transform:translateX(-50%); z-index:1; }
+  .book img { width:100%; height:100%; display:block; border-radius:2px 4px 4px 2px; }
+  /* cast shadow, light from top-right like the reference */
+  .book::before { content:""; position:absolute; inset:0; transform:translate(-22px, 22px);
+    background:rgba(60,50,40,.22); filter:blur(14px); border-radius:4px; z-index:-1; }
+  .book::after { content:""; position:absolute; inset:0; transform:translate(-6px, 6px);
+    background:rgba(60,50,40,.18); filter:blur(3px); border-radius:3px; z-index:-1; }
+  /* spine crease + paper sheen on the cover */
+  .sheen { position:absolute; inset:0; border-radius:2px 4px 4px 2px; pointer-events:none;
+    background:
+      linear-gradient(90deg, rgba(0,0,0,.16) 0, rgba(255,255,255,.28) 7px, rgba(0,0,0,.05) 14px, rgba(0,0,0,0) 24px),
+      linear-gradient(125deg, rgba(255,255,255,.14) 0%, rgba(255,255,255,0) 45%, rgba(0,0,0,.04) 100%); }
+
+  .bottom { position:absolute; left:64px; right:64px; bottom:60px; display:flex; justify-content:space-between; align-items:flex-end; z-index:2; }
+  .title { font-family:Lora, serif; font-size:56px; line-height:1.02; letter-spacing:-.02em; }
+  .title em { color:var(--accent); }
+  .meta { text-align:right; font-size:18px; line-height:1.5; color:#4a4540; }
+  .meta b { font-weight:600; color:var(--ink); }
+</style>
+</head>
+<body>
+  <div class="top">
+    <span class="pill">Free Guide</span>
+    <div class="pills"><span class="pill">8 pages</span><span class="pill">@ui_fred_designer</span></div>
+  </div>
+
+  <div class="book"><img src="assets/cover.png" alt=""><div class="sheen"></div></div>
+
+  <div class="bottom">
+    <div class="title">Your first<br><em>client</em> guide</div>
+    <div class="meta"><b>5 mistakes · 8 steps · 10 checks</b><br>From 0 clients to a $7,000 project</div>
+  </div>
+</body>
+</html>

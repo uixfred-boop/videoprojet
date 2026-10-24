@@ -1,0 +1,74 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Lora:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<style>
+  :root { --ink:#2A1F18; --accent:#B4532F; --cream:#E9DECB; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  html, body { width:1080px; height:1350px; }
+  body { font-family:Inter, sans-serif; overflow:hidden; position:relative;
+    background: linear-gradient(160deg, #D9C2A6 0%, #C7A784 55%, #B08E6B 100%); }
+  /* window light falling across the wall */
+  .light { position:absolute; inset:-200px; pointer-events:none; filter:blur(38px);
+    background:
+      linear-gradient(118deg, transparent 18%, rgba(255,240,220,.55) 24%, rgba(255,240,220,.55) 38%, transparent 44%,
+                              transparent 50%, rgba(255,240,220,.4) 55%, rgba(255,240,220,.4) 66%, transparent 72%); }
+  .shade { position:absolute; inset:0; background: radial-gradient(ellipse 90% 70% at 30% 20%, rgba(0,0,0,0) 40%, rgba(60,35,15,.28) 100%); }
+
+  .stage { position:absolute; left:0; right:0; top:120px; height:1000px; perspective:2200px; }
+  .book { position:absolute; left:50%; top:60px; width:560px; height:792px; margin-left:-300px;
+    transform-style:preserve-3d; transform: rotateX(6deg) rotateY(34deg) rotateZ(-6deg); }
+  .face { position:absolute; backface-visibility:hidden; }
+  .front { inset:0; transform:translateZ(22px); border-radius:2px 6px 6px 2px; overflow:hidden; }
+  .front img { width:100%; height:100%; display:block; }
+  .front::after { content:""; position:absolute; inset:0;
+    background:
+      linear-gradient(90deg, rgba(0,0,0,.22) 0, rgba(255,255,255,.35) 9px, rgba(0,0,0,.06) 18px, rgba(0,0,0,0) 30px),
+      linear-gradient(120deg, rgba(255,250,240,.28) 0%, rgba(255,250,240,0) 40%, rgba(40,20,0,.12) 100%); }
+  .spine { width:44px; height:792px; left:-22px; top:0; transform:rotateY(-90deg);
+    background:linear-gradient(90deg, #9E4628, #B4532F 30%, #A74B2B 85%, #8E3E22);
+    display:flex; align-items:center; justify-content:center; }
+  .spine span { transform:rotate(90deg); white-space:nowrap; color:#F3E9DA; font-size:17px; letter-spacing:.32em; font-weight:600; }
+  .spine span i { font-family:Lora, serif; font-style:italic; letter-spacing:.02em; font-weight:400; font-size:20px; margin:0 .4em; }
+  .pages { width:40px; height:780px; right:-18px; top:6px; transform:rotateY(90deg);
+    background: repeating-linear-gradient(90deg, #F4EEE4 0 2px, #DCD2C2 2px 3px); }
+  .top-edge { width:552px; height:40px; left:0; top:-18px; transform:rotateX(90deg);
+    background: repeating-linear-gradient(0deg, #F4EEE4 0 2px, #DCD2C2 2px 3px); }
+  .back { inset:0; transform:translateZ(-22px) rotateY(180deg); background:#A74B2B; }
+
+  .cast { position:absolute; left:50%; top:200px; width:600px; height:820px; margin-left:-200px;
+    background:rgba(70,40,15,.32); filter:blur(46px); transform:skewX(-10deg) rotate(-4deg) scale(.85); border-radius:30px; }
+
+  .header { position:absolute; top:58px; left:64px; right:64px; display:flex; justify-content:space-between; color:var(--ink); z-index:3; }
+  .pill { border:1.5px solid var(--ink); border-radius:999px; padding:7px 18px; font-size:19px; font-weight:500; }
+  .footer { position:absolute; left:64px; right:64px; bottom:62px; z-index:3; color:var(--ink); display:flex; justify-content:space-between; align-items:flex-end; }
+  .footer h1 { font-family:Lora, serif; font-weight:400; font-size:60px; line-height:1.02; letter-spacing:-.02em; }
+  .footer h1 em { color:#7E3115; }
+  .cta { font-size:19px; line-height:1.5; text-align:right; }
+  .cta b { display:inline-block; margin-top:8px; background:var(--ink); color:var(--cream); border-radius:999px; padding:10px 22px; font-weight:600; }
+</style>
+</head>
+<body>
+  <div class="light"></div>
+  <div class="shade"></div>
+
+  <div class="header"><span class="pill">Free Guide</span><span class="pill">@ui_fred_designer</span></div>
+
+  <div class="cast"></div>
+  <div class="stage">
+    <div class="book">
+      <div class="face back"></div>
+      <div class="face top-edge"></div>
+      <div class="face pages"></div>
+      <div class="face spine"><span>5 MISTAKES <i>first client</i> FRED</span></div>
+      <div class="face front"><img src="assets/cover.png" alt=""></div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <h1>1M views.<br><em>0 clients.</em></h1>
+    <div class="cta">Here's what I fixed<br>to sign a $7,000 project.<br><b>Get the free guide →</b></div>
+  </div>
+</body>
+</html>
