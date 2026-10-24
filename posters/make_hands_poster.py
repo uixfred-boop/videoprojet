@@ -53,17 +53,18 @@ def main(ref_path, out_path, bg_hex):
 
     # Lighting map: luminance of the white cover with its printed design removed.
     ink = ((B - R > 18) | (f.mean(-1) < 90)).astype(np.uint8) * 255
-    ink = cv2.dilate(ink, np.ones((9, 9), np.uint8))
+    ink = cv2.dilate(ink, np.ones((15, 15), np.uint8))
     lum = cv2.cvtColor(ref, cv2.COLOR_RGB2GRAY)
     lum = cv2.inpaint(lum, ink, 9, cv2.INPAINT_TELEA).astype(np.float32)
-    lum = cv2.GaussianBlur(lum, (0, 0), 2)
+    lum = cv2.GaussianBlur(lum, (0, 0), 4)
 
     book_f = quad_mask(ref.shape, front_q)
     book_s = quad_mask(ref.shape, spine_q)
     white = np.percentile(lum[book_f > 0], 96)
     shade_f = np.clip(lum / white, 0, 1.05)
-    s_vals = lum[book_s > 0]
-    shade_s = np.clip(0.55 + 0.5 * (lum - s_vals.min()) / (np.percentile(s_vals, 95) - s_vals.min()), 0, 1.05)
+    lum_s = cv2.GaussianBlur(lum, (0, 0), 30)  # spine: smooth away the old lettering
+    s_vals = lum_s[book_s > 0]
+    shade_s = np.clip(0.55 + 0.5 * (lum_s - s_vals.min()) / (np.percentile(s_vals, 95) - s_vals.min()), 0, 1.05)
 
     cover = cv2.cvtColor(cv2.imread(f"{HERE}/assets/cover.png"), cv2.COLOR_BGR2RGB)
     cov_w = warp(cover, front_q, ref.shape).astype(np.float32) * shade_f[..., None]
@@ -71,7 +72,11 @@ def main(ref_path, out_path, bg_hex):
 
     # --- recolor the wall: keep its light and shadow, change the hue ---
     from rembg import remove, new_session
-    fg = np.array(remove(Image.fromarray(ref), session=new_session("u2net"), only_mask=True), np.float32) / 255
+    fg = np.maximum.reduce([
+        np.array(remove(Image.fromarray(ref), session=new_session(n), only_mask=True), np.float32) / 255
+        for n in ("u2net", "u2net_human_seg")])
+    fg = cv2.morphologyEx(fg, cv2.MORPH_CLOSE, np.ones((25, 25), np.uint8))
+    fg = np.clip((fg - 0.35) / 0.4, 0, 1)  # tighten soft edges so no old wall halo remains
     fg = np.maximum(fg, (book_f | book_s) / 255.0)
     tgt = np.array([int(bg_hex[i:i + 2], 16) for i in (1, 3, 5)], np.float32)
     wall_L = lum / np.percentile(lum[fg < 0.1], 90)
