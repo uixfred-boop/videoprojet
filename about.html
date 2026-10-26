@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>About — Portfolio</title>
+  <meta name="description" content="À propos.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body data-page="about">
+  <main>
+    <section class="page-hero">
+      <h1 class="page-hero__title" data-hero-title>About</h1>
+      <div class="page-hero__sub">
+        <span class="mono muted" data-hero-fade>(Qui suis-je)</span>
+        <span></span>
+        <p data-hero-fade data-about-intro></p>
+      </div>
+    </section>
+
+    <section class="about-grid">
+      <div class="about-portrait"></div>
+      <div class="about-bio">
+        <span class="mono muted">(Bio)</span>
+        <div data-about-bio data-stagger style="display:flex;flex-direction:column;gap:24px"></div>
+        <div data-fade><a class="pill" href="#contact">Me contacter</a></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <h2 data-lines>Services</h2>
+        <p class="section-head__aside mono muted">(Expertise)</p>
+      </div>
+      <ul class="table" data-services-list data-stagger></ul>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <h2 data-lines>Expérience</h2>
+        <p class="section-head__aside mono muted">(Parcours)</p>
+      </div>
+      <ul class="table" data-experience data-stagger></ul>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <h2 data-lines>Récompenses</h2>
+        <p class="section-head__aside mono muted">(Reconnaissance)</p>
+      </div>
+      <ul class="table table--2" data-recognitions data-stagger></ul>
+    </section>
+
+    <section class="section">
+      <div class="section-head" style="border-bottom:0">
+        <h2 data-lines>Clients</h2>
+        <p class="section-head__aside mono muted">(Ils m'ont fait confiance)</p>
+      </div>
+      <ul class="clients" data-clients style="border-top:1px solid var(--line)"></ul>
+    </section>
+  </main>
+
+  <script src="assets/vendor/gsap.min.js"></script>
+  <script src="assets/vendor/ScrollTrigger.min.js"></script>
+  <script src="assets/vendor/lenis.min.js"></script>
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
