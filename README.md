@@ -9,7 +9,7 @@ Animations : GSAP + ScrollTrigger, smooth scroll : Lenis (fichiers inclus dans `
 | --- | --- |
 | `index.html` | Loader 0→100, hero « Design Engineer », showreel qui grandit au scroll (et suit la souris), « Moi », 2 projets mis en avant, services, « Modern Tech Stack » + logos, footer en tuiles |
 | `work.html` | « Selected Work » : tous les projets en cartes |
-| `project.html?p=<slug>` | Étude de cas : titre, année, services, résumé, galerie d'images / vidéos |
+| `project.html#<slug>` | Étude de cas : titre, année, services, résumé, galerie d'images / vidéos |
 
 Sur toutes les pages : en-tête d'infos + bouton « Me contacter », barre de navigation flottante en bas (menu Home / Work), footer.
 

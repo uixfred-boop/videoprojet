@@ -7,7 +7,7 @@
 
   const SITE = window.SITE;
   const PROJECTS = window.PROJECTS;
-  const page = document.body.dataset.page;
+  const page = (document.querySelector("[data-page]") || document.body).dataset.page;
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const isDesktop = () => window.innerWidth >= 1024;
 
@@ -20,7 +20,7 @@
   const $$ = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel));
   const esc = (s) =>
     String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
-  const projectUrl = (p) => `project.html?p=${encodeURIComponent(p.slug)}`;
+  const projectUrl = (p) => `project.html#${encodeURIComponent(p.slug)}`;
   const vh = (n) => (window.innerHeight * n) / 100;
 
   const store = {
@@ -407,7 +407,7 @@
     },
 
     project() {
-      const slug = new URLSearchParams(location.search).get("p");
+      const slug = decodeURIComponent(location.hash.slice(1)) || new URLSearchParams(location.search).get("p");
       const p = PROJECTS.find((x) => x.slug === slug) || PROJECTS[0];
       document.title = `${p.title} — ${SITE.name}`;
 
