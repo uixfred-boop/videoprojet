@@ -1,47 +1,52 @@
 # Portfolio
 
-Site portfolio statique (HTML / CSS / JS) qui reproduit la structure et les animations de [itsjay.us](https://www.itsjay.us/), **sans la page « Lab »**.
-Animations : GSAP + ScrollTrigger, smooth scroll : Lenis (fichiers inclus dans `assets/vendor`, aucune installation requise).
+A static portfolio site (HTML / CSS / JS) that reproduces the structure, copy and animations of [itsjay.us](https://www.itsjay.us/), **without the "Lab" page**.
+Animations: GSAP + ScrollTrigger. Smooth scroll: Lenis. Both are bundled in `assets/vendor`, so nothing needs installing.
 
 ## Pages
 
-| Fichier | Contenu |
+| File | Content |
 | --- | --- |
-| `index.html` | Loader 0→100, hero « Design Engineer », showreel qui grandit au scroll (et suit la souris), « Moi », 2 projets mis en avant, services, « Modern Tech Stack » + logos, footer en tuiles |
-| `work.html` | « Selected Work » : tous les projets en cartes |
-| `project.html#<slug>` | Étude de cas : titre, année, services, résumé, galerie d'images / vidéos |
+| `index.html` | 0→100 loader, "A seriously good Design Engineer" hero, showreel that follows the mouse and grows on scroll, "Myself", two featured projects, services, "Modern Tech Stack" with logos, footer tiles |
+| `work.html` | "Selected Work": every project as a card |
+| `project.html#<slug>` | Case study: title, year, services, summary, image / video gallery |
 
-Sur toutes les pages : en-tête d'infos + bouton « Me contacter », barre de navigation flottante en bas (menu Home / Work), footer.
+Every page has the info header with the "Get in touch" button, the floating bottom dock (Home / Work menu) and the footer.
 
-## Modifier le contenu
+## Editing the content
 
-Tout se trouve dans **`assets/js/data.js`** :
+Everything lives in **`assets/js/data.js`**:
 
-- `SITE` : nom, domaine, email, infos de l'en-tête, rôles qui défilent, textes du hero, showreel, « Moi », services, outils, réseaux.
-- `PROJECTS` : la liste des travaux (les deux premiers sont affichés sur l'accueil).
+- `SITE`: name, domain, email, header info, scrolling roles, hero text, showreel, "Myself", services, tools, socials.
+- `PROJECTS`: the list of projects (the first two are featured on the home page).
 
-Chaque projet : `slug` (URL), `title`, `category`, `year`, `colors` (dégradé de remplacement), `tags` (texte défilant sur la carte), `services`, `summary`, `cover` (image de la carte), `preview` (vidéo au survol de la carte) et `gallery`.
+Each project has a `slug` (used in the URL), `title`, `category`, `year`, `colors` (placeholder gradient), `tags` (text scrolling on the card), `services`, `summary`, `cover` (card image), `preview` (video shown when hovering the card) and `gallery`.
 
-Médias (images ou vidéos) à placer par exemple dans `assets/media/` :
+Put media in `assets/media/`, for example:
 
 ```js
-cover: { type: "image", src: "assets/media/projet-un/cover.jpg" },
-preview: { type: "video", src: "assets/media/projet-un/preview.mp4" },
+cover: { type: "image", src: "assets/media/project-one/cover.jpg" },
+preview: { type: "video", src: "assets/media/project-one/preview.mp4" },
 gallery: [
-  { type: "video", src: "assets/media/projet-un/film.mp4", poster: "assets/media/projet-un/poster.jpg" }, // pleine largeur
-  [ { type: "image", src: "assets/media/projet-un/01.jpg" }, { type: "image", src: "assets/media/projet-un/02.jpg" } ], // deux colonnes
+  { type: "video", src: "assets/media/project-one/film.mp4", poster: "assets/media/project-one/poster.jpg" }, // full width
+  [ { type: "image", src: "assets/media/project-one/01.jpg" }, { type: "image", src: "assets/media/project-one/02.jpg" } ], // two columns
 ],
 ```
 
-Tant qu'un média n'a pas de `src`, un dégradé aux couleurs du projet s'affiche à la place.
+Any media without a `src` shows a gradient in the project's colours instead.
 
-Logos des outils : fichiers SVG de `assets/icons/` (issus de [simple-icons](https://simpleicons.org), licence CC0). Des logos vidéo sont déjà inclus (Premiere Pro, After Effects, DaVinci Resolve, Blender, Cinema 4D, Photoshop, Illustrator) : il suffit de mettre leur nom dans `SITE.stack`.
+Tool logos are the SVG files in `assets/icons/` (from [simple-icons](https://simpleicons.org), CC0). Video tools are already included (Premiere Pro, After Effects, DaVinci Resolve, Blender, Cinema 4D, Photoshop, Illustrator): add their file name to `SITE.stack` to use them.
 
-Polices : Inter Tight et Doto (Google Fonts), en remplacement des polices commerciales du site d'origine.
+## Fonts
 
-## Lancer en local
+The original site uses **Saans** (Displaay Type Foundry) and **LCDDot**.
+
+- **LCDDot** is bundled in `assets/fonts` (CC BY-SA 3.0). Its character table was repaired so browsers accept it.
+- **Saans** is a commercial font and is not bundled. Once you have a license, add the four `.woff2` files to `assets/fonts` with the names listed in `assets/fonts/README.md` and the site uses them automatically. Until then it falls back to Inter Tight (Google Fonts).
+
+## Running locally
 
 ```bash
 python3 -m http.server 8000
-# puis ouvrir http://localhost:8000
+# then open http://localhost:8000
 ```

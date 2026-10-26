@@ -1,6 +1,6 @@
 /* ==========================================================================
-   Portfolio — scripts partagés par toutes les pages
-   Dépendances : GSAP + ScrollTrigger + Lenis (assets/vendor)
+   Portfolio — scripts shared by every page
+   Dependencies: GSAP + ScrollTrigger + Lenis (assets/vendor)
    ========================================================================== */
 (function () {
   "use strict";
@@ -37,7 +37,7 @@
     sound: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M11 5L6 9H2v6h4l5 4V5zM15.5 8.5a5 5 0 010 7M19 5a10 10 0 010 14"/></svg>`,
   };
 
-  // Image, vidéo, ou dégradé de remplacement quand `src` est vide.
+  // Image, video, or a placeholder gradient when `src` is empty.
   function media(item, colors, label) {
     item = item || {};
     const c = item.colors || colors || ["#8a8a8a", "#1c1c1c"];
@@ -53,11 +53,11 @@
     return `<div class="media">${inner}</div>`;
   }
 
-  // Texte en double pour l'effet de « roulement » au survol
+  // Doubled text for the roll-on-hover effect
   const roll = (text) =>
     `<span class="roll"><span class="roll__inner"><span>${esc(text)}</span><span>${esc(text)}</span></span></span>`;
 
-  // Bandeau défilant (texte dupliqué pour une boucle continue)
+  // Scrolling ticker (text duplicated for a seamless loop)
   function ticker(items) {
     const text = items.map(esc).join(", ") + ",";
     const speed = Math.max(14, text.length * 0.28);
@@ -68,7 +68,7 @@
   const mask = (html, cls = "") => `<span class="mask ${cls}"><span>${html}</span></span>`;
 
   /* ------------------------------------------------------------------------
-     Layout commun : header, barre du bas, footer
+     Shared layout: header, bottom dock, footer
      ------------------------------------------------------------------------ */
   function renderLayout() {
     const cols = SITE.header
@@ -91,9 +91,9 @@
       "afterbegin",
       `<header class="header">${cols}</header>
       <div class="header__cta">
-        <a href="mailto:${esc(SITE.email)}" class="cta group" aria-label="M'envoyer un email">
+        <a href="mailto:${esc(SITE.email)}" class="cta group" aria-label="Send me an email">
           <span class="cta__emoji" aria-hidden="true">${esc(typeof SITE.avatar === "string" ? SITE.avatar : "✉️")}</span>
-          <span class="cta__pill">${roll("Me contacter")}</span>
+          <span class="cta__pill">${roll("Get in touch")}</span>
         </a>
       </div>
       <div class="dock">
@@ -118,7 +118,7 @@
               ${ticker(SITE.roles)}
             </div>
           </div>
-          <button class="dock__toggle" aria-label="Ouvrir le menu" aria-expanded="false">${icons.menu}${icons.close}</button>
+          <button class="dock__toggle" aria-label="Open menu" aria-expanded="false">${icons.menu}${icons.close}</button>
         </div>
       </div>`
     );
@@ -152,11 +152,11 @@
       open = !open;
       dock.classList.toggle("is-open", open);
       btn.setAttribute("aria-expanded", open);
-      btn.setAttribute("aria-label", open ? "Fermer le menu" : "Ouvrir le menu");
+      btn.setAttribute("aria-label", open ? "Close menu" : "Open menu");
       open ? tl.play() : tl.reverse();
     });
 
-    // La barre se cache quand on arrive sur le footer
+    // The dock hides once the footer comes into view
     ScrollTrigger.create({
       trigger: ".footer",
       start: "top 85%",
@@ -177,7 +177,7 @@
   }
 
   /* ------------------------------------------------------------------------
-     Loader (premier chargement uniquement) puis animations d'entrée
+     Loader (first visit only), then intro animations
      ------------------------------------------------------------------------ */
   function loader(done) {
     if (reduceMotion || store.get("loaded")) return done();
@@ -206,9 +206,9 @@
   }
 
   /* ------------------------------------------------------------------------
-     Animations génériques au scroll
+     Generic scroll animations
      ------------------------------------------------------------------------ */
-  // Éléments qui apparaissent (opacité + léger décalage)
+  // Elements that fade and rise into place
   function appear(targets, opts = {}) {
     $$(targets).forEach((el) => {
       gsap.fromTo(el, { opacity: 0, y: opts.y ?? 24, scale: opts.scale ?? 0.98 }, {
@@ -218,7 +218,7 @@
     });
   }
 
-  // Étiquettes qui arrivent une par une
+  // Tags that appear one by one
   function tagsIn(container) {
     $$(".tags", container).forEach((list) => {
       gsap.fromTo(list.children, { opacity: 0, y: 24, scale: 0.9 }, {
@@ -228,7 +228,7 @@
     });
   }
 
-  // Parallaxe verticale d'un élément dans son conteneur
+  // Vertical parallax of an element inside its container
   function parallax(el, amount) {
     gsap.fromTo(el, { y: () => -vh(amount) }, {
       y: () => vh(amount), ease: "none",
@@ -236,7 +236,7 @@
     });
   }
 
-  // Ajuste la taille du titre pour remplir toute la largeur
+  // Sizes the title so it fills the full width
   function fitText(el, words) {
     const fit = () => {
       el.style.fontSize = "100px";
@@ -257,7 +257,7 @@
   }
 
   /* ------------------------------------------------------------------------
-     Composants
+     Components
      ------------------------------------------------------------------------ */
   function projectCard(p) {
     const icon = p.icon
@@ -266,7 +266,7 @@
     return `<a class="card" href="${projectUrl(p)}">
       <div class="card__media">
         <div class="card__blur"></div>
-        <div class="card__preview">${media(p.preview, p.colors, "Aperçu vidéo")}</div>
+        <div class="card__preview">${media(p.preview, p.colors, "Preview")}</div>
         <div class="card__parallax">${media(p.cover, p.colors)}</div>
       </div>
       <div class="card__info">
@@ -289,6 +289,7 @@
   const pages = {
     home() {
       const h = SITE.hero;
+      document.title = `${SITE.name} | ${SITE.title}`;
 
       // Hero
       const hero = $(".hero");
@@ -304,20 +305,20 @@
       // Showreel
       const frame = $(".intro__frame");
       frame.innerHTML = `${media(SITE.showreel, ["#3fb6c9", "#0b1316"], SITE.showreel.label)}
-        <button class="sound-btn" aria-label="Activer le son">${icons.muted}</button>`;
+        <button class="sound-btn" aria-label="Unmute video">${icons.muted}</button>`;
       const video = $("video", frame);
       const soundBtn = $(".sound-btn", frame);
       if (video) {
         frame.addEventListener("click", () => {
           video.muted = !video.muted;
           soundBtn.innerHTML = video.muted ? icons.muted : icons.sound;
-          soundBtn.setAttribute("aria-label", video.muted ? "Activer le son" : "Couper le son");
+          soundBtn.setAttribute("aria-label", video.muted ? "Unmute video" : "Mute video");
         });
       } else {
         soundBtn.remove();
       }
 
-      // Moi
+      // Myself
       const words = SITE.about.text.split(/\s+/);
       $(".about__label").textContent = SITE.about.label;
       $(".about__text").innerHTML = words.map((w) => `<span class="w">${esc(w)}</span>`).join(" ");
@@ -368,7 +369,7 @@
         <div class="logos__highlight"></div>`;
 
       return () => {
-        // Entrée du hero
+        // Hero intro
         gsap.from($$(".hero .mask > *"), { yPercent: 100, duration: 1.2, ease: "power4.out", stagger: 0.08 });
         gsap.fromTo(frame, { clipPath: "inset(0 0 100% 0)" }, { clipPath: "inset(0 0 0% 0)", duration: 1.4, ease: "power4.inOut", delay: 0.2 });
 
@@ -397,7 +398,7 @@
       $(".page-head__years").innerHTML = mask(esc(SITE.workPage.years));
       $(".page-head h1").innerHTML = mask(esc(SITE.workPage.title));
       $(".work-grid").innerHTML = PROJECTS.map((p) => `<div class="work-grid__item">${projectCard(p)}</div>`).join("");
-      document.title = `Work — ${SITE.name}`;
+      document.title = `Work | ${SITE.name}`;
       return () => {
         gsap.from($$(".page-head .mask > *"), { yPercent: 100, duration: 1.2, ease: "power4.out", stagger: 0.08 });
         gsap.from(".work-grid", { opacity: 0, y: 24, scale: 0.95, duration: 1, ease: "power3.out", delay: 0.2 });
@@ -409,13 +410,13 @@
     project() {
       const slug = decodeURIComponent(location.hash.slice(1)) || new URLSearchParams(location.search).get("p");
       const p = PROJECTS.find((x) => x.slug === slug) || PROJECTS[0];
-      document.title = `${p.title} — ${SITE.name}`;
+      document.title = `${p.title} | ${SITE.name}`;
 
       $(".project__title").innerHTML = mask(esc(p.title));
       $(".project__meta").innerHTML = `
-        <div class="meta-year">${mask('<p class="small-label">Année</p>')}${mask(`<p class="meta-value">${esc(p.year)}</p>`)}</div>
+        <div class="meta-year">${mask('<p class="small-label">Year</p>')}${mask(`<p class="meta-value">${esc(p.year)}</p>`)}</div>
         <div class="meta-services">${mask('<p class="small-label">Services</p>')}<ul class="tags">${p.services.map((t) => `<li class="tag">${esc(t)}</li>`).join("")}</ul></div>
-        <div class="meta-summary">${mask('<p class="small-label">Résumé</p>')}${mask(`<p class="meta-value">${esc(p.summary)}</p>`)}</div>`;
+        <div class="meta-summary">${mask('<p class="small-label">Summary</p>')}${mask(`<p class="meta-value">${esc(p.summary)}</p>`)}</div>`;
       $(".project__gallery").innerHTML = (p.gallery || [])
         .map((g) =>
           Array.isArray(g)
@@ -434,18 +435,18 @@
   };
 
   /* ------------------------------------------------------------------------
-     Animations spécifiques à l'accueil
+     Home page animations
      ------------------------------------------------------------------------ */
 
-  // La vidéo part petite en haut du hero (et suit la souris), puis grandit
-  // jusqu'à occuper toute la largeur au scroll.
+  // The video starts small at the top of the hero (following the mouse),
+  // then grows to full width as you scroll.
   function initShowreel(frame) {
     const mm = gsap.matchMedia();
     mm.add("(min-width: 1024px)", () => {
       const intro = $(".intro");
       const startScale = 0.35;
       let progress = 0;
-      let mouse = 0; // -1 (gauche) → 1 (droite)
+      let mouse = 0; // -1 (left) → 1 (right)
 
       const xTo = gsap.quickTo(frame, "x", { duration: 1, ease: "power3" });
       const followMouse = () => {
@@ -466,7 +467,7 @@
     });
   }
 
-  // Les mots du paragraphe « Moi » sont décalés au hasard puis se recalent au scroll
+  // Words of the "Myself" paragraph start randomly offset and settle as you scroll
   function initAboutWords() {
     const words = $$(".about__text .w");
     gsap.fromTo(words, { marginLeft: () => (Math.random() < 0.35 ? 0 : gsap.utils.random(0, 9) + "vw") }, {
@@ -475,7 +476,7 @@
     });
   }
 
-  // Chaque lettre « roule » vers le bas pour laisser place à sa copie
+  // Each letter rolls down to reveal its copy
   function initLetters() {
     gsap.to($$(".letter"), {
       yPercent: 100, ease: "none",
@@ -484,7 +485,7 @@
     });
   }
 
-  // Un carré sombre suit la case de logo survolée
+  // A dark square follows the hovered logo cell
   function initLogos() {
     const wrap = $(".logos");
     const hl = $(".logos__highlight", wrap);

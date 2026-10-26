@@ -1,4 +1,15 @@
 /* ==========================================================================
+   Fonts
+   Saans: licensed files go in assets/fonts (see assets/fonts/README.md).
+   LCDDot: included (CC BY-SA 3.0).
+   ========================================================================== */
+@font-face { font-family: "Saans"; src: local("Saans Regular"), local("Saans-Regular"), url("../fonts/Saans-Regular.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Saans"; src: local("Saans Medium"), local("Saans-Medium"), url("../fonts/Saans-Medium.woff2") format("woff2"); font-weight: 500; font-display: swap; }
+@font-face { font-family: "Saans"; src: local("Saans SemiBold"), local("Saans-SemiBold"), url("../fonts/Saans-SemiBold.woff2") format("woff2"); font-weight: 600; font-display: swap; }
+@font-face { font-family: "Saans"; src: local("Saans Bold"), local("Saans-Bold"), url("../fonts/Saans-Bold.woff2") format("woff2"); font-weight: 700; font-display: swap; }
+@font-face { font-family: "LCDDot"; src: url("../fonts/LCDDot.ttf") format("truetype"); font-weight: 400; font-display: swap; }
+
+/* ==========================================================================
    Base
    ========================================================================== */
 :root {
@@ -13,8 +24,8 @@
   --pad: 32px;      /* marge latérale des textes */
   --pad-sm: 16px;   /* marge latérale des blocs */
   --gap: 32px;
-  --font: "Inter Tight", "Helvetica Neue", Arial, sans-serif;
-  --dot: "Doto", ui-monospace, Menlo, monospace;
+  --font: "Saans", "Inter Tight", "Helvetica Neue", Arial, sans-serif;
+  --dot: "LCDDot", ui-monospace, Menlo, monospace;
   --ease-out: cubic-bezier(0.25, 1, 0.5, 1);
   --ease-io: cubic-bezier(0.87, 0, 0.13, 1);
   --ease-back: cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -49,7 +60,7 @@ ul { list-style: none; }
 
 .dot-font {
   font-family: var(--dot);
-  font-weight: 600;
+  font-weight: 400;
   text-transform: uppercase;
   letter-spacing: 0.1em;
 }
@@ -466,9 +477,8 @@ ul { list-style: none; }
   background: rgba(245,245,245,0.1);
   color: var(--n100);
   font-family: var(--dot);
-  font-weight: 700;
-  font-size: 11px;
-  letter-spacing: 0.08em;
+  font-weight: 400;
+  font-size: 10px;
   text-transform: uppercase;
   white-space: nowrap;
 }
@@ -641,7 +651,7 @@ ul { list-style: none; }
 .meta-summary { grid-column: 8 / span 5; }
 .meta-year .meta-value { color: var(--n100); font-size: clamp(48px, 3.5vw, 96px); font-weight: 600; letter-spacing: -0.035em; line-height: 0.8; }
 .meta-summary .meta-value { color: var(--n100); font-size: clamp(16px, 1.3vw, 30px); font-weight: 500; line-height: 1.3; }
-.meta-services .tag { font-size: clamp(11px, 0.7vw, 16px); }
+.meta-services .tag { font-size: clamp(12px, 0.7vw, 16px); }
 .project__gallery { display: flex; flex-direction: column; gap: 20px; }
 .shot { position: relative; height: clamp(600px, 57vw, 1200px); border-radius: 12px; overflow: hidden; }
 .shot-pair { display: flex; gap: 20px; }
@@ -682,7 +692,7 @@ ul { list-style: none; }
 @keyframes ph-move { to { background-position: 100% 100%; } }
 .ph__label {
   position: absolute; left: 16px; bottom: 14px; z-index: 1;
-  font-family: var(--dot); font-weight: 700; font-size: 12px;
+  font-family: var(--dot); font-weight: 400; font-size: 12px;
   letter-spacing: 0.1em; text-transform: uppercase;
   color: rgba(255,255,255,0.85);
 }
