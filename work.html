@@ -7,31 +7,18 @@
   <meta name="description" content="Tous les projets.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700&family=Doto:wght@600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body data-page="work">
   <main>
-    <section class="page-hero">
-      <h1 class="page-hero__title" data-hero-title>Work</h1>
-      <div class="page-hero__sub">
-        <span class="mono muted" data-hero-fade>(<span data-work-count></span> projets)</span>
-        <span></span>
-        <p data-hero-fade>Une sélection de projets en design de marque, UX/UI, développement web et motion.</p>
-      </div>
-    </section>
-
-    <section class="section" style="padding-top:60px">
-      <div class="work-toolbar">
-        <div class="filters" data-filters></div>
-        <div class="view-toggle">
-          <button class="is-active" data-view="list">Liste</button>
-          <button data-view="grid">Grille</button>
-        </div>
-      </div>
-      <ul class="work-list" data-work-list style="margin-top:24px; border-top:1px solid var(--line)"></ul>
-      <div class="work-grid" data-work-grid hidden></div>
-    </section>
+    <div class="page-head">
+      <p class="page-head__years"></p>
+      <h1></h1>
+    </div>
+    <div class="work-grid-wrap">
+      <div class="work-grid"></div>
+    </div>
   </main>
 
   <script src="assets/vendor/gsap.min.js"></script>

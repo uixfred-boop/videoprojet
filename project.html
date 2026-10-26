@@ -7,37 +7,18 @@
   <meta name="description" content="Étude de cas.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700&family=Doto:wght@600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body data-page="project">
-  <main>
-    <section class="page-hero">
-      <a href="work.html" class="mono muted u-link" data-hero-fade>← Tous les projets</a>
-      <h1 class="page-hero__title" data-hero-title style="margin-top:24px"></h1>
-      <div class="page-hero__sub">
-        <span class="mono muted" data-hero-fade>(Étude de cas)</span>
-        <span></span>
-        <p data-hero-fade data-project-summary></p>
+  <main class="project">
+    <div class="project__box">
+      <h1 class="project__title"></h1>
+      <div class="project__panel">
+        <div class="project__meta"></div>
+        <div class="project__gallery"></div>
       </div>
-    </section>
-
-    <section class="project-meta" data-project-meta data-stagger></section>
-
-    <section class="project-cover"><div class="project-cover__inner"></div></section>
-
-    <section class="project-body">
-      <p class="project-body__label mono muted">(Le projet)</p>
-      <div class="project-body__text" data-project-text data-stagger></div>
-      <div class="project-body__link" data-project-link></div>
-    </section>
-
-    <section class="gallery" data-gallery></section>
-
-    <a class="next-project" href="#" data-cursor="Suivant">
-      <span class="mono muted">(Projet suivant)</span>
-      <span class="next-project__title"></span>
-    </a>
+    </div>
   </main>
 
   <script src="assets/vendor/gsap.min.js"></script>

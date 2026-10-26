@@ -9,383 +9,278 @@
   const PROJECTS = window.PROJECTS;
   const page = document.body.dataset.page;
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const hasGsap = typeof window.gsap !== "undefined";
+  const isDesktop = () => window.innerWidth >= 1024;
 
-  if (hasGsap && window.ScrollTrigger) gsap.registerPlugin(ScrollTrigger);
+  gsap.registerPlugin(ScrollTrigger);
 
   /* ------------------------------------------------------------------------
      Helpers
      ------------------------------------------------------------------------ */
   const $ = (sel, ctx = document) => ctx.querySelector(sel);
   const $$ = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel));
-  const pad = (n) => String(n).padStart(2, "0");
   const esc = (s) =>
     String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
-
   const projectUrl = (p) => `project.html?p=${encodeURIComponent(p.slug)}`;
+  const vh = (n) => (window.innerHeight * n) / 100;
 
   const store = {
     get(k) { try { return sessionStorage.getItem(k); } catch (e) { return null; } },
     set(k, v) { try { sessionStorage.setItem(k, v); } catch (e) { /* ignore */ } },
   };
 
-  // Renders an image, a video, or a gradient placeholder when no src is set.
-  function media(item, project, label) {
+  const icons = {
+    arrowDown: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 5v14M5 12l7 7 7-7"/></svg>`,
+    arrowRight: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>`,
+    menu: `<svg class="i-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>`,
+    close: `<svg class="i-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>`,
+    muted: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M11 5L6 9H2v6h4l5 4V5zM23 9l-6 6M17 9l6 6"/></svg>`,
+    sound: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M11 5L6 9H2v6h4l5 4V5zM15.5 8.5a5 5 0 010 7M19 5a10 10 0 010 14"/></svg>`,
+  };
+
+  // Image, vidéo, ou dégradé de remplacement quand `src` est vide.
+  function media(item, colors, label) {
     item = item || {};
-    const colors = (project && project.colors) || ["#444", "#111"];
+    const c = item.colors || colors || ["#8a8a8a", "#1c1c1c"];
+    let inner;
     if (item.src && item.type === "video") {
-      return `<video src="${esc(item.src)}" ${item.poster ? `poster="${esc(item.poster)}"` : ""} autoplay muted loop playsinline preload="metadata"></video>`;
+      inner = `<video src="${esc(item.src)}" ${item.poster ? `poster="${esc(item.poster)}"` : ""} autoplay muted loop playsinline preload="metadata"></video>`;
+    } else if (item.src) {
+      inner = `<img src="${esc(item.src)}" alt="${esc(item.alt || label || "")}" loading="lazy">`;
+    } else {
+      const text = item.label || label;
+      inner = `<div class="ph${item.type === "video" ? " ph--video" : ""}" style="--c1:${c[0]};--c2:${c[1]}">${text ? `<span class="ph__label">${esc(text)}</span>` : ""}</div>`;
     }
-    if (item.src) {
-      return `<img src="${esc(item.src)}" alt="${esc(item.alt || (project && project.title) || "")}" loading="lazy">`;
-    }
-    const isVideo = item.type === "video";
-    return `<div class="ph${isVideo ? " ph--video" : ""}" style="--c1:${colors[0]};--c2:${colors[1]}">
-      ${label ? `<span class="ph__label mono">${esc(label)}</span>` : ""}
-    </div>`;
+    return `<div class="media">${inner}</div>`;
   }
 
-  const arrow = `<svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M1 9h15M10 3l6 6-6 6" stroke="currentColor" stroke-width="1.4"/></svg>`;
+  // Texte en double pour l'effet de « roulement » au survol
+  const roll = (text) =>
+    `<span class="roll"><span class="roll__inner"><span>${esc(text)}</span><span>${esc(text)}</span></span></span>`;
 
-  function splitChars(el) {
-    const text = el.textContent;
-    el.setAttribute("aria-label", text);
-    el.innerHTML = [...text]
-      .map((c) => `<span class="char" aria-hidden="true">${c === " " ? "&nbsp;" : esc(c)}</span>`)
-      .join("");
-    return $$(".char", el);
+  // Bandeau défilant (texte dupliqué pour une boucle continue)
+  function ticker(items) {
+    const text = items.map(esc).join(", ") + ",";
+    const speed = Math.max(14, text.length * 0.28);
+    const p = `<p class="dot-font">${text}</p>`;
+    return `<div class="ticker"><div class="ticker__track" style="--ticker-speed:${speed}s">${p}${p}</div></div>`;
   }
 
-  function splitWords(el) {
-    const words = el.textContent.trim().split(/\s+/);
-    el.innerHTML = words.map((w) => `<span class="word">${esc(w)}</span>`).join(" ");
-    return $$(".word", el);
-  }
-
-  // Wraps each [data-lines] element's content in a mask for a slide-up reveal.
-  function maskLines(el) {
-    el.innerHTML = `<span class="line-mask"><span>${el.innerHTML}</span></span>`;
-    return $(".line-mask > span", el);
-  }
+  const mask = (html, cls = "") => `<span class="mask ${cls}"><span>${html}</span></span>`;
 
   /* ------------------------------------------------------------------------
-     Layout : header, menu mobile, footer, curseur, transitions
+     Layout commun : header, barre du bas, footer
      ------------------------------------------------------------------------ */
-  const NAV = [
-    { id: "work", label: "Work", href: "work.html" },
-    { id: "about", label: "About", href: "about.html" },
-    { id: "contact", label: "Contact", href: "#contact" },
-  ];
-
   function renderLayout() {
-    const activeId = page === "project" ? "work" : page;
-    const navLinks = NAV.map(
-      (n) => `<a href="${n.href}" class="u-link${n.id === activeId ? " is-active" : ""}">${n.label}</a>`
-    ).join("");
+    const cols = SITE.header
+      .map((h) => {
+        const value = h.url
+          ? `<a href="${esc(h.url)}" target="_blank" rel="noopener" class="group muted">${roll(h.value)}</a>`
+          : `<span class="muted">${esc(h.value)}</span>`;
+        return `<div class="header__col">${mask(esc(h.label))}${mask(value)}</div>`;
+      })
+      .join("");
+
+    const avatar = typeof SITE.avatar === "string" ? esc(SITE.avatar) : media(SITE.avatar);
+    const firstCover = PROJECTS[0] ? media(PROJECTS[0].cover, PROJECTS[0].colors) : "";
+    const navLinks = [
+      { label: "Home", href: "index.html", thumb: `<span class="dock__thumb-label">${esc(SITE.domain)}</span>` },
+      { label: "Work", href: "work.html", thumb: firstCover },
+    ];
 
     document.body.insertAdjacentHTML(
       "afterbegin",
-      `<div class="transition" aria-hidden="true"></div>
-      <div class="cursor" aria-hidden="true"><span class="cursor__label"></span></div>
-      <header class="header">
-        <a href="index.html" class="header__logo">${esc(SITE.name)}<sup class="mono">©</sup></a>
-        <div class="header__status mono"><span class="dot"></span>${esc(SITE.availability)}</div>
-        <div class="header__time mono"><span>${esc(SITE.location)}</span> <span data-clock></span></div>
-        <nav class="header__nav">${navLinks}</nav>
-        <button class="menu-btn" aria-expanded="false">Menu</button>
-      </header>
-      <div class="mobile-menu">
-        <nav>${NAV.map((n) => `<a href="${n.href}">${n.label}</a>`).join("")}</nav>
-        <div class="mono muted">${esc(SITE.location)} — <span data-clock></span></div>
+      `<header class="header">${cols}</header>
+      <div class="header__cta">
+        <a href="mailto:${esc(SITE.email)}" class="cta group" aria-label="M'envoyer un email">
+          <span class="cta__emoji" aria-hidden="true">${esc(typeof SITE.avatar === "string" ? SITE.avatar : "✉️")}</span>
+          <span class="cta__pill">${roll("Me contacter")}</span>
+        </a>
+      </div>
+      <div class="dock">
+        <div class="dock__menu">
+          <nav class="dock__nav">
+            ${navLinks
+              .map(
+                (l) => `<a class="dock__link" href="${l.href}">
+                  <span class="dock__thumb">${l.thumb}</span>
+                  ${roll(l.label)}
+                </a>`
+              )
+              .join("")}
+          </nav>
+          <div class="dock__line"></div>
+        </div>
+        <div class="dock__bar">
+          <div class="dock__id">
+            <div class="dock__avatar">${avatar}</div>
+            <div class="dock__text">
+              <a class="dock__name" href="index.html">${esc(SITE.name)}</a>
+              ${ticker(SITE.roles)}
+            </div>
+          </div>
+          <button class="dock__toggle" aria-label="Ouvrir le menu" aria-expanded="false">${icons.menu}${icons.close}</button>
+        </div>
       </div>`
     );
 
+    const tiles = [
+      `<a class="tile tile--8" href="work.html">Work</a>`,
+      `<a class="tile tile--4" href="mailto:${esc(SITE.email)}">Contact</a>`,
+      ...SITE.socials.map(
+        (s) => `<a class="tile tile--4 tile--sm" href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.label)}</a>`
+      ),
+    ];
     const footer = document.createElement("footer");
     footer.className = "footer";
-    footer.id = "contact";
-    footer.innerHTML = `
-      <div class="footer__top">
-        <div class="footer__cta">
-          <p class="mono muted">Un projet en tête ?</p>
-          <h2 data-lines>Travaillons<br>ensemble.</h2>
-          <button class="footer__email u-link" data-copy="${esc(SITE.email)}">
-            ${esc(SITE.email)} <span class="copied mono">Copié !</span>
-          </button>
-        </div>
-        <div class="footer__links">
-          <div class="footer__col">
-            <span class="mono muted">Menu</span>
-            <a href="index.html" class="u-link">Home</a>
-            ${NAV.filter((n) => n.id !== "contact").map((n) => `<a href="${n.href}" class="u-link">${n.label}</a>`).join("")}
-          </div>
-          <div class="footer__col">
-            <span class="mono muted">Réseaux</span>
-            ${SITE.socials.map((s) => `<a href="${esc(s.url)}" target="_blank" rel="noopener" class="u-link">${esc(s.label)}</a>`).join("")}
-          </div>
-        </div>
-      </div>
-      <div class="footer__bottom mono muted">
-        <span>© ${new Date().getFullYear()} ${esc(SITE.name)}</span>
-        <span>${esc(SITE.role)}</span>
-        <span>${esc(SITE.location)} — <span data-clock></span></span>
-        <button class="u-link" data-top>Retour en haut ↑</button>
-      </div>
-      <div class="footer__giant" aria-hidden="true">${esc(SITE.name)}</div>`;
+    footer.innerHTML = `<h2 class="footer__big" aria-hidden="true">${esc(SITE.domain)}</h2>${tiles.join("")}`;
     document.body.appendChild(footer);
   }
 
-  function initClock() {
-    const fmt = new Intl.DateTimeFormat("fr-FR", {
-      hour: "2-digit", minute: "2-digit", second: "2-digit", timeZone: SITE.timezone,
-    });
-    const tick = () => $$("[data-clock]").forEach((el) => (el.textContent = fmt.format(new Date())));
-    tick();
-    setInterval(tick, 1000);
-  }
+  function initDock() {
+    const dock = $(".dock");
+    const menu = $(".dock__menu", dock);
+    const btn = $(".dock__toggle", dock);
+    let open = false;
 
-  function initMenu() {
-    const btn = $(".menu-btn");
-    const menu = $(".mobile-menu");
+    const tl = gsap.timeline({ paused: true })
+      .to(menu, { height: "auto", duration: 0.6, ease: "power3.inOut" })
+      .fromTo($$(".dock__thumb", dock), { y: 24, scale: 0.9, opacity: 0 }, { y: 0, scale: 1, opacity: 1, duration: 0.5, stagger: 0.06, ease: "power3.out" }, 0.2)
+      .fromTo($$(".dock__link .roll__inner", dock), { yPercent: 50 }, { yPercent: 0, duration: 0.5, stagger: 0.06, ease: "power3.out", clearProps: "transform" }, 0.25)
+      .fromTo($(".dock__line", dock), { width: "0%" }, { width: "100%", duration: 0.6, ease: "power3.inOut" }, 0.2);
+
     btn.addEventListener("click", () => {
-      const open = menu.classList.toggle("is-open");
+      open = !open;
+      dock.classList.toggle("is-open", open);
       btn.setAttribute("aria-expanded", open);
-      btn.textContent = open ? "Fermer" : "Menu";
+      btn.setAttribute("aria-label", open ? "Fermer le menu" : "Ouvrir le menu");
+      open ? tl.play() : tl.reverse();
     });
-    $$("a", menu).forEach((a) => a.addEventListener("click", () => {
-      menu.classList.remove("is-open");
-      btn.textContent = "Menu";
-    }));
-  }
 
-  function initCopy() {
-    $$("[data-copy]").forEach((btn) =>
-      btn.addEventListener("click", () => {
-        const value = btn.dataset.copy;
-        const done = () => {
-          btn.classList.add("is-copied");
-          setTimeout(() => btn.classList.remove("is-copied"), 1600);
-        };
-        if (navigator.clipboard) navigator.clipboard.writeText(value).then(done, () => (location.href = `mailto:${value}`));
-        else location.href = `mailto:${value}`;
-      })
-    );
-  }
-
-  function initCursor() {
-    const cursor = $(".cursor");
-    if (!hasGsap || window.matchMedia("(hover: none)").matches) return;
-    const label = $(".cursor__label", cursor);
-    const x = gsap.quickTo(cursor, "x", { duration: 0.5, ease: "power3" });
-    const y = gsap.quickTo(cursor, "y", { duration: 0.5, ease: "power3" });
-    window.addEventListener("mousemove", (e) => { x(e.clientX); y(e.clientY); });
-
-    document.addEventListener("mouseover", (e) => {
-      const target = e.target.closest("a, button, [data-cursor]");
-      cursor.classList.toggle("is-hover", !!target && !target.dataset.cursor);
-      cursor.classList.toggle("has-label", !!(target && target.dataset.cursor));
-      if (target && target.dataset.cursor) label.textContent = target.dataset.cursor;
+    // La barre se cache quand on arrive sur le footer
+    ScrollTrigger.create({
+      trigger: ".footer",
+      start: "top 85%",
+      onEnter: () => gsap.to(dock, { y: 160, duration: 0.6, ease: "power3.inOut" }),
+      onLeaveBack: () => gsap.to(dock, { y: 0, duration: 0.6, ease: "power3.out" }),
     });
   }
 
-  /* Smooth scroll */
-  let lenis = null;
+  /* ------------------------------------------------------------------------
+     Smooth scroll
+     ------------------------------------------------------------------------ */
   function initScroll() {
     if (reduceMotion || typeof window.Lenis === "undefined") return;
-    lenis = new Lenis({ lerp: 0.1 });
-    if (hasGsap) {
-      lenis.on("scroll", ScrollTrigger.update);
-      gsap.ticker.add((t) => lenis.raf(t * 1000));
-      gsap.ticker.lagSmoothing(0);
-    } else {
-      const raf = (t) => { lenis.raf(t); requestAnimationFrame(raf); };
-      requestAnimationFrame(raf);
-    }
-  }
-
-  function scrollToTarget(target) {
-    if (lenis) lenis.scrollTo(target, { duration: 1.6 });
-    else (typeof target === "number" ? window.scrollTo({ top: target, behavior: "smooth" }) : target.scrollIntoView({ behavior: "smooth" }));
-  }
-
-  function initAnchors() {
-    $$("[data-top]").forEach((b) => b.addEventListener("click", () => scrollToTarget(0)));
-    document.addEventListener("click", (e) => {
-      const a = e.target.closest('a[href^="#"]');
-      if (!a) return;
-      const target = document.querySelector(a.getAttribute("href"));
-      if (target) { e.preventDefault(); scrollToTarget(target); }
-    });
-  }
-
-  /* Page transitions : rideau qui monte avant de changer de page */
-  function initTransitions() {
-    const curtain = $(".transition");
-    if (!hasGsap || reduceMotion) return;
-
-    document.addEventListener("click", (e) => {
-      const a = e.target.closest("a");
-      if (!a || a.target === "_blank" || e.metaKey || e.ctrlKey || e.shiftKey) return;
-      const href = a.getAttribute("href");
-      if (!href || href.startsWith("#") || href.startsWith("mailto:") || /^https?:/.test(href)) return;
-      e.preventDefault();
-      store.set("transition", "1");
-      gsap.fromTo(curtain, { yPercent: 100, visibility: "visible" }, {
-        yPercent: 0, duration: 0.8, ease: "power4.inOut",
-        onComplete: () => (location.href = href),
-      });
-    });
-
-    // Back/forward cache : on retire le rideau si la page est restaurée
-    window.addEventListener("pageshow", (e) => { if (e.persisted) gsap.set(curtain, { yPercent: 100, visibility: "hidden" }); });
+    const lenis = new Lenis({ lerp: 0.1 });
+    lenis.on("scroll", ScrollTrigger.update);
+    gsap.ticker.add((t) => lenis.raf(t * 1000));
+    gsap.ticker.lagSmoothing(0);
   }
 
   /* ------------------------------------------------------------------------
-     Intro : preloader au premier chargement, rideau sinon
+     Loader (premier chargement uniquement) puis animations d'entrée
      ------------------------------------------------------------------------ */
-  function intro(onDone) {
-    const curtain = $(".transition");
-    if (!hasGsap || reduceMotion) return onDone();
-
-    if (store.get("transition")) {
-      store.set("transition", "");
-      gsap.set(curtain, { yPercent: 0, visibility: "visible" });
-      gsap.to(curtain, {
-        yPercent: -100, duration: 0.9, ease: "power4.inOut", delay: 0.05,
-        onComplete: () => gsap.set(curtain, { visibility: "hidden" }),
-      });
-      return setTimeout(onDone, 350);
-    }
-
-    if (store.get("visited") || page !== "home") return onDone();
-    store.set("visited", "1");
-
+  function loader(done) {
+    if (reduceMotion || store.get("loaded")) return done();
+    store.set("loaded", "1");
     document.body.classList.add("is-loading");
-    document.body.insertAdjacentHTML(
-      "afterbegin",
-      `<div class="preloader"><span class="preloader__count">0</span><span class="preloader__name mono">${esc(SITE.name)} — ${esc(SITE.role)}</span></div>`
-    );
-    const pre = $(".preloader");
+    document.body.insertAdjacentHTML("afterbegin", `<div class="loader"><div class="mask"><p>0</p></div></div>`);
+    const el = $(".loader");
     const count = { v: 0 };
-    gsap.timeline({
-      onComplete: () => { pre.remove(); document.body.classList.remove("is-loading"); },
-    })
+    gsap.timeline()
       .to(count, {
-        v: 100, duration: 1.8, ease: "power3.inOut",
-        onUpdate: () => ($(".preloader__count", pre).textContent = Math.round(count.v)),
+        v: 100, duration: 1.6, ease: "power2.inOut",
+        onUpdate: () => ($("p", el).textContent = Math.round(count.v)),
       })
-      .to(pre, { yPercent: -100, duration: 1, ease: "power4.inOut" })
-      .add(onDone, "-=0.6");
+      .to($("p", el), { yPercent: -110, duration: 0.5, ease: "power3.in" })
+      .to(el, {
+        opacity: 0, duration: 0.6, ease: "power2.out",
+        onStart: done,
+        onComplete: () => { el.remove(); document.body.classList.remove("is-loading"); },
+      });
+  }
+
+  function layoutIn() {
+    gsap.from($$(".header .mask > *"), { yPercent: 100, duration: 1, ease: "power4.out", stagger: 0.05 });
+    gsap.from(".header__cta", { y: 16, scale: 0.95, opacity: 0, duration: 0.8, ease: "power3.out", delay: 0.2 });
+    gsap.from(".dock", { y: 100, scale: 0.95, opacity: 0, duration: 1, ease: "power3.out", delay: 0.3 });
   }
 
   /* ------------------------------------------------------------------------
-     Animations génériques
+     Animations génériques au scroll
      ------------------------------------------------------------------------ */
-  function initReveals() {
-    if (!hasGsap || reduceMotion) return;
-
-    $$("[data-lines]").forEach((el) => {
-      const inner = maskLines(el);
-      gsap.from(inner, {
-        yPercent: 110, duration: 1.2, ease: "power4.out",
-        scrollTrigger: { trigger: el, start: "top 90%" },
+  // Éléments qui apparaissent (opacité + léger décalage)
+  function appear(targets, opts = {}) {
+    $$(targets).forEach((el) => {
+      gsap.fromTo(el, { opacity: 0, y: opts.y ?? 24, scale: opts.scale ?? 0.98 }, {
+        opacity: 1, y: 0, scale: 1, duration: 0.9, ease: "power3.out",
+        scrollTrigger: { trigger: el, start: "top 92%", once: true },
       });
     });
-
-    $$("[data-fade]").forEach((el) => {
-      gsap.from(el, {
-        y: 40, opacity: 0, duration: 1.2, ease: "power3.out",
-        scrollTrigger: { trigger: el, start: "top 92%" },
-      });
-    });
-
-    $$("[data-stagger]").forEach((list) => {
-      gsap.from(list.children, {
-        y: 40, opacity: 0, duration: 1, ease: "power3.out", stagger: 0.08,
-        scrollTrigger: { trigger: list, start: "top 88%" },
-      });
-    });
-
-    $$("[data-parallax]").forEach((el) => {
-      gsap.fromTo(el, { yPercent: -8, scale: 1.15 }, {
-        yPercent: 8, ease: "none",
-        scrollTrigger: { trigger: el.parentElement, start: "top bottom", end: "bottom top", scrub: true },
-      });
-    });
-
-    $$("[data-words]").forEach((el) => {
-      const words = splitWords(el);
-      gsap.to(words, {
-        opacity: 1, stagger: 0.1, ease: "none",
-        scrollTrigger: { trigger: el, start: "top 80%", end: "bottom 45%", scrub: true },
-      });
-    });
-
-    const giant = $(".footer__giant");
-    if (giant) {
-      gsap.from(giant, {
-        yPercent: 60, ease: "none",
-        scrollTrigger: { trigger: ".footer", start: "top bottom", end: "bottom bottom", scrub: true },
-      });
-    }
   }
 
-  // Hero : lettres qui montent une à une
-  function heroIn(selector) {
-    const title = $(selector);
-    if (!title) return;
-    const chars = splitChars(title);
-    if (!hasGsap || reduceMotion) return;
-    gsap.set(title, { overflow: "hidden" });
-    gsap.from(chars, { yPercent: 110, duration: 1.4, ease: "power4.out", stagger: 0.04 });
-    gsap.from("[data-hero-fade]", { y: 20, opacity: 0, duration: 1, ease: "power3.out", stagger: 0.1, delay: 0.4 });
+  // Étiquettes qui arrivent une par une
+  function tagsIn(container) {
+    $$(".tags", container).forEach((list) => {
+      gsap.fromTo(list.children, { opacity: 0, y: 24, scale: 0.9 }, {
+        opacity: 1, y: 0, scale: 1, duration: 0.6, ease: "power3.out", stagger: 0.04,
+        scrollTrigger: { trigger: list, start: "top 92%", once: true },
+      });
+    });
+  }
+
+  // Parallaxe verticale d'un élément dans son conteneur
+  function parallax(el, amount) {
+    gsap.fromTo(el, { y: () => -vh(amount) }, {
+      y: () => vh(amount), ease: "none",
+      scrollTrigger: { trigger: el.parentElement, start: "top bottom", end: "bottom top", scrub: true, invalidateOnRefresh: true },
+    });
+  }
+
+  // Ajuste la taille du titre pour remplir toute la largeur
+  function fitText(el, words) {
+    const fit = () => {
+      el.style.fontSize = "100px";
+      const width = el.clientWidth;
+      const sizes = words.map((w) => w.getBoundingClientRect().width);
+      if (isDesktop()) {
+        const gap = window.innerWidth * 0.04;
+        const total = sizes.reduce((a, b) => a + b, 0);
+        el.style.fontSize = `${(100 * (width - gap * (words.length - 1))) / total}px`;
+      } else {
+        const widest = Math.max(...sizes);
+        el.style.fontSize = `${(100 * width) / widest}px`;
+      }
+    };
+    fit();
+    if (document.fonts) document.fonts.ready.then(() => { fit(); ScrollTrigger.refresh(); });
+    window.addEventListener("resize", fit);
   }
 
   /* ------------------------------------------------------------------------
-     Liste de projets + aperçu flottant
+     Composants
      ------------------------------------------------------------------------ */
-  function workRows(list) {
-    return list
-      .map(
-        (p, i) => `<li>
-          <a class="work-row" href="${projectUrl(p)}" data-index="${i}" data-cursor="Voir">
-            <span class="work-row__num mono muted">${pad(i + 1)}</span>
-            <span class="work-row__title">${esc(p.title)}</span>
-            <span class="work-row__cat mono">${esc(p.category)}</span>
-            <span class="work-row__year mono">${esc(p.year)}</span>
-            <span class="work-row__arrow">${arrow}</span>
-          </a>
-        </li>`
-      )
-      .join("");
+  function projectCard(p) {
+    const icon = p.icon
+      ? `<span class="card__icon">${media(p.icon, p.colors)}</span>`
+      : `<span class="card__icon" style="background:${p.colors[0]}">${esc(p.title.charAt(0))}</span>`;
+    return `<a class="card" href="${projectUrl(p)}">
+      <div class="card__media">
+        <div class="card__blur"></div>
+        <div class="card__preview">${media(p.preview, p.colors, "Aperçu vidéo")}</div>
+        <div class="card__parallax">${media(p.cover, p.colors)}</div>
+      </div>
+      <div class="card__info">
+        <div class="card__row">
+          <div class="card__name">${icon}<p class="card__title">${esc(p.title)}</p></div>
+          <div class="card__meta"><p>${esc(p.category)}</p><p>${esc(p.year)}</p></div>
+        </div>
+        ${ticker(p.tags)}
+      </div>
+    </a>`;
   }
 
-  function initPreview(listEl, list) {
-    if (!hasGsap || window.matchMedia("(hover: none)").matches) return;
-    let preview = $(".preview");
-    if (!preview) {
-      preview = document.createElement("div");
-      preview.className = "preview";
-      preview.innerHTML = `<div class="preview__track"></div>`;
-      document.body.appendChild(preview);
-    }
-    const track = $(".preview__track", preview);
-    track.innerHTML = list
-      .map((p, i) => `<div class="preview__item" style="top:${i * 100}%">${media(p.cover, p, p.category)}</div>`)
-      .join("");
-
-    const x = gsap.quickTo(preview, "x", { duration: 0.6, ease: "power3" });
-    const y = gsap.quickTo(preview, "y", { duration: 0.6, ease: "power3" });
-    window.addEventListener("mousemove", (e) => { x(e.clientX); y(e.clientY); });
-
-    listEl.addEventListener("mouseover", (e) => {
-      const row = e.target.closest(".work-row");
-      if (!row) return;
-      track.style.transform = `translateY(${-row.dataset.index * 100}%)`;
-      gsap.to(preview, { scale: 1, duration: 0.5, ease: "power3.out", overwrite: "auto" });
-    });
-    listEl.addEventListener("mouseleave", () =>
-      gsap.to(preview, { scale: 0, duration: 0.4, ease: "power3.in", overwrite: "auto" })
-    );
+  function initCards(scope) {
+    $$(".card__parallax", scope).forEach((el) => parallax(el, 10));
   }
 
   /* ------------------------------------------------------------------------
@@ -393,176 +288,239 @@
      ------------------------------------------------------------------------ */
   const pages = {
     home() {
-      $("[data-site-role]").textContent = SITE.role;
-      $("[data-site-intro]").textContent = SITE.intro;
-      $("[data-hero-title]").textContent = SITE.name;
-      $("[data-statement]").textContent = SITE.statement;
+      const h = SITE.hero;
+
+      // Hero
+      const hero = $(".hero");
+      hero.innerHTML = `
+        <div class="hero__bottom">
+          ${mask(`<span class="hero__top">${h.top.map((w) => `<span>${esc(w)}</span>`).join("")}</span>`)}
+          <div class="hero__title">${h.title.map((w) => mask(`<span class="hero__word">${esc(w)}</span>`)).join("")}</div>
+        </div>
+        <div class="hero__scroll hero__scroll--l">${mask(`<span style="display:flex;align-items:center;gap:4px">${icons.arrowDown}${esc(h.scrollLeft)}</span>`)}</div>
+        <div class="hero__scroll hero__scroll--r">${mask(`<span style="display:flex;align-items:center;gap:4px">${esc(h.scrollRight)}${icons.arrowDown}</span>`)}</div>`;
+      fitText($(".hero__title"), $$(".hero__word"));
 
       // Showreel
-      const reel = $(".reel__frame");
-      reel.insertAdjacentHTML("afterbegin", media(SITE.showreel, { colors: ["#ff5a1f", "#151515"] }));
-      $(".reel__label").textContent = SITE.showreel.label || "Showreel";
-      const video = $("video", reel);
+      const frame = $(".intro__frame");
+      frame.innerHTML = `${media(SITE.showreel, ["#3fb6c9", "#0b1316"], SITE.showreel.label)}
+        <button class="sound-btn" aria-label="Activer le son">${icons.muted}</button>`;
+      const video = $("video", frame);
+      const soundBtn = $(".sound-btn", frame);
       if (video) {
-        reel.dataset.cursor = "Son";
-        reel.addEventListener("click", () => {
+        frame.addEventListener("click", () => {
           video.muted = !video.muted;
-          reel.dataset.cursor = video.muted ? "Son" : "Muet";
-          $(".cursor__label").textContent = reel.dataset.cursor;
+          soundBtn.innerHTML = video.muted ? icons.muted : icons.sound;
+          soundBtn.setAttribute("aria-label", video.muted ? "Activer le son" : "Couper le son");
         });
-      }
-      if (hasGsap && !reduceMotion) {
-        gsap.fromTo(reel, { scale: 0.55, borderRadius: 16 }, {
-          scale: 1, borderRadius: 6, ease: "none",
-          scrollTrigger: { trigger: ".reel", start: "top bottom", end: "top 10%", scrub: true },
-        });
+      } else {
+        soundBtn.remove();
       }
 
-      // Projets
-      const list = $("[data-work-list]");
-      list.innerHTML = workRows(PROJECTS);
-      $("[data-work-count]").textContent = pad(PROJECTS.length);
-      initPreview(list, PROJECTS);
+      // Moi
+      const words = SITE.about.text.split(/\s+/);
+      $(".about__label").textContent = SITE.about.label;
+      $(".about__text").innerHTML = words.map((w) => `<span class="w">${esc(w)}</span>`).join(" ");
+      $(".about__media").innerHTML = media(SITE.about.media, ["#ff5a1f", "#2a0d02"]);
+
+      // Work
+      $(".work__head").innerHTML = `${mask(esc(SITE.work.title))}${mask(esc(SITE.work.year))}`;
+      $(".work__list").innerHTML = PROJECTS.slice(0, 2).map((p) => `<li>${projectCard(p)}</li>`).join("");
+      $(".see-all").innerHTML = `<span>${esc(SITE.work.seeAll)}</span>${icons.arrowRight}`;
 
       // Services
-      $("[data-services]").innerHTML = SITE.services
+      const s = SITE.services;
+      $(".services__intro").innerHTML = `<div><p class="small-label">${esc(s.label)}</p><p>${esc(s.intro)}</p></div>`;
+      $(".services__list").innerHTML = s.items
         .map(
-          (s, i) => `<li class="service">
-            <span class="mono muted">${pad(i + 1)}</span>
-            <h3 class="service__title">${esc(s.title)}</h3>
+          (it, i) => `<li class="service">
+            <p class="service__num">${String(i + 1).padStart(2, "0")}</p>
+            <h3 class="service__title">${esc(it.title)}</h3>
             <div class="service__body">
-              <p class="service__text">${esc(s.text)}</p>
-              <div class="service__tags">${s.tags.map((t) => `<span class="tag mono">${esc(t)}</span>`).join("")}</div>
+              <p class="service__text">${esc(it.text)}</p>
+              <ul class="tags">${it.tags.map((t) => `<li class="tag">${esc(t)}</li>`).join("")}</ul>
             </div>
+            <div class="service__media"><div class="service__media-inner">${media(it.media, null)}</div></div>
           </li>`
         )
         .join("");
 
-      // Marquee clients (dupliqué pour une boucle continue)
-      const items = SITE.about.clients.map((c) => `<span class="marquee__item">${esc(c)}<i></i></span>`).join("");
-      $(".marquee__track").innerHTML = items + items;
+      // Tech stack
+      const st = SITE.stack;
+      $(".letters").innerHTML = st.title
+        .map((line) => {
+          const chars = [...line.toUpperCase()];
+          return `<li>${chars
+            .map((ch, i) =>
+              ch === " "
+                ? ""
+                : `<span class="letter${chars[i + 1] === " " ? " is-space" : ""}"><span>${esc(ch)}</span><span aria-hidden="true">${esc(ch)}</span></span>`
+            )
+            .join("")}</li>`;
+        })
+        .join("");
+      $(".stack__label").textContent = st.label;
+      const cell = (t) =>
+        `<a class="logo-cell" href="${esc(t.url)}" target="_blank" rel="noopener" aria-label="${esc(t.name)}"><img src="assets/icons/${esc(t.icon)}.svg" alt="${esc(t.name)}"></a>`;
+      $(".logos").innerHTML = `
+        <div class="logos__row logos__row--top">${st.top.map(cell).join("")}</div>
+        <div class="logos__row logos__row--bottom">${st.bottom.map(cell).join("")}</div>
+        <div class="logos__highlight"></div>`;
 
-      return () => heroIn("[data-hero-title]");
+      return () => {
+        // Entrée du hero
+        gsap.from($$(".hero .mask > *"), { yPercent: 100, duration: 1.2, ease: "power4.out", stagger: 0.08 });
+        gsap.fromTo(frame, { clipPath: "inset(0 0 100% 0)" }, { clipPath: "inset(0 0 0% 0)", duration: 1.4, ease: "power4.inOut", delay: 0.2 });
+
+        initShowreel(frame);
+        initAboutWords();
+        initCards($(".work"));
+        appear(".work__list > li");
+        gsap.from($$(".work__head .mask > *"), {
+          yPercent: 100, duration: 1.1, ease: "power4.out", stagger: 0.08,
+          scrollTrigger: { trigger: ".work__head", start: "top 85%", once: true },
+        });
+        tagsIn($(".services"));
+        $$(".service__media-inner").forEach((el) => {
+          gsap.to(el, {
+            clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)", duration: 1.4, ease: "power4.inOut",
+            scrollTrigger: { trigger: el.parentElement, start: "top 85%", once: true },
+          });
+          parallax(el, 3);
+        });
+        initLetters();
+        initLogos();
+      };
     },
 
     work() {
-      const listEl = $("[data-work-list]");
-      const gridEl = $("[data-work-grid]");
-      const categories = ["Tous", ...new Set(PROJECTS.map((p) => p.category))];
-      let current = "Tous";
-
-      $("[data-work-count]").textContent = pad(PROJECTS.length);
-      $("[data-filters]").innerHTML = categories
-        .map((c) => {
-          const n = c === "Tous" ? PROJECTS.length : PROJECTS.filter((p) => p.category === c).length;
-          return `<button class="filter${c === current ? " is-active" : ""}" data-filter="${esc(c)}">${esc(c)}<sup>${pad(n)}</sup></button>`;
-        })
-        .join("");
-
-      function render() {
-        const list = current === "Tous" ? PROJECTS : PROJECTS.filter((p) => p.category === current);
-        listEl.innerHTML = workRows(list);
-        gridEl.innerHTML = list
-          .map(
-            (p) => `<a class="work-card" href="${projectUrl(p)}" data-cursor="Voir">
-              <div class="work-card__media">${media(p.cover, p, p.category)}</div>
-              <div class="work-card__info">
-                <span class="work-card__title">${esc(p.title)}</span>
-                <span class="mono muted">${esc(p.category)} — ${esc(p.year)}</span>
-              </div>
-            </a>`
-          )
-          .join("");
-        initPreview(listEl, list);
-        if (hasGsap && !reduceMotion) {
-          gsap.from([...listEl.children, ...gridEl.children], { y: 30, opacity: 0, duration: 0.8, ease: "power3.out", stagger: 0.05 });
-        }
-        if (window.ScrollTrigger) ScrollTrigger.refresh();
-      }
-
-      $("[data-filters]").addEventListener("click", (e) => {
-        const btn = e.target.closest("[data-filter]");
-        if (!btn) return;
-        current = btn.dataset.filter;
-        $$(".filter").forEach((b) => b.classList.toggle("is-active", b === btn));
-        render();
-      });
-
-      $(".view-toggle").addEventListener("click", (e) => {
-        const btn = e.target.closest("[data-view]");
-        if (!btn) return;
-        const grid = btn.dataset.view === "grid";
-        $$(".view-toggle button").forEach((b) => b.classList.toggle("is-active", b === btn));
-        listEl.hidden = grid;
-        gridEl.hidden = !grid;
-        if (window.ScrollTrigger) ScrollTrigger.refresh();
-      });
-
-      render();
-      return () => heroIn("[data-hero-title]");
-    },
-
-    about() {
-      const a = SITE.about;
-      $("[data-about-intro]").textContent = SITE.intro;
-      $(".about-portrait").innerHTML = `<div data-parallax style="height:100%">${media(a.portrait, { colors: ["#ff5a1f", "#1a1a1a"] }, "Portrait")}</div>`;
-      $("[data-about-bio]").innerHTML = a.bio.map((p) => `<p>${esc(p)}</p>`).join("");
-      $("[data-experience]").innerHTML = a.experience
-        .map((x) => `<li><span>${esc(x.company)}</span><span class="muted">${esc(x.role)}</span><span class="mono">${esc(x.period)}</span></li>`)
-        .join("");
-      $("[data-recognitions]").innerHTML = a.recognitions
-        .map((r) => `<li><span>${esc(r.name)}</span><span class="mono">${esc(r.year)}</span></li>`)
-        .join("");
-      $("[data-clients]").innerHTML = a.clients.map((c) => `<li>${esc(c)}</li>`).join("");
-      $("[data-services-list]").innerHTML = SITE.services
-        .map((s, i) => `<li><span>${esc(s.title)}</span><span class="muted">${esc(s.tags.join(", "))}</span><span class="mono">${pad(i + 1)}</span></li>`)
-        .join("");
-      return () => heroIn("[data-hero-title]");
+      $(".page-head__years").innerHTML = mask(esc(SITE.workPage.years));
+      $(".page-head h1").innerHTML = mask(esc(SITE.workPage.title));
+      $(".work-grid").innerHTML = PROJECTS.map((p) => `<div class="work-grid__item">${projectCard(p)}</div>`).join("");
+      document.title = `Work — ${SITE.name}`;
+      return () => {
+        gsap.from($$(".page-head .mask > *"), { yPercent: 100, duration: 1.2, ease: "power4.out", stagger: 0.08 });
+        gsap.from(".work-grid", { opacity: 0, y: 24, scale: 0.95, duration: 1, ease: "power3.out", delay: 0.2 });
+        appear(".work-grid__item");
+        initCards($(".work-grid"));
+      };
     },
 
     project() {
       const slug = new URLSearchParams(location.search).get("p");
-      const index = Math.max(0, PROJECTS.findIndex((p) => p.slug === slug));
-      const p = PROJECTS[index];
-      const next = PROJECTS[(index + 1) % PROJECTS.length];
-
+      const p = PROJECTS.find((x) => x.slug === slug) || PROJECTS[0];
       document.title = `${p.title} — ${SITE.name}`;
-      $("[data-hero-title]").textContent = p.title;
-      $("[data-project-summary]").textContent = p.summary;
-      $("[data-project-meta]").innerHTML = [
-        ["Client", p.client],
-        ["Rôle", p.role],
-        ["Services", p.services.join(", ")],
-        ["Année", p.year],
-      ]
-        .map(([k, v]) => `<div><span class="mono muted">${k}</span><span>${esc(v)}</span></div>`)
+
+      $(".project__title").innerHTML = mask(esc(p.title));
+      $(".project__meta").innerHTML = `
+        <div class="meta-year">${mask('<p class="small-label">Année</p>')}${mask(`<p class="meta-value">${esc(p.year)}</p>`)}</div>
+        <div class="meta-services">${mask('<p class="small-label">Services</p>')}<ul class="tags">${p.services.map((t) => `<li class="tag">${esc(t)}</li>`).join("")}</ul></div>
+        <div class="meta-summary">${mask('<p class="small-label">Résumé</p>')}${mask(`<p class="meta-value">${esc(p.summary)}</p>`)}</div>`;
+      $(".project__gallery").innerHTML = (p.gallery || [])
+        .map((g) =>
+          Array.isArray(g)
+            ? `<div class="shot-pair">${g.map((x) => `<div class="shot">${media(x, p.colors)}</div>`).join("")}</div>`
+            : `<div class="shot">${media(g, p.colors)}</div>`
+        )
         .join("");
-      $(".project-cover__inner").innerHTML = `<div data-parallax style="height:100%">${media(p.cover, p, p.category)}</div>`;
-      $("[data-project-text]").innerHTML = p.description.map((d) => `<p>${esc(d)}</p>`).join("");
-      const link = $("[data-project-link]");
-      if (p.url) link.innerHTML = `<a class="pill" href="${esc(p.url)}" target="_blank" rel="noopener">Voir le site ${arrow}</a>`;
-      $("[data-gallery]").innerHTML = (p.gallery || [])
-        .map((g, i) => `<div class="gallery__item" data-fade>${media(g, p, `${pad(i + 1)} / ${pad(p.gallery.length)}`)}</div>`)
-        .join("");
-      const nextLink = $(".next-project");
-      nextLink.href = projectUrl(next);
-      $(".next-project__title").textContent = next.title;
-      return () => heroIn("[data-hero-title]");
+
+      return () => {
+        gsap.from(".project__box", { opacity: 0, y: 24, scale: 0.95, duration: 1, ease: "power3.out" });
+        gsap.from($$(".project .mask > *"), { yPercent: 100, duration: 1.2, ease: "power4.out", stagger: 0.06, delay: 0.2 });
+        tagsIn($(".project"));
+        appear(".project__gallery > *", { y: 32 });
+      };
     },
   };
+
+  /* ------------------------------------------------------------------------
+     Animations spécifiques à l'accueil
+     ------------------------------------------------------------------------ */
+
+  // La vidéo part petite en haut du hero (et suit la souris), puis grandit
+  // jusqu'à occuper toute la largeur au scroll.
+  function initShowreel(frame) {
+    const mm = gsap.matchMedia();
+    mm.add("(min-width: 1024px)", () => {
+      const intro = $(".intro");
+      const startScale = 0.35;
+      let progress = 0;
+      let mouse = 0; // -1 (gauche) → 1 (droite)
+
+      const xTo = gsap.quickTo(frame, "x", { duration: 1, ease: "power3" });
+      const followMouse = () => {
+        const free = (intro.clientWidth - frame.offsetWidth * startScale) / 2 - 16;
+        xTo(mouse * free * (1 - progress));
+      };
+      const onMove = (e) => { mouse = (e.clientX / window.innerWidth - 0.5) * 2; followMouse(); };
+      window.addEventListener("mousemove", onMove);
+
+      gsap.fromTo(frame, { y: () => -(intro.offsetTop - 90), scale: startScale }, {
+        y: 0, scale: 1, ease: "none",
+        scrollTrigger: {
+          trigger: intro, start: "top bottom", end: "top 50px", scrub: true, invalidateOnRefresh: true,
+          onUpdate: (self) => { progress = self.progress; followMouse(); },
+        },
+      });
+      return () => window.removeEventListener("mousemove", onMove);
+    });
+  }
+
+  // Les mots du paragraphe « Moi » sont décalés au hasard puis se recalent au scroll
+  function initAboutWords() {
+    const words = $$(".about__text .w");
+    gsap.fromTo(words, { marginLeft: () => (Math.random() < 0.35 ? 0 : gsap.utils.random(0, 9) + "vw") }, {
+      marginLeft: 0, ease: "none",
+      scrollTrigger: { trigger: ".about", start: "top 70%", end: "bottom 60%", scrub: true },
+    });
+  }
+
+  // Chaque lettre « roule » vers le bas pour laisser place à sa copie
+  function initLetters() {
+    gsap.to($$(".letter"), {
+      yPercent: 100, ease: "none",
+      stagger: { each: 0.08, from: "random" },
+      scrollTrigger: { trigger: ".letters", start: "top 75%", end: "center 45%", scrub: true },
+    });
+  }
+
+  // Un carré sombre suit la case de logo survolée
+  function initLogos() {
+    const wrap = $(".logos");
+    const hl = $(".logos__highlight", wrap);
+    const cells = $$(".logo-cell", wrap);
+    const moveTo = (cell) => {
+      const a = wrap.getBoundingClientRect();
+      const b = cell.getBoundingClientRect();
+      Object.assign(hl.style, { left: `${b.left - a.left}px`, top: `${b.top - a.top}px`, width: `${b.width}px`, height: `${b.height}px` });
+      cells.forEach((c) => c.classList.toggle("is-active", c === cell));
+    };
+    cells.forEach((c) => c.addEventListener("mouseenter", () => moveTo(c)));
+    wrap.addEventListener("mouseleave", () => moveTo(cells[0]));
+    window.addEventListener("resize", () => moveTo($(".logo-cell.is-active", wrap) || cells[0]));
+    moveTo(cells[0]);
+  }
+
+  function initFooter() {
+    gsap.fromTo(".footer__big", { y: () => -vh(10) }, {
+      y: () => vh(10), ease: "none",
+      scrollTrigger: { trigger: ".footer", start: "top bottom", end: "bottom bottom", scrub: true, invalidateOnRefresh: true },
+    });
+  }
 
   /* ------------------------------------------------------------------------
      Boot
      ------------------------------------------------------------------------ */
   renderLayout();
   const start = pages[page] ? pages[page]() : null;
-  initClock();
-  initMenu();
-  initCopy();
-  initCursor();
   initScroll();
-  initAnchors();
-  initTransitions();
-  initReveals();
-  intro(() => start && start());
+  initDock();
+  initFooter();
+
+  loader(() => {
+    if (reduceMotion) return start && start();
+    layoutIn();
+    if (start) start();
+    ScrollTrigger.refresh();
+  });
 })();

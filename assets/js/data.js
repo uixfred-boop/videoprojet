@@ -12,161 +12,194 @@
 
 window.SITE = {
   name: "Votre Nom",
-  firstName: "Votre",
-  lastName: "Nom",
-  role: "Creative Design Engineer",
-  location: "Paris, FR",
-  timezone: "Europe/Paris",
-  availability: "Disponible pour freelance — Nov 2026",
+  domain: "votrenom.com",
   email: "hello@votrenom.com",
-  intro:
-    "Avec une attention portée au mouvement, à la performance et au détail, je donne vie à des produits numériques pour des marques ambitieuses partout dans le monde.",
-  statement:
-    "Je conçois et développe des expériences web où le design et le code ne font qu'un — des interfaces fluides, animées et pensées jusqu'au moindre pixel.",
-  showreel: { type: "video", src: "", poster: "", label: "Showreel 2026" },
-  socials: [
-    { label: "Instagram", url: "https://instagram.com/" },
-    { label: "X / Twitter", url: "https://x.com/" },
-    { label: "LinkedIn", url: "https://linkedin.com/" },
-    { label: "GitHub", url: "https://github.com/" },
+
+  // Les trois colonnes d'informations en haut de page
+  header: [
+    { label: "Basé en France", value: "Travaille partout" },
+    { label: "Actuellement chez", value: "Studio", url: "https://example.com" },
+    { label: "Disponibilité freelance", value: "Novembre 2026" },
   ],
-  services: [
-    {
-      title: "Brand Design",
-      text: "Identités visuelles, systèmes graphiques et direction artistique qui donnent une voix singulière à votre marque.",
-      tags: ["Identité", "Direction artistique", "Guidelines"],
-    },
-    {
-      title: "UX / UI Design",
-      text: "Parcours utilisateurs, wireframes et interfaces pensés pour être clairs, accessibles et agréables à utiliser.",
-      tags: ["Recherche", "Prototypage", "Design system"],
-    },
-    {
-      title: "Web Development",
-      text: "Sites et applications performants, construits avec des technologies modernes et une attention extrême au détail.",
-      tags: ["Next.js", "WebGL", "CMS"],
-    },
-    {
-      title: "Motion Design",
-      text: "Animations, transitions et micro-interactions qui rendent chaque expérience vivante et mémorable.",
-      tags: ["GSAP", "Vidéo", "Interactions"],
-    },
-  ],
-  about: {
-    bio: [
-      "Je suis designer et développeur créatif basé à Paris. Depuis plusieurs années, j'accompagne des studios, des startups et des marques dans la création d'expériences numériques qui sortent du lot.",
-      "Mon approche mêle direction artistique, motion et ingénierie front-end : je dessine les interfaces que je développe, ce qui me permet de préserver l'intention du design jusqu'à la mise en ligne.",
-    ],
-    experience: [
-      { company: "Studio Exemple", role: "Design Engineer", period: "2024 — Présent" },
-      { company: "Agence Exemple", role: "Creative Developer", period: "2022 — 2024" },
-      { company: "Startup Exemple", role: "Front-end Developer", period: "2020 — 2022" },
-      { company: "Freelance", role: "Designer & Développeur", period: "2018 — 2020" },
-    ],
-    recognitions: [
-      { name: "Awwwards — Site of the Day", year: "2026" },
-      { name: "CSS Design Awards — Website of the Day", year: "2025" },
-      { name: "FWA — FWA of the Day", year: "2025" },
-      { name: "Orpetron — Website of the Day", year: "2024" },
-    ],
-    clients: ["Client A", "Client B", "Client C", "Client D", "Client E", "Client F", "Client G", "Client H"],
+
+  // Texte qui défile sous le nom dans la barre de navigation du bas
+  roles: ["Creative Design Engineer", "Awwwards Stalker", "Product Builder", "Next.js Enthusiast"],
+  // Vignette de la barre du bas (emoji, ou une image : { type: "image", src: "..." })
+  avatar: "🤙🏼",
+
+  hero: {
+    top: ["Un", "Vraiment", "Bon"],
+    title: ["Design", "Engineer"],
+    scrollLeft: "Scrollez pour",
+    scrollRight: "du bon contenu",
   },
+
+  // Vidéo qui grandit au scroll sous le hero
+  showreel: { type: "video", src: "", poster: "", label: "Showreel" },
+
+  about: {
+    label: "Moi",
+    text: "Passionné par la rencontre du design et du code, je crée des expériences fluides et interactives qui ont du sens. Avec une attention portée au mouvement, à la performance et au détail, j'aide des marques ambitieuses du monde entier à donner vie à leurs produits numériques.",
+    media: { type: "video", src: "", label: "Portrait" },
+  },
+
+  work: { title: "Work", year: "'26", seeAll: "Voir tout" },
+
+  services: {
+    label: "Services",
+    intro: "En évolution à chaque brief et pensé pour l'impact, mon processus couvre le design, le développement et la stratégie de marque — pour aligner la vision et l'exécution et apporter clarté et caractère à chaque projet.",
+    items: [
+      {
+        title: "Stratégie de marque",
+        text: "Aider les marques à révéler leur raison d'être et leur singularité — et le plan pour la transmettre et gagner la fidélité de leurs clients.",
+        tags: ["Recherche & Insights", "Stratégie de marque", "Étude concurrentielle", "Ton & Voix", "Naming & Copywriting", "Ateliers"],
+        media: { type: "image", src: "", colors: ["#ff7a3d", "#2a0e04"] },
+      },
+      {
+        title: "Design digital",
+        text: "Concevoir des expériences numériques engageantes qui allient stratégie de marque, créativité et UX pour offrir des produits utiles et simples à utiliser.",
+        tags: ["Identité visuelle", "Wireframing", "UI", "UX", "Web Design", "Product Design"],
+        media: { type: "image", src: "", colors: ["#3fb6c9", "#0b2227"] },
+      },
+      {
+        title: "Développement",
+        text: "Construire des produits numériques qui réunissent design, technologie et stratégie pour des expériences utilisateur sans accroc.",
+        tags: ["Front-end", "SEO", "Motion", "Animation", "WebGL", "CMS", "Bases de données"],
+        media: { type: "image", src: "", colors: ["#9a9a9a", "#141414"] },
+      },
+    ],
+  },
+
+  // Logos : fichiers SVG dans assets/icons (source : simple-icons, licence CC0)
+  stack: {
+    title: ["Modern", "Tech Stack"],
+    label: "Mes outils",
+    top: [
+      { name: "React", icon: "react", url: "https://react.dev" },
+      { name: "Next.js", icon: "nextdotjs", url: "https://nextjs.org" },
+      { name: "TypeScript", icon: "typescript", url: "https://www.typescriptlang.org" },
+    ],
+    bottom: [
+      { name: "GSAP", icon: "greensock", url: "https://gsap.com" },
+      { name: "Motion", icon: "framer", url: "https://motion.dev" },
+      { name: "Tailwind CSS", icon: "tailwindcss", url: "https://tailwindcss.com" },
+      { name: "Contentful", icon: "contentful", url: "https://www.contentful.com" },
+      { name: "Supabase", icon: "supabase", url: "https://supabase.com" },
+      { name: "Vercel", icon: "vercel", url: "https://vercel.com" },
+      { name: "Figma", icon: "figma", url: "https://www.figma.com" },
+    ],
+  },
+
+  // Tuiles du pied de page (la page « Work » et « Contact » sont ajoutées automatiquement)
+  socials: [
+    { label: "GitHub", url: "https://github.com/" },
+    { label: "Instagram", url: "https://instagram.com/" },
+    { label: "LinkedIn", url: "https://linkedin.com/" },
+  ],
+
+  workPage: { years: "[2022-2026]", title: "Selected Work" },
 };
 
+/* --------------------------------------------------------------------------
+   PROJETS
+   - Les deux premiers apparaissent sur la page d'accueil.
+   - `tags` : texte qui défile sur la carte.
+   - `preview` : vidéo affichée au survol de la carte.
+   - `gallery` : un média = pleine largeur, un tableau de deux médias = deux colonnes.
+   -------------------------------------------------------------------------- */
 window.PROJECTS = [
   {
     slug: "projet-un",
     title: "Projet Un",
-    category: "Product",
+    category: "Portfolio",
     year: "2026",
-    client: "Client A",
-    role: "Design & Développement",
-    services: ["UX / UI", "Développement", "Motion"],
-    url: "",
-    colors: ["#ff5a1f", "#2b1a12"],
-    summary: "Une plateforme produit repensée de A à Z, du système de design jusqu'aux animations de l'interface.",
-    description: [
-      "Remplacez ce texte par la description de votre projet : le contexte, le défi, la solution apportée et les résultats obtenus.",
-      "Vous pouvez ajouter autant de paragraphes que nécessaire dans le tableau `description` du fichier assets/js/data.js.",
-    ],
+    colors: ["#f2a3c4", "#2b1520"],
+    icon: null,
+    tags: ["Direction artistique", "Ton & Voix", "UI", "UX", "Next.js", "Tailwind CSS", "GSAP", "Motion", "Lenis", "Vercel"],
+    services: ["Direction artistique", "Ton & Voix", "UI", "UX", "Développement"],
+    summary: "Remplacez ce texte par le résumé de votre projet : le client, le contexte, l'objectif et votre rôle.",
     cover: { type: "image", src: "" },
-    gallery: [{ type: "image", src: "" }, { type: "image", src: "" }, { type: "video", src: "" }],
+    preview: { type: "video", src: "" },
+    gallery: [
+      { type: "image", src: "" },
+      { type: "video", src: "" },
+      [{ type: "image", src: "" }, { type: "image", src: "" }],
+      { type: "image", src: "" },
+    ],
   },
   {
     slug: "projet-deux",
     title: "Projet Deux",
-    category: "Website",
+    category: "Product",
     year: "2026",
-    client: "Client B",
-    role: "Direction artistique & Développement",
-    services: ["Direction artistique", "Développement", "WebGL"],
-    url: "",
-    colors: ["#5b6cff", "#0f1233"],
-    summary: "Un site vitrine immersif mêlant 3D temps réel et transitions fluides.",
-    description: [
-      "Remplacez ce texte par la description de votre projet.",
-    ],
+    colors: ["#f5d90a", "#2a2500"],
+    icon: null,
+    tags: ["Direction artistique", "Naming & Copywriting", "Brand Design", "Stratégie", "UX", "UI", "Web Design", "Product Design"],
+    services: ["Direction artistique", "Naming", "Brand Design", "Stratégie", "UX", "UI", "Web Design"],
+    summary: "Remplacez ce texte par le résumé de votre projet : le client, le contexte, l'objectif et votre rôle.",
     cover: { type: "image", src: "" },
-    gallery: [{ type: "image", src: "" }, { type: "image", src: "" }],
+    preview: { type: "video", src: "" },
+    gallery: [
+      { type: "image", src: "" },
+      { type: "image", src: "" },
+      [{ type: "image", src: "" }, { type: "image", src: "" }],
+      { type: "video", src: "" },
+    ],
   },
   {
     slug: "projet-trois",
     title: "Projet Trois",
-    category: "Brand",
+    category: "Services",
     year: "2025",
-    client: "Client C",
-    role: "Identité visuelle",
-    services: ["Branding", "Guidelines", "Motion"],
-    url: "",
-    colors: ["#d4ff3a", "#1c2208"],
-    summary: "Une identité de marque complète, du logo au système d'animation.",
-    description: ["Remplacez ce texte par la description de votre projet."],
+    colors: ["#e8442c", "#250805"],
+    icon: null,
+    tags: ["Web Design", "Next.js", "Tailwind CSS", "GSAP", "Motion", "Lenis", "Contentful", "Vercel", "Shopify API"],
+    services: ["Web Design", "Développement", "Motion"],
+    summary: "Remplacez ce texte par le résumé de votre projet.",
     cover: { type: "image", src: "" },
-    gallery: [{ type: "image", src: "" }, { type: "image", src: "" }, { type: "image", src: "" }],
+    preview: { type: "video", src: "" },
+    gallery: [{ type: "image", src: "" }, [{ type: "image", src: "" }, { type: "image", src: "" }]],
   },
   {
     slug: "projet-quatre",
     title: "Projet Quatre",
-    category: "Motion",
+    category: "Product",
     year: "2025",
-    client: "Client D",
-    role: "Motion Design",
-    services: ["Motion", "Vidéo", "Son"],
-    url: "",
-    colors: ["#ff3d7f", "#2a0b18"],
-    summary: "Une campagne vidéo animée pour le lancement d'un nouveau produit.",
-    description: ["Remplacez ce texte par la description de votre projet."],
-    cover: { type: "video", src: "" },
-    gallery: [{ type: "video", src: "" }, { type: "image", src: "" }],
+    colors: ["#2fb5a5", "#04201d"],
+    icon: null,
+    tags: ["Étude concurrentielle", "Ton & Voix", "Ateliers", "Stratégie", "UX", "UI", "Web Design", "Responsive"],
+    services: ["Stratégie", "UX", "UI", "Web Design"],
+    summary: "Remplacez ce texte par le résumé de votre projet.",
+    cover: { type: "image", src: "" },
+    preview: { type: "video", src: "" },
+    gallery: [{ type: "image", src: "" }, { type: "image", src: "" }],
   },
   {
     slug: "projet-cinq",
     title: "Projet Cinq",
-    category: "E-commerce",
+    category: "Portfolio",
     year: "2024",
-    client: "Client E",
-    role: "Design & Développement",
-    services: ["UX / UI", "Shopify", "Développement"],
-    url: "",
-    colors: ["#2fd5c4", "#08211f"],
-    summary: "Une boutique en ligne rapide et élégante, pensée pour convertir.",
-    description: ["Remplacez ce texte par la description de votre projet."],
+    colors: ["#ff5a5a", "#2a0909"],
+    icon: null,
+    tags: ["Web Design", "Next.js", "Tailwind CSS", "GSAP", "Lenis", "Contentful", "Vercel", "Direction artistique"],
+    services: ["Direction artistique", "Web Design", "Développement"],
+    summary: "Remplacez ce texte par le résumé de votre projet.",
     cover: { type: "image", src: "" },
-    gallery: [{ type: "image", src: "" }, { type: "image", src: "" }],
+    preview: { type: "video", src: "" },
+    gallery: [{ type: "image", src: "" }, [{ type: "image", src: "" }, { type: "image", src: "" }]],
   },
   {
     slug: "projet-six",
     title: "Projet Six",
-    category: "Website",
-    year: "2024",
-    client: "Client F",
-    role: "Développement",
-    services: ["Développement", "CMS", "Animations"],
-    url: "",
-    colors: ["#f2c14e", "#271d05"],
-    summary: "Un site éditorial animé pour un studio d'architecture.",
-    description: ["Remplacez ce texte par la description de votre projet."],
+    category: "Showcase",
+    year: "2023",
+    colors: ["#b8c4cc", "#14181b"],
+    icon: null,
+    tags: ["Supabase", "Vercel", "Web Design", "Responsive", "Next.js", "Tailwind CSS", "GSAP"],
+    services: ["Web Design", "Développement", "Base de données"],
+    summary: "Remplacez ce texte par le résumé de votre projet.",
     cover: { type: "image", src: "" },
+    preview: { type: "video", src: "" },
     gallery: [{ type: "image", src: "" }, { type: "image", src: "" }],
   },
 ];
