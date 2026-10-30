@@ -29,7 +29,7 @@ def ts(x):
     return f"{h}:{m:02d}:{s:05.2f}"
 
 SOFT = r"\bord2\3c&H000000&\3a&HD0&\shad0\blur6"
-ass = ["[Script Info]", "ScriptType: v4.00+", "PlayResX: 1080", "PlayResY: 1920", "WrapStyle: 2", "",
+ass = ["[Script Info]", "ScriptType: v4.00+", "ScaledBorderAndShadow: yes", "PlayResX: 1080", "PlayResY: 1920", "WrapStyle: 2", "",
        "[V4+ Styles]",
        "Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding",
        "Style: Title,Instrument Serif,74,&H00FFFFFF,&H00FFFFFF,&H00000000,&H00000000,0,0,0,0,100,100,-1,0,1,0,0,8,40,40,0,1",
@@ -84,6 +84,8 @@ for cid in order:
 open(f"{work}/text.ass", "w").write("\n".join(ass) + "\n")
 
 # ---------------------------------------------------------------- PNG overlays
+K = 2  # overlays are drawn natively at 4K (2160x3840); layout coordinates stay in 1080x1920 units
+k = lambda v: int(round(v * K))
 F = lambda name, size: ImageFont.truetype(name, size)
 SERIF = f"{fonts}/InstrumentSerif-Regular.ttf"; HAND = f"{fonts}/ComingSoon-Regular.ttf"
 def find_font(stem):
@@ -102,11 +104,12 @@ def soft_shadow(im, r=8, a=90):
     alpha = Image.new("L", sh.size); alpha.paste(im.getchannel("A").point(lambda v: v * a // 255), (2 * r, 2 * r + 3))
     sh.putalpha(alpha.filter(ImageFilter.GaussianBlur(r))); sh.paste(im, (2 * r, 2 * r), im); return sh
 
+
 def hand_line(text, emo, size=40):
     f = F(HAND, size); w = int(f.getlength(text)); e = emoji(emo, int(size * 1.0))
-    im = Image.new("RGBA", (w + e.width + 14, int(size * 1.6)))
-    ImageDraw.Draw(im).text((0, 0), text, font=f, fill="white"); im.paste(e, (w + 12, int(size * 0.12)), e)
-    return soft_shadow(im, 6, 110)
+    im = Image.new("RGBA", (w + e.width + k(14), int(size * 1.6)))
+    ImageDraw.Draw(im).text((0, 0), text, font=f, fill="white"); im.paste(e, (w + k(12), int(size * 0.12)), e)
+    return soft_shadow(im, k(6), 110)
 
 def rrect(size, r, fill):
     im = Image.new("RGBA", size); ImageDraw.Draw(im).rounded_rectangle((0, 0, size[0] - 1, size[1] - 1), r, fill=fill); return im
@@ -114,47 +117,48 @@ def rrect(size, r, fill):
 overlays = []  # (png, x, y, t0, t1)
 def add(name, im, x, y, t0, t1, anchor="tl"):
     p = f"{work}/ov_{name}.png"; im.save(p)
+    x, y = x * K, y * K
     if anchor == "tc": x = x - im.width // 2
     overlays.append((p, int(x), int(y), t0, t1))
 
 # aside: "they didn't. not one." (line from the script that wasn't filmed)
-add("aside1", hand_line("*they didn't. not one.*", "\U0001F605", 42), 540, 60, T("c9"), T("c10"), "tc")
-add("aside2", hand_line("I failed. a lot.", "\U0001F605", 36), 540, 132, T("c20", "failed"), T("c21"), "tc")
+add("aside1", hand_line("*they didn't. not one.*", "\U0001F605", k(42)), 540, 60, T("c9"), T("c10"), "tc")
+add("aside2", hand_line("I failed. a lot.", "\U0001F605", k(36)), 540, 132, T("c20", "failed"), T("c21"), "tc")
 
 # proof card (placeholder for the real designer-vs-developer reel)
-card = rrect((330, 470), 22, (250, 248, 244, 255)); d = ImageDraw.Draw(card)
-thumb = Image.new("RGBA", (306, 360)); td = ImageDraw.Draw(thumb)
-for yy in range(360):
-    c = int(28 + 30 * yy / 360); td.line([(0, yy), (306, yy)], fill=(c + 8, c + 4, c, 255))
-mask = rrect((306, 360), 16, (0, 0, 0, 255)).getchannel("A"); card.paste(thumb, (12, 12), mask)
-d.text((165, 120), "designer", font=F(SERIF, 54), fill="white", anchor="mm")
-d.text((165, 178), "vs", font=F(HAND, 30), fill=(230, 220, 205), anchor="mm")
-d.text((165, 236), "developer", font=F(SERIF, 54), fill="white", anchor="mm")
-d.polygon([(30, 336), (30, 356), (47, 346)], fill="white")
-d.text((54, 346), "Reel", font=F(INTER, 20), fill="white", anchor="lm")
-d.text((24, 400), "designer vs developer", font=F(INTER, 22), fill=(25, 25, 25), anchor="lm")
-d.text((24, 432), "Fred · web designer", font=F(INTER_R, 18), fill=(120, 120, 120), anchor="lm")
-add("card", soft_shadow(card.rotate(-3, expand=True, resample=Image.BICUBIC), 12, 120), 40, 1080,
+card = rrect((k(330), k(470)), k(22), (250, 248, 244, 255)); d = ImageDraw.Draw(card)
+thumb = Image.new("RGBA", (k(306), k(360))); td = ImageDraw.Draw(thumb)
+for yy in range(k(360)):
+    c = int(28 + 30 * yy / k(360)); td.line([(0, yy), (k(306), yy)], fill=(c + 8, c + 4, c, 255))
+mask = rrect((k(306), k(360)), k(16), (0, 0, 0, 255)).getchannel("A"); card.paste(thumb, (k(12), k(12)), mask)
+d.text((k(165), k(120)), "designer", font=F(SERIF, k(54)), fill="white", anchor="mm")
+d.text((k(165), k(178)), "vs", font=F(HAND, k(30)), fill=(230, 220, 205), anchor="mm")
+d.text((k(165), k(236)), "developer", font=F(SERIF, k(54)), fill="white", anchor="mm")
+d.polygon([(k(30), k(336)), (k(30), k(356)), (k(47), k(346))], fill="white")
+d.text((k(54), k(346)), "Reel", font=F(INTER, k(20)), fill="white", anchor="lm")
+d.text((k(24), k(400)), "designer vs developer", font=F(INTER, k(22)), fill=(25, 25, 25), anchor="lm")
+d.text((k(24), k(432)), "Fred \u00b7 web designer", font=F(INTER_R, k(18)), fill=(120, 120, 120), anchor="lm")
+add("card", soft_shadow(card.rotate(-3, expand=True, resample=Image.BICUBIC), k(12), 120), 40, 1080,
     T("c4", "designer"), T("c7") + 0.6)
 
-badge = rrect((300, 96), 20, (250, 248, 244, 255)); bd = ImageDraw.Draw(badge)
-bd.text((24, 30), "views", font=F(INTER_R, 20), fill=(120, 120, 120), anchor="lm")
-bd.text((24, 64), "≈ 3,000,000", font=F(INTER, 30), fill=(20, 20, 20), anchor="lm")
-b2 = Image.new("RGBA", (360, 150)); b2.paste(badge, (0, 40), badge); e = emoji("\U0001F92F", 64); b2.paste(e, (262, 0), e)
-add("badge", soft_shadow(b2, 10, 110), 300, 1500, T("c6", "million"), T("c7") + 0.6)
+badge = rrect((k(300), k(96)), k(20), (250, 248, 244, 255)); bd = ImageDraw.Draw(badge)
+bd.text((k(24), k(30)), "views", font=F(INTER_R, k(20)), fill=(120, 120, 120), anchor="lm")
+bd.text((k(24), k(64)), "\u2248 3,000,000", font=F(INTER, k(30)), fill=(20, 20, 20), anchor="lm")
+b2 = Image.new("RGBA", (k(360), k(150))); b2.paste(badge, (0, k(40)), badge); e = emoji("\U0001F92F", k(64)); b2.paste(e, (k(262), 0), e)
+add("badge", soft_shadow(b2, k(10), 110), 300, 1500, T("c6", "million"), T("c7") + 0.6)
 
 # end profile card (avatar from his own footage)
 subprocess.run(["ffmpeg", "-loglevel", "error", "-y", "-ss", "3", "-i", f"{work}/rawB.mp4", "-frames:v", "1",
-                "-vf", "crop=300:300:210:180,scale=120:120", f"{work}/avatar.png"], check=True)
-pc = rrect((620, 132), 34, (18, 18, 18, 205)); pd = ImageDraw.Draw(pc)
-av = Image.open(f"{work}/avatar.png").convert("RGBA").resize((88, 88), Image.LANCZOS)
-m = Image.new("L", (88, 88)); ImageDraw.Draw(m).ellipse((0, 0, 87, 87), fill=255); pc.paste(av, (22, 22), m)
-pd.text((128, 48), "Fred", font=F(INTER, 30), fill="white", anchor="lm")
-pd.text((128, 88), "web designer · episode 2 soon", font=F(INTER_R, 21), fill=(200, 200, 200), anchor="lm")
-fb = rrect((126, 56), 28, (255, 255, 255, 255)); ImageDraw.Draw(fb).text((63, 28), "Follow", font=F(INTER, 22), fill=(10, 10, 10), anchor="mm")
-pc.paste(fb, (474, 38), fb)
-add("profile", soft_shadow(pc, 10, 100), 540, 92, T("c24"), TOTAL + 1, "tc")
-add("stick", hand_line("stick around...", "✨", 34), 540, 34, T("c24"), TOTAL + 1, "tc")
+                "-vf", f"crop=300:300:210:180,scale={k(88)}:{k(88)}:flags=lanczos", f"{work}/avatar.png"], check=True)
+pc = rrect((k(620), k(132)), k(34), (18, 18, 18, 205)); pd = ImageDraw.Draw(pc)
+av = Image.open(f"{work}/avatar.png").convert("RGBA")
+m = Image.new("L", av.size); ImageDraw.Draw(m).ellipse((0, 0, av.width - 1, av.height - 1), fill=255); pc.paste(av, (k(22), k(22)), m)
+pd.text((k(128), k(48)), "Fred", font=F(INTER, k(30)), fill="white", anchor="lm")
+pd.text((k(128), k(88)), "web designer \u00b7 episode 2 soon", font=F(INTER_R, k(21)), fill=(200, 200, 200), anchor="lm")
+fb = rrect((k(126), k(56)), k(28), (255, 255, 255, 255)); ImageDraw.Draw(fb).text((k(63), k(28)), "Follow", font=F(INTER, k(22)), fill=(10, 10, 10), anchor="mm")
+pc.paste(fb, (k(474), k(38)), fb)
+add("profile", soft_shadow(pc, k(10), 100), 540, 92, T("c24"), TOTAL + 1, "tc")
+add("stick", hand_line("stick around...", "\u2728", k(34)), 540, 34, T("c24"), TOTAL + 1, "tc")
 
 # ---------------------------------------------------------------- SFX (synthesized to match the reference palette)
 SR = 48000
@@ -213,7 +217,7 @@ wavfile.write(f"{work}/sfx.wav", SR, mix[:int(TOTAL * SR)].astype(np.float32))
 json.dump({"cues": sorted(cues, key=lambda c: c[1]), "overlays": overlays, "total": TOTAL}, open(f"{work}/plan.json", "w"), indent=1)
 
 # ---------------------------------------------------------------- final render
-inputs = ["-i", f"{work}/cut.mov", "-i", f"{work}/sfx.wav"]
+inputs = ["-i", f"{work}/cut4k.mov", "-i", f"{work}/sfx.wav"]
 for p, *_ in overlays: inputs += ["-loop", "1", "-i", p]
 chain = "[0:v]"; fc = []
 for k, (p, x, y, a, b) in enumerate(overlays):
@@ -224,6 +228,7 @@ fc.append("[0:a]highpass=f=80,acompressor=threshold=-20dB:ratio=3:attack=5:relea
 fc.append("[voice][1:a]amix=inputs=2:normalize=0:duration=first,alimiter=limit=0.89:level=false[aout]")
 subprocess.run(["ffmpeg", "-loglevel", "error", "-y", *inputs, "-filter_complex", ";".join(fc),
                 "-map", "[vout]", "-map", "[aout]", "-t", f"{TOTAL:.3f}", "-c:v", "libx264", "-preset", "slow",
-                "-crf", "18", "-pix_fmt", "yuv420p", "-profile:v", "high", "-c:a", "aac", "-b:a", "192k",
+                "-crf", "17", "-pix_fmt", "yuv420p", "-profile:v", "high", "-level", "5.2",
+                "-x264-params", "aq-mode=3", "-tag:v", "avc1", "-c:a", "aac", "-b:a", "192k",
                 "-movflags", "+faststart", OUT], check=True)
 print("total", round(TOTAL, 2), "overlays", len(overlays), "cues", len(cues))

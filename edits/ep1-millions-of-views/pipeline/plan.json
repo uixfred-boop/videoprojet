@@ -444,43 +444,43 @@
  "overlays": [
   [
    "/tmp/claude-0/-home-user-videoprojet/6386d7a0-9dfd-599c-825b-733ce7c63b86/scratchpad/edit/ov_aside1.png",
-   296,
-   60,
+   591,
+   120,
    17.133333333333333,
    18.7
   ],
   [
    "/tmp/claude-0/-home-user-videoprojet/6386d7a0-9dfd-599c-825b-733ce7c63b86/scratchpad/edit/ov_aside2.png",
-   401,
-   132,
+   802,
+   264,
    36.14666666666666,
    37.099999999999994
   ],
   [
    "/tmp/claude-0/-home-user-videoprojet/6386d7a0-9dfd-599c-825b-733ce7c63b86/scratchpad/edit/ov_card.png",
-   40,
-   1080,
+   80,
+   2160,
    7.706666666666666,
    13.233333333333333
   ],
   [
    "/tmp/claude-0/-home-user-videoprojet/6386d7a0-9dfd-599c-825b-733ce7c63b86/scratchpad/edit/ov_badge.png",
-   300,
-   1500,
+   600,
+   3000,
    11.416666666666668,
    13.233333333333333
   ],
   [
    "/tmp/claude-0/-home-user-videoprojet/6386d7a0-9dfd-599c-825b-733ce7c63b86/scratchpad/edit/ov_profile.png",
-   210,
-   92,
+   420,
+   184,
    42.46666666666666,
    46.53333333333333
   ],
   [
    "/tmp/claude-0/-home-user-videoprojet/6386d7a0-9dfd-599c-825b-733ce7c63b86/scratchpad/edit/ov_stick.png",
-   403,
-   34,
+   805,
+   68,
    42.46666666666666,
    46.53333333333333
   ]
