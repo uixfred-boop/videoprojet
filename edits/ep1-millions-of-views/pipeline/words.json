@@ -1,0 +1,832 @@
+{
+ "c1": {
+  "src": "A",
+  "start": 1.1666666666666667,
+  "end": 2.8666666666666667,
+  "words": [
+   [
+    "Okay,",
+    0.0
+   ],
+   [
+    "it's",
+    0.62
+   ],
+   [
+    "a",
+    0.68
+   ],
+   [
+    "bit",
+    0.74
+   ],
+   [
+    "crazy,",
+    0.86
+   ],
+   [
+    "but",
+    1.24
+   ]
+  ],
+  "heard": "Okay, it's a bit crazy, but",
+  "matched": 6,
+  "dur": 1.7
+ },
+ "c2": {
+  "src": "A",
+  "start": 3.033333333333333,
+  "end": 4.933333333333334,
+  "words": [
+   [
+    "I",
+    0.0
+   ],
+   [
+    "got",
+    0.12
+   ],
+   [
+    "millions",
+    0.26
+   ],
+   [
+    "of",
+    0.5
+   ],
+   [
+    "views",
+    0.68
+   ],
+   [
+    "and",
+    0.9
+   ],
+   [
+    "zero",
+    1.22
+   ],
+   [
+    "clients.",
+    1.52
+   ]
+  ],
+  "heard": "I got millions of views and zero clients.",
+  "matched": 8,
+  "zoom": {
+   "kind": "snap",
+   "t": 1.19
+  },
+  "dur": 1.9
+ },
+ "c3": {
+  "src": "A",
+  "start": 5.9,
+  "end": 8.666666666666666,
+  "words": [
+   [
+    "If",
+    0.0
+   ],
+   [
+    "you're",
+    0.16
+   ],
+   [
+    "new",
+    0.4
+   ],
+   [
+    "here,",
+    0.52
+   ],
+   [
+    "hi,",
+    0.7
+   ],
+   [
+    "I'm",
+    1.1
+   ],
+   [
+    "Fred.",
+    1.26
+   ],
+   [
+    "I'm",
+    1.7
+   ],
+   [
+    "a",
+    2.02
+   ],
+   [
+    "web",
+    2.08
+   ],
+   [
+    "designer.",
+    2.14
+   ]
+  ],
+  "heard": "If you're new here, hi, I'm Fred. I'm a web designer.",
+  "matched": 11,
+  "dur": 2.7666666666666666
+ },
+ "c4": {
+  "src": "A",
+  "start": 9.533333333333333,
+  "end": 13.533333333333333,
+  "words": [
+   [
+    "You",
+    0.0
+   ],
+   [
+    "may",
+    0.16
+   ],
+   [
+    "know",
+    0.34
+   ],
+   [
+    "me",
+    0.52
+   ],
+   [
+    "from",
+    0.7
+   ],
+   [
+    "my",
+    0.94
+   ],
+   [
+    "designer",
+    1.34
+   ],
+   [
+    "versus",
+    2.04
+   ],
+   [
+    "developer",
+    2.62
+   ],
+   [
+    "videos.",
+    3.31
+   ]
+  ],
+  "heard": "You may know me from my designer versus developer video.",
+  "matched": 9,
+  "dur": 4.0
+ },
+ "c5": {
+  "src": "A",
+  "start": 14.433333333333334,
+  "end": 15.433333333333334,
+  "words": [
+   [
+    "This",
+    0.0
+   ],
+   [
+    "one",
+    0.3
+   ],
+   [
+    "got",
+    0.48
+   ],
+   [
+    "three",
+    0.74
+   ]
+  ],
+  "heard": "This one got words.",
+  "matched": 3,
+  "dur": 1.0
+ },
+ "c6": {
+  "src": "A",
+  "start": 15.866666666666667,
+  "end": 17.133333333333333,
+  "words": [
+   [
+    "million",
+    0.05
+   ],
+   [
+    "views.",
+    0.5
+   ]
+  ],
+  "heard": "3 million views.",
+  "matched": 2,
+  "dur": 1.2666666666666666
+ },
+ "c7": {
+  "src": "A",
+  "start": 17.2,
+  "end": 21.033333333333335,
+  "words": [
+   [
+    "So",
+    0.0
+   ],
+   [
+    "I",
+    0.44
+   ],
+   [
+    "thought,",
+    0.66
+   ],
+   [
+    "okay,",
+    1.12
+   ],
+   [
+    "this",
+    1.5
+   ],
+   [
+    "is",
+    1.6
+   ],
+   [
+    "it.",
+    1.865
+   ],
+   [
+    "Clients",
+    2.13
+   ],
+   [
+    "are",
+    2.395
+   ],
+   [
+    "gonna",
+    2.66
+   ],
+   [
+    "come",
+    2.94
+   ],
+   [
+    "to",
+    3.24
+   ],
+   [
+    "me,",
+    3.54
+   ]
+  ],
+  "heard": "so I thought, okay, this is client is gonna come to me. you",
+  "matched": 10,
+  "dur": 3.8333333333333335
+ },
+ "c8": {
+  "src": "A",
+  "start": 21.333333333333332,
+  "end": 22.0,
+  "words": [
+   [
+    "naturally.",
+    0.0
+   ]
+  ],
+  "heard": "Naturally.",
+  "matched": 1,
+  "dur": 0.6666666666666666
+ },
+ "c9": {
+  "src": "A",
+  "start": 23.1,
+  "end": 24.666666666666668,
+  "words": [
+   [
+    "It",
+    0.0
+   ],
+   [
+    "took",
+    0.18
+   ],
+   [
+    "me",
+    0.34
+   ],
+   [
+    "a",
+    0.56
+   ],
+   [
+    "while",
+    0.78
+   ],
+   [
+    "to",
+    0.96
+   ],
+   [
+    "get",
+    1.2
+   ],
+   [
+    "it.",
+    1.34
+   ]
+  ],
+  "heard": "It took me a while to get it.",
+  "matched": 8,
+  "zoom": {
+   "kind": "slow",
+   "t": 0.0
+  },
+  "dur": 1.5666666666666667
+ },
+ "c10": {
+  "src": "A",
+  "start": 24.966666666666665,
+  "end": 26.066666666666666,
+  "words": [
+   [
+    "People",
+    0.0
+   ],
+   [
+    "came",
+    0.26
+   ],
+   [
+    "for",
+    0.52
+   ],
+   [
+    "the",
+    0.81
+   ]
+  ],
+  "heard": "people come for.",
+  "matched": 2,
+  "dur": 1.1
+ },
+ "c11": {
+  "src": "A",
+  "start": 26.333333333333332,
+  "end": 28.533333333333335,
+  "words": [
+   [
+    "joke,",
+    0.0
+   ],
+   [
+    "not",
+    0.7
+   ],
+   [
+    "for",
+    0.76
+   ],
+   [
+    "my",
+    1.06
+   ],
+   [
+    "expertise.",
+    1.32
+   ]
+  ],
+  "heard": "joke, not for my expertise. these.",
+  "matched": 5,
+  "zoom": {
+   "kind": "snap",
+   "t": 0.6699999999999999
+  },
+  "dur": 2.2
+ },
+ "c13": {
+  "src": "B",
+  "start": 0.7333333333333333,
+  "end": 3.5,
+  "words": [
+   [
+    "The",
+    0.0
+   ],
+   [
+    "views",
+    0.2
+   ],
+   [
+    "felt",
+    0.36
+   ],
+   [
+    "great,",
+    0.56
+   ],
+   [
+    "but",
+    1.06
+   ],
+   [
+    "they",
+    1.2
+   ],
+   [
+    "don't",
+    1.56
+   ],
+   [
+    "pay",
+    2.04
+   ],
+   [
+    "the",
+    2.24
+   ],
+   [
+    "bills.",
+    2.44
+   ]
+  ],
+  "heard": "The views felt great, but they don't pay the bills.",
+  "matched": 10,
+  "dur": 2.7666666666666666
+ },
+ "c14": {
+  "src": "B",
+  "start": 5.433333333333334,
+  "end": 9.133333333333333,
+  "words": [
+   [
+    "So",
+    0.0
+   ],
+   [
+    "I",
+    0.3
+   ],
+   [
+    "stopped,",
+    0.52
+   ],
+   [
+    "and",
+    1.08
+   ],
+   [
+    "I",
+    1.26
+   ],
+   [
+    "started",
+    1.44
+   ],
+   [
+    "over",
+    1.8
+   ],
+   [
+    "with",
+    2.16
+   ],
+   [
+    "one",
+    2.58
+   ],
+   [
+    "goal:",
+    3.06
+   ]
+  ],
+  "heard": "So I stopped, and I started over with one goal See you next time.",
+  "matched": 10,
+  "dur": 3.7
+ },
+ "c15": {
+  "src": "B",
+  "start": 9.3,
+  "end": 9.933333333333334,
+  "words": [
+   [
+    "get",
+    0.05
+   ],
+   [
+    "a",
+    0.422
+   ]
+  ],
+  "heard": "gate.",
+  "matched": 0,
+  "dur": 0.6333333333333333
+ },
+ "c16": {
+  "src": "B",
+  "start": 10.266666666666667,
+  "end": 11.733333333333333,
+  "words": [
+   [
+    "real",
+    0.05
+   ],
+   [
+    "client.",
+    0.978
+   ]
+  ],
+  "heard": "He'll play on",
+  "matched": 0,
+  "dur": 1.4666666666666666
+ },
+ "c17": {
+  "src": "B",
+  "start": 12.133333333333333,
+  "end": 15.266666666666667,
+  "words": [
+   [
+    "And",
+    0.0
+   ],
+   [
+    "I",
+    0.26
+   ],
+   [
+    "did.",
+    0.5
+   ],
+   [
+    "One",
+    0.76
+   ],
+   [
+    "project",
+    1.24
+   ],
+   [
+    "for",
+    1.52
+   ],
+   [
+    "seven",
+    2.02
+   ],
+   [
+    "thousand",
+    2.26
+   ],
+   [
+    "dollars.",
+    2.7
+   ]
+  ],
+  "heard": "And I did one project for seven thousand dollars. you",
+  "matched": 9,
+  "zoom": {
+   "kind": "snap",
+   "t": 1.99
+  },
+  "dur": 3.1333333333333333
+ },
+ "c18": {
+  "src": "B",
+  "start": 15.333333333333334,
+  "end": 16.633333333333333,
+  "words": [
+   [
+    "One",
+    0.0
+   ],
+   [
+    "single",
+    0.38
+   ],
+   [
+    "project.",
+    0.78
+   ]
+  ],
+  "heard": "One single project.",
+  "matched": 3,
+  "dur": 1.3
+ },
+ "c19": {
+  "src": "B",
+  "start": 18.966666666666665,
+  "end": 19.933333333333334,
+  "words": [
+   [
+    "But",
+    0.0
+   ],
+   [
+    "before",
+    0.28
+   ],
+   [
+    "that,",
+    0.58
+   ]
+  ],
+  "heard": "But before that,",
+  "matched": 3,
+  "dur": 0.9666666666666667
+ },
+ "c20": {
+  "src": "B",
+  "start": 20.133333333333333,
+  "end": 21.266666666666666,
+  "words": [
+   [
+    "I",
+    0.0
+   ],
+   [
+    "failed",
+    0.18
+   ],
+   [
+    "a",
+    0.42
+   ],
+   [
+    "lot.",
+    0.72
+   ]
+  ],
+  "heard": "I failed a lot.",
+  "matched": 4,
+  "zoom": {
+   "kind": "slow",
+   "t": 0.0
+  },
+  "dur": 1.1333333333333333
+ },
+ "c21": {
+  "src": "B",
+  "start": 21.266666666666666,
+  "end": 24.466666666666665,
+  "words": [
+   [
+    "So",
+    0.05
+   ],
+   [
+    "in",
+    0.21
+   ],
+   [
+    "the",
+    0.315
+   ],
+   [
+    "next",
+    0.42
+   ],
+   [
+    "videos,",
+    0.91
+   ],
+   [
+    "I'll",
+    1.4
+   ],
+   [
+    "show",
+    1.72
+   ],
+   [
+    "you",
+    1.78
+   ],
+   [
+    "what",
+    2.02
+   ],
+   [
+    "did",
+    2.3
+   ],
+   [
+    "not",
+    2.4
+   ],
+   [
+    "work",
+    2.5
+   ],
+   [
+    "and",
+    2.74
+   ]
+  ],
+  "heard": "until next video, I'll show you what did not work and",
+  "matched": 9,
+  "dur": 3.2
+ },
+ "c22": {
+  "src": "B",
+  "start": 24.633333333333333,
+  "end": 25.666666666666668,
+  "words": [
+   [
+    "what",
+    0.0
+   ],
+   [
+    "finally",
+    0.24
+   ],
+   [
+    "did.",
+    0.54
+   ]
+  ],
+  "heard": "what finally did.",
+  "matched": 3,
+  "dur": 1.0333333333333334
+ },
+ "c23": {
+  "src": "B",
+  "start": 25.733333333333334,
+  "end": 26.866666666666667,
+  "words": [
+   [
+    "Mistakes",
+    0.0
+   ],
+   [
+    "included.",
+    0.54
+   ]
+  ],
+  "heard": "Mistakes included.",
+  "matched": 2,
+  "dur": 1.1333333333333333
+ },
+ "c24": {
+  "src": "B",
+  "start": 26.866666666666667,
+  "end": 29.933333333333334,
+  "words": [
+   [
+    "If",
+    0.0
+   ],
+   [
+    "you",
+    0.3
+   ],
+   [
+    "want",
+    0.4
+   ],
+   [
+    "to",
+    0.5
+   ],
+   [
+    "see",
+    0.62
+   ],
+   [
+    "that,",
+    0.76
+   ],
+   [
+    "stick",
+    1.42
+   ],
+   [
+    "around",
+    1.68
+   ],
+   [
+    "for",
+    1.94
+   ],
+   [
+    "my",
+    2.34
+   ],
+   [
+    "next",
+    2.68
+   ],
+   [
+    "video.",
+    2.84
+   ]
+  ],
+  "heard": "If you want to see that, stick around for my next video.",
+  "matched": 12,
+  "dur": 3.066666666666667
+ }
+}

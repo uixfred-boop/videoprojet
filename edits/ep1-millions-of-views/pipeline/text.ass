@@ -1,0 +1,260 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 1080
+PlayResY: 1920
+WrapStyle: 2
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Title,Instrument Serif,74,&H00FFFFFF,&H00FFFFFF,&H00000000,&H00000000,0,0,0,0,100,100,-1,0,1,0,0,8,40,40,0,1
+Style: Note,Coming Soon,42,&H00FFFFFF,&H00FFFFFF,&H00000000,&H00000000,0,0,0,0,100,100,0,0,1,0,0,8,40,40,0,1
+Style: Tag,Homemade Apple,58,&H00FFFFFF,&H00FFFFFF,&H00000000,&H00000000,0,0,0,0,100,100,0,0,1,0,0,5,0,0,0,1
+Style: Cap,Instrument Serif,58,&H00FFFFFF,&H00FFFFFF,&H00000000,&H00000000,0,0,0,0,100,100,0,0,1,0,0,5,0,0,0,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.00,0:00:00.03,Title,,0,0,0,,{\pos(540,52)\bord2\3c&H000000&\3a&HD0&\shad0\blur6\fs76}M{\alpha&HFF&}illions of views.\NZero clients.
+Dialogue: 0,0:00:00.03,0:00:00.07,Title,,0,0,0,,{\pos(540,52)\bord2\3c&H000000&\3a&HD0&\shad0\blur6\fs76}Mi{\alpha&HFF&}llions of views.\NZero clients.
+Dialogue: 0,0:00:00.07,0:00:00.10,Title,,0,0,0,,{\pos(540,52)\bord2\3c&H000000&\3a&HD0&\shad0\blur6\fs76}Mil{\alpha&HFF&}lions of views.\NZero clients.
+Dialogue: 0,0:00:00.10,0:00:00.13,Title,,0,0,0,,{\pos(540,52)\bord2\3c&H000000&\3a&HD0&\shad0\blur6\fs76}Mill{\alpha&HFF&}ions of views.\NZero clients.
+Dialogue: 0,0:00:00.13,0:00:00.17,Title,,0,0,0,,{\pos(540,52)\bord2\3c&H000000&\3a&HD0&\shad0\blur6\fs76}Milli{\alpha&HFF&}ons of views.\NZero clients.
+Dialogue: 0,0:00:00.17,0:00:00.20,Title,,0,0,0,,{\pos(540,52)\bord2\3c&H000000&\3a&HD0&\shad0\blur6\fs76}Millio{\alpha&HFF&}ns of views.\NZero clients.
+Dialogue: 0,0:00:00.20,0:00:00.23,Title,,0,0,0,,{\pos(540,52)\bord2\3c&H000000&\3a&HD0&\shad0\blur6\fs76}Million{\alpha&HFF&}s of views.\NZero clients.
+Dialogue: 0,0:00:00.23,0:00:00.27,Title,,0,0,0,,{\pos(540,52)\bord2\3c&H000000&\3a&HD0&\shad0\blur6\fs76}Millions{\alpha&HFF&} of views.\NZero clients.
+Dialogue: 0,0:00:00.27,0:00:00.30,Title,,0,0,0,,{\pos(540,52)\bord2\3c&H000000&\3a&HD0&\shad0\blur6\fs76}Millions o{\alpha&HFF&}f views.\NZero clients.
+Dialogue: 0,0:00:00.30,0:00:00.33,Title,,0,0,0,,{\pos(540,52)\bord2\3c&H000000&\3a&HD0&\shad0\blur6\fs76}Millions of{\alpha&HFF&} views.\NZero clients.
+Dialogue: 0,0:00:00.33,0:00:00.37,Title,,0,0,0,,{\pos(540,52)\bord2\3c&H000000&\3a&HD0&\shad0\blur6\fs76}Millions of v{\alpha&HFF&}iews.\NZero clients.
+Dialogue: 0,0:00:00.37,0:00:00.40,Title,,0,0,0,,{\pos(540,52)\bord2\3c&H000000&\3a&HD0&\shad0\blur6\fs76}Millions of vi{\alpha&HFF&}ews.\NZero clients.
+Dialogue: 0,0:00:00.40,0:00:00.43,Title,,0,0,0,,{\pos(540,52)\bord2\3c&H000000&\3a&HD0&\shad0\blur6\fs76}Millions of vie{\alpha&HFF&}ws.\NZero clients.
+Dialogue: 0,0:00:00.43,0:00:00.47,Title,,0,0,0,,{\pos(540,52)\bord2\3c&H000000&\3a&HD0&\shad0\blur6\fs76}Millions of view{\alpha&HFF&}s.\NZero clients.
+Dialogue: 0,0:00:00.47,0:00:00.50,Title,,0,0,0,,{\pos(540,52)\bord2\3c&H000000&\3a&HD0&\shad0\blur6\fs76}Millions of views{\alpha&HFF&}.\NZero clients.
+Dialogue: 0,0:00:00.50,0:00:00.53,Title,,0,0,0,,{\pos(540,52)\bord2\3c&H000000&\3a&HD0&\shad0\blur6\fs76}Millions of views.{\alpha&HFF&}\NZero clients.
+Dialogue: 0,0:00:00.53,0:00:00.57,Title,,0,0,0,,{\pos(540,52)\bord2\3c&H000000&\3a&HD0&\shad0\blur6\fs76}Millions of views.\NZ{\alpha&HFF&}ero clients.
+Dialogue: 0,0:00:00.57,0:00:00.60,Title,,0,0,0,,{\pos(540,52)\bord2\3c&H000000&\3a&HD0&\shad0\blur6\fs76}Millions of views.\NZe{\alpha&HFF&}ro clients.
+Dialogue: 0,0:00:00.60,0:00:00.63,Title,,0,0,0,,{\pos(540,52)\bord2\3c&H000000&\3a&HD0&\shad0\blur6\fs76}Millions of views.\NZer{\alpha&HFF&}o clients.
+Dialogue: 0,0:00:00.63,0:00:00.67,Title,,0,0,0,,{\pos(540,52)\bord2\3c&H000000&\3a&HD0&\shad0\blur6\fs76}Millions of views.\NZero{\alpha&HFF&} clients.
+Dialogue: 0,0:00:00.67,0:00:00.70,Title,,0,0,0,,{\pos(540,52)\bord2\3c&H000000&\3a&HD0&\shad0\blur6\fs76}Millions of views.\NZero c{\alpha&HFF&}lients.
+Dialogue: 0,0:00:00.70,0:00:00.73,Title,,0,0,0,,{\pos(540,52)\bord2\3c&H000000&\3a&HD0&\shad0\blur6\fs76}Millions of views.\NZero cl{\alpha&HFF&}ients.
+Dialogue: 0,0:00:00.73,0:00:00.77,Title,,0,0,0,,{\pos(540,52)\bord2\3c&H000000&\3a&HD0&\shad0\blur6\fs76}Millions of views.\NZero cli{\alpha&HFF&}ents.
+Dialogue: 0,0:00:00.77,0:00:00.80,Title,,0,0,0,,{\pos(540,52)\bord2\3c&H000000&\3a&HD0&\shad0\blur6\fs76}Millions of views.\NZero clie{\alpha&HFF&}nts.
+Dialogue: 0,0:00:00.80,0:00:00.83,Title,,0,0,0,,{\pos(540,52)\bord2\3c&H000000&\3a&HD0&\shad0\blur6\fs76}Millions of views.\NZero clien{\alpha&HFF&}ts.
+Dialogue: 0,0:00:00.83,0:00:00.87,Title,,0,0,0,,{\pos(540,52)\bord2\3c&H000000&\3a&HD0&\shad0\blur6\fs76}Millions of views.\NZero client{\alpha&HFF&}s.
+Dialogue: 0,0:00:00.87,0:00:00.90,Title,,0,0,0,,{\pos(540,52)\bord2\3c&H000000&\3a&HD0&\shad0\blur6\fs76}Millions of views.\NZero clients{\alpha&HFF&}.
+Dialogue: 0,0:00:00.90,0:00:06.37,Title,,0,0,0,,{\pos(540,52)\bord2\3c&H000000&\3a&HD0&\shad0\blur6\fs76}Millions of views.\NZero clients.
+Dialogue: 0,0:00:01.60,0:00:06.37,Tag,,0,0,0,,{\pos(235,44)\bord2\3c&H000000&\3a&HD0&\shad0\blur6\frz16}episode 1
+Dialogue: 0,0:00:06.37,0:00:06.41,Title,,0,0,0,,{\pos(540,62)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}D{\alpha&HFF&}esigner vs Developer
+Dialogue: 0,0:00:06.41,0:00:06.44,Title,,0,0,0,,{\pos(540,62)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}De{\alpha&HFF&}signer vs Developer
+Dialogue: 0,0:00:06.44,0:00:06.48,Title,,0,0,0,,{\pos(540,62)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}Des{\alpha&HFF&}igner vs Developer
+Dialogue: 0,0:00:06.48,0:00:06.52,Title,,0,0,0,,{\pos(540,62)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}Desi{\alpha&HFF&}gner vs Developer
+Dialogue: 0,0:00:06.52,0:00:06.56,Title,,0,0,0,,{\pos(540,62)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}Desig{\alpha&HFF&}ner vs Developer
+Dialogue: 0,0:00:06.56,0:00:06.60,Title,,0,0,0,,{\pos(540,62)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}Design{\alpha&HFF&}er vs Developer
+Dialogue: 0,0:00:06.60,0:00:06.64,Title,,0,0,0,,{\pos(540,62)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}Designe{\alpha&HFF&}r vs Developer
+Dialogue: 0,0:00:06.64,0:00:06.67,Title,,0,0,0,,{\pos(540,62)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}Designer{\alpha&HFF&} vs Developer
+Dialogue: 0,0:00:06.67,0:00:06.71,Title,,0,0,0,,{\pos(540,62)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}Designer v{\alpha&HFF&}s Developer
+Dialogue: 0,0:00:06.71,0:00:06.75,Title,,0,0,0,,{\pos(540,62)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}Designer vs{\alpha&HFF&} Developer
+Dialogue: 0,0:00:06.75,0:00:06.79,Title,,0,0,0,,{\pos(540,62)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}Designer vs D{\alpha&HFF&}eveloper
+Dialogue: 0,0:00:06.79,0:00:06.83,Title,,0,0,0,,{\pos(540,62)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}Designer vs De{\alpha&HFF&}veloper
+Dialogue: 0,0:00:06.83,0:00:06.87,Title,,0,0,0,,{\pos(540,62)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}Designer vs Dev{\alpha&HFF&}eloper
+Dialogue: 0,0:00:06.87,0:00:06.91,Title,,0,0,0,,{\pos(540,62)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}Designer vs Deve{\alpha&HFF&}loper
+Dialogue: 0,0:00:06.91,0:00:06.94,Title,,0,0,0,,{\pos(540,62)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}Designer vs Devel{\alpha&HFF&}oper
+Dialogue: 0,0:00:06.94,0:00:06.98,Title,,0,0,0,,{\pos(540,62)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}Designer vs Develo{\alpha&HFF&}per
+Dialogue: 0,0:00:06.98,0:00:07.02,Title,,0,0,0,,{\pos(540,62)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}Designer vs Develop{\alpha&HFF&}er
+Dialogue: 0,0:00:07.02,0:00:07.06,Title,,0,0,0,,{\pos(540,62)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}Designer vs Develope{\alpha&HFF&}r
+Dialogue: 0,0:00:07.06,0:00:17.13,Title,,0,0,0,,{\pos(540,62)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}Designer vs Developer
+Dialogue: 0,0:00:07.91,0:00:12.63,Note,,0,0,0,,{\pos(540,146)\bord2\3c&H000000&\3a&HD0&\shad0\blur6\fs42\frz0}the videos you might know me from
+Dialogue: 0,0:00:12.88,0:00:17.13,Note,,0,0,0,,{\pos(540,146)\bord2\3c&H000000&\3a&HD0&\shad0\blur6\fs42\frz0}so I thought... this is it. clients will come.
+Dialogue: 0,0:00:18.70,0:00:18.74,Title,,0,0,0,,{\pos(540,62)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}T{\alpha&HFF&}he problem:
+Dialogue: 0,0:00:18.74,0:00:18.78,Title,,0,0,0,,{\pos(540,62)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}Th{\alpha&HFF&}e problem:
+Dialogue: 0,0:00:18.78,0:00:18.82,Title,,0,0,0,,{\pos(540,62)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}The{\alpha&HFF&} problem:
+Dialogue: 0,0:00:18.82,0:00:18.85,Title,,0,0,0,,{\pos(540,62)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}The p{\alpha&HFF&}roblem:
+Dialogue: 0,0:00:18.85,0:00:18.89,Title,,0,0,0,,{\pos(540,62)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}The pr{\alpha&HFF&}oblem:
+Dialogue: 0,0:00:18.89,0:00:18.93,Title,,0,0,0,,{\pos(540,62)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}The pro{\alpha&HFF&}blem:
+Dialogue: 0,0:00:18.93,0:00:18.97,Title,,0,0,0,,{\pos(540,62)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}The prob{\alpha&HFF&}lem:
+Dialogue: 0,0:00:18.97,0:00:19.01,Title,,0,0,0,,{\pos(540,62)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}The probl{\alpha&HFF&}em:
+Dialogue: 0,0:00:19.01,0:00:19.05,Title,,0,0,0,,{\pos(540,62)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}The proble{\alpha&HFF&}m:
+Dialogue: 0,0:00:19.05,0:00:19.08,Title,,0,0,0,,{\pos(540,62)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}The problem{\alpha&HFF&}:
+Dialogue: 0,0:00:19.08,0:00:22.00,Title,,0,0,0,,{\pos(540,62)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}The problem:
+Dialogue: 0,0:00:20.50,0:00:22.00,Note,,0,0,0,,{\pos(540,146)\bord2\3c&H000000&\3a&HD0&\shad0\blur6\fs42\frz0}they came for the joke... not for the designer
+Dialogue: 0,0:00:22.00,0:00:22.04,Title,,0,0,0,,{\pos(540,62)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}V{\alpha&HFF&}iews ≠ bills
+Dialogue: 0,0:00:22.04,0:00:22.08,Title,,0,0,0,,{\pos(540,62)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}Vi{\alpha&HFF&}ews ≠ bills
+Dialogue: 0,0:00:22.08,0:00:22.12,Title,,0,0,0,,{\pos(540,62)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}Vie{\alpha&HFF&}ws ≠ bills
+Dialogue: 0,0:00:22.12,0:00:22.15,Title,,0,0,0,,{\pos(540,62)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}View{\alpha&HFF&}s ≠ bills
+Dialogue: 0,0:00:22.15,0:00:22.19,Title,,0,0,0,,{\pos(540,62)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}Views{\alpha&HFF&} ≠ bills
+Dialogue: 0,0:00:22.19,0:00:22.23,Title,,0,0,0,,{\pos(540,62)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}Views ≠{\alpha&HFF&} bills
+Dialogue: 0,0:00:22.23,0:00:22.27,Title,,0,0,0,,{\pos(540,62)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}Views ≠ b{\alpha&HFF&}ills
+Dialogue: 0,0:00:22.27,0:00:22.31,Title,,0,0,0,,{\pos(540,62)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}Views ≠ bi{\alpha&HFF&}lls
+Dialogue: 0,0:00:22.31,0:00:22.35,Title,,0,0,0,,{\pos(540,62)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}Views ≠ bil{\alpha&HFF&}ls
+Dialogue: 0,0:00:22.35,0:00:22.38,Title,,0,0,0,,{\pos(540,62)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}Views ≠ bill{\alpha&HFF&}s
+Dialogue: 0,0:00:22.38,0:00:35.00,Title,,0,0,0,,{\pos(540,62)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}Views ≠ bills
+Dialogue: 0,0:00:29.15,0:00:35.00,Note,,0,0,0,,{\pos(540,146)\bord2\3c&H000000&\3a&HD0&\shad0\blur6\fs42\frz0}goal: get 1 real client
+Dialogue: 0,0:00:33.27,0:00:35.00,Note,,0,0,0,,{\pos(540,200)\bord2\3c&H000000&\3a&HD0&\shad0\blur6\fs42\frz0}1 project = $7,000
+Dialogue: 0,0:00:35.00,0:00:35.04,Title,,0,0,0,,{\pos(540,62)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}B{\alpha&HFF&}ut first...
+Dialogue: 0,0:00:35.04,0:00:35.08,Title,,0,0,0,,{\pos(540,62)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}Bu{\alpha&HFF&}t first...
+Dialogue: 0,0:00:35.08,0:00:35.12,Title,,0,0,0,,{\pos(540,62)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}But{\alpha&HFF&} first...
+Dialogue: 0,0:00:35.12,0:00:35.15,Title,,0,0,0,,{\pos(540,62)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}But f{\alpha&HFF&}irst...
+Dialogue: 0,0:00:35.15,0:00:35.19,Title,,0,0,0,,{\pos(540,62)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}But fi{\alpha&HFF&}rst...
+Dialogue: 0,0:00:35.19,0:00:35.23,Title,,0,0,0,,{\pos(540,62)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}But fir{\alpha&HFF&}st...
+Dialogue: 0,0:00:35.23,0:00:35.27,Title,,0,0,0,,{\pos(540,62)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}But firs{\alpha&HFF&}t...
+Dialogue: 0,0:00:35.27,0:00:35.31,Title,,0,0,0,,{\pos(540,62)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}But first{\alpha&HFF&}...
+Dialogue: 0,0:00:35.31,0:00:35.35,Title,,0,0,0,,{\pos(540,62)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}But first.{\alpha&HFF&}..
+Dialogue: 0,0:00:35.35,0:00:35.38,Title,,0,0,0,,{\pos(540,62)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}But first..{\alpha&HFF&}.
+Dialogue: 0,0:00:35.38,0:00:37.10,Title,,0,0,0,,{\pos(540,62)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}But first...
+Dialogue: 0,0:00:37.10,0:00:37.14,Title,,0,0,0,,{\pos(540,62)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}C{\alpha&HFF&}oming soon:
+Dialogue: 0,0:00:37.14,0:00:37.18,Title,,0,0,0,,{\pos(540,62)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}Co{\alpha&HFF&}ming soon:
+Dialogue: 0,0:00:37.18,0:00:37.22,Title,,0,0,0,,{\pos(540,62)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}Com{\alpha&HFF&}ing soon:
+Dialogue: 0,0:00:37.22,0:00:37.25,Title,,0,0,0,,{\pos(540,62)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}Comi{\alpha&HFF&}ng soon:
+Dialogue: 0,0:00:37.25,0:00:37.29,Title,,0,0,0,,{\pos(540,62)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}Comin{\alpha&HFF&}g soon:
+Dialogue: 0,0:00:37.29,0:00:37.33,Title,,0,0,0,,{\pos(540,62)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}Coming{\alpha&HFF&} soon:
+Dialogue: 0,0:00:37.33,0:00:37.37,Title,,0,0,0,,{\pos(540,62)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}Coming s{\alpha&HFF&}oon:
+Dialogue: 0,0:00:37.37,0:00:37.41,Title,,0,0,0,,{\pos(540,62)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}Coming so{\alpha&HFF&}on:
+Dialogue: 0,0:00:37.41,0:00:37.45,Title,,0,0,0,,{\pos(540,62)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}Coming soo{\alpha&HFF&}n:
+Dialogue: 0,0:00:37.45,0:00:37.48,Title,,0,0,0,,{\pos(540,62)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}Coming soon{\alpha&HFF&}:
+Dialogue: 0,0:00:37.48,0:00:42.47,Title,,0,0,0,,{\pos(540,62)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}Coming soon:
+Dialogue: 0,0:00:39.40,0:00:42.47,Note,,0,0,0,,{\pos(540,146)\bord2\3c&H000000&\3a&HD0&\shad0\blur6\fs42\frz0}what didn't work
+Dialogue: 0,0:00:40.30,0:00:42.47,Note,,0,0,0,,{\pos(540,200)\bord2\3c&H000000&\3a&HD0&\shad0\blur6\fs42\frz0}what finally did
+Dialogue: 0,0:00:41.33,0:00:42.47,Note,,0,0,0,,{\pos(230,232)\bord2\3c&H000000&\3a&HD0&\shad0\blur6\fs40\frz14}mistakes included
+Dialogue: 1,0:00:00.00,0:00:00.62,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}Okay,
+Dialogue: 1,0:00:00.62,0:00:00.68,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}it's
+Dialogue: 1,0:00:00.68,0:00:00.74,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}a
+Dialogue: 1,0:00:00.74,0:00:00.86,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}bit
+Dialogue: 1,0:00:00.86,0:00:01.24,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}crazy,
+Dialogue: 1,0:00:01.24,0:00:01.70,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}but
+Dialogue: 1,0:00:01.70,0:00:01.82,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}I
+Dialogue: 1,0:00:01.82,0:00:01.96,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}got
+Dialogue: 1,0:00:01.96,0:00:02.20,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}millions
+Dialogue: 1,0:00:02.20,0:00:02.38,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}of
+Dialogue: 1,0:00:02.38,0:00:02.60,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}views
+Dialogue: 1,0:00:02.60,0:00:02.92,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}and
+Dialogue: 1,0:00:02.92,0:00:03.22,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}zero
+Dialogue: 1,0:00:03.22,0:00:03.60,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}clients.
+Dialogue: 1,0:00:03.60,0:00:03.76,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}If
+Dialogue: 1,0:00:03.76,0:00:04.00,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}you're
+Dialogue: 1,0:00:04.00,0:00:04.12,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}new
+Dialogue: 1,0:00:04.12,0:00:04.30,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}here,
+Dialogue: 1,0:00:04.30,0:00:04.70,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}hi,
+Dialogue: 1,0:00:04.70,0:00:04.86,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}I'm
+Dialogue: 1,0:00:04.86,0:00:05.30,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}Fred.
+Dialogue: 1,0:00:05.30,0:00:05.62,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}I'm
+Dialogue: 1,0:00:05.62,0:00:05.68,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}a
+Dialogue: 1,0:00:05.68,0:00:05.74,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}web
+Dialogue: 1,0:00:05.74,0:00:06.37,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}designer.
+Dialogue: 1,0:00:06.37,0:00:06.53,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}You
+Dialogue: 1,0:00:06.53,0:00:06.71,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}may
+Dialogue: 1,0:00:06.71,0:00:06.89,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}know
+Dialogue: 1,0:00:06.89,0:00:07.07,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}me
+Dialogue: 1,0:00:07.07,0:00:07.31,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}from
+Dialogue: 1,0:00:07.31,0:00:07.71,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}my
+Dialogue: 1,0:00:07.71,0:00:08.41,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}designer
+Dialogue: 1,0:00:08.41,0:00:08.99,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}versus
+Dialogue: 1,0:00:08.99,0:00:09.68,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}developer
+Dialogue: 1,0:00:09.68,0:00:10.37,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}videos.
+Dialogue: 1,0:00:10.37,0:00:10.67,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}This
+Dialogue: 1,0:00:10.67,0:00:10.85,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}one
+Dialogue: 1,0:00:10.85,0:00:11.11,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}got
+Dialogue: 1,0:00:11.11,0:00:11.37,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}three
+Dialogue: 1,0:00:11.42,0:00:11.87,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}million
+Dialogue: 1,0:00:11.87,0:00:12.63,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}views.
+Dialogue: 1,0:00:12.63,0:00:13.07,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}So
+Dialogue: 1,0:00:13.07,0:00:13.29,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}I
+Dialogue: 1,0:00:13.29,0:00:13.75,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}thought,
+Dialogue: 1,0:00:13.75,0:00:14.13,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}okay,
+Dialogue: 1,0:00:14.13,0:00:14.23,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}this
+Dialogue: 1,0:00:14.23,0:00:14.50,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}is
+Dialogue: 1,0:00:14.50,0:00:14.76,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}it.
+Dialogue: 1,0:00:14.76,0:00:15.03,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}Clients
+Dialogue: 1,0:00:15.03,0:00:15.29,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}are
+Dialogue: 1,0:00:15.29,0:00:15.57,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}gonna
+Dialogue: 1,0:00:15.57,0:00:15.87,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}come
+Dialogue: 1,0:00:15.87,0:00:16.17,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}to
+Dialogue: 1,0:00:16.17,0:00:16.47,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}me,
+Dialogue: 1,0:00:16.47,0:00:17.13,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}naturally.
+Dialogue: 1,0:00:17.13,0:00:17.31,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}It
+Dialogue: 1,0:00:17.31,0:00:17.47,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}took
+Dialogue: 1,0:00:17.47,0:00:17.69,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}me
+Dialogue: 1,0:00:17.69,0:00:17.91,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}a
+Dialogue: 1,0:00:17.91,0:00:18.09,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}while
+Dialogue: 1,0:00:18.09,0:00:18.33,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}to
+Dialogue: 1,0:00:18.33,0:00:18.47,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}get
+Dialogue: 1,0:00:18.47,0:00:18.70,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}it.
+Dialogue: 1,0:00:18.70,0:00:18.96,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}People
+Dialogue: 1,0:00:18.96,0:00:19.22,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}came
+Dialogue: 1,0:00:19.22,0:00:19.51,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}for
+Dialogue: 1,0:00:19.51,0:00:19.80,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}the
+Dialogue: 1,0:00:19.80,0:00:20.50,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}joke,
+Dialogue: 1,0:00:20.50,0:00:20.56,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}not
+Dialogue: 1,0:00:20.56,0:00:20.86,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}for
+Dialogue: 1,0:00:20.86,0:00:21.12,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}my
+Dialogue: 1,0:00:21.12,0:00:22.00,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}expertise.
+Dialogue: 1,0:00:22.00,0:00:22.20,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}The
+Dialogue: 1,0:00:22.20,0:00:22.36,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}views
+Dialogue: 1,0:00:22.36,0:00:22.56,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}felt
+Dialogue: 1,0:00:22.56,0:00:23.06,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}great,
+Dialogue: 1,0:00:23.06,0:00:23.20,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}but
+Dialogue: 1,0:00:23.20,0:00:23.56,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}they
+Dialogue: 1,0:00:23.56,0:00:24.04,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}don't
+Dialogue: 1,0:00:24.04,0:00:24.24,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}pay
+Dialogue: 1,0:00:24.24,0:00:24.44,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}the
+Dialogue: 1,0:00:24.44,0:00:24.77,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}bills.
+Dialogue: 1,0:00:24.77,0:00:25.07,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}So
+Dialogue: 1,0:00:25.07,0:00:25.29,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}I
+Dialogue: 1,0:00:25.29,0:00:25.85,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}stopped,
+Dialogue: 1,0:00:25.85,0:00:26.03,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}and
+Dialogue: 1,0:00:26.03,0:00:26.21,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}I
+Dialogue: 1,0:00:26.21,0:00:26.57,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}started
+Dialogue: 1,0:00:26.57,0:00:26.93,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}over
+Dialogue: 1,0:00:26.93,0:00:27.35,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}with
+Dialogue: 1,0:00:27.35,0:00:27.83,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}one
+Dialogue: 1,0:00:27.83,0:00:28.47,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}goal:
+Dialogue: 1,0:00:28.52,0:00:28.89,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}get
+Dialogue: 1,0:00:28.89,0:00:29.10,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}a
+Dialogue: 1,0:00:29.15,0:00:30.08,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}real
+Dialogue: 1,0:00:30.08,0:00:30.57,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}client.
+Dialogue: 1,0:00:30.57,0:00:30.83,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}And
+Dialogue: 1,0:00:30.83,0:00:31.07,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}I
+Dialogue: 1,0:00:31.07,0:00:31.33,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}did.
+Dialogue: 1,0:00:31.33,0:00:31.81,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}One
+Dialogue: 1,0:00:31.81,0:00:32.09,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}project
+Dialogue: 1,0:00:32.09,0:00:32.59,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}for
+Dialogue: 1,0:00:32.59,0:00:32.83,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}seven
+Dialogue: 1,0:00:32.83,0:00:33.27,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}thousand
+Dialogue: 1,0:00:33.27,0:00:33.70,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}dollars.
+Dialogue: 1,0:00:33.70,0:00:34.08,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}One
+Dialogue: 1,0:00:34.08,0:00:34.48,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}single
+Dialogue: 1,0:00:34.48,0:00:35.00,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}project.
+Dialogue: 1,0:00:35.00,0:00:35.28,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}But
+Dialogue: 1,0:00:35.28,0:00:35.58,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}before
+Dialogue: 1,0:00:35.58,0:00:35.97,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}that,
+Dialogue: 1,0:00:35.97,0:00:36.15,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}I
+Dialogue: 1,0:00:36.15,0:00:36.39,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}failed
+Dialogue: 1,0:00:36.39,0:00:36.69,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}a
+Dialogue: 1,0:00:36.69,0:00:37.10,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}lot.
+Dialogue: 1,0:00:37.15,0:00:37.31,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}So
+Dialogue: 1,0:00:37.31,0:00:37.41,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}in
+Dialogue: 1,0:00:37.41,0:00:37.52,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}the
+Dialogue: 1,0:00:37.52,0:00:38.01,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}next
+Dialogue: 1,0:00:38.01,0:00:38.50,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}videos,
+Dialogue: 1,0:00:38.50,0:00:38.82,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}I'll
+Dialogue: 1,0:00:38.82,0:00:38.88,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}show
+Dialogue: 1,0:00:38.88,0:00:39.12,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}you
+Dialogue: 1,0:00:39.12,0:00:39.40,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}what
+Dialogue: 1,0:00:39.40,0:00:39.50,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}did
+Dialogue: 1,0:00:39.50,0:00:39.60,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}not
+Dialogue: 1,0:00:39.60,0:00:39.84,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}work
+Dialogue: 1,0:00:39.84,0:00:40.30,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}and
+Dialogue: 1,0:00:40.30,0:00:40.54,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}what
+Dialogue: 1,0:00:40.54,0:00:40.84,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}finally
+Dialogue: 1,0:00:40.84,0:00:41.33,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}did.
+Dialogue: 1,0:00:41.33,0:00:41.87,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}Mistakes
+Dialogue: 1,0:00:41.87,0:00:42.47,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}included.
+Dialogue: 1,0:00:42.47,0:00:42.77,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}If
+Dialogue: 1,0:00:42.77,0:00:42.87,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}you
+Dialogue: 1,0:00:42.87,0:00:42.97,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}want
+Dialogue: 1,0:00:42.97,0:00:43.09,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}to
+Dialogue: 1,0:00:43.09,0:00:43.23,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}see
+Dialogue: 1,0:00:43.23,0:00:43.89,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}that,
+Dialogue: 1,0:00:43.89,0:00:44.15,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}stick
+Dialogue: 1,0:00:44.15,0:00:44.41,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}around
+Dialogue: 1,0:00:44.41,0:00:44.81,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}for
+Dialogue: 1,0:00:44.81,0:00:45.15,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}my
+Dialogue: 1,0:00:45.15,0:00:45.31,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}next
+Dialogue: 1,0:00:45.31,0:00:45.53,Cap,,0,0,0,,{\pos(150,690)\bord2\3c&H000000&\3a&HD0&\shad0\blur6}video.
