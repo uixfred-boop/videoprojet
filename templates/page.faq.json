@@ -1,0 +1,102 @@
+{
+  "sections": {
+    "faq": {
+      "type": "faq",
+      "settings": {
+        "title": "Questions fréquentes",
+        "text": "<p>Tout ce qu'il faut savoir sur Day Up. Tu ne trouves pas ta réponse ? <a href=\"/pages/contact\">Écris-nous</a>.</p>",
+        "schema_markup": true,
+        "bg": "#FFF8EC"
+      },
+      "blocks": {
+        "q_1": {
+          "type": "question",
+          "settings": {
+            "question": "Comment prendre Day Up ?",
+            "answer": "<p>2 gummies le matin pour bien démarrer, ou 1 le matin et 1 l'après-midi pour un soutien plus régulier. Ne dépasse pas la dose journalière recommandée.</p>"
+          }
+        },
+        "q_2": {
+          "type": "question",
+          "settings": {
+            "question": "Day Up contient-il de la caféine ?",
+            "answer": "<p>Oui : environ 44 mg pour la dose journalière, issue du guarana. C'est moins qu'une tasse de café classique.</p>"
+          }
+        },
+        "q_3": {
+          "type": "question",
+          "settings": {
+            "question": "Combien de temps dure un pot ?",
+            "answer": "<p>Un pot contient 60 gummies, soit 30 jours de routine à raison de 2 gummies par jour. Le lot de 3 couvre donc 90 jours.</p>"
+          }
+        },
+        "q_4": {
+          "type": "question",
+          "settings": {
+            "question": "Y a-t-il du sucre dedans ?",
+            "answer": "<p>Day Up est formulé sans sucres ajoutés, avec un bon goût pomme.</p>"
+          }
+        },
+        "q_5": {
+          "type": "question",
+          "settings": {
+            "question": "Quand vais-je ressentir quelque chose ?",
+            "answer": "<p>Chaque organisme est différent. Le plus important, c'est la régularité : intègre Day Up à ta routine du matin pendant quelques semaines pour te faire ton propre avis.</p>"
+          }
+        },
+        "q_6": {
+          "type": "question",
+          "settings": {
+            "question": "Quels sont les délais de livraison ?",
+            "answer": "<p>Ta commande est préparée rapidement et tu reçois un e-mail de suivi dès son expédition. La livraison est offerte dès 50€ d'achat.</p>"
+          }
+        },
+        "q_7": {
+          "type": "question",
+          "settings": {
+            "question": "Et si ça ne me plaît pas ?",
+            "answer": "<p>Tu as 14 jours pour changer d'avis : satisfait ou remboursé. Écris-nous depuis la page contact et on s'occupe de tout.</p>"
+          }
+        },
+        "q_8": {
+          "type": "question",
+          "settings": {
+            "question": "Qui ne doit pas prendre Day Up ?",
+            "answer": "<p>Day Up est déconseillé aux enfants, aux femmes enceintes ou allaitantes et aux personnes sensibles à la caféine. En cas de doute, demande conseil à ton médecin ou ton pharmacien.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q_1",
+        "q_2",
+        "q_3",
+        "q_4",
+        "q_5",
+        "q_6",
+        "q_7",
+        "q_8"
+      ]
+    },
+    "cta": {
+      "type": "cta-band",
+      "settings": {
+        "product": "dayup-daily-energy",
+        "rating_text": "Rejoins la team Day Up",
+        "title": "Prêt à changer\ntes matins ?",
+        "checklist": "Garantie 14 jours satisfait ou remboursé\nSans sucres ajoutés, goût pomme\nLivraison offerte dès 50€",
+        "button_1": "Commander",
+        "link_1": "/products/dayup-daily-energy",
+        "button_2": "Lire la FAQ",
+        "link_2": "/pages/faq",
+        "sticker_ring": "Le réveil, version douce • ",
+        "sticker_line1": "DAY",
+        "sticker_line2": "UP!",
+        "bg": "#08224D"
+      }
+    }
+  },
+  "order": [
+    "faq",
+    "cta"
+  ]
+}

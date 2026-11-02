@@ -1,0 +1,14 @@
+{
+  "sections": {
+    "form": {
+      "type": "contact-form",
+      "settings": {
+        "title": "Écris-nous",
+        "text": "<p>Une question sur ta commande ou sur Day Up ? On te répond au plus vite.</p>"
+      }
+    }
+  },
+  "order": [
+    "form"
+  ]
+}

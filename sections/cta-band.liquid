@@ -1,0 +1,58 @@
+{%- assign product = section.settings.product -%}
+<section class="cta" style="--cta-bg: {{ section.settings.bg }};">
+  <div class="page-width">
+    <div class="cta__card">
+      <div class="cta__content">
+        {% render 'rating', product: product, fallback: section.settings.rating_text, class: 'cta__rating', size: 15 %}
+        <h2 class="cta__title">{{ section.settings.title | newline_to_br }}</h2>
+        {%- assign lines = section.settings.checklist | newline_to_br | split: '<br />' -%}
+        <ul class="cta__list" role="list">
+          {%- for line in lines -%}
+            {%- assign l = line | strip -%}
+            {%- if l != blank -%}<li>{% render 'icon', name: 'check-badge', size: 20 %}{{ l }}</li>{%- endif -%}
+          {%- endfor -%}
+        </ul>
+        <div class="cta__buttons">
+          {%- if section.settings.button_1 != blank -%}<a class="btn btn--sun" href="{{ section.settings.link_1 | default: product.url }}">{{ section.settings.button_1 }}</a>{%- endif -%}
+          {%- if section.settings.button_2 != blank -%}<a class="btn btn--sun" href="{{ section.settings.link_2 }}">{{ section.settings.button_2 }}</a>{%- endif -%}
+        </div>
+      </div>
+      <div class="cta__media">
+        {%- if section.settings.image != blank or section.settings.image_url != blank -%}
+          {% render 'media', image: section.settings.image, url: section.settings.image_url, alt: section.settings.title, class: 'cta__img', sizes: '(min-width: 990px) 40vw, 80vw' %}
+        {%- else -%}
+          {% render 'bottle', class: 'cta__bottle' %}
+          {% render 'gummy', class: 'cta__gummy cta__gummy--1' %}
+          {% render 'gummy', class: 'cta__gummy cta__gummy--2' %}
+        {%- endif -%}
+        {%- if section.settings.sticker_line1 != blank -%}
+          {% render 'sticker', ring: section.settings.sticker_ring, line1: section.settings.sticker_line1, line2: section.settings.sticker_line2, class: 'cta__sticker' %}
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Appel à l'action final",
+  "class": "section-cta",
+  "settings": [
+    { "type": "product", "id": "product", "label": "Produit" },
+    { "type": "text", "id": "rating_text", "label": "Texte à côté des étoiles", "default": "Rejoins la team Day Up" },
+    { "type": "textarea", "id": "title", "label": "Titre", "default": "Prêt à changer\ntes matins ?" },
+    { "type": "textarea", "id": "checklist", "label": "Liste (une ligne = un point)", "default": "Garantie 14 jours satisfait ou remboursé\nSans sucres ajoutés, goût pomme\nLivraison offerte dès 50€" },
+    { "type": "text", "id": "button_1", "label": "Bouton 1", "default": "Commander" },
+    { "type": "url", "id": "link_1", "label": "Lien 1" },
+    { "type": "text", "id": "button_2", "label": "Bouton 2", "default": "Lire la FAQ" },
+    { "type": "url", "id": "link_2", "label": "Lien 2" },
+    { "type": "image_picker", "id": "image", "label": "Image (vide = pot illustré)" },
+    { "type": "text", "id": "image_url", "label": "Image — URL de secours" },
+    { "type": "text", "id": "sticker_ring", "label": "Sticker — texte circulaire", "default": "Le réveil, version douce • " },
+    { "type": "text", "id": "sticker_line1", "label": "Sticker — ligne 1", "default": "DAY" },
+    { "type": "text", "id": "sticker_line2", "label": "Sticker — ligne 2", "default": "UP!" },
+    { "type": "color", "id": "bg", "label": "Fond", "default": "#08224D" }
+  ],
+  "presets": [{ "name": "Appel à l'action final" }]
+}
+{% endschema %}

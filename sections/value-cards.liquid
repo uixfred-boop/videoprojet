@@ -1,0 +1,46 @@
+<section class="values" style="--values-bg: {{ section.settings.bg }};">
+  <div class="page-width">
+    <h2 class="display values__title">
+      {{ section.settings.title }}
+      {%- if section.settings.title_hl != blank -%}<br><span class="hl-sun">{{ section.settings.title_hl }}</span>{%- endif -%}
+    </h2>
+    <div class="values__grid">
+      {%- for block in section.blocks -%}
+        <article class="value-card" {{ block.shopify_attributes }}>
+          <div class="value-card__media">
+            {% render 'media', image: block.settings.image, url: block.settings.image_url, video_url: block.settings.video_url, alt: block.settings.title, class: 'value-card__img', sizes: '(min-width: 990px) 400px, 90vw' %}
+          </div>
+          <h3 class="value-card__title">{{ block.settings.title }}</h3>
+          <div class="value-card__text">{{ block.settings.text }}</div>
+        </article>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Cartes avantages",
+  "class": "section-values",
+  "max_blocks": 4,
+  "settings": [
+    { "type": "text", "id": "title", "label": "Titre", "default": "On a rendu l'énergie," },
+    { "type": "text", "id": "title_hl", "label": "Titre — partie jaune", "default": "genre, ridiculement simple." },
+    { "type": "color", "id": "bg", "label": "Fond", "default": "#1C6FD1" }
+  ],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "Carte",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "image_url", "label": "Image — URL de secours" },
+        { "type": "text", "id": "video_url", "label": "Vidéo .mp4 (optionnel)" },
+        { "type": "text", "id": "title", "label": "Titre", "default": "Un goût qui donne envie" },
+        { "type": "richtext", "id": "text", "label": "Texte", "default": "<p>Un délicieux goût pomme, sans sucre ajouté.</p>" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Cartes avantages", "blocks": [{ "type": "card" }, { "type": "card" }, { "type": "card" }] }]
+}
+{% endschema %}

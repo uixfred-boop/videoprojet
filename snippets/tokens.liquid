@@ -1,0 +1,39 @@
+{%- comment -%}
+  Replaces dynamic tokens in merchant text, computed from the real product prices:
+  [prix_jour]   lowest price per day across bundles  (e.g. €1,00)
+  [prix_min]    lowest bundle price                  (e.g. €44,90)
+  [remise_max]  biggest saving vs. compare-at price  (e.g. 29%)
+  [livraison]   free-shipping threshold              (e.g. €50)
+  Params: text, product
+{%- endcomment -%}
+{%- liquid
+  assign out = text
+  if out contains '['
+    assign min_ppd = 0
+    assign max_pct = 0
+    assign days_per = settings.days_per_pack | default: 30
+    for v in product.variants
+      capture packs_s
+        render 'variant-packs', variant: v, fallback: forloop.index
+      endcapture
+      assign packs = packs_s | strip | plus: 0
+      assign days = packs | times: days_per
+      assign ppd = v.price | times: 1.0 | divided_by: days | round
+      if min_ppd == 0 or ppd < min_ppd
+        assign min_ppd = ppd
+      endif
+      if v.compare_at_price > v.price
+        assign pct = v.compare_at_price | minus: v.price | times: 100.0 | divided_by: v.compare_at_price | round
+        if pct > max_pct
+          assign max_pct = pct
+        endif
+      endif
+    endfor
+    assign ppd_money = min_ppd | money
+    assign min_money = product.price_min | money
+    assign pct_text = max_pct | append: '%'
+    assign threshold = settings.free_shipping_threshold | times: 100 | money_without_trailing_zeros
+    assign out = out | replace: '[prix_jour]', ppd_money | replace: '[prix_min]', min_money | replace: '[remise_max]', pct_text | replace: '[livraison]', threshold
+  endif
+  echo out
+-%}

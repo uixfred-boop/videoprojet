@@ -1,0 +1,45 @@
+<section class="page-section contact">
+  <div class="page-width page-width--narrow">
+    <h1 class="display page-title">{{ section.settings.title }}</h1>
+    {%- if section.settings.text != blank -%}<div class="rte contact__intro">{{ section.settings.text }}</div>{%- endif -%}
+    {%- form 'contact', id: 'ContactForm', class: 'form' -%}
+      {%- if form.posted_successfully? -%}
+        <p class="form__success" role="status">{{ 'contact.success' | t }}</p>
+      {%- elsif form.errors -%}
+        <div class="form__error" role="alert">{{ form.errors | default_errors }}</div>
+      {%- endif -%}
+      <div class="form__row">
+        <label class="field"><span>{{ 'contact.name' | t }}</span><input type="text" name="contact[name]" autocomplete="name" value="{{ form.name }}"></label>
+        <label class="field"><span>{{ 'contact.email' | t }} *</span><input type="email" name="contact[email]" autocomplete="email" required value="{{ form.email }}"></label>
+      </div>
+      <label class="field"><span>{{ 'contact.phone' | t }}</span><input type="tel" name="contact[phone]" autocomplete="tel" value="{{ form.phone }}"></label>
+      <label class="field"><span>{{ 'contact.message' | t }}</span><textarea name="contact[body]" rows="6">{{ form.body }}</textarea></label>
+      <button type="submit" class="btn btn--primary btn--3d">{{ 'contact.send' | t }}</button>
+    {%- endform -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Formulaire de contact",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Titre",
+      "default": "Écris-nous"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Texte",
+      "default": "<p>Une question sur ta commande ou sur Day Up ? On te répond au plus vite.</p>"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Formulaire de contact"
+    }
+  ]
+}
+{% endschema %}

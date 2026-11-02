@@ -1,0 +1,23 @@
+{%- comment -%}
+  Gradient tile showing 1-3 bottles (or a custom image).
+  Params: packs, image, url, from, to, class, sizes
+{%- endcomment -%}
+{%- liquid
+  assign packs = packs | default: 1 | at_most: 3 | at_least: 1
+  assign from = from | default: '#BFE3FA'
+  assign to = to | default: '#1C6FD1'
+-%}
+<div class="pack-visual pack-visual--{{ packs }} {{ class }}" style="--tile-from: {{ from }}; --tile-to: {{ to }};">
+  {%- if image != blank or url != blank -%}
+    {% render 'media', image: image, url: url, class: 'pack-visual__img', sizes: sizes %}
+  {%- else -%}
+    <span class="pack-visual__sun" aria-hidden="true"></span>
+    <span class="pack-visual__bottles">
+      {%- for i in (1..packs) -%}
+        {% render 'bottle', class: 'pack-visual__bottle' %}
+      {%- endfor -%}
+    </span>
+    {% render 'gummy', class: 'pack-visual__gummy pack-visual__gummy--a' %}
+    {% render 'gummy', class: 'pack-visual__gummy pack-visual__gummy--b' %}
+  {%- endif -%}
+</div>

@@ -1,0 +1,48 @@
+{%- comment -%}
+  Responsive media helper.
+  Params:
+  - image: image object from an image_picker (preferred)
+  - url: fallback image URL (Shopify CDN file URL), used when no image is picked
+  - video_url: optional .mp4 URL -> renders an autoplaying muted loop video
+  - poster: poster image URL for the video
+  - alt, sizes, class, loading ('lazy' | 'eager'), widths
+  - w, h: intrinsic size hint for URL images (aspect ratio only)
+{%- endcomment -%}
+{%- liquid
+  assign widths = widths | default: '360, 540, 720, 900, 1080, 1296, 1600'
+  assign loading = loading | default: 'lazy'
+  assign sizes = sizes | default: '100vw'
+  assign width_list = widths | split: ', '
+-%}
+{%- if video_url != blank -%}
+  {%- assign poster_src = poster -%}
+  {%- if poster_src == blank and image != blank -%}{%- assign poster_src = image | image_url: width: 900 -%}{%- endif -%}
+  {%- if poster_src == blank and url != blank -%}
+    {%- if url contains '?' -%}{%- assign poster_src = url | append: '&width=900' -%}{%- else -%}{%- assign poster_src = url | append: '?width=900' -%}{%- endif -%}
+  {%- endif -%}
+  <video class="{{ class }}" muted loop playsinline preload="none" data-autoplay {% if poster_src != blank %}poster="{{ poster_src }}"{% endif %} aria-label="{{ alt | escape }}">
+    <source src="{{ video_url }}" type="video/mp4">
+  </video>
+{%- elsif image != blank -%}
+  {%- assign img_alt = alt | default: image.alt | escape -%}
+  {{ image | image_url: width: 1800 | image_tag: widths: widths, sizes: sizes, loading: loading, class: class, alt: img_alt }}
+{%- elsif url != blank -%}
+  {%- liquid
+    assign sep = '?'
+    if url contains '?'
+      assign sep = '&'
+    endif
+    assign srcset = ''
+    for wd in width_list
+      assign srcset = srcset | append: url | append: sep | append: 'width=' | append: wd | append: ' ' | append: wd | append: 'w'
+      unless forloop.last
+        assign srcset = srcset | append: ', '
+      endunless
+    endfor
+  -%}
+  <img class="{{ class }}" src="{{ url }}{{ sep }}width=1080" srcset="{{ srcset }}" sizes="{{ sizes }}" alt="{{ alt | escape }}" width="{{ w | default: 1200 }}" height="{{ h | default: 1200 }}" loading="{{ loading }}" decoding="async">
+{%- else -%}
+  <div class="media-placeholder {{ class }}">
+    {% render 'gummy', class: 'media-placeholder__gummy' %}
+  </div>
+{%- endif -%}

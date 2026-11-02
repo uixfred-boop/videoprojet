@@ -1,0 +1,334 @@
+{%- comment -%}
+  Product buy box (gallery + info column), shared by `featured-product` and `main-product`.
+  Params: section, product
+{%- endcomment -%}
+{%- liquid
+  assign form_id = 'ProductForm-' | append: section.id
+  assign days_per = settings.days_per_pack | default: 30
+  assign threshold_cents = settings.free_shipping_threshold | times: 100
+
+  assign featured_index = 0
+  for block in section.blocks
+    if block.type == 'offers'
+      assign featured_index = block.settings.featured_variant | minus: 1
+    endif
+  endfor
+  if featured_index >= product.variants.size
+    assign featured_index = product.variants.size | minus: 1
+  endif
+  if featured_index < 0
+    assign featured_index = 0
+  endif
+
+  assign current = product.variants[featured_index]
+  if product.selected_variant != blank
+    assign current = product.selected_variant
+  endif
+  unless current.available
+    assign current = product.selected_or_first_available_variant
+  endunless
+
+  assign short_title = product.title | split: ' – ' | first | split: ' | ' | first
+  assign media_count = product.media.size
+-%}
+
+<div class="buybox" data-buybox data-section="{{ section.id }}" data-product-url="{{ product.url }}">
+  {%- comment -%} ───────── Gallery ───────── {%- endcomment -%}
+  <div class="buybox__gallery">
+    <div class="gallery" data-gallery>
+      {%- if media_count > 1 -%}
+        <ul class="gallery__thumbs" role="list">
+          {%- for media in product.media -%}
+            <li>
+              <button type="button" class="gallery__thumb{% if forloop.first %} is-active{% endif %}" data-thumb="{{ forloop.index0 }}" aria-label="{{ 'product.media_n' | t: n: forloop.index }}">
+                {{ media.preview_image | image_url: width: 160 | image_tag: loading: 'lazy', alt: '' }}
+              </button>
+            </li>
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+      <div class="gallery__main">
+        <div class="gallery__track" data-gallery-track>
+          {%- for media in product.media -%}
+            <div class="gallery__slide" data-media-id="{{ media.id }}">
+              {%- case media.media_type -%}
+                {%- when 'video' -%}
+                  {{ media | video_tag: autoplay: true, loop: true, muted: true, controls: false, playsinline: true, class: 'gallery__img' }}
+                {%- when 'external_video' -%}
+                  {{ media | external_video_tag: class: 'gallery__img' }}
+                {%- else -%}
+                  {%- if forloop.first -%}{%- assign load = 'eager' -%}{%- else -%}{%- assign load = 'lazy' -%}{%- endif -%}
+                  {{ media.preview_image | image_url: width: 1400 | image_tag: widths: '400, 600, 800, 1000, 1200, 1400', sizes: '(min-width: 990px) 46vw, 100vw', loading: load, class: 'gallery__img', alt: media.alt | default: short_title }}
+              {%- endcase -%}
+            </div>
+          {%- else -%}
+            <div class="gallery__slide">{% render 'pack-visual', packs: 1, class: 'gallery__img' %}</div>
+          {%- endfor -%}
+        </div>
+        {%- if media_count > 1 -%}
+          <div class="gallery__dots" aria-hidden="true">
+            {%- for media in product.media -%}<span class="gallery__dot{% if forloop.first %} is-active{% endif %}"></span>{%- endfor -%}
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+
+    {%- liquid
+      assign has_label = false
+      if section.settings.label_image != blank or section.settings.label_image_url != blank
+        assign has_label = true
+      endif
+      if section.settings.label_button == blank
+        assign has_label = false
+      endif
+    -%}
+    {%- if has_label -%}
+      <button type="button" class="btn btn--outline btn--block buybox__label-btn" data-dialog-open="Label-{{ section.id }}">{{ section.settings.label_button }}</button>
+      <dialog class="modal" id="Label-{{ section.id }}" aria-label="{{ section.settings.label_button | escape }}">
+        <button type="button" class="modal__close" data-dialog-close aria-label="{{ 'general.close' | t }}">{% render 'icon', name: 'close', size: 22 %}</button>
+        {% render 'media', image: section.settings.label_image, url: section.settings.label_image_url, alt: section.settings.label_button, class: 'modal__img', sizes: '(min-width: 990px) 720px, 92vw' %}
+      </dialog>
+    {%- endif -%}
+
+    {%- if section.settings.note_title != blank -%}
+      <div class="buybox__note">
+        <span class="buybox__note-icon">{% render 'icon', name: 'check-badge', size: 26 %}</span>
+        <span>
+          <span class="buybox__note-title">{{ section.settings.note_title }}</span>
+          {%- if section.settings.note_text != blank -%}<span class="buybox__note-text">{{ section.settings.note_text }}</span>{%- endif -%}
+        </span>
+      </div>
+    {%- endif -%}
+  </div>
+
+  {%- comment -%} ───────── Info column ───────── {%- endcomment -%}
+  <div class="buybox__info">
+    {%- for block in section.blocks -%}
+      {%- case block.type -%}
+
+        {%- when 'rating' -%}
+          {% render 'rating', product: product, fallback: block.settings.text, class: 'buybox__rating', size: 15, link: '#reviews' %}
+
+        {%- when 'title' -%}
+          <h1 class="buybox__title" {{ block.shopify_attributes }}>{{ block.settings.title | default: short_title }}</h1>
+
+        {%- when 'text' -%}
+          <div class="buybox__subtitle" {{ block.shopify_attributes }}>{{ block.settings.text }}</div>
+
+        {%- when 'bullets' -%}
+          {%- assign lines = block.settings.items | newline_to_br | split: '<br />' -%}
+          <ul class="buybox__bullets" role="list" {{ block.shopify_attributes }}>
+            {%- for line in lines -%}
+              {%- assign l = line | strip -%}
+              {%- if l != blank -%}<li>{% render 'icon', name: 'check', size: 16 %}{{ l }}</li>{%- endif -%}
+            {%- endfor -%}
+          </ul>
+
+        {%- when 'flavor' -%}
+          <div class="buybox__group" {{ block.shopify_attributes }}>
+            <p class="buybox__label">{{ block.settings.label }} <span>{{ block.settings.value }}</span></p>
+            {%- if block.settings.note != blank -%}<p class="buybox__hint">{{ block.settings.note }}</p>{%- endif -%}
+            <div class="flavor-tiles">
+              <span class="flavor-tile is-active">
+                <span class="flavor-tile__img">
+                  {%- if block.settings.image != blank -%}
+                    {{ block.settings.image | image_url: width: 300 | image_tag: loading: 'lazy', alt: block.settings.value }}
+                  {%- else -%}
+                    {% render 'bottle', class: 'flavor-tile__bottle' %}
+                  {%- endif -%}
+                </span>
+                <span class="flavor-tile__name">{{ block.settings.value }}</span>
+              </span>
+              {%- if block.settings.soon != blank -%}
+                <span class="flavor-tile flavor-tile--soon" aria-disabled="true">
+                  <span class="flavor-tile__badge">{{ block.settings.soon_badge }}</span>
+                  <span class="flavor-tile__img flavor-tile__img--soon">?</span>
+                  <span class="flavor-tile__name">{{ block.settings.soon }}</span>
+                </span>
+              {%- endif -%}
+            </div>
+          </div>
+
+        {%- when 'offers' -%}
+          {%- liquid
+            assign max_pct = 0
+            for v in product.variants
+              if v.compare_at_price > v.price
+                assign pct = v.compare_at_price | minus: v.price | times: 100.0 | divided_by: v.compare_at_price | round
+                if pct > max_pct
+                  assign max_pct = pct
+                endif
+              endif
+            endfor
+            assign ribbon = block.settings.ribbon | replace: '[remise_max]', max_pct | append: ''
+            assign extra_perks = block.settings.perks | newline_to_br | split: '<br />'
+          -%}
+          <fieldset class="buybox__group offers-picker" {{ block.shopify_attributes }}>
+            <legend class="buybox__label">{{ block.settings.label }}</legend>
+            {%- for v in product.variants -%}
+              {%- liquid
+                capture packs_s
+                  render 'variant-packs', variant: v, fallback: forloop.index
+                endcapture
+                assign packs = packs_s | strip | plus: 0
+                assign days = packs | times: days_per
+                assign gummies = settings.gummies_per_pack | times: packs
+                assign ppd = v.price | times: 1.0 | divided_by: days | round
+                assign is_featured = false
+                if forloop.index0 == featured_index
+                  assign is_featured = true
+                endif
+                assign saving = 0
+                if v.compare_at_price > v.price
+                  assign saving = v.compare_at_price | minus: v.price
+                endif
+                assign opt_title = v.title | downcase | capitalize
+                if product.has_only_default_variant
+                  assign opt_title = short_title
+                endif
+              -%}
+              <label class="opt{% if is_featured %} opt--featured{% endif %}{% unless v.available %} opt--disabled{% endunless %}">
+                {%- if is_featured and ribbon != blank -%}<span class="opt__ribbon">{{ ribbon }}</span>{%- endif -%}
+                <input class="visually-hidden" type="radio" name="opt-{{ section.id }}" value="{{ v.id }}" form="{{ form_id }}"
+                  {% if v.id == current.id %}checked{% endif %}
+                  {% unless v.available %}disabled{% endunless %}
+                  data-variant
+                  data-price="{{ v.price | money | escape }}"
+                  data-compare="{% if v.compare_at_price > v.price %}{{ v.compare_at_price | money | escape }}{% endif %}"
+                  data-title="{{ opt_title | escape }}"
+                  {% if v.featured_media %}data-media-id="{{ v.featured_media.id }}"{% endif %}>
+                <span class="opt__row">
+                  <span class="opt__radio" aria-hidden="true"></span>
+                  <span class="opt__main">
+                    <span class="opt__name">{{ opt_title }}</span>
+                    <span class="opt__desc">{{ gummies }} gummies · {{ days }} {{ 'product.days' | t }}</span>
+                  </span>
+                  <span class="opt__price">
+                    <span class="opt__now">{{ v.price | money }}{%- if v.compare_at_price > v.price %} <s>{{ v.compare_at_price | money }}</s>{% endif -%}</span>
+                    <span class="opt__ppd">{{ ppd | money }}/{{ 'product.day' | t }}</span>
+                  </span>
+                </span>
+                <ul class="opt__perks" role="list">
+                  {%- if v.price >= threshold_cents -%}
+                    <li>{% render 'icon', name: 'check', size: 14 %}{{ 'product.free_shipping' | t }}</li>
+                  {%- endif -%}
+                  {%- if saving > 0 -%}
+                    {%- assign saving_money = saving | money -%}
+                    <li>{% render 'icon', name: 'check', size: 14 %}{{ 'product.you_save' | t: amount: saving_money }}</li>
+                  {%- endif -%}
+                  {%- for p in extra_perks -%}
+                    {%- assign pp = p | strip -%}
+                    {%- if pp != blank -%}<li>{% render 'icon', name: 'check', size: 14 %}{{ pp }}</li>{%- endif -%}
+                  {%- endfor -%}
+                </ul>
+              </label>
+            {%- endfor -%}
+          </fieldset>
+
+        {%- when 'buy_buttons' -%}
+          {%- liquid
+            assign submit_label = block.settings.label
+            if submit_label == blank
+              assign submit_label = 'product.add_to_cart' | t
+            endif
+          -%}
+          <div class="buybox__buy" {{ block.shopify_attributes }}>
+            {%- form 'product', product, id: form_id, class: 'buybox__form', data-add-to-cart: 'true', novalidate: 'novalidate' -%}
+              <input type="hidden" name="id" value="{{ current.id }}" data-variant-input>
+              <input type="hidden" name="quantity" value="1">
+              <button type="submit" class="btn btn--primary btn--lg btn--block btn--3d buybox__submit" data-submit {% unless current.available %}disabled{% endunless %}>
+                <span data-submit-label data-label="{{ submit_label | escape }}">{%- if current.available -%}{{ submit_label }}{%- else -%}{{ 'product.sold_out' | t }}{%- endif -%}</span>
+                {%- if block.settings.show_price -%}<span class="buybox__submit-price" data-submit-price>· {{ current.price | money }}</span>{%- endif -%}
+              </button>
+            {%- endform -%}
+            {%- if block.settings.note != blank -%}
+              {%- capture note -%}{% render 'tokens', text: block.settings.note, product: product %}{%- endcapture -%}
+              <p class="buybox__fine">{{ note }}</p>
+            {%- endif -%}
+            {%- if block.settings.discount_line != blank -%}
+              <p class="buybox__discount">{% render 'icon', name: 'tag', size: 16 %}{{ block.settings.discount_line }}</p>
+            {%- endif -%}
+            {%- if block.settings.pill != blank -%}
+              <p class="buybox__pill">{{ block.settings.pill }}</p>
+            {%- endif -%}
+          </div>
+
+        {%- when 'icons' -%}
+          <ul class="buybox__icons" role="list" {{ block.shopify_attributes }}>
+            {%- for i in (1..3) -%}
+              {%- assign ik = 'icon_' | append: i -%}
+              {%- assign tk = 'text_' | append: i -%}
+              {%- if block.settings[tk] != blank -%}
+                <li><span class="buybox__icon">{% render 'icon', name: block.settings[ik], size: 22 %}</span>{{ block.settings[tk] }}</li>
+              {%- endif -%}
+            {%- endfor -%}
+          </ul>
+
+        {%- when 'collapsible' -%}
+          <details class="accordion" {{ block.shopify_attributes }}{% if block.settings.open %} open{% endif %}>
+            <summary class="accordion__summary">{{ block.settings.title }}<span class="accordion__icon" aria-hidden="true"></span></summary>
+            <div class="accordion__content rte">
+              {{ block.settings.content }}
+              {%- if block.settings.page != blank -%}{{ block.settings.page.content }}{%- endif -%}
+            </div>
+          </details>
+
+        {%- when 'tastes' -%}
+          {%- assign lines = block.settings.items | newline_to_br | split: '<br />' -%}
+          <div class="buybox__tastes" {{ block.shopify_attributes }}>
+            <p class="buybox__minihead">{{ block.settings.title }}</p>
+            <ul role="list">
+              {%- for line in lines -%}
+                {%- assign parts = line | strip | split: '|' -%}
+                {%- if parts.size > 1 -%}
+                  <li><span class="emoji-bubble">{{ parts[0] | strip }}</span><span>{{ parts[1] | strip }}</span></li>
+                {%- endif -%}
+              {%- endfor -%}
+            </ul>
+          </div>
+
+        {%- when 'packed' -%}
+          {%- assign lines = block.settings.items | newline_to_br | split: '<br />' -%}
+          <div class="buybox__packed" {{ block.shopify_attributes }}>
+            <p class="buybox__minihead">{{ block.settings.title }}</p>
+            <ul role="list">
+              {%- for line in lines -%}
+                {%- assign parts = line | strip | split: '|' -%}
+                {%- if parts.size > 1 -%}
+                  <li><span class="emoji-bubble emoji-bubble--sm">{{ parts[0] | strip }}</span><span>{{ parts[1] | strip }}</span></li>
+                {%- endif -%}
+              {%- endfor -%}
+            </ul>
+          </div>
+
+        {%- when 'custom_liquid' -%}
+          <div {{ block.shopify_attributes }}>{{ block.settings.custom_liquid }}</div>
+
+        {%- when '@app' -%}
+          {% render block %}
+      {%- endcase -%}
+    {%- endfor -%}
+  </div>
+</div>
+
+{%- if section.settings.sticky_bar -%}
+  {%- liquid
+    assign sticky_label = section.settings.sticky_label
+    if sticky_label == blank
+      assign sticky_label = 'product.add_to_cart' | t
+    endif
+  -%}
+  <div class="sticky-atc" data-sticky-atc hidden>
+    <div class="sticky-atc__inner">
+      <span class="sticky-atc__info">
+        <span class="sticky-atc__title">{{ short_title }}</span>
+        <span class="sticky-atc__price" data-sticky-price>{{ current.price | money }}</span>
+      </span>
+      <button type="submit" form="{{ form_id }}" class="btn btn--primary sticky-atc__btn">{{ sticky_label }}</button>
+    </div>
+  </div>
+{%- endif -%}
+
+<script type="application/ld+json">
+  {{ product | structured_data }}
+</script>

@@ -1,0 +1,65 @@
+<section class="page-section rich" style="--rich-bg: {{ section.settings.bg }};">
+  <div class="page-width page-width--narrow rich__inner rich__inner--{{ section.settings.align }}">
+    {%- if section.settings.title != blank -%}<h2 class="display rich__title">{{ section.settings.title }}</h2>{%- endif -%}
+    {%- if section.settings.text != blank -%}<div class="rte rich__text">{{ section.settings.text }}</div>{%- endif -%}
+    {%- if section.settings.button_label != blank -%}<a class="btn btn--primary btn--3d" href="{{ section.settings.button_link }}">{{ section.settings.button_label }}</a>{%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Texte",
+  "class": "section-rich",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Titre",
+      "default": "Notre histoire"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Texte",
+      "default": "<p>Day Up est né d'une idée simple : bien commencer sa journée ne devrait pas dépendre d'un troisième café.</p>"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Bouton"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Lien"
+    },
+    {
+      "type": "select",
+      "id": "align",
+      "label": "Alignement",
+      "default": "center",
+      "options": [
+        {
+          "value": "left",
+          "label": "Gauche"
+        },
+        {
+          "value": "center",
+          "label": "Centré"
+        }
+      ]
+    },
+    {
+      "type": "color",
+      "id": "bg",
+      "label": "Fond",
+      "default": "#FFF8EC"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Texte"
+    }
+  ]
+}
+{% endschema %}

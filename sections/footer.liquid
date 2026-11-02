@@ -1,0 +1,102 @@
+<footer class="footer" style="--ft-bg: {{ section.settings.bg }};">
+  <div class="footer__top page-width">
+    <div class="footer__signup">
+      <p class="footer__eyebrow">{{ section.settings.newsletter_title }}</p>
+      {%- if section.settings.newsletter_text != blank -%}<p class="footer__signup-text">{{ section.settings.newsletter_text }}</p>{%- endif -%}
+      {%- form 'customer', id: 'FooterNewsletter', class: 'footer__form' -%}
+        <input type="hidden" name="contact[tags]" value="newsletter">
+        <label class="visually-hidden" for="FooterEmail">{{ 'newsletter.email' | t }}</label>
+        <div class="footer__field">
+          <input id="FooterEmail" type="email" name="contact[email]" placeholder="{{ 'newsletter.email' | t }}" autocomplete="email" required>
+          <button type="submit" aria-label="{{ 'newsletter.submit' | t }}">{% render 'icon', name: 'arrow-right', size: 18 %}</button>
+        </div>
+        {%- if form.posted_successfully? -%}
+          <p class="footer__success" role="status">{{ 'newsletter.success' | t }}</p>
+        {%- elsif form.errors -%}
+          <p class="footer__error" role="alert">{{ form.errors.messages['email'] | default: form.errors | default_errors }}</p>
+        {%- endif -%}
+      {%- endform -%}
+      {%- if section.settings.newsletter_legal != blank -%}<p class="footer__legal-small">{{ section.settings.newsletter_legal }}</p>{%- endif -%}
+
+      <a href="{{ routes.root_url }}" class="footer__logo" aria-label="{{ shop.name }}">
+        {%- if section.settings.logo != blank -%}
+          {{ section.settings.logo | image_url: width: 500 | image_tag: alt: shop.name, class: 'footer__logo-img', loading: 'lazy' }}
+        {%- elsif section.settings.logo_url != blank -%}
+          <img class="footer__logo-img" src="{{ section.settings.logo_url }}" alt="{{ shop.name | escape }}" width="256" height="54" loading="lazy">
+        {%- else -%}
+          <span class="footer__logo-text">{{ shop.name }}</span>
+        {%- endif -%}
+      </a>
+      {% render 'social-icons', class: 'footer__socials' %}
+    </div>
+
+    <div class="footer__cols">
+      {%- for block in section.blocks -%}
+        {%- if block.settings.menu != blank -%}
+          <div class="footer__col" {{ block.shopify_attributes }}>
+            <p class="footer__col-title">{{ block.settings.title | default: block.settings.menu.title }}</p>
+            <ul role="list">
+              {%- for link in block.settings.menu.links -%}<li><a href="{{ link.url }}">{{ link.title }}</a></li>{%- endfor -%}
+            </ul>
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+
+  <div class="footer__notes page-width">
+    {%- if section.settings.legal_1 != blank -%}<p class="footer__note">{{ section.settings.legal_1 }}</p>{%- endif -%}
+    {%- if section.settings.legal_2 != blank -%}<p class="footer__note">{{ section.settings.legal_2 }}</p>{%- endif -%}
+  </div>
+
+  <div class="footer__bottom page-width">
+    <p class="footer__copy">© {{ 'now' | date: '%Y' }}, {{ shop.name }}</p>
+    <ul class="footer__policies" role="list">
+      {%- for policy in shop.policies -%}
+        <li><a href="{{ policy.url }}">{{ policy.title }}</a></li>
+      {%- endfor -%}
+      {%- if section.settings.show_payment -%}
+        {%- for type in shop.enabled_payment_types limit: 6 -%}<li class="footer__pay">{{ type | payment_type_svg_tag: class: 'footer__pay-icon' }}</li>{%- endfor -%}
+      {%- endif -%}
+    </ul>
+  </div>
+
+  {%- if section.settings.big_1 != blank -%}
+    <div class="footer__giant" aria-hidden="true">
+      <span class="footer__giant-line">{{ section.settings.big_1 }}</span>
+      <span class="footer__giant-sun">{% render 'icon', name: 'sun', size: 120 %}</span>
+      <span class="footer__giant-line">{{ section.settings.big_2 }}</span>
+    </div>
+  {%- endif -%}
+</footer>
+
+{% schema %}
+{
+  "name": "Pied de page",
+  "class": "section-footer",
+  "max_blocks": 4,
+  "settings": [
+    { "type": "text", "id": "newsletter_title", "label": "Newsletter — titre", "default": "Rejoins la team Day Up" },
+    { "type": "text", "id": "newsletter_text", "label": "Newsletter — texte", "default": "Conseils pour tes matins, nouveautés et offres en avant-première." },
+    { "type": "text", "id": "newsletter_legal", "label": "Newsletter — mention", "default": "En t'inscrivant, tu acceptes de recevoir nos e-mails. Désinscription en un clic, à tout moment." },
+    { "type": "image_picker", "id": "logo", "label": "Logo" },
+    { "type": "text", "id": "logo_url", "label": "Logo — URL de secours" },
+    { "type": "textarea", "id": "legal_1", "label": "Mention légale 1", "default": "*Complément alimentaire. Ne se substitue pas à une alimentation variée et équilibrée ni à un mode de vie sain. Ne pas dépasser la dose journalière recommandée. Tenir hors de portée des jeunes enfants." },
+    { "type": "textarea", "id": "legal_2", "label": "Mention légale 2", "default": "**Contient de la caféine (env. 44 mg par dose journalière, issue du guarana). Déconseillé aux enfants, aux femmes enceintes ou allaitantes et aux personnes sensibles à la caféine." },
+    { "type": "checkbox", "id": "show_payment", "label": "Afficher les moyens de paiement", "default": true },
+    { "type": "text", "id": "big_1", "label": "Grand texte — ligne 1", "default": "LE RÉVEIL," },
+    { "type": "text", "id": "big_2", "label": "Grand texte — ligne 2", "default": "VERSION DOUCE." },
+    { "type": "color", "id": "bg", "label": "Fond", "default": "#061A3D" }
+  ],
+  "blocks": [
+    {
+      "type": "menu",
+      "name": "Colonne de liens",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Titre" },
+        { "type": "link_list", "id": "menu", "label": "Menu", "default": "footer" }
+      ]
+    }
+  ]
+}
+{% endschema %}

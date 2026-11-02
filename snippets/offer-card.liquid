@@ -1,0 +1,39 @@
+{%- comment -%}
+  Product/bundle card (Grüns "Find your flavor" style).
+  Params: product, variant, title, subtitle, badge, badge_style, from, to, image, image_url
+{%- endcomment -%}
+{%- liquid
+  capture packs_s
+    render 'variant-packs', variant: variant, fallback: 1
+  endcapture
+  assign packs = packs_s | strip | plus: 0
+  assign days = settings.days_per_pack | times: packs
+  assign gummies = settings.gummies_per_pack | times: packs
+  assign card_title = title | default: variant.title | downcase | capitalize
+  if product.has_only_default_variant
+    assign card_title = title | default: product.title
+  endif
+  assign url = product.url | append: '?variant=' | append: variant.id
+  assign default_sub = gummies | append: ' gummies · ' | append: days | append: ' jours'
+  assign card_sub = subtitle | default: default_sub
+-%}
+<div class="offer-card">
+  <a class="offer-card__media" href="{{ url }}" tabindex="-1" aria-hidden="true">
+    {% render 'pack-visual', packs: packs, from: from, to: to, image: image, url: image_url, sizes: '(min-width: 990px) 300px, 50vw' %}
+    {%- if badge != blank -%}<span class="offer-card__badge offer-card__badge--{{ badge_style | default: 'deep' }}">{{ badge }}</span>{%- endif -%}
+  </a>
+  <h3 class="offer-card__title"><a href="{{ url }}">{{ card_title }}</a></h3>
+  <p class="offer-card__sub">{{ card_sub }}</p>
+  <p class="offer-card__price">
+    <span class="offer-card__now">{{ variant.price | money }}</span>
+    {%- if variant.compare_at_price > variant.price -%}<s>{{ variant.compare_at_price | money }}</s>{%- endif -%}
+  </p>
+  <form method="post" action="{{ routes.cart_add_url }}" class="offer-card__form" data-add-to-cart>
+    <input type="hidden" name="id" value="{{ variant.id }}">
+    <input type="hidden" name="quantity" value="1">
+    <button type="submit" class="btn btn--primary btn--xs btn--block"{% unless variant.available %} disabled{% endunless %}>
+      {%- if variant.available -%}{{ 'product.add_to_cart' | t }}{%- else -%}{{ 'product.sold_out' | t }}{%- endif -%}
+    </button>
+  </form>
+  <a class="offer-card__link" href="{{ product.url }}">{{ 'product.learn_more' | t }}</a>
+</div>

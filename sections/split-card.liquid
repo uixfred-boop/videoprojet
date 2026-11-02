@@ -1,0 +1,59 @@
+<section class="splitcard" style="--sc-bg: {{ section.settings.bg }};">
+  <div class="page-width">
+    <div class="splitcard__card{% if section.settings.image_first %} splitcard__card--reverse{% endif %}">
+      <div class="splitcard__content">
+        <h2 class="display splitcard__title">{{ section.settings.title }}</h2>
+        {%- if section.settings.subtitle != blank -%}<p class="splitcard__subtitle">{{ section.settings.subtitle }}</p>{%- endif -%}
+        {%- if section.blocks.size > 0 -%}
+          <ul class="splitcard__points" role="list">
+            {%- for block in section.blocks -%}
+              <li {{ block.shopify_attributes }}>
+                <span class="splitcard__big">{{ block.settings.big }}</span>
+                <span class="splitcard__small">{{ block.settings.text }}</span>
+              </li>
+            {%- endfor -%}
+          </ul>
+        {%- endif -%}
+        {%- if section.settings.text != blank -%}<div class="splitcard__text rte">{{ section.settings.text }}</div>{%- endif -%}
+        {%- if section.settings.button_label != blank -%}
+          <a class="btn btn--primary btn--3d" href="{{ section.settings.button_link }}">{{ section.settings.button_label }}</a>
+        {%- endif -%}
+      </div>
+      <div class="splitcard__media">
+        {% render 'media', image: section.settings.image, url: section.settings.image_url, video_url: section.settings.video_url, poster: section.settings.poster_url, alt: section.settings.title, class: 'splitcard__img', sizes: '(min-width: 990px) 50vw, 100vw' %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Carte image + texte",
+  "class": "section-splitcard",
+  "max_blocks": 3,
+  "settings": [
+    { "type": "text", "id": "title", "label": "Titre", "default": "Fatigué dès le matin ?" },
+    { "type": "text", "id": "subtitle", "label": "Sous-titre", "default": "Change la façon dont tu démarres ta journée." },
+    { "type": "richtext", "id": "text", "label": "Texte" },
+    { "type": "text", "id": "button_label", "label": "Bouton", "default": "Adopter Day Up" },
+    { "type": "url", "id": "button_link", "label": "Lien du bouton" },
+    { "type": "image_picker", "id": "image", "label": "Image" },
+    { "type": "text", "id": "image_url", "label": "Image — URL de secours" },
+    { "type": "text", "id": "video_url", "label": "Vidéo .mp4 (optionnel)" },
+    { "type": "text", "id": "poster_url", "label": "Image d'attente vidéo (URL)" },
+    { "type": "checkbox", "id": "image_first", "label": "Image à gauche", "default": false },
+    { "type": "color", "id": "bg", "label": "Fond", "default": "#EAF6FE" }
+  ],
+  "blocks": [
+    {
+      "type": "point",
+      "name": "Chiffre / point fort",
+      "settings": [
+        { "type": "text", "id": "big", "label": "Gros texte", "default": "2" },
+        { "type": "text", "id": "text", "label": "Texte", "default": "gummies le matin pour bien démarrer" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Carte image + texte" }]
+}
+{% endschema %}

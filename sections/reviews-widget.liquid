@@ -1,0 +1,37 @@
+{%- comment -%}
+  Shows the real reviews widget of the installed review app (Judge.me by default).
+  Renders nothing if no app data is available — no placeholder or invented reviews.
+{%- endcomment -%}
+{%- assign p = product | default: section.settings.product -%}
+{%- if p != blank -%}
+  {%- assign has_judgeme = false -%}
+  {%- if p.metafields.judgeme.widget != blank -%}{%- assign has_judgeme = true -%}{%- endif -%}
+  {%- if has_judgeme or section.blocks.size > 0 or request.design_mode -%}
+  <section class="reviews-widget" id="avis" style="--rw-bg: {{ section.settings.bg }};">
+    <div class="page-width">
+      {%- if section.settings.title != blank -%}<h2 class="reviews-widget__title">{{ section.settings.title }}</h2>{%- endif -%}
+      <div id="judgeme_product_reviews" class="jdgm-widget jdgm-review-widget jdgm-outside-widget" data-id="{{ p.id }}">
+        {%- if has_judgeme -%}{{ p.metafields.judgeme.widget }}{%- endif -%}
+      </div>
+      {%- for block in section.blocks -%}
+        {% render block %}
+      {%- endfor -%}
+    </div>
+  </section>
+  {%- endif -%}
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Avis clients (app)",
+  "class": "section-reviews-widget",
+  "settings": [
+    { "type": "paragraph", "content": "Affiche le widget de ton app d'avis (Judge.me est détecté automatiquement). Tu peux aussi ajouter un bloc d'app." },
+    { "type": "product", "id": "product", "label": "Produit (page d'accueil)" },
+    { "type": "text", "id": "title", "label": "Titre", "default": "Les avis de la team" },
+    { "type": "color", "id": "bg", "label": "Fond", "default": "#FFFFFF" }
+  ],
+  "blocks": [{ "type": "@app" }],
+  "presets": [{ "name": "Avis clients (app)" }]
+}
+{% endschema %}

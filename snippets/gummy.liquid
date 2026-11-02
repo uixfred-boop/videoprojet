@@ -1,0 +1,12 @@
+{%- comment -%}
+  Day Up gummy illustration (teal, glossy). Purely decorative.
+  Params: class, style
+{%- endcomment -%}
+<svg class="gummy {{ class }}" {% if style %}style="{{ style }}"{% endif %} viewBox="0 0 120 110" aria-hidden="true" focusable="false">
+  <ellipse cx="60" cy="100" rx="40" ry="6" fill="#000" opacity=".12"/>
+  <path d="M60 8c30 0 52 18 52 46 0 26-20 44-52 44S8 80 8 54C8 26 30 8 60 8z" fill="url(#du-gummy-body)"/>
+  <path d="M60 8c30 0 52 18 52 46 0 26-20 44-52 44S8 80 8 54C8 26 30 8 60 8z" fill="url(#du-gummy-glow)"/>
+  <ellipse cx="40" cy="30" rx="18" ry="9" transform="rotate(-24 40 30)" fill="#fff" opacity=".7"/>
+  <ellipse cx="30" cy="44" rx="4" ry="3" fill="#fff" opacity=".55"/>
+  <path d="M86 80c8-6 13-14 14-24" stroke="#bff7f2" stroke-width="3" stroke-linecap="round" fill="none" opacity=".35"/>
+</svg>

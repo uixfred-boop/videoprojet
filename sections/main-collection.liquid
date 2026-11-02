@@ -1,0 +1,23 @@
+<section class="page-section collection">
+  <div class="page-width">
+    <h1 class="display page-title">{{ collection.title }}</h1>
+    {%- if collection.description != blank -%}<div class="rte collection__desc">{{ collection.description }}</div>{%- endif -%}
+    {%- paginate collection.products by 24 -%}
+      <div class="offers__grid offers__grid--wrap">
+        {%- for p in collection.products -%}
+          <div class="offers__item">{% render 'offer-card', product: p, variant: p.selected_or_first_available_variant, title: p.title, image: p.featured_image, subtitle: p.vendor %}</div>
+        {%- else -%}
+          <p>{{ 'collection.empty' | t }}</p>
+        {%- endfor -%}
+      </div>
+      {%- if paginate.pages > 1 -%}<nav class="pagination">{{ paginate | default_pagination }}</nav>{%- endif -%}
+    {%- endpaginate -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Collection",
+  "settings": []
+}
+{% endschema %}

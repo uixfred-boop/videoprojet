@@ -1,0 +1,34 @@
+<section class="page-section"><div class="page-width page-width--narrow account">
+  <h1 class="display page-title">{{ 'customer.addresses' | t }}</h1>
+  {%- for address in customer.addresses -%}
+    <div class="account__address">{{ address | format_address }}
+      {%- form 'customer_address', address -%}
+        <input type="hidden" name="_method" value="delete">
+        <button type="submit" class="link">{{ 'cart.remove' | t }}</button>
+      {%- endform -%}
+    </div>
+  {%- endfor -%}
+  <h2 class="account__h2">{{ 'customer.add_address' | t }}</h2>
+  {%- form 'customer_address', customer.new_address, class: 'form' -%}
+    {{ form.errors | default_errors }}
+    <div class="form__row">
+      <label class="field"><span>{{ 'customer.first_name' | t }}</span><input type="text" name="address[first_name]" autocomplete="given-name"></label>
+      <label class="field"><span>{{ 'customer.last_name' | t }}</span><input type="text" name="address[last_name]" autocomplete="family-name"></label>
+    </div>
+    <label class="field"><span>{{ 'customer.address1' | t }}</span><input type="text" name="address[address1]" autocomplete="address-line1"></label>
+    <div class="form__row">
+      <label class="field"><span>{{ 'customer.zip' | t }}</span><input type="text" name="address[zip]" autocomplete="postal-code"></label>
+      <label class="field"><span>{{ 'customer.city' | t }}</span><input type="text" name="address[city]" autocomplete="address-level2"></label>
+    </div>
+    <label class="field"><span>{{ 'customer.country' | t }}</span><select name="address[country]">{{ all_country_option_tags }}</select></label>
+    <label class="field"><span>{{ 'contact.phone' | t }}</span><input type="tel" name="address[phone]" autocomplete="tel"></label>
+    <button type="submit" class="btn btn--primary">{{ 'customer.save' | t }}</button>
+  {%- endform -%}
+</div></section>
+
+{% schema %}
+{
+  "name": "Adresses",
+  "settings": []
+}
+{% endschema %}

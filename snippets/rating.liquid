@@ -1,0 +1,23 @@
+{%- comment -%}
+  Star rating line. Uses real review data (standard `reviews.rating` metafields,
+  filled by Judge.me / Shopify Product Reviews / Loox...) when available,
+  otherwise falls back to a neutral sentence (no invented numbers).
+  Params: product, fallback, class, size, link
+{%- endcomment -%}
+{%- liquid
+  assign rating = product.metafields.reviews.rating.value
+  assign count = product.metafields.reviews.rating_count.value | default: product.metafields.reviews.rating_count
+  assign text = fallback | default: settings.rating_fallback
+-%}
+<div class="rating {{ class }}">
+  {% render 'stars', size: size %}
+  {%- if rating != blank and count > 0 -%}
+    <span class="rating__text">
+      <strong>{{ rating.rating | round: 1 | replace: '.', ',' }}</strong>/{{ rating.scale_max | round }}
+      ·
+      {%- if link != blank %} <a href="{{ link }}">{% endif %}<strong>{{ count }}</strong> {{ 'product.reviews' | t }}{% if link != blank %}</a>{% endif %}
+    </span>
+  {%- elsif text != blank -%}
+    <span class="rating__text">{{ text }}</span>
+  {%- endif -%}
+</div>

@@ -1,0 +1,100 @@
+{%- liquid
+  assign product = section.settings.product
+  capture heading
+    render 'tokens', text: section.settings.heading, product: product
+  endcapture
+  capture highlight
+    render 'tokens', text: section.settings.highlight, product: product
+  endcapture
+  capture cta
+    render 'tokens', text: section.settings.button_label, product: product
+  endcapture
+-%}
+<section class="hero" style="--hero-bg: {{ section.settings.bg }};">
+  {% render 'sparkle', class: 'hero__sparkle hero__sparkle--a' %}
+  {% render 'gummy', class: 'hero__gummy hero__gummy--a', style: '--speed: -0.12' %}
+  <div class="hero__inner page-width">
+    <div class="hero__content">
+      {% render 'rating', product: product, fallback: section.settings.rating_text, class: 'hero__rating' %}
+      <h1 class="hero__title">
+        {{ heading }}
+        {%- if highlight != blank %} <span class="hl">{{ highlight }}</span>{% endif -%}
+      </h1>
+      {%- if section.settings.text != blank -%}
+        <div class="hero__text">{{ section.settings.text }}</div>
+      {%- endif -%}
+      {%- if cta != blank -%}
+        <a class="btn btn--primary btn--lg hero__btn" href="{{ section.settings.button_link | default: product.url }}">{{ cta }}</a>
+      {%- endif -%}
+      <ul class="hero__badges" role="list">
+        {%- if section.settings.badge_1 != blank -%}<li>{% render 'icon', name: section.settings.badge_1_icon, size: 15 %}{{ section.settings.badge_1 }}</li>{%- endif -%}
+        {%- if section.settings.badge_2 != blank -%}<li>{% render 'icon', name: section.settings.badge_2_icon, size: 15 %}{{ section.settings.badge_2 }}</li>{%- endif -%}
+      </ul>
+      {%- if section.blocks.size > 0 -%}
+        <ul class="hero__stats" role="list">
+          {%- for block in section.blocks -%}
+            <li class="hero__stat" {{ block.shopify_attributes }}>
+              <span class="hero__stat-num"><span>{{ block.settings.number }}</span>{% if block.settings.suffix != blank %}<sup>{{ block.settings.suffix }}</sup>{% endif %}</span>
+              <span class="hero__stat-label">{{ block.settings.label }}</span>
+              {%- if block.settings.sublabel != blank -%}<span class="hero__stat-sub">{{ block.settings.sublabel }}</span>{%- endif -%}
+            </li>
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+    </div>
+
+    <div class="hero__media">
+      <div class="hero__frame">
+        {% render 'media', image: section.settings.image, url: section.settings.image_url, video_url: section.settings.video_url, alt: section.settings.image_alt, class: 'hero__img', sizes: '(min-width: 990px) 46vw, 100vw', loading: 'eager' %}
+      </div>
+      {%- if section.settings.show_sticker -%}
+        {% render 'sticker', ring: section.settings.sticker_ring, line1: section.settings.sticker_line1, line2: section.settings.sticker_line2, class: 'hero__sticker' %}
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Hero",
+  "class": "section-hero",
+  "max_blocks": 3,
+  "settings": [
+    { "type": "product", "id": "product", "label": "Produit (pour les prix dynamiques)" },
+    { "type": "paragraph", "content": "Jetons disponibles dans les textes : [prix_jour], [prix_min], [remise_max], [livraison]. Ils sont calculés à partir des vrais prix du produit." },
+    { "type": "text", "id": "rating_text", "label": "Texte à côté des étoiles", "default": "La routine qui accompagne déjà des personnes vers leurs objectifs", "info": "Remplacé automatiquement par la vraie note si une app d'avis (Judge.me…) est installée." },
+    { "type": "text", "id": "heading", "label": "Titre", "default": "Ton énergie du matin en 2 gummies." },
+    { "type": "text", "id": "highlight", "label": "Titre — partie en couleur", "default": "Dès [prix_jour] par jour." },
+    { "type": "richtext", "id": "text", "label": "Texte (optionnel)" },
+    { "type": "text", "id": "button_label", "label": "Bouton", "default": "Jusqu'à -[remise_max] + livraison offerte" },
+    { "type": "url", "id": "button_link", "label": "Lien du bouton" },
+    { "type": "select", "id": "badge_1_icon", "label": "Badge 1 — icône", "default": "guarantee", "options": [{ "value": "guarantee", "label": "Garantie" }, { "value": "lock", "label": "Cadenas" }, { "value": "truck", "label": "Camion" }, { "value": "calendar", "label": "Calendrier" }, { "value": "apple", "label": "Pomme" }] },
+    { "type": "text", "id": "badge_1", "label": "Badge 1", "default": "Garantie 14 jours" },
+    { "type": "select", "id": "badge_2_icon", "label": "Badge 2 — icône", "default": "lock", "options": [{ "value": "guarantee", "label": "Garantie" }, { "value": "lock", "label": "Cadenas" }, { "value": "truck", "label": "Camion" }, { "value": "calendar", "label": "Calendrier" }, { "value": "apple", "label": "Pomme" }] },
+    { "type": "text", "id": "badge_2", "label": "Badge 2", "default": "Paiement sécurisé" },
+    { "type": "header", "content": "Visuel" },
+    { "type": "image_picker", "id": "image", "label": "Image" },
+    { "type": "text", "id": "image_url", "label": "Image — URL de secours" },
+    { "type": "text", "id": "video_url", "label": "Vidéo .mp4 (optionnel, remplace l'image)" },
+    { "type": "text", "id": "image_alt", "label": "Texte alternatif", "default": "Pot de gummies Day Up tenu à la main" },
+    { "type": "checkbox", "id": "show_sticker", "label": "Afficher le sticker", "default": true },
+    { "type": "text", "id": "sticker_ring", "label": "Sticker — texte circulaire", "default": "Sans sucre ajouté • Goût pomme • " },
+    { "type": "text", "id": "sticker_line1", "label": "Sticker — ligne 1", "default": "2" },
+    { "type": "text", "id": "sticker_line2", "label": "Sticker — ligne 2", "default": "gummies / jour" },
+    { "type": "color", "id": "bg", "label": "Fond", "default": "#FFF8EC" }
+  ],
+  "blocks": [
+    {
+      "type": "stat",
+      "name": "Chiffre clé",
+      "settings": [
+        { "type": "text", "id": "number", "label": "Chiffre", "default": "44" },
+        { "type": "text", "id": "suffix", "label": "Suffixe", "default": "mg" },
+        { "type": "text", "id": "label", "label": "Libellé", "default": "de caféine" },
+        { "type": "text", "id": "sublabel", "label": "Précision", "default": "issue du guarana" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Hero", "blocks": [{ "type": "stat" }, { "type": "stat" }, { "type": "stat" }] }]
+}
+{% endschema %}

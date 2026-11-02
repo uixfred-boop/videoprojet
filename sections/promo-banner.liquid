@@ -1,0 +1,51 @@
+<section class="promo" style="--frame: {{ section.settings.frame }}; --promo-bg: {{ section.settings.bg }};">
+  <div class="promo__band">
+    <div class="promo__glow" aria-hidden="true"></div>
+    <div class="promo__gummies" aria-hidden="true">
+      {% render 'gummy', class: 'promo__gummy promo__gummy--1' %}
+      {% render 'gummy', class: 'promo__gummy promo__gummy--2' %}
+      {% render 'gummy', class: 'promo__gummy promo__gummy--3' %}
+      {% render 'sparkle', class: 'promo__sparkle promo__sparkle--1' %}
+      {% render 'sparkle', class: 'promo__sparkle promo__sparkle--2' %}
+    </div>
+    <div class="promo__inner page-width">
+      <div class="promo__content">
+        <h2 class="promo__title">
+          <span>{{ section.settings.title_1 }}</span>
+          <span class="promo__title-hl">{{ section.settings.title_2 }}</span>
+        </h2>
+        {%- if section.settings.text != blank -%}<div class="promo__text">{{ section.settings.text }}</div>{%- endif -%}
+        {%- if section.settings.button_label != blank -%}
+          <a class="btn btn--sun promo__btn" href="{{ section.settings.button_link }}">{{ section.settings.button_label }}</a>
+        {%- endif -%}
+      </div>
+      <div class="promo__wordmark" aria-hidden="true">
+        <span class="promo__wordmark-small">{{ section.settings.wordmark_small }}</span>
+        <span class="promo__wordmark-big">{{ section.settings.wordmark }}</span>
+      </div>
+      {%- if section.settings.mono != blank -%}
+        <p class="promo__mono">{{ section.settings.mono }} {% render 'stars', size: 13 %}</p>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Bannière promo",
+  "class": "section-promo",
+  "settings": [
+    { "type": "text", "id": "title_1", "label": "Titre — ligne 1", "default": "Viens pour l'énergie," },
+    { "type": "text", "id": "title_2", "label": "Titre — ligne 2 (couleur)", "default": "reste pour le goût." },
+    { "type": "richtext", "id": "text", "label": "Texte", "default": "<p>Un délicieux goût pomme, sans sucre ajouté. Le genre de rituel qu'on n'a pas envie de sauter.</p>" },
+    { "type": "text", "id": "button_label", "label": "Bouton", "default": "En savoir plus" },
+    { "type": "url", "id": "button_link", "label": "Lien du bouton" },
+    { "type": "text", "id": "wordmark_small", "label": "Grand mot — petite ligne", "default": "le réveil, version douce" },
+    { "type": "text", "id": "wordmark", "label": "Grand mot (contour)", "default": "DAY UP!" },
+    { "type": "text", "id": "mono", "label": "Mention en bas à droite", "default": "GOÛT POMME · 0 SUCRE AJOUTÉ" },
+    { "type": "color", "id": "bg", "label": "Fond", "default": "#08224D" },
+    { "type": "color", "id": "frame", "label": "Cadre", "default": "#FFC83D" }
+  ],
+  "presets": [{ "name": "Bannière promo" }]
+}
+{% endschema %}

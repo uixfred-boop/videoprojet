@@ -1,0 +1,587 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "settings": {
+        "label_button": "Voir la formule",
+        "label_image": "shopify://shop_images/WhatsApp_Image_2026-08-24_at_16.42.29_2.jpg",
+        "label_image_url": "https://cdn.shopify.com/s/files/1/0936/4606/1895/files/WhatsApp_Image_2026-08-24_at_16.42.29_2.jpg",
+        "note_title": "Paiement sécurisé · Shop Pay, CB, PayPal",
+        "note_text": "Tes données sont chiffrées et ne sont jamais stockées.",
+        "sticky_bar": true,
+        "sticky_label": "Commander",
+        "bg": "#FFFFFF"
+      },
+      "blocks": {
+        "pb_1": {
+          "type": "rating",
+          "settings": {
+            "text": "La routine qui accompagne déjà des personnes vers leurs objectifs"
+          }
+        },
+        "pb_2": {
+          "type": "title",
+          "settings": {
+            "title": "Day Up Daily Energy Gummies"
+          }
+        },
+        "pb_3": {
+          "type": "text",
+          "settings": {
+            "text": "<p><strong>L'énergie progressive pour bien démarrer ta journée</strong>, sans nervosité ni coup de fatigue.</p>"
+          }
+        },
+        "pb_4": {
+          "type": "bullets",
+          "settings": {
+            "items": "Énergie pour ta journée\nFocus & concentration\nMotivation au quotidien\nGoût pomme, sans sucre ajouté"
+          }
+        },
+        "pb_5": {
+          "type": "flavor",
+          "settings": {
+            "label": "Saveur :",
+            "value": "Pomme",
+            "note": "Un goût pomme fruité, plaisir à chaque prise.",
+            "soon_badge": "Bientôt"
+          }
+        },
+        "pb_6": {
+          "type": "offers",
+          "settings": {
+            "label": "Choisis ta routine :",
+            "featured_variant": 3,
+            "ribbon": "MEILLEURE OFFRE : JUSQU'À -[remise_max]%",
+            "perks": "Garantie 14 jours satisfait ou remboursé"
+          }
+        },
+        "pb_7": {
+          "type": "buy_buttons",
+          "settings": {
+            "label": "Ajouter au panier",
+            "show_price": true,
+            "note": "Livraison offerte dès [livraison] · Expédition rapide & suivie",
+            "discount_line": "RÉDUCTION DÉJÀ APPLIQUÉE",
+            "pill": "Testé sans risque : 14 jours satisfait ou remboursé"
+          }
+        },
+        "pb_8": {
+          "type": "icons",
+          "settings": {
+            "icon_1": "guarantee",
+            "text_1": "Satisfait ou remboursé 14 jours",
+            "icon_2": "lock",
+            "text_2": "Paiement 100 % sécurisé",
+            "icon_3": "truck",
+            "text_3": "Livraison rapide & suivie"
+          }
+        },
+        "pb_9": {
+          "type": "collapsible",
+          "settings": {
+            "title": "Pourquoi Day Up ?",
+            "content": "<p><strong>Complet :</strong> guarana, L-théanine, taurine, rhodiola, vitamines C, B6, B12 et zinc réunis en 2 gummies.</p><p><strong>Délicieux :</strong> un goût pomme qu'on a envie de retrouver chaque matin.</p><p><strong>Pratique :</strong> pas de café à préparer, pas de canette. Le pot se glisse dans ton sac.</p><p><strong>Tout en douceur :</strong> une énergie progressive pour accompagner ta journée, sans nervosité ni coup de fatigue.</p>",
+            "open": false
+          }
+        },
+        "pb_10": {
+          "type": "collapsible",
+          "settings": {
+            "title": "Ingrédients & allergènes",
+            "content": "<p><strong>Actifs :</strong> guarana (200 mg), taurine (150 mg), L-théanine (100 mg), rhodiola (50 mg), vitamines C, B6, B12 et zinc.</p><p>Environ 44 mg de caféine par dose journalière, issue du guarana. Formule sans sucres ajoutés, goût pomme.</p><p>La liste complète des ingrédients et les allergènes éventuels figurent sur l'étiquette du produit.</p>",
+            "open": false
+          }
+        },
+        "pb_11": {
+          "type": "collapsible",
+          "settings": {
+            "title": "Conseils d'utilisation",
+            "content": "<p>Prends <strong>2 gummies le matin</strong> pour bien démarrer, ou <strong>1 le matin et 1 l'après-midi</strong> pour un soutien plus régulier selon ton rythme.</p><p>1 pot = 60 gummies = 30 jours de routine.</p><p>Ne pas dépasser la dose journalière recommandée. Déconseillé aux enfants, aux femmes enceintes ou allaitantes et aux personnes sensibles à la caféine.</p>",
+            "open": false
+          }
+        },
+        "pb_12": {
+          "type": "collapsible",
+          "settings": {
+            "title": "Bienfaits",
+            "content": "<p>⚡ <strong>Énergie</strong> : commence ta journée avec l'élan qu'il te faut.<br>🧠 <strong>Focus</strong> : reste dans le rythme sur ce qui compte.<br>🎯 <strong>Motivation</strong> : attaque tes journées avec envie.</p><p>Une routine simple. Un goût délicieux. Une journée qui commence autrement.</p>",
+            "open": false
+          }
+        },
+        "pb_13": {
+          "type": "collapsible",
+          "settings": {
+            "title": "Livraison & retours",
+            "content": "<p>Livraison offerte dès 50€ d'achat. Tu reçois un e-mail de suivi dès l'expédition de ta commande.</p><p>Garantie 14 jours satisfait ou remboursé : si Day Up ne te convient pas, écris-nous depuis la page contact.</p>",
+            "open": false
+          }
+        },
+        "pb_14": {
+          "type": "tastes",
+          "settings": {
+            "title": "Le goût",
+            "items": "🍏|Pomme\n✨|Fruité\n🍃|Frais & léger"
+          }
+        },
+        "pb_15": {
+          "type": "packed",
+          "settings": {
+            "title": "Ce qu'il y a dedans",
+            "items": "🌱|Guarana\n🧘|L-théanine\n⚡|Taurine\n🌸|Rhodiola\n🍊|Vitamine C\n💊|Vitamines B6 & B12\n🛡️|Zinc"
+          }
+        }
+      },
+      "block_order": [
+        "pb_1",
+        "pb_2",
+        "pb_3",
+        "pb_4",
+        "pb_5",
+        "pb_6",
+        "pb_7",
+        "pb_8",
+        "pb_9",
+        "pb_10",
+        "pb_11",
+        "pb_12",
+        "pb_13",
+        "pb_14",
+        "pb_15"
+      ]
+    },
+    "marquee": {
+      "type": "marquee",
+      "settings": {
+        "aria": "Les engagements Day Up",
+        "speed": 40,
+        "bg": "#FFF8EC",
+        "fg": "#0A1F44"
+      },
+      "blocks": {
+        "item_1": {
+          "type": "item",
+          "settings": {
+            "text": "Sans sucre ajouté",
+            "icon": "no-sugar"
+          }
+        },
+        "item_2": {
+          "type": "item",
+          "settings": {
+            "text": "Énergie progressive",
+            "icon": "bolt"
+          }
+        },
+        "item_3": {
+          "type": "item",
+          "settings": {
+            "text": "Focus & concentration",
+            "icon": "brain"
+          }
+        },
+        "item_4": {
+          "type": "item",
+          "settings": {
+            "text": "Sans nervosité ni crash",
+            "icon": "smile"
+          }
+        },
+        "item_5": {
+          "type": "item",
+          "settings": {
+            "text": "Goût pomme",
+            "icon": "apple"
+          }
+        },
+        "item_6": {
+          "type": "item",
+          "settings": {
+            "text": "Garantie 14 jours",
+            "icon": "guarantee"
+          }
+        },
+        "item_7": {
+          "type": "item",
+          "settings": {
+            "text": "Paiement sécurisé",
+            "icon": "lock"
+          }
+        },
+        "item_8": {
+          "type": "item",
+          "settings": {
+            "text": "Livraison rapide",
+            "icon": "truck"
+          }
+        }
+      },
+      "block_order": [
+        "item_1",
+        "item_2",
+        "item_3",
+        "item_4",
+        "item_5",
+        "item_6",
+        "item_7",
+        "item_8"
+      ]
+    },
+    "split": {
+      "type": "split-card",
+      "settings": {
+        "title": "Fatigué dès le matin ?",
+        "subtitle": "Change la façon dont tu démarres ta journée.",
+        "text": "<p>Les réveils difficiles, les coups de fatigue et le manque de motivation peuvent vite ralentir tes journées. Day Up t'aide à démarrer avec une énergie plus naturelle, plus stable, et sans l'effet « coup de barre » des boissons énergisantes.</p>",
+        "button_label": "Adopter Day Up",
+        "button_link": "#buy",
+        "image": "shopify://shop_images/IMG_7143.jpg",
+        "image_url": "https://cdn.shopify.com/s/files/1/0936/4606/1895/files/IMG_7143.jpg",
+        "image_first": false,
+        "bg": "#EAF6FE"
+      }
+    },
+    "steps": {
+      "type": "steps-stats",
+      "settings": {
+        "title": "Ta routine en quelques secondes",
+        "text": "Pas de café à préparer, pas de canette à ouvrir. Juste un geste simple, chaque matin.",
+        "footnote": "Ne pas dépasser la dose journalière recommandée.",
+        "title_2": "Ce que tu ne trouveras pas dedans",
+        "text_2": "Une formule clean, pensée pour le quotidien :",
+        "items_2": "Sucres ajoutés\nGoût chimique ou amer\nCanette à jeter\nPréparation",
+        "bg": "#EAF6FE",
+        "card": "#FFF3CF"
+      },
+      "blocks": {
+        "stat_1": {
+          "type": "stat",
+          "settings": {
+            "big": "2",
+            "label": "gummies le matin pour bien démarrer"
+          }
+        },
+        "stat_2": {
+          "type": "stat",
+          "settings": {
+            "big": "1+1",
+            "label": "ou 1 le matin, 1 l'après-midi, selon ton rythme"
+          }
+        },
+        "stat_3": {
+          "type": "stat",
+          "settings": {
+            "big": "60",
+            "label": "gummies par pot"
+          }
+        },
+        "stat_4": {
+          "type": "stat",
+          "settings": {
+            "big": "30",
+            "label": "jours de routine par pot"
+          }
+        }
+      },
+      "block_order": [
+        "stat_1",
+        "stat_2",
+        "stat_3",
+        "stat_4"
+      ]
+    },
+    "ugc": {
+      "type": "video-testimonials",
+      "settings": {
+        "title": "Ils ont testé Day Up. Ils en parlent.",
+        "text": "De vraies personnes, de vrais matins. Appuie sur une vidéo pour l'écouter.",
+        "disclaimer": "Les témoignages reflètent des expériences personnelles. Les ressentis peuvent varier d'une personne à l'autre.",
+        "bg": "#EAF6FE"
+      },
+      "blocks": {
+        "video_1": {
+          "type": "video",
+          "settings": {
+            "video_url": "https://cdn.shopify.com/videos/c/vp/2a0360f939614fc6b77b6887bab63db5/2a0360f939614fc6b77b6887bab63db5.HD-720p-1.6Mbps-92407604.mp4",
+            "poster_url": "https://cdn.shopify.com/s/files/1/0936/4606/1895/files/preview_images/2a0360f939614fc6b77b6887bab63db5.thumbnail.0000000000.jpg"
+          }
+        },
+        "video_2": {
+          "type": "video",
+          "settings": {
+            "video_url": "https://cdn.shopify.com/videos/c/vp/c2df466630474a7f98835f4b07c9856d/c2df466630474a7f98835f4b07c9856d.HD-720p-1.6Mbps-91106880.mp4",
+            "poster_url": "https://cdn.shopify.com/s/files/1/0936/4606/1895/files/preview_images/c2df466630474a7f98835f4b07c9856d.thumbnail.0000000000.jpg"
+          }
+        },
+        "video_3": {
+          "type": "video",
+          "settings": {
+            "video_url": "https://cdn.shopify.com/videos/c/vp/fab4943ea1394def8746e4109ecd7fb4/fab4943ea1394def8746e4109ecd7fb4.HD-720p-1.6Mbps-92407502.mp4",
+            "poster_url": "https://cdn.shopify.com/s/files/1/0936/4606/1895/files/preview_images/fab4943ea1394def8746e4109ecd7fb4.thumbnail.0000000000.jpg"
+          }
+        },
+        "video_4": {
+          "type": "video",
+          "settings": {
+            "video_url": "https://cdn.shopify.com/videos/c/vp/b1d459a3d78340dd8bfe38c27ee78968/b1d459a3d78340dd8bfe38c27ee78968.HD-720p-1.6Mbps-92407499.mp4",
+            "poster_url": "https://cdn.shopify.com/s/files/1/0936/4606/1895/files/preview_images/b1d459a3d78340dd8bfe38c27ee78968.thumbnail.0000000000.jpg"
+          }
+        }
+      },
+      "block_order": [
+        "video_1",
+        "video_2",
+        "video_3",
+        "video_4"
+      ]
+    },
+    "compare": {
+      "type": "comparison",
+      "settings": {
+        "title": "Day Up vs. le reste",
+        "text": "<p>Pas de pic d'énergie suivi d'un gros coup de barre. Juste un rituel simple et bon, pour démarrer la journée autrement.</p>",
+        "us_label": "DAY UP!",
+        "them_1": "Café",
+        "them_1_icon": "smile",
+        "them_2": "Boissons énergisantes",
+        "them_2_icon": "bolt",
+        "legend": "✓ oui · ~ variable selon le produit · ✕ non",
+        "bg": "#FFFFFF"
+      },
+      "blocks": {
+        "row_1": {
+          "type": "row",
+          "settings": {
+            "label": "Énergie progressive",
+            "sublabel": "sans pic ni coup de barre",
+            "col_1": "oui",
+            "col_2": "~",
+            "col_3": "non"
+          }
+        },
+        "row_2": {
+          "type": "row",
+          "settings": {
+            "label": "Sans sucres ajoutés",
+            "col_1": "oui",
+            "col_2": "~",
+            "col_3": "~"
+          }
+        },
+        "row_3": {
+          "type": "row",
+          "settings": {
+            "label": "Goût plaisir",
+            "sublabel": "pas amer, pas chimique",
+            "col_1": "oui",
+            "col_2": "~",
+            "col_3": "~"
+          }
+        },
+        "row_4": {
+          "type": "row",
+          "settings": {
+            "label": "Rien à préparer",
+            "col_1": "oui",
+            "col_2": "non",
+            "col_3": "oui"
+          }
+        },
+        "row_5": {
+          "type": "row",
+          "settings": {
+            "label": "À glisser dans le sac",
+            "col_1": "oui",
+            "col_2": "non",
+            "col_3": "~"
+          }
+        },
+        "row_6": {
+          "type": "row",
+          "settings": {
+            "label": "L-théanine, rhodiola, vitamines & zinc",
+            "col_1": "oui",
+            "col_2": "non",
+            "col_3": "~"
+          }
+        },
+        "row_7": {
+          "type": "row",
+          "settings": {
+            "label": "Caféine par prise",
+            "col_1": "≈44 mg",
+            "col_2": "variable",
+            "col_3": "variable"
+          }
+        }
+      },
+      "block_order": [
+        "row_1",
+        "row_2",
+        "row_3",
+        "row_4",
+        "row_5",
+        "row_6",
+        "row_7"
+      ]
+    },
+    "split_promo": {
+      "type": "promo-split",
+      "settings": {
+        "product": "dayup-daily-energy",
+        "title": "Le même Day Up.\nMoins cher en lot.\nDès [prix_jour] par jour.",
+        "text": "Plus tu prends, plus tu économises : jusqu'à -[remise_max] sur le lot de 3, et la livraison est offerte dès [livraison].",
+        "button_label": "J'en profite",
+        "button_link": "#buy",
+        "image_alt": "Lot de 3 pots Day Up",
+        "sticker_ring": "Lot de 3 • 90 jours • ",
+        "sticker_line1": "-[remise_max]",
+        "sticker_line2": "en lot",
+        "from": "#FFE58A",
+        "to": "#FFC23D"
+      }
+    },
+    "offers": {
+      "type": "offers-grid",
+      "settings": {
+        "title": "Choisis ta routine",
+        "product": "dayup-daily-energy",
+        "bg": "#FFF8EC"
+      },
+      "blocks": {
+        "card_1": {
+          "type": "card",
+          "settings": {
+            "variant_match": "1 PAQUET",
+            "title": "1 pot · Découverte",
+            "badge": "POUR TESTER",
+            "badge_style": "white",
+            "from": "#D9F0FF",
+            "to": "#6DB8EE"
+          }
+        },
+        "card_2": {
+          "type": "card",
+          "settings": {
+            "variant_match": "LOT DE 2",
+            "title": "Lot de 2 · Duo",
+            "badge": "À DEUX, C'EST MIEUX",
+            "badge_style": "pink",
+            "from": "#FFE7A0",
+            "to": "#FFB547"
+          }
+        },
+        "card_3": {
+          "type": "card",
+          "settings": {
+            "variant_match": "LOT DE 3",
+            "title": "Lot de 3 · Routine",
+            "badge": "MEILLEURE OFFRE !",
+            "badge_style": "deep",
+            "from": "#E1F5CC",
+            "to": "#7CC242"
+          }
+        }
+      },
+      "block_order": [
+        "card_1",
+        "card_2",
+        "card_3"
+      ]
+    },
+    "faq": {
+      "type": "faq",
+      "settings": {
+        "title": "Encore des questions ?",
+        "schema_markup": true,
+        "bg": "#EAF6FE"
+      },
+      "blocks": {
+        "q_1": {
+          "type": "question",
+          "settings": {
+            "question": "Comment prendre Day Up ?",
+            "answer": "<p>2 gummies le matin pour bien démarrer, ou 1 le matin et 1 l'après-midi pour un soutien plus régulier. Ne dépasse pas la dose journalière recommandée.</p>"
+          }
+        },
+        "q_2": {
+          "type": "question",
+          "settings": {
+            "question": "Day Up contient-il de la caféine ?",
+            "answer": "<p>Oui : environ 44 mg pour la dose journalière, issue du guarana. C'est moins qu'une tasse de café classique.</p>"
+          }
+        },
+        "q_3": {
+          "type": "question",
+          "settings": {
+            "question": "Combien de temps dure un pot ?",
+            "answer": "<p>Un pot contient 60 gummies, soit 30 jours de routine à raison de 2 gummies par jour. Le lot de 3 couvre donc 90 jours.</p>"
+          }
+        },
+        "q_4": {
+          "type": "question",
+          "settings": {
+            "question": "Y a-t-il du sucre dedans ?",
+            "answer": "<p>Day Up est formulé sans sucres ajoutés, avec un bon goût pomme.</p>"
+          }
+        },
+        "q_5": {
+          "type": "question",
+          "settings": {
+            "question": "Quand vais-je ressentir quelque chose ?",
+            "answer": "<p>Chaque organisme est différent. Le plus important, c'est la régularité : intègre Day Up à ta routine du matin pendant quelques semaines pour te faire ton propre avis.</p>"
+          }
+        },
+        "q_6": {
+          "type": "question",
+          "settings": {
+            "question": "Quels sont les délais de livraison ?",
+            "answer": "<p>Ta commande est préparée rapidement et tu reçois un e-mail de suivi dès son expédition. La livraison est offerte dès 50€ d'achat.</p>"
+          }
+        },
+        "q_7": {
+          "type": "question",
+          "settings": {
+            "question": "Et si ça ne me plaît pas ?",
+            "answer": "<p>Tu as 14 jours pour changer d'avis : satisfait ou remboursé. Écris-nous depuis la page contact et on s'occupe de tout.</p>"
+          }
+        },
+        "q_8": {
+          "type": "question",
+          "settings": {
+            "question": "Qui ne doit pas prendre Day Up ?",
+            "answer": "<p>Day Up est déconseillé aux enfants, aux femmes enceintes ou allaitantes et aux personnes sensibles à la caféine. En cas de doute, demande conseil à ton médecin ou ton pharmacien.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q_1",
+        "q_2",
+        "q_3",
+        "q_4",
+        "q_5",
+        "q_6",
+        "q_7",
+        "q_8"
+      ]
+    },
+    "reviews": {
+      "type": "reviews-widget",
+      "settings": {
+        "title": "Les avis de la team",
+        "bg": "#FFFFFF"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "marquee",
+    "split",
+    "steps",
+    "ugc",
+    "compare",
+    "split_promo",
+    "offers",
+    "faq",
+    "reviews"
+  ]
+}

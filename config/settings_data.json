@@ -1,0 +1,31 @@
+{
+  "current": {
+    "color_bg": "#FFF8EC",
+    "color_ink": "#0A1F44",
+    "color_primary": "#1C6FD1",
+    "color_deep": "#08224D",
+    "color_sky": "#BFE3FA",
+    "color_sky_soft": "#EAF6FE",
+    "color_sun": "#FFC83D",
+    "color_sunset": "#FF8A3D",
+    "color_apple": "#7CC242",
+    "color_logo_pill": "#5AAFE6",
+    "page_width": 1320,
+    "radius": 14,
+    "days_per_pack": 30,
+    "gummies_per_pack": 60,
+    "free_shipping_threshold": 50,
+    "rating_fallback": "La routine qui accompagne déjà des personnes vers leurs objectifs",
+    "sections": {
+      "cart-drawer": {
+        "type": "cart-drawer",
+        "settings": {
+          "upsell_product": "dayup-daily-energy",
+          "upsell_variant": "LOT DE 3",
+          "upsell_title": "Complète ta routine",
+          "empty_title": "Nos formats"
+        }
+      }
+    }
+  }
+}

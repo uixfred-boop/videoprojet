@@ -1,0 +1,19 @@
+<section class="page-section">
+  <div class="page-width">
+    <h1 class="display page-title">{{ 'collection.all' | t }}</h1>
+    <ul class="collections-list" role="list">
+      {%- for c in collections -%}
+        <li><a class="collections-list__item" href="{{ c.url }}">
+          {%- if c.featured_image -%}{{ c.featured_image | image_url: width: 600 | image_tag: loading: 'lazy', alt: c.title }}{%- else -%}{% render 'pack-visual', packs: 1 %}{%- endif -%}
+          <span>{{ c.title }}</span></a></li>
+      {%- endfor -%}
+    </ul>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Liste des collections",
+  "settings": []
+}
+{% endschema %}

@@ -1,0 +1,88 @@
+{%- liquid
+  assign cols = 'col_1,col_2,col_3' | split: ','
+-%}
+<section class="compare" style="--cmp-bg: {{ section.settings.bg }};">
+  <div class="compare__inner page-width">
+    <div class="compare__intro">
+      <h2 class="display compare__title">{{ section.settings.title }}</h2>
+      {%- if section.settings.text != blank -%}<div class="compare__text">{{ section.settings.text }}</div>{%- endif -%}
+      {%- if section.settings.button_label != blank -%}
+        <a class="btn btn--primary btn--3d" href="{{ section.settings.button_link }}">{{ section.settings.button_label }}</a>
+      {%- endif -%}
+    </div>
+    <div class="compare__table-wrap">
+      <table class="compare__table">
+        <thead>
+          <tr>
+            <th scope="col"><span class="visually-hidden">{{ 'general.criteria' | t }}</span></th>
+            <th scope="col" class="compare__us">
+              {%- if section.settings.us_logo != blank -%}
+                {{ section.settings.us_logo | image_url: width: 240 | image_tag: alt: section.settings.us_label, class: 'compare__logo' }}
+              {%- else -%}
+                <span class="compare__us-label">{{ section.settings.us_label }}</span>
+              {%- endif -%}
+            </th>
+            <th scope="col">{% render 'icon', name: section.settings.them_1_icon, size: 22 %}<span>{{ section.settings.them_1 }}</span></th>
+            <th scope="col">{% render 'icon', name: section.settings.them_2_icon, size: 22 %}<span>{{ section.settings.them_2 }}</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          {%- for block in section.blocks -%}
+            <tr {{ block.shopify_attributes }}>
+              <th scope="row">{{ block.settings.label }}{% if block.settings.sublabel != blank %}<small>{{ block.settings.sublabel }}</small>{% endif %}</th>
+              {%- for c in cols -%}
+                {%- assign val = block.settings[c] | strip -%}
+                <td{% if forloop.first %} class="compare__us"{% endif %}>
+                  {%- case val -%}
+                    {%- when 'oui' -%}{% render 'icon', name: 'check-badge', size: 24, class: 'is-yes' %}<span class="visually-hidden">{{ 'general.yes' | t }}</span>
+                    {%- when 'non' -%}{% render 'icon', name: 'x-badge', size: 24, class: 'is-no' %}<span class="visually-hidden">{{ 'general.no' | t }}</span>
+                    {%- when '~' -%}{% render 'icon', name: 'tilde-badge', size: 24, class: 'is-mid' %}<span class="visually-hidden">{{ 'general.variable' | t }}</span>
+                    {%- else -%}<span class="compare__val">{{ val }}</span>
+                  {%- endcase -%}
+                </td>
+              {%- endfor -%}
+            </tr>
+          {%- endfor -%}
+        </tbody>
+      </table>
+      {%- if section.settings.legend != blank -%}<p class="compare__legend">{{ section.settings.legend }}</p>{%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Comparatif",
+  "class": "section-compare",
+  "max_blocks": 8,
+  "settings": [
+    { "type": "text", "id": "title", "label": "Titre", "default": "Day Up vs. le reste" },
+    { "type": "richtext", "id": "text", "label": "Texte", "default": "<p>Pas de pic d'énergie suivi d'un gros coup de barre. Juste un rituel simple et bon, pour démarrer la journée autrement.</p>" },
+    { "type": "text", "id": "button_label", "label": "Bouton" },
+    { "type": "url", "id": "button_link", "label": "Lien du bouton" },
+    { "type": "text", "id": "us_label", "label": "Colonne Day Up — nom", "default": "DAY UP!" },
+    { "type": "image_picker", "id": "us_logo", "label": "Colonne Day Up — logo" },
+    { "type": "text", "id": "them_1", "label": "Colonne 2", "default": "Café" },
+    { "type": "select", "id": "them_1_icon", "label": "Colonne 2 — icône", "default": "smile", "options": [{ "value": "smile", "label": "Tasse/sourire" }, { "value": "bolt", "label": "Éclair" }, { "value": "pill", "label": "Gélule" }, { "value": "leaf", "label": "Feuille" }] },
+    { "type": "text", "id": "them_2", "label": "Colonne 3", "default": "Boissons énergisantes" },
+    { "type": "select", "id": "them_2_icon", "label": "Colonne 3 — icône", "default": "bolt", "options": [{ "value": "smile", "label": "Tasse/sourire" }, { "value": "bolt", "label": "Éclair" }, { "value": "pill", "label": "Gélule" }, { "value": "leaf", "label": "Feuille" }] },
+    { "type": "text", "id": "legend", "label": "Légende", "default": "✓ oui · ~ variable selon le produit · ✕ non" },
+    { "type": "color", "id": "bg", "label": "Fond", "default": "#FFFFFF" }
+  ],
+  "blocks": [
+    {
+      "type": "row",
+      "name": "Ligne",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Critère", "default": "Sans sucres ajoutés" },
+        { "type": "text", "id": "sublabel", "label": "Précision" },
+        { "type": "paragraph", "content": "Valeurs : « oui », « non », « ~ » (variable) ou un texte libre." },
+        { "type": "text", "id": "col_1", "label": "Day Up", "default": "oui" },
+        { "type": "text", "id": "col_2", "label": "Colonne 2", "default": "~" },
+        { "type": "text", "id": "col_3", "label": "Colonne 3", "default": "non" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Comparatif", "blocks": [{ "type": "row" }, { "type": "row" }, { "type": "row" }] }]
+}
+{% endschema %}

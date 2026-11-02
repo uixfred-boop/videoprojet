@@ -1,0 +1,173 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Day Up",
+    "theme_version": "1.0.0",
+    "theme_author": "Day Up",
+    "theme_documentation_url": "https://github.com/uixfred-boop/videoprojet",
+    "theme_support_url": "https://dayup-shop.com/pages/contact"
+  },
+  {
+    "name": "Couleurs",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Palette Day Up : bleu ciel du logo + jaune lever de soleil, sur un fond crème « lumière du matin »."
+      },
+      {
+        "type": "color",
+        "id": "color_bg",
+        "label": "Fond crème",
+        "default": "#FFF8EC"
+      },
+      {
+        "type": "color",
+        "id": "color_ink",
+        "label": "Texte (bleu nuit)",
+        "default": "#0A1F44"
+      },
+      {
+        "type": "color",
+        "id": "color_primary",
+        "label": "Bleu Day Up (boutons, titres)",
+        "default": "#1C6FD1"
+      },
+      {
+        "type": "color",
+        "id": "color_deep",
+        "label": "Bleu nuit (bandes sombres)",
+        "default": "#08224D"
+      },
+      {
+        "type": "color",
+        "id": "color_sky",
+        "label": "Bleu ciel",
+        "default": "#BFE3FA"
+      },
+      {
+        "type": "color",
+        "id": "color_sky_soft",
+        "label": "Bleu très clair (cartes)",
+        "default": "#EAF6FE"
+      },
+      {
+        "type": "color",
+        "id": "color_sun",
+        "label": "Jaune soleil (accents, bouton secondaire)",
+        "default": "#FFC83D"
+      },
+      {
+        "type": "color",
+        "id": "color_sunset",
+        "label": "Orange lever de soleil",
+        "default": "#FF8A3D"
+      },
+      {
+        "type": "color",
+        "id": "color_apple",
+        "label": "Vert pomme",
+        "default": "#7CC242"
+      },
+      {
+        "type": "color",
+        "id": "color_logo_pill",
+        "label": "Pastille du logo (en-tête)",
+        "default": "#5AAFE6"
+      }
+    ]
+  },
+  {
+    "name": "Mise en page",
+    "settings": [
+      {
+        "type": "range",
+        "id": "page_width",
+        "label": "Largeur maximale",
+        "min": 1000,
+        "max": 1600,
+        "step": 20,
+        "default": 1320,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "radius",
+        "label": "Arrondi des cartes",
+        "min": 0,
+        "max": 24,
+        "step": 1,
+        "default": 14,
+        "unit": "px"
+      },
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Favicon"
+      }
+    ]
+  },
+  {
+    "name": "Produit & offres",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Ces valeurs servent à calculer automatiquement le prix par jour, le nombre de gummies par lot et la barre « livraison offerte »."
+      },
+      {
+        "type": "number",
+        "id": "days_per_pack",
+        "label": "Jours de routine par pot",
+        "default": 30
+      },
+      {
+        "type": "number",
+        "id": "gummies_per_pack",
+        "label": "Gummies par pot",
+        "default": 60
+      },
+      {
+        "type": "number",
+        "id": "free_shipping_threshold",
+        "label": "Livraison offerte à partir de (€)",
+        "default": 50
+      },
+      {
+        "type": "text",
+        "id": "rating_fallback",
+        "label": "Texte à côté des étoiles (sans app d'avis)",
+        "default": "La routine qui accompagne déjà des personnes vers leurs objectifs",
+        "info": "Dès qu'une app d'avis (Judge.me, Shopify Product Reviews…) remplit les métachamps « reviews », la vraie note et le vrai nombre d'avis s'affichent à la place."
+      }
+    ]
+  },
+  {
+    "name": "Réseaux sociaux",
+    "settings": [
+      {
+        "type": "text",
+        "id": "social_instagram",
+        "label": "Instagram (URL)"
+      },
+      {
+        "type": "text",
+        "id": "social_tiktok",
+        "label": "TikTok (URL)"
+      },
+      {
+        "type": "text",
+        "id": "social_youtube",
+        "label": "YouTube (URL)"
+      },
+      {
+        "type": "text",
+        "id": "social_facebook",
+        "label": "Facebook (URL)"
+      },
+      {
+        "type": "text",
+        "id": "social_snapchat",
+        "label": "Snapchat (URL)"
+      }
+    ]
+  }
+]

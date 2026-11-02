@@ -1,0 +1,118 @@
+{
+  "general": {
+    "skip_to_content": "Aller au contenu",
+    "close": "Fermer",
+    "play_video": "Lire la vidéo",
+    "criteria": "Critère",
+    "yes": "Oui",
+    "no": "Non",
+    "variable": "Variable",
+    "404_title": "Oups, page introuvable",
+    "404_text": "Cette page a dû se rendormir. On te ramène au point de départ ?",
+    "back_home": "Retour à l'accueil"
+  },
+  "header": {
+    "menu": "Menu"
+  },
+  "cart": {
+    "added": "Ajouté au panier ✓",
+    "error": "Oups, une erreur est survenue. Réessaie.",
+    "title": "Ton panier",
+    "empty": "Ton panier est vide",
+    "shop_now": "Découvrir Day Up",
+    "add": "Ajouter",
+    "decrease": "Diminuer la quantité",
+    "increase": "Augmenter la quantité",
+    "remove": "Retirer",
+    "subtotal": "Sous-total",
+    "taxes": "TVA incluse. Frais de port calculés au paiement.",
+    "checkout": "Commander",
+    "secure": "Paiement 100 % sécurisé",
+    "shipping_remaining_html": "Plus que <strong>{{ amount }}</strong> pour la livraison offerte 🚚",
+    "shipping_unlocked": "Bravo, la livraison est offerte ✅",
+    "quantity": "Quantité",
+    "note": "Une précision pour ta commande ?",
+    "update": "Mettre à jour"
+  },
+  "product": {
+    "sold_out": "Épuisé",
+    "reviews": "avis",
+    "media_n": "Afficher le média {{ n }}",
+    "from": "Dès",
+    "add_to_cart": "Ajouter au panier",
+    "learn_more": "En savoir plus",
+    "days": "jours",
+    "day": "jour",
+    "free_shipping": "Livraison offerte",
+    "you_save": "Tu économises {{ amount }}",
+    "choose_product": "Choisis un produit dans l'éditeur de thème."
+  },
+  "newsletter": {
+    "email": "Ton adresse e-mail",
+    "submit": "S'inscrire",
+    "success": "Merci ! Tu fais partie de la team Day Up 💙"
+  },
+  "collection": {
+    "empty": "Aucun produit pour le moment.",
+    "all": "Collections"
+  },
+  "contact": {
+    "success": "Merci ! On te répond très vite.",
+    "name": "Nom",
+    "email": "E-mail",
+    "phone": "Téléphone",
+    "message": "Message",
+    "send": "Envoyer"
+  },
+  "search": {
+    "title": "Recherche",
+    "placeholder": "Que cherches-tu ?",
+    "submit": "Rechercher",
+    "no_results": "Aucun résultat pour « {{ terms }} »."
+  },
+  "blog": {
+    "back": "← Retour au blog"
+  },
+  "password": {
+    "title": "Bientôt l'ouverture",
+    "label": "Mot de passe",
+    "enter": "Entrer"
+  },
+  "customer": {
+    "login": "Connexion",
+    "email": "E-mail",
+    "password": "Mot de passe",
+    "sign_in": "Se connecter",
+    "create": "Créer un compte",
+    "forgot": "Mot de passe oublié ?",
+    "recover_sent": "Un e-mail de réinitialisation t'a été envoyé.",
+    "recover": "Réinitialiser le mot de passe",
+    "send": "Envoyer",
+    "first_name": "Prénom",
+    "last_name": "Nom",
+    "account": "Mon compte",
+    "logout": "Déconnexion",
+    "orders": "Mes commandes",
+    "order": "Commande",
+    "date": "Date",
+    "status": "Statut",
+    "total": "Total",
+    "no_orders": "Tu n'as pas encore passé de commande.",
+    "addresses": "Mes adresses",
+    "product": "Produit",
+    "add_address": "Ajouter une adresse",
+    "address1": "Adresse",
+    "zip": "Code postal",
+    "city": "Ville",
+    "country": "Pays",
+    "save": "Enregistrer",
+    "activate": "Activer mon compte",
+    "password_confirm": "Confirme le mot de passe",
+    "reset": "Nouveau mot de passe"
+  },
+  "gift_card": {
+    "title": "Ta carte cadeau",
+    "code": "Code",
+    "print": "Imprimer"
+  }
+}

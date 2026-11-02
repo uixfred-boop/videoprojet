@@ -1,0 +1,66 @@
+{%- liquid
+  assign product = section.settings.product
+  capture title
+    render 'tokens', text: section.settings.title, product: product
+  endcapture
+  capture text
+    render 'tokens', text: section.settings.text, product: product
+  endcapture
+  capture s1
+    render 'tokens', text: section.settings.sticker_line1, product: product
+  endcapture
+-%}
+<section class="split-promo" style="--sp-from: {{ section.settings.from }}; --sp-to: {{ section.settings.to }};">
+  <div class="split-promo__confetti" aria-hidden="true">
+    {%- for i in (1..9) -%}
+      {%- assign m = i | modulo: 3 -%}
+      {%- if m == 0 -%}{% render 'sparkle', class: 'confetti confetti--s' %}{%- else -%}{% render 'gummy', class: 'confetti confetti--g' %}{%- endif -%}
+    {%- endfor -%}
+  </div>
+  <div class="split-promo__inner page-width">
+    <div class="split-promo__content">
+      <h2 class="split-promo__title">{{ title | newline_to_br }}</h2>
+      {%- if text != blank -%}<p class="split-promo__text">{{ text }}</p>{%- endif -%}
+      {%- if section.settings.button_label != blank -%}
+        <a class="btn btn--primary btn--3d" href="{{ section.settings.button_link | default: product.url }}">{{ section.settings.button_label }}</a>
+      {%- endif -%}
+    </div>
+    <div class="split-promo__media">
+      {%- if section.settings.image != blank or section.settings.image_url != blank -%}
+        {% render 'media', image: section.settings.image, url: section.settings.image_url, alt: section.settings.image_alt, class: 'split-promo__img', sizes: '(min-width: 990px) 40vw, 90vw' %}
+      {%- else -%}
+        <div class="split-promo__bottles">
+          {% render 'bottle', class: 'split-promo__bottle split-promo__bottle--l' %}
+          {% render 'bottle', class: 'split-promo__bottle split-promo__bottle--c' %}
+          {% render 'bottle', class: 'split-promo__bottle split-promo__bottle--r' %}
+        </div>
+      {%- endif -%}
+      {%- if s1 != blank -%}
+        {% render 'sticker', ring: section.settings.sticker_ring, line1: s1, line2: section.settings.sticker_line2, class: 'split-promo__sticker sticker--deep' %}
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Promo lot (jaune)",
+  "class": "section-split-promo",
+  "settings": [
+    { "type": "product", "id": "product", "label": "Produit (prix dynamiques)" },
+    { "type": "textarea", "id": "title", "label": "Titre", "default": "Le même Day Up.\nMoins cher en lot.\nDès [prix_jour] par jour." },
+    { "type": "textarea", "id": "text", "label": "Texte", "default": "Plus tu prends, plus tu économises : jusqu'à -[remise_max] sur le lot de 3, et la livraison est offerte dès [livraison]." },
+    { "type": "text", "id": "button_label", "label": "Bouton", "default": "J'en profite" },
+    { "type": "url", "id": "button_link", "label": "Lien du bouton" },
+    { "type": "image_picker", "id": "image", "label": "Image (vide = 3 pots illustrés)" },
+    { "type": "text", "id": "image_url", "label": "Image — URL de secours" },
+    { "type": "text", "id": "image_alt", "label": "Texte alternatif", "default": "Lot de 3 pots Day Up" },
+    { "type": "text", "id": "sticker_ring", "label": "Sticker — texte circulaire", "default": "Lot de 3 • 90 jours • " },
+    { "type": "text", "id": "sticker_line1", "label": "Sticker — ligne 1", "default": "-[remise_max]" },
+    { "type": "text", "id": "sticker_line2", "label": "Sticker — ligne 2", "default": "en lot" },
+    { "type": "color", "id": "from", "label": "Dégradé — haut", "default": "#FFE58A" },
+    { "type": "color", "id": "to", "label": "Dégradé — bas", "default": "#FFC23D" }
+  ],
+  "presets": [{ "name": "Promo lot (jaune)" }]
+}
+{% endschema %}

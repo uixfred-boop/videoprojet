@@ -1,0 +1,57 @@
+<section class="page-section cart-page">
+  <div class="page-width page-width--narrow">
+    <h1 class="display page-title">{{ 'cart.title' | t }}</h1>
+    {%- if cart.item_count == 0 -%}
+      <div class="cart-empty cart-empty--page">
+        <p class="cart-empty__title">{{ 'cart.empty' | t }}</p>
+        <a class="btn btn--primary" href="{{ routes.all_products_collection_url }}">{{ 'cart.shop_now' | t }}</a>
+      </div>
+    {%- else -%}
+      <form action="{{ routes.cart_url }}" method="post" class="cart-page__form">
+        <ul class="cart-items cart-items--page" role="list">
+          {%- for item in cart.items -%}
+            <li class="cart-item">
+              <a href="{{ item.url }}" class="cart-item__img">{%- if item.image -%}{{ item.image | image_url: width: 240 | image_tag: alt: item.title, loading: 'lazy' }}{%- endif -%}</a>
+              <div class="cart-item__info">
+                <a href="{{ item.url }}" class="cart-item__title">{{ item.product.title | split: ' – ' | first }}</a>
+                {%- unless item.product.has_only_default_variant -%}<p class="cart-item__variant">{{ item.variant.title | downcase | capitalize }}</p>{%- endunless -%}
+                <label class="visually-hidden" for="Qty-{{ forloop.index }}">{{ 'cart.quantity' | t }}</label>
+                <input class="cart-page__qty" id="Qty-{{ forloop.index }}" type="number" name="updates[]" value="{{ item.quantity }}" min="0">
+              </div>
+              <div class="cart-item__end">
+                <p class="cart-item__price">{{ item.final_line_price | money }}</p>
+                <a class="cart-item__remove" href="{{ item.url_to_remove }}">{{ 'cart.remove' | t }}</a>
+              </div>
+            </li>
+          {%- endfor -%}
+        </ul>
+        {%- if section.settings.show_note -%}
+          <label class="cart-page__note-label" for="CartNote">{{ 'cart.note' | t }}</label>
+          <textarea class="cart-page__note" id="CartNote" name="note">{{ cart.note }}</textarea>
+        {%- endif -%}
+        <div class="cart-page__foot">
+          <p class="drawer__row drawer__row--total"><span>{{ 'cart.subtotal' | t }}</span><span>{{ cart.total_price | money }}</span></p>
+          <p class="drawer__taxes">{{ 'cart.taxes' | t }}</p>
+          <div class="cart-page__actions">
+            <button type="submit" name="update" class="btn btn--outline">{{ 'cart.update' | t }}</button>
+            <button type="submit" name="checkout" class="btn btn--primary btn--3d">{{ 'cart.checkout' | t }}</button>
+          </div>
+        </div>
+      </form>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Panier",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_note",
+      "label": "Note de commande",
+      "default": false
+    }
+  ]
+}
+{% endschema %}

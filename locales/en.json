@@ -1,0 +1,118 @@
+{
+  "general": {
+    "skip_to_content": "Skip to content",
+    "close": "Close",
+    "play_video": "Play video",
+    "criteria": "Criteria",
+    "yes": "Yes",
+    "no": "No",
+    "variable": "Varies",
+    "404_title": "Page not found",
+    "404_text": "This page went back to sleep.",
+    "back_home": "Back to home"
+  },
+  "header": {
+    "menu": "Menu"
+  },
+  "cart": {
+    "added": "Added to cart ✓",
+    "error": "Something went wrong. Please try again.",
+    "title": "Your cart",
+    "empty": "Your cart is empty",
+    "shop_now": "Shop Day Up",
+    "add": "Add",
+    "decrease": "Decrease quantity",
+    "increase": "Increase quantity",
+    "remove": "Remove",
+    "subtotal": "Subtotal",
+    "taxes": "Taxes included. Shipping calculated at checkout.",
+    "checkout": "Checkout",
+    "secure": "100% secure payment",
+    "shipping_remaining_html": "Only <strong>{{ amount }}</strong> away from free shipping 🚚",
+    "shipping_unlocked": "You unlocked free shipping ✅",
+    "quantity": "Quantity",
+    "note": "Order note",
+    "update": "Update"
+  },
+  "product": {
+    "sold_out": "Sold out",
+    "reviews": "reviews",
+    "media_n": "Show media {{ n }}",
+    "from": "From",
+    "add_to_cart": "Add to cart",
+    "learn_more": "Learn more",
+    "days": "days",
+    "day": "day",
+    "free_shipping": "Free shipping",
+    "you_save": "You save {{ amount }}",
+    "choose_product": "Choose a product in the theme editor."
+  },
+  "newsletter": {
+    "email": "Your email",
+    "submit": "Subscribe",
+    "success": "Thanks for subscribing!"
+  },
+  "collection": {
+    "empty": "No products yet.",
+    "all": "Collections"
+  },
+  "contact": {
+    "success": "Thanks! We'll get back to you soon.",
+    "name": "Name",
+    "email": "Email",
+    "phone": "Phone",
+    "message": "Message",
+    "send": "Send"
+  },
+  "search": {
+    "title": "Search",
+    "placeholder": "What are you looking for?",
+    "submit": "Search",
+    "no_results": "No results for “{{ terms }}”."
+  },
+  "blog": {
+    "back": "← Back to blog"
+  },
+  "password": {
+    "title": "Opening soon",
+    "label": "Password",
+    "enter": "Enter"
+  },
+  "customer": {
+    "login": "Login",
+    "email": "Email",
+    "password": "Password",
+    "sign_in": "Sign in",
+    "create": "Create account",
+    "forgot": "Forgot your password?",
+    "recover_sent": "We've sent you a reset email.",
+    "recover": "Reset your password",
+    "send": "Send",
+    "first_name": "First name",
+    "last_name": "Last name",
+    "account": "My account",
+    "logout": "Log out",
+    "orders": "My orders",
+    "order": "Order",
+    "date": "Date",
+    "status": "Status",
+    "total": "Total",
+    "no_orders": "You haven't placed any orders yet.",
+    "addresses": "My addresses",
+    "product": "Product",
+    "add_address": "Add an address",
+    "address1": "Address",
+    "zip": "Postal code",
+    "city": "City",
+    "country": "Country",
+    "save": "Save",
+    "activate": "Activate account",
+    "password_confirm": "Confirm password",
+    "reset": "New password"
+  },
+  "gift_card": {
+    "title": "Your gift card",
+    "code": "Code",
+    "print": "Print"
+  }
+}

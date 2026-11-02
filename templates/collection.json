@@ -1,0 +1,29 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-collection",
+      "settings": {}
+    },
+    "cta": {
+      "type": "cta-band",
+      "settings": {
+        "product": "dayup-daily-energy",
+        "rating_text": "Rejoins la team Day Up",
+        "title": "Prêt à changer\ntes matins ?",
+        "checklist": "Garantie 14 jours satisfait ou remboursé\nSans sucres ajoutés, goût pomme\nLivraison offerte dès 50€",
+        "button_1": "Commander",
+        "link_1": "/products/dayup-daily-energy",
+        "button_2": "Lire la FAQ",
+        "link_2": "/pages/faq",
+        "sticker_ring": "Le réveil, version douce • ",
+        "sticker_line1": "DAY",
+        "sticker_line2": "UP!",
+        "bg": "#08224D"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "cta"
+  ]
+}

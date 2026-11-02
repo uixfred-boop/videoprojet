@@ -1,0 +1,40 @@
+<style>
+  @font-face {
+    font-family: 'Bricolage Grotesque';
+    font-style: normal;
+    font-display: swap;
+    font-weight: 200 800;
+    font-stretch: 75% 100%;
+    src: url('{{ 'bricolage-grotesque.woff2' | asset_url }}') format('woff2-variations'), url('{{ 'bricolage-grotesque.woff2' | asset_url }}') format('woff2');
+  }
+  {%- for w in (4..8) -%}
+    {%- assign weight = w | times: 100 -%}
+    @font-face {
+      font-family: 'Work Sans';
+      font-style: normal;
+      font-display: swap;
+      font-weight: {{ weight }};
+      src: url('{{ 'work-sans-' | append: weight | append: '.woff2' | asset_url }}') format('woff2');
+    }
+  {%- endfor -%}
+
+  :root {
+    --c-bg: {{ settings.color_bg }};
+    --c-ink: {{ settings.color_ink }};
+    --c-ink-rgb: {{ settings.color_ink.red }}, {{ settings.color_ink.green }}, {{ settings.color_ink.blue }};
+    --c-primary: {{ settings.color_primary }};
+    --c-primary-rgb: {{ settings.color_primary.red }}, {{ settings.color_primary.green }}, {{ settings.color_primary.blue }};
+    --c-deep: {{ settings.color_deep }};
+    --c-deep-2: {{ settings.color_deep | color_lighten: 6 }};
+    --c-sky: {{ settings.color_sky }};
+    --c-sky-soft: {{ settings.color_sky_soft }};
+    --c-sun: {{ settings.color_sun }};
+    --c-sun-deep: {{ settings.color_sun | color_darken: 8 }};
+    --c-sunset: {{ settings.color_sunset }};
+    --c-apple: {{ settings.color_apple }};
+    --c-logo-pill: {{ settings.color_logo_pill }};
+    --radius: {{ settings.radius }}px;
+    --radius-lg: {{ settings.radius | times: 1.6 | round }}px;
+    --page-width: {{ settings.page_width }}px;
+  }
+</style>

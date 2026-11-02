@@ -1,0 +1,76 @@
+{%- liquid
+  assign product = section.settings.product
+  assign default_from = '#D9F0FF,#FFE7A0,#E1F5CC,#FFD9E1' | split: ','
+  assign default_to = '#6DB8EE,#FFB547,#7CC242,#FF8FA3' | split: ','
+-%}
+<section class="offers" style="--offers-bg: {{ section.settings.bg }};">
+  <div class="page-width">
+    {%- if section.settings.title != blank -%}
+      <h2 class="display offers__title">{{ section.settings.title }}</h2>
+    {%- endif -%}
+    <div class="offers__grid">
+      {%- if section.blocks.size > 0 -%}
+        {%- for block in section.blocks -%}
+          {%- liquid
+            assign p = block.settings.product | default: product
+            assign v = p.selected_or_first_available_variant
+            if block.settings.variant_match != blank
+              for candidate in p.variants
+                assign a = candidate.title | downcase | strip
+                assign b = block.settings.variant_match | downcase | strip
+                if a == b
+                  assign v = candidate
+                  break
+                endif
+              endfor
+            endif
+          -%}
+          {%- if p != blank -%}
+            <div class="offers__item" {{ block.shopify_attributes }}>
+              {% render 'offer-card', product: p, variant: v, title: block.settings.title, subtitle: block.settings.subtitle, badge: block.settings.badge, badge_style: block.settings.badge_style, from: block.settings.from, to: block.settings.to, image: block.settings.image, image_url: block.settings.image_url %}
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      {%- elsif product != blank -%}
+        {%- for v in product.variants limit: 4 -%}
+          {%- assign i = forloop.index0 -%}
+          <div class="offers__item">
+            {% render 'offer-card', product: product, variant: v, from: default_from[i], to: default_to[i] %}
+          </div>
+        {%- endfor -%}
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Offres (Find your flavor)",
+  "class": "section-offers",
+  "max_blocks": 4,
+  "settings": [
+    { "type": "text", "id": "title", "label": "Titre", "default": "Choisis ta routine" },
+    { "type": "product", "id": "product", "label": "Produit", "info": "Sans bloc, une carte est créée pour chaque variante (1 pot, lot de 2, lot de 3)." },
+    { "type": "color", "id": "bg", "label": "Fond", "default": "#FFF8EC" }
+  ],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "Carte",
+      "settings": [
+        { "type": "product", "id": "product", "label": "Produit (optionnel)" },
+        { "type": "text", "id": "variant_match", "label": "Variante (titre exact)", "info": "Ex. : LOT DE 3" },
+        { "type": "text", "id": "title", "label": "Titre affiché" },
+        { "type": "text", "id": "subtitle", "label": "Sous-titre", "info": "Vide = calculé (gummies · jours)" },
+        { "type": "text", "id": "badge", "label": "Badge" },
+        { "type": "select", "id": "badge_style", "label": "Style du badge", "default": "deep", "options": [{ "value": "deep", "label": "Bleu nuit" }, { "value": "sun", "label": "Jaune" }, { "value": "pink", "label": "Rose" }, { "value": "white", "label": "Blanc" }] },
+        { "type": "color", "id": "from", "label": "Dégradé — haut", "default": "#D9F0FF" },
+        { "type": "color", "id": "to", "label": "Dégradé — bas", "default": "#6DB8EE" },
+        { "type": "image_picker", "id": "image", "label": "Image (remplace les pots illustrés)" },
+        { "type": "text", "id": "image_url", "label": "Image — URL de secours" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Offres (Find your flavor)" }]
+}
+{% endschema %}

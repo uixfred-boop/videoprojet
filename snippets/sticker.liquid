@@ -1,0 +1,19 @@
+{%- comment -%}
+  Scalloped badge with rotating ring text (like a sticker).
+  Params: ring (text around), line1, line2, class, style
+{%- endcomment -%}
+{%- assign uid = 'ring-' | append: ring | handleize | append: '-' | append: line1 | handleize | truncate: 40, '' -%}
+<div class="sticker {{ class }}" {% if style %}style="{{ style }}"{% endif %} aria-hidden="true">
+  <svg viewBox="-6 -6 212 212">
+    <path class="sticker__shape" d="M184.0 100.0Q201.1 113.3 181.1 121.7Q194.2 139.0 172.7 142.0Q180.9 162.1 159.4 159.4Q162.1 180.9 142.0 172.7Q139.0 194.2 121.7 181.1Q113.3 201.1 100.0 184.0Q86.7 201.1 78.3 181.1Q61.0 194.2 58.0 172.7Q37.9 180.9 40.6 159.4Q19.1 162.1 27.3 142.0Q5.8 139.0 18.9 121.7Q-1.1 113.3 16.0 100.0Q-1.1 86.7 18.9 78.3Q5.8 61.0 27.3 58.0Q19.1 37.9 40.6 40.6Q37.9 19.1 58.0 27.3Q61.0 5.8 78.3 18.9Q86.7 -1.1 100.0 16.0Q113.3 -1.1 121.7 18.9Q139.0 5.8 142.0 27.3Q162.1 19.1 159.4 40.6Q180.9 37.9 172.7 58.0Q194.2 61.0 181.1 78.3Q201.1 86.7 184.0 100.0Z"/>
+    <circle class="sticker__inner" cx="100" cy="100" r="58"/>
+    <defs><path id="{{ uid }}" d="M100 100m-70 0a70 70 0 1 1 140 0a70 70 0 1 1-140 0"/></defs>
+    <g class="sticker__ring">
+      <text><textPath href="#{{ uid }}" startOffset="0">{{ ring | upcase }}</textPath></text>
+    </g>
+  </svg>
+  <span class="sticker__center">
+    <span class="sticker__l1">{{ line1 }}</span>
+    {%- if line2 != blank -%}<span class="sticker__l2">{{ line2 }}</span>{%- endif -%}
+  </span>
+</div>

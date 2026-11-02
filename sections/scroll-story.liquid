@@ -1,0 +1,51 @@
+{%- assign line_count = section.blocks.size -%}
+<section class="story" data-story style="--story-from: {{ section.settings.color_top }}; --story-to: {{ section.settings.color_bottom }}; --story-lines: {{ line_count }};">
+  <div class="story__sticky">
+    <div class="story__floaters" aria-hidden="true">
+      {% render 'gummy', class: 'story__gummy story__gummy--1' %}
+      {% render 'gummy', class: 'story__gummy story__gummy--2' %}
+      {% render 'gummy', class: 'story__gummy story__gummy--3' %}
+      {% render 'sparkle', class: 'story__sparkle story__sparkle--1' %}
+      {% render 'sparkle', class: 'story__sparkle story__sparkle--2' %}
+    </div>
+    <ul class="story__lines" role="list">
+      {%- for block in section.blocks -%}
+        <li class="story__line{% if block.settings.highlight %} story__line--hl{% endif %}" style="--i: {{ forloop.index0 }};" {{ block.shopify_attributes }}>{{ block.settings.text }}</li>
+      {%- endfor -%}
+    </ul>
+    <div class="story__product">
+      {% render 'gummy', class: 'story__pop' %}
+      {%- if section.settings.image != blank or section.settings.image_url != blank -%}
+        {% render 'media', image: section.settings.image, url: section.settings.image_url, alt: section.settings.image_alt, class: 'story__img', sizes: '(min-width: 990px) 380px, 60vw' %}
+      {%- else -%}
+        {% render 'bottle', class: 'story__bottle' %}
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Animation au scroll",
+  "class": "section-story",
+  "max_blocks": 6,
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Packshot détouré (PNG transparent)", "info": "Vide = pot Day Up illustré." },
+    { "type": "text", "id": "image_url", "label": "Packshot — URL de secours" },
+    { "type": "text", "id": "image_alt", "label": "Texte alternatif", "default": "Pot Day Up Daily Energy" },
+    { "type": "color", "id": "color_top", "label": "Couleur de départ", "default": "#1C6FD1" },
+    { "type": "color", "id": "color_bottom", "label": "Couleur d'arrivée (lever de soleil)", "default": "#FFC83D" }
+  ],
+  "blocks": [
+    {
+      "type": "line",
+      "name": "Ligne",
+      "settings": [
+        { "type": "text", "id": "text", "label": "Texte", "default": "0 sucre ajouté" },
+        { "type": "checkbox", "id": "highlight", "label": "En jaune", "default": false }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Animation au scroll", "blocks": [{ "type": "line" }, { "type": "line" }, { "type": "line" }] }]
+}
+{% endschema %}

@@ -1,0 +1,59 @@
+<section class="steps" style="--steps-bg: {{ section.settings.bg }}; --steps-card: {{ section.settings.card }};">
+  <div class="page-width">
+    <div class="steps__card">
+      <h2 class="display steps__title">{{ section.settings.title }}</h2>
+      {%- if section.settings.text != blank -%}<p class="steps__text">{{ section.settings.text }}</p>{%- endif -%}
+      <ol class="steps__grid" role="list">
+        {%- for block in section.blocks -%}
+          <li class="steps__item" {{ block.shopify_attributes }}>
+            <span class="steps__big">{{ block.settings.big }}</span>
+            <span class="steps__label">{{ block.settings.label }}</span>
+          </li>
+        {%- endfor -%}
+      </ol>
+      {%- if section.settings.footnote != blank -%}<p class="steps__foot">{{ section.settings.footnote }}</p>{%- endif -%}
+
+      {%- if section.settings.title_2 != blank -%}
+        <hr class="steps__rule">
+        <h3 class="display steps__title steps__title--sm">{{ section.settings.title_2 }}</h3>
+        {%- if section.settings.text_2 != blank -%}<p class="steps__text steps__text--strong">{{ section.settings.text_2 }}</p>{%- endif -%}
+        {%- assign items = section.settings.items_2 | newline_to_br | split: '<br />' -%}
+        <ul class="steps__checks" role="list">
+          {%- for it in items -%}
+            {%- assign t = it | strip -%}
+            {%- if t != blank -%}<li>{% render 'icon', name: 'x-badge', size: 18 %}{{ t }}</li>{%- endif -%}
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Routine en chiffres",
+  "class": "section-steps",
+  "max_blocks": 4,
+  "settings": [
+    { "type": "text", "id": "title", "label": "Titre", "default": "Ta routine en quelques secondes" },
+    { "type": "text", "id": "text", "label": "Texte", "default": "Pas de café à préparer, pas de canette à ouvrir. Juste un geste simple, chaque matin." },
+    { "type": "text", "id": "footnote", "label": "Note de bas", "default": "Ne pas dépasser la dose journalière recommandée." },
+    { "type": "text", "id": "title_2", "label": "Second titre", "default": "Ce que tu ne trouveras pas dedans" },
+    { "type": "text", "id": "text_2", "label": "Second texte", "default": "Une formule clean, pensée pour le quotidien :" },
+    { "type": "textarea", "id": "items_2", "label": "Liste (une ligne = un point)", "default": "Sucres ajoutés\nGoût chimique ou amer\nCanette à jeter\nPréparation" },
+    { "type": "color", "id": "bg", "label": "Fond de section", "default": "#EAF6FE" },
+    { "type": "color", "id": "card", "label": "Fond de la carte", "default": "#FFF3CF" }
+  ],
+  "blocks": [
+    {
+      "type": "stat",
+      "name": "Chiffre",
+      "settings": [
+        { "type": "text", "id": "big", "label": "Chiffre", "default": "2" },
+        { "type": "text", "id": "label", "label": "Libellé", "default": "gummies le matin pour bien démarrer" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Routine en chiffres", "blocks": [{ "type": "stat" }, { "type": "stat" }, { "type": "stat" }, { "type": "stat" }] }]
+}
+{% endschema %}

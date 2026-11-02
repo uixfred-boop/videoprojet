@@ -1,0 +1,28 @@
+{%- layout none -%}
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>{{ 'gift_card.title' | t }} · {{ shop.name }}</title>
+    {%- render 'css-variables' -%}
+    {{ 'base.css' | asset_url | stylesheet_tag }}
+    {{ 'sections.css' | asset_url | stylesheet_tag }}
+    {{ content_for_header }}
+  </head>
+  <body class="template-gift-card">
+    <main class="giftcard">
+      <div class="giftcard__card">
+        <p class="header__logo-text">{{ shop.name }}</p>
+        <h1 class="display">{{ 'gift_card.title' | t }}</h1>
+        <p class="giftcard__amount">{{ gift_card.balance | money }}</p>
+        <p>{{ 'gift_card.code' | t }} : <strong>{{ gift_card.code | format_code }}</strong></p>
+        {%- if gift_card.pass_url -%}<a href="{{ gift_card.pass_url }}"><img src="{{ 'gift-card/add-to-apple-wallet.svg' | shopify_asset_url }}" width="120" height="40" alt="Apple Wallet" loading="lazy"></a>{%- endif -%}
+        <div class="giftcard__actions">
+          <a class="btn btn--primary" href="{{ shop.url }}">{{ 'general.back_home' | t }}</a>
+          <button type="button" class="btn btn--outline" onclick="window.print();">{{ 'gift_card.print' | t }}</button>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>

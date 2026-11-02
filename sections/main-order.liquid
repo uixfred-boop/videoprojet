@@ -1,0 +1,16 @@
+<section class="page-section"><div class="page-width page-width--narrow account">
+  <h1 class="display page-title">{{ 'customer.order' | t }} {{ order.name }}</h1>
+  <p>{{ order.created_at | date: '%d/%m/%Y %H:%M' }} · {{ order.financial_status_label }} · {{ order.fulfillment_status_label }}</p>
+  <table class="account__table"><thead><tr><th>{{ 'customer.product' | t }}</th><th>{{ 'cart.quantity' | t }}</th><th>{{ 'customer.total' | t }}</th></tr></thead><tbody>
+    {%- for line in order.line_items -%}<tr><td>{{ line.title }}</td><td>{{ line.quantity }}</td><td>{{ line.final_line_price | money }}</td></tr>{%- endfor -%}
+  </tbody></table>
+  <p class="drawer__row drawer__row--total"><span>{{ 'customer.total' | t }}</span><span>{{ order.total_price | money }}</span></p>
+  <p><a href="{{ routes.account_url }}">← {{ 'customer.account' | t }}</a></p>
+</div></section>
+
+{% schema %}
+{
+  "name": "Commande",
+  "settings": []
+}
+{% endschema %}

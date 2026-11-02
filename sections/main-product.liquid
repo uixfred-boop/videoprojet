@@ -1,0 +1,477 @@
+<section class="product-section product-section--main" id="buy" style="--ps-bg: {{ section.settings.bg }};">
+  <div class="page-width">
+    {%- if section.settings.heading != blank -%}
+      <h2 class="display product-section__title">{{ section.settings.heading }}{% if section.settings.heading_2 != blank %}<br>{{ section.settings.heading_2 }}{% endif %}</h2>
+    {%- endif -%}
+    {% render 'buybox', section: section, product: product %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Fiche produit",
+  "class": "section-product",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Titre au-dessus (ligne 1)"
+    },
+    {
+      "type": "text",
+      "id": "heading_2",
+      "label": "Titre au-dessus (ligne 2)"
+    },
+    {
+      "type": "text",
+      "id": "label_button",
+      "label": "Bouton sous la galerie",
+      "default": "Voir la formule"
+    },
+    {
+      "type": "image_picker",
+      "id": "label_image",
+      "label": "Image de la formule / étiquette"
+    },
+    {
+      "type": "text",
+      "id": "label_image_url",
+      "label": "Image — URL de secours"
+    },
+    {
+      "type": "text",
+      "id": "note_title",
+      "label": "Encart sous la galerie — titre",
+      "default": "Paiement sécurisé · Shop Pay, CB, PayPal"
+    },
+    {
+      "type": "text",
+      "id": "note_text",
+      "label": "Encart sous la galerie — texte",
+      "default": "Tes données sont chiffrées et ne sont jamais stockées."
+    },
+    {
+      "type": "checkbox",
+      "id": "sticky_bar",
+      "label": "Barre d'achat collante (mobile)",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "sticky_label",
+      "label": "Texte de la barre collante",
+      "default": "Commander"
+    },
+    {
+      "type": "color",
+      "id": "bg",
+      "label": "Fond",
+      "default": "#FFFFFF"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "rating",
+      "name": "Note",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Texte (si aucune app d'avis)",
+          "default": "La routine qui accompagne déjà des personnes vers leurs objectifs"
+        }
+      ]
+    },
+    {
+      "type": "title",
+      "name": "Titre",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Titre affiché",
+          "info": "Vide = titre du produit (partie avant le « – »)."
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "name": "Texte",
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Texte",
+          "default": "<p><strong>L'énergie progressive pour bien démarrer ta journée</strong>, sans nervosité ni coup de fatigue.</p>"
+        }
+      ]
+    },
+    {
+      "type": "bullets",
+      "name": "Liste à puces",
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "items",
+          "label": "Une ligne = une puce",
+          "default": "Énergie pour ta journée\nFocus & concentration\nMotivation au quotidien\nGoût pomme, sans sucre ajouté"
+        }
+      ]
+    },
+    {
+      "type": "flavor",
+      "name": "Saveur",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Libellé",
+          "default": "Saveur :"
+        },
+        {
+          "type": "text",
+          "id": "value",
+          "label": "Saveur",
+          "default": "Pomme"
+        },
+        {
+          "type": "text",
+          "id": "note",
+          "label": "Description",
+          "default": "Un goût pomme fruité, plaisir à chaque prise."
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Vignette (vide = pot illustré)"
+        },
+        {
+          "type": "text",
+          "id": "soon",
+          "label": "Saveur à venir (optionnel)",
+          "info": "Laisser vide si aucune nouvelle saveur n'est prévue."
+        },
+        {
+          "type": "text",
+          "id": "soon_badge",
+          "label": "Badge saveur à venir",
+          "default": "Bientôt"
+        }
+      ]
+    },
+    {
+      "type": "offers",
+      "name": "Choix du format",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Libellé",
+          "default": "Choisis ta routine :"
+        },
+        {
+          "type": "range",
+          "id": "featured_variant",
+          "label": "Variante mise en avant (n°)",
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "default": 3
+        },
+        {
+          "type": "text",
+          "id": "ribbon",
+          "label": "Bandeau de la variante mise en avant",
+          "default": "MEILLEURE OFFRE : JUSQU'À -[remise_max]%",
+          "info": "[remise_max] = plus grosse remise calculée sur tes prix barrés."
+        },
+        {
+          "type": "textarea",
+          "id": "perks",
+          "label": "Avantages ajoutés (une ligne = un avantage)",
+          "default": "Garantie 14 jours satisfait ou remboursé",
+          "info": "« Livraison offerte » et « Tu économises … » sont ajoutés automatiquement."
+        }
+      ]
+    },
+    {
+      "type": "buy_buttons",
+      "name": "Bouton d'achat",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Texte du bouton",
+          "default": "Ajouter au panier"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_price",
+          "label": "Afficher le prix dans le bouton",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "note",
+          "label": "Note sous le bouton",
+          "default": "Livraison offerte dès [livraison] · Expédition rapide & suivie"
+        },
+        {
+          "type": "text",
+          "id": "discount_line",
+          "label": "Ligne promo",
+          "default": "RÉDUCTION DÉJÀ APPLIQUÉE"
+        },
+        {
+          "type": "text",
+          "id": "pill",
+          "label": "Encadré rassurance",
+          "default": "Testé sans risque : 14 jours satisfait ou remboursé"
+        }
+      ]
+    },
+    {
+      "type": "icons",
+      "name": "Icônes de réassurance",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon_1",
+          "label": "Icône 1",
+          "options": [
+            {
+              "value": "guarantee",
+              "label": "Garantie"
+            },
+            {
+              "value": "lock",
+              "label": "Cadenas"
+            },
+            {
+              "value": "truck",
+              "label": "Camion"
+            },
+            {
+              "value": "shield",
+              "label": "Bouclier"
+            },
+            {
+              "value": "apple",
+              "label": "Pomme"
+            },
+            {
+              "value": "calendar",
+              "label": "Calendrier"
+            },
+            {
+              "value": "check-circle",
+              "label": "Coche"
+            },
+            {
+              "value": "smile",
+              "label": "Sourire"
+            },
+            {
+              "value": "leaf",
+              "label": "Feuille"
+            }
+          ],
+          "default": "guarantee"
+        },
+        {
+          "type": "text",
+          "id": "text_1",
+          "label": "Texte 1",
+          "default": "Satisfait ou remboursé 14 jours"
+        },
+        {
+          "type": "select",
+          "id": "icon_2",
+          "label": "Icône 2",
+          "options": [
+            {
+              "value": "guarantee",
+              "label": "Garantie"
+            },
+            {
+              "value": "lock",
+              "label": "Cadenas"
+            },
+            {
+              "value": "truck",
+              "label": "Camion"
+            },
+            {
+              "value": "shield",
+              "label": "Bouclier"
+            },
+            {
+              "value": "apple",
+              "label": "Pomme"
+            },
+            {
+              "value": "calendar",
+              "label": "Calendrier"
+            },
+            {
+              "value": "check-circle",
+              "label": "Coche"
+            },
+            {
+              "value": "smile",
+              "label": "Sourire"
+            },
+            {
+              "value": "leaf",
+              "label": "Feuille"
+            }
+          ],
+          "default": "lock"
+        },
+        {
+          "type": "text",
+          "id": "text_2",
+          "label": "Texte 2",
+          "default": "Paiement 100 % sécurisé"
+        },
+        {
+          "type": "select",
+          "id": "icon_3",
+          "label": "Icône 3",
+          "options": [
+            {
+              "value": "guarantee",
+              "label": "Garantie"
+            },
+            {
+              "value": "lock",
+              "label": "Cadenas"
+            },
+            {
+              "value": "truck",
+              "label": "Camion"
+            },
+            {
+              "value": "shield",
+              "label": "Bouclier"
+            },
+            {
+              "value": "apple",
+              "label": "Pomme"
+            },
+            {
+              "value": "calendar",
+              "label": "Calendrier"
+            },
+            {
+              "value": "check-circle",
+              "label": "Coche"
+            },
+            {
+              "value": "smile",
+              "label": "Sourire"
+            },
+            {
+              "value": "leaf",
+              "label": "Feuille"
+            }
+          ],
+          "default": "truck"
+        },
+        {
+          "type": "text",
+          "id": "text_3",
+          "label": "Texte 3",
+          "default": "Livraison rapide & suivie"
+        }
+      ]
+    },
+    {
+      "type": "collapsible",
+      "name": "Accordéon",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Titre",
+          "default": "Pourquoi Day Up ?"
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Contenu"
+        },
+        {
+          "type": "page",
+          "id": "page",
+          "label": "Contenu depuis une page"
+        },
+        {
+          "type": "checkbox",
+          "id": "open",
+          "label": "Ouvert par défaut",
+          "default": false
+        }
+      ]
+    },
+    {
+      "type": "tastes",
+      "name": "Goût",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Titre",
+          "default": "Le goût"
+        },
+        {
+          "type": "textarea",
+          "id": "items",
+          "label": "Une ligne = emoji|texte",
+          "default": "🍏|Pomme\n✨|Fruité\n🍃|Frais & léger"
+        }
+      ]
+    },
+    {
+      "type": "packed",
+      "name": "Contient",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Titre",
+          "default": "Ce qu'il y a dedans"
+        },
+        {
+          "type": "textarea",
+          "id": "items",
+          "label": "Une ligne = emoji|texte",
+          "default": "🌱|Guarana\n🧘|L-théanine\n⚡|Taurine\n🌸|Rhodiola\n🍊|Vitamine C\n💊|Vitamines B6 & B12\n🛡️|Zinc"
+        }
+      ]
+    },
+    {
+      "type": "custom_liquid",
+      "name": "Liquid personnalisé",
+      "settings": [
+        {
+          "type": "liquid",
+          "id": "custom_liquid",
+          "label": "Code Liquid"
+        }
+      ]
+    },
+    {
+      "type": "@app"
+    }
+  ]
+}
+{% endschema %}

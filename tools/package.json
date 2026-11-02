@@ -1,0 +1,17 @@
+{
+  "name": "dayup-theme-tools",
+  "private": true,
+  "description": "Local preview + lint tooling for the Day Up Shopify theme (not uploaded to Shopify).",
+  "scripts": {
+    "preview": "node preview/build.mjs && node preview/serve.mjs",
+    "build-preview": "node preview/build.mjs",
+    "check": "node check.mjs",
+    "zip": "python3 make-zip.py"
+  },
+  "devDependencies": {
+    "@fontsource-variable/bricolage-grotesque": "^5.3.0",
+    "@fontsource/work-sans": "^5.3.0",
+    "@shopify/theme-check-node": "^3.31.0",
+    "liquidjs": "^10.30.1"
+  }
+}

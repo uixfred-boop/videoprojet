@@ -1,0 +1,45 @@
+<section class="fan" style="--fan-bg: {{ section.settings.bg }}; --fan-cards: {{ section.blocks.size }};">
+  <div class="page-width fan__head">
+    <h2 class="fan__title">
+      <span class="fan__title-1">{{ section.settings.title_1 }}</span>
+      <span class="fan__title-2">{{ section.settings.title_2 }}</span>
+    </h2>
+    {% render 'social-icons', class: 'fan__socials' %}
+  </div>
+  <div class="fan__stage">
+    {%- assign mid = section.blocks.size | minus: 1 | divided_by: 2.0 -%}
+    {%- for block in section.blocks -%}
+      {%- assign offset = forloop.index0 | minus: mid -%}
+      <figure class="fan__card" style="--o: {{ offset }};" {{ block.shopify_attributes }}>
+        {% render 'media', image: block.settings.image, url: block.settings.image_url, video_url: block.settings.video_url, poster: block.settings.poster_url, alt: block.settings.alt, class: 'fan__media', sizes: '(min-width: 990px) 300px, 45vw' %}
+      </figure>
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Communauté (éventail)",
+  "class": "section-fan",
+  "max_blocks": 7,
+  "settings": [
+    { "type": "text", "id": "title_1", "label": "Titre — ligne 1 (couleur)", "default": "La team Day Up." },
+    { "type": "text", "id": "title_2", "label": "Titre — lignes suivantes", "default": "On se lève du bon pied." },
+    { "type": "color", "id": "bg", "label": "Fond", "default": "#FFF8EC" }
+  ],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "Photo / vidéo",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "image_url", "label": "Image — URL de secours" },
+        { "type": "text", "id": "video_url", "label": "Vidéo .mp4 (optionnel)" },
+        { "type": "text", "id": "poster_url", "label": "Image d'attente de la vidéo (URL)" },
+        { "type": "text", "id": "alt", "label": "Description", "default": "Membre de la team Day Up" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Communauté (éventail)", "blocks": [{ "type": "card" }, { "type": "card" }, { "type": "card" }, { "type": "card" }, { "type": "card" }] }]
+}
+{% endschema %}

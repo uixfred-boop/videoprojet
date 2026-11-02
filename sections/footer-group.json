@@ -1,0 +1,45 @@
+{
+  "type": "footer",
+  "name": "Pied de page",
+  "sections": {
+    "footer": {
+      "type": "footer",
+      "settings": {
+        "newsletter_title": "Rejoins la team Day Up",
+        "newsletter_text": "Conseils pour tes matins, nouveautés et offres en avant-première.",
+        "newsletter_legal": "En t'inscrivant, tu acceptes de recevoir nos e-mails. Désinscription en un clic, à tout moment.",
+        "logo": "shopify://shop_images/DAYUP.png",
+        "logo_url": "https://cdn.shopify.com/s/files/1/0936/4606/1895/files/DAYUP.png",
+        "legal_1": "*Complément alimentaire. Ne se substitue pas à une alimentation variée et équilibrée ni à un mode de vie sain. Ne pas dépasser la dose journalière recommandée. Tenir hors de portée des jeunes enfants.",
+        "legal_2": "**Contient de la caféine (env. 44 mg par dose journalière, issue du guarana). Déconseillé aux enfants, aux femmes enceintes ou allaitantes et aux personnes sensibles à la caféine.",
+        "show_payment": true,
+        "big_1": "LE RÉVEIL,",
+        "big_2": "VERSION DOUCE.",
+        "bg": "#061A3D"
+      },
+      "blocks": {
+        "col_1": {
+          "type": "menu",
+          "settings": {
+            "title": "Découvrir",
+            "menu": "main-menu"
+          }
+        },
+        "col_2": {
+          "type": "menu",
+          "settings": {
+            "title": "Aide",
+            "menu": "footer"
+          }
+        }
+      },
+      "block_order": [
+        "col_1",
+        "col_2"
+      ]
+    }
+  },
+  "order": [
+    "footer"
+  ]
+}

@@ -1,0 +1,110 @@
+{%- liquid
+  assign menu = section.settings.menu
+  assign product = section.settings.menu_product
+-%}
+<header class="header" data-header>
+  <div class="header__inner page-width">
+    <a href="{{ routes.root_url }}" class="header__logo" aria-label="{{ shop.name }}">
+      {%- if section.settings.logo != blank -%}
+        {%- assign logo_style = 'width: ' | append: section.settings.logo_width | append: 'px' -%}
+        {{ section.settings.logo | image_url: width: 400 | image_tag: widths: '200, 300, 400', sizes: '160px', alt: shop.name, class: 'header__logo-img', loading: 'eager', style: logo_style }}
+      {%- elsif section.settings.logo_url != blank -%}
+        <img class="header__logo-img" src="{{ section.settings.logo_url }}" alt="{{ shop.name | escape }}" width="{{ section.settings.logo_width }}" height="{{ section.settings.logo_width | times: 54 | divided_by: 256 }}" style="width: {{ section.settings.logo_width }}px" loading="eager">
+      {%- else -%}
+        <span class="header__logo-text">{{ shop.name }}</span>
+      {%- endif -%}
+    </a>
+
+    {%- if section.settings.show_inline_nav and menu != blank -%}
+      <nav class="header__nav" aria-label="{{ 'header.menu' | t }}">
+        <ul role="list">
+          {%- for link in menu.links -%}
+            <li><a href="{{ link.url }}"{% if link.active %} aria-current="page"{% endif %}>{{ link.title }}</a></li>
+          {%- endfor -%}
+        </ul>
+      </nav>
+    {%- endif -%}
+
+    <div class="header__actions">
+      {%- if section.settings.cta_label != blank -%}
+        <a class="btn btn--sun btn--sm header__cta" href="{{ section.settings.cta_link | default: routes.all_products_collection_url }}">{{ section.settings.cta_label }}</a>
+      {%- endif -%}
+      <a href="{{ routes.cart_url }}" class="header__icon" data-cart-open aria-label="{{ 'cart.title' | t }}">
+        {% render 'icon', name: 'bag', size: 22 %}
+        <span class="header__count" data-cart-count{% if cart.item_count == 0 %} hidden{% endif %}>{{ cart.item_count }}</span>
+      </a>
+      <button type="button" class="header__icon" data-menu-open aria-label="{{ 'header.menu' | t }}" aria-expanded="false" aria-controls="MenuDrawer">
+        {% render 'icon', name: 'menu', size: 24 %}
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="drawer drawer--menu" id="MenuDrawer" data-drawer="menu" aria-hidden="true" role="dialog" aria-modal="true" aria-label="{{ 'header.menu' | t }}" tabindex="-1">
+  <div class="drawer__panel">
+    <div class="drawer__head">
+      <span class="drawer__title">{{ 'header.menu' | t }}</span>
+      <button type="button" class="drawer__close" data-drawer-close aria-label="{{ 'general.close' | t }}">{% render 'icon', name: 'close', size: 22 %}</button>
+    </div>
+    <div class="drawer__body">
+      {%- if product != blank -%}
+        <a class="menu-product" href="{{ product.url }}">
+          {% render 'pack-visual', packs: 1, from: '#FFE69A', to: '#FFB341', class: 'menu-product__visual' %}
+          <span class="menu-product__info">
+            <span class="menu-product__eyebrow">{{ section.settings.menu_product_eyebrow }}</span>
+            <span class="menu-product__title">{{ product.title | split: ' – ' | first | split: ' - ' | first }}</span>
+            <span class="menu-product__price">{{ 'product.from' | t }} {{ product.price_min | money }}</span>
+          </span>
+          {% render 'icon', name: 'arrow-right', size: 20, class: 'menu-product__arrow' %}
+        </a>
+      {%- endif -%}
+
+      {%- if menu != blank -%}
+        <nav class="menu-links" aria-label="{{ 'header.menu' | t }}">
+          <ul role="list">
+            {%- for link in menu.links -%}
+              <li>
+                <a href="{{ link.url }}"{% if link.active %} aria-current="page"{% endif %}>{{ link.title }}</a>
+                {%- if link.links.size > 0 -%}
+                  <ul role="list" class="menu-links__sub">
+                    {%- for child in link.links -%}<li><a href="{{ child.url }}">{{ child.title }}</a></li>{%- endfor -%}
+                  </ul>
+                {%- endif -%}
+              </li>
+            {%- endfor -%}
+          </ul>
+        </nav>
+      {%- endif -%}
+
+      {%- if section.settings.secondary_menu != blank -%}
+        <ul class="menu-secondary" role="list">
+          {%- for link in section.settings.secondary_menu.links -%}
+            <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+
+      {% render 'social-icons', class: 'menu-socials' %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "En-tête",
+  "class": "section-header",
+  "settings": [
+    { "type": "image_picker", "id": "logo", "label": "Logo (blanc conseillé)" },
+    { "type": "text", "id": "logo_url", "label": "Logo — URL de secours", "info": "Utilisé si aucun logo n'est choisi ci-dessus." },
+    { "type": "range", "id": "logo_width", "label": "Largeur du logo", "min": 60, "max": 220, "step": 2, "default": 104, "unit": "px" },
+    { "type": "link_list", "id": "menu", "label": "Menu principal", "default": "main-menu" },
+    { "type": "checkbox", "id": "show_inline_nav", "label": "Afficher le menu dans la barre (ordinateur)", "default": false, "info": "Par défaut, comme Grüns, le menu s'ouvre via le bouton ☰." },
+    { "type": "link_list", "id": "secondary_menu", "label": "Menu secondaire (tiroir)" },
+    { "type": "text", "id": "cta_label", "label": "Bouton jaune", "default": "Commander" },
+    { "type": "url", "id": "cta_link", "label": "Lien du bouton" },
+    { "type": "header", "content": "Tiroir de menu" },
+    { "type": "product", "id": "menu_product", "label": "Produit mis en avant" },
+    { "type": "text", "id": "menu_product_eyebrow", "label": "Sur-titre", "default": "Best-seller" }
+  ]
+}
+{% endschema %}

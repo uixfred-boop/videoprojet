@@ -1,0 +1,4 @@
+{%- assign s = size | default: 16 -%}
+<span class="stars {{ class }}" aria-hidden="true">
+  {%- for i in (1..5) -%}{% render 'icon', name: 'star', size: s %}{%- endfor -%}
+</span>

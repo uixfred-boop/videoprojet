@@ -1,0 +1,46 @@
+{%- if section.blocks.size > 0 -%}
+<section class="marquee" style="--mq-bg: {{ section.settings.bg }}; --mq-fg: {{ section.settings.fg }}; --mq-speed: {{ section.settings.speed }}s;" aria-label="{{ section.settings.aria }}">
+  <div class="marquee__track">
+    {%- for n in (1..2) -%}
+      <ul class="marquee__list" role="list"{% if n == 2 %} aria-hidden="true"{% endif %}>
+        {%- for block in section.blocks -%}
+          <li class="marquee__item" {% if n == 1 %}{{ block.shopify_attributes }}{% endif %}>
+            {%- if block.settings.logo != blank -%}
+              {{ block.settings.logo | image_url: width: 300 | image_tag: class: 'marquee__logo', alt: block.settings.text, loading: 'lazy' }}
+            {%- else -%}
+              {%- if block.settings.icon != 'none' -%}{% render 'icon', name: block.settings.icon, size: 26 %}{%- endif -%}
+              <span>{{ block.settings.text }}</span>
+            {%- endif -%}
+          </li>
+          <li class="marquee__sep" aria-hidden="true">{% render 'sparkle' %}</li>
+        {%- endfor -%}
+      </ul>
+    {%- endfor -%}
+  </div>
+</section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Bandeau défilant",
+  "class": "section-marquee",
+  "settings": [
+    { "type": "text", "id": "aria", "label": "Description (accessibilité)", "default": "Les engagements Day Up" },
+    { "type": "range", "id": "speed", "label": "Durée d'un tour", "min": 15, "max": 90, "step": 5, "default": 40, "unit": "s" },
+    { "type": "color", "id": "bg", "label": "Fond", "default": "#FFF8EC" },
+    { "type": "color", "id": "fg", "label": "Texte", "default": "#0A1F44" }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Élément",
+      "settings": [
+        { "type": "text", "id": "text", "label": "Texte", "default": "Sans sucre ajouté" },
+        { "type": "select", "id": "icon", "label": "Icône", "default": "none", "options": [{ "value": "none", "label": "Aucune" }, { "value": "apple", "label": "Pomme" }, { "value": "bolt", "label": "Éclair" }, { "value": "brain", "label": "Cerveau" }, { "value": "leaf", "label": "Feuille" }, { "value": "lock", "label": "Cadenas" }, { "value": "guarantee", "label": "Garantie" }, { "value": "truck", "label": "Camion" }, { "value": "no-sugar", "label": "Sans sucre" }, { "value": "sun", "label": "Soleil" }, { "value": "smile", "label": "Sourire" }] },
+        { "type": "image_picker", "id": "logo", "label": "Logo (remplace le texte)", "info": "Pour afficher des logos presse/partenaires réels." }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Bandeau défilant", "blocks": [{ "type": "item" }, { "type": "item" }, { "type": "item" }] }]
+}
+{% endschema %}

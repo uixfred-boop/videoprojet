@@ -1,0 +1,24 @@
+<section class="page-section"><div class="page-width page-width--narrow account">
+  <h1 class="display page-title">{{ 'customer.login' | t }}</h1>
+  {%- form 'customer_login', class: 'form' -%}
+    {{ form.errors | default_errors }}
+    <label class="field"><span>{{ 'customer.email' | t }}</span><input type="email" name="customer[email]" autocomplete="email" required></label>
+    {%- if form.password_needed -%}<label class="field"><span>{{ 'customer.password' | t }}</span><input type="password" name="customer[password]" autocomplete="current-password" required></label>{%- endif -%}
+    <button type="submit" class="btn btn--primary btn--3d">{{ 'customer.sign_in' | t }}</button>
+    <p class="account__links"><a href="{{ routes.account_register_url }}">{{ 'customer.create' | t }}</a> · <a href="#recover" data-recover-toggle>{{ 'customer.forgot' | t }}</a></p>
+  {%- endform -%}
+  <div id="recover">
+    {%- form 'recover_customer_password', class: 'form' -%}
+      {%- if form.posted_successfully? -%}<p class="form__success">{{ 'customer.recover_sent' | t }}</p>{%- endif -%}
+      <label class="field"><span>{{ 'customer.recover' | t }}</span><input type="email" name="email" autocomplete="email" required></label>
+      <button type="submit" class="btn btn--outline">{{ 'customer.send' | t }}</button>
+    {%- endform -%}
+  </div>
+</div></section>
+
+{% schema %}
+{
+  "name": "Connexion",
+  "settings": []
+}
+{% endschema %}

@@ -1,0 +1,54 @@
+{
+  "type": "header",
+  "name": "En-tête",
+  "sections": {
+    "announcement": {
+      "type": "announcement-bar",
+      "settings": {
+        "interval": 5,
+        "bg": "#08224D",
+        "fg": "#FFFFFF",
+        "accent": "#FFC83D"
+      },
+      "blocks": {
+        "msg_1": {
+          "type": "message",
+          "settings": {
+            "title": "⚡ Livraison offerte dès 50€ ⚡",
+            "text": "Garantie 14 jours satisfait ou remboursé"
+          }
+        },
+        "msg_2": {
+          "type": "message",
+          "settings": {
+            "title": "🍏 Ton nouveau rituel du matin",
+            "text": "2 gummies, goût pomme, sans sucre ajouté",
+            "link": "/products/dayup-daily-energy"
+          }
+        }
+      },
+      "block_order": [
+        "msg_1",
+        "msg_2"
+      ]
+    },
+    "header": {
+      "type": "header",
+      "settings": {
+        "logo": "shopify://shop_images/DAYUP.png",
+        "logo_url": "https://cdn.shopify.com/s/files/1/0936/4606/1895/files/DAYUP.png",
+        "logo_width": 104,
+        "menu": "main-menu",
+        "show_inline_nav": false,
+        "cta_label": "Commander",
+        "cta_link": "/products/dayup-daily-energy",
+        "menu_product": "dayup-daily-energy",
+        "menu_product_eyebrow": "Best-seller"
+      }
+    }
+  },
+  "order": [
+    "announcement",
+    "header"
+  ]
+}

@@ -1,0 +1,21 @@
+{%- comment -%}
+  Outputs how many pots/bottles a variant contains.
+  Priority: variant metafield custom.packs > first number found in the variant title > fallback.
+  "1 PAQUET" -> 1, "LOT DE 2" -> 2, "LOT DE 3" -> 3
+{%- endcomment -%}
+{%- liquid
+  assign packs = fallback | default: 1
+  if variant.metafields.custom.packs != blank
+    assign packs = variant.metafields.custom.packs.value | default: variant.metafields.custom.packs
+  else
+    assign words = variant.title | replace: '-', ' ' | replace: '×', ' ' | split: ' '
+    for w in words
+      assign n = w | plus: 0
+      if n > 0
+        assign packs = n
+        break
+      endif
+    endfor
+  endif
+  echo packs
+-%}

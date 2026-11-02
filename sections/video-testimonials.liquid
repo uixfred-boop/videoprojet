@@ -1,0 +1,62 @@
+<section class="ugc" id="reviews" style="--ugc-bg: {{ section.settings.bg }};">
+  <div class="page-width">
+    <div class="ugc__head">
+      {% render 'stars', size: 18, class: 'ugc__stars' %}
+      <h2 class="display ugc__title">{{ section.settings.title }}</h2>
+      {%- if section.settings.text != blank -%}<p class="ugc__text">{{ section.settings.text }}</p>{%- endif -%}
+    </div>
+  </div>
+  <div class="ugc__rail" data-rail>
+    {%- for block in section.blocks -%}
+      <figure class="ugc__card" {{ block.shopify_attributes }}>
+        <div class="ugc__frame">
+          {%- if block.settings.video_url != blank -%}
+            <video class="ugc__video" playsinline preload="none" {% if block.settings.poster_url != blank %}poster="{{ block.settings.poster_url }}"{% endif %} data-ugc-video>
+              <source src="{{ block.settings.video_url }}" type="video/mp4">
+            </video>
+            <button type="button" class="ugc__play" data-ugc-play aria-label="{{ 'general.play_video' | t }}">{% render 'icon', name: 'play', size: 28 %}</button>
+          {%- else -%}
+            {% render 'media', image: block.settings.image, url: block.settings.poster_url, alt: block.settings.caption, class: 'ugc__video', sizes: '280px' %}
+          {%- endif -%}
+        </div>
+        {%- if block.settings.caption != blank or block.settings.name != blank -%}
+          <figcaption class="ugc__caption">
+            {%- if block.settings.caption != blank -%}<span class="ugc__quote">« {{ block.settings.caption }} »</span>{%- endif -%}
+            {%- if block.settings.name != blank -%}<span class="ugc__name">{{ block.settings.name }}</span>{%- endif -%}
+          </figcaption>
+        {%- endif -%}
+      </figure>
+    {%- endfor -%}
+  </div>
+  {%- if section.settings.disclaimer != blank -%}
+    <p class="ugc__disclaimer page-width">{{ section.settings.disclaimer }}</p>
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "Vidéos clients",
+  "class": "section-ugc",
+  "max_blocks": 10,
+  "settings": [
+    { "type": "text", "id": "title", "label": "Titre", "default": "Ils ont testé Day Up. Ils en parlent." },
+    { "type": "text", "id": "text", "label": "Texte", "default": "De vraies personnes, de vrais matins. Appuie sur une vidéo pour l'écouter." },
+    { "type": "text", "id": "disclaimer", "label": "Mention légale", "default": "Les témoignages reflètent des expériences personnelles. Les ressentis peuvent varier d'une personne à l'autre." },
+    { "type": "color", "id": "bg", "label": "Fond", "default": "#EAF6FE" }
+  ],
+  "blocks": [
+    {
+      "type": "video",
+      "name": "Vidéo",
+      "settings": [
+        { "type": "text", "id": "video_url", "label": "Vidéo .mp4" },
+        { "type": "text", "id": "poster_url", "label": "Image d'attente (URL)" },
+        { "type": "image_picker", "id": "image", "label": "Image (si pas de vidéo)" },
+        { "type": "text", "id": "caption", "label": "Citation (optionnel)" },
+        { "type": "text", "id": "name", "label": "Prénom (optionnel)" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Vidéos clients", "blocks": [{ "type": "video" }, { "type": "video" }, { "type": "video" }] }]
+}
+{% endschema %}

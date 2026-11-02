@@ -1,0 +1,149 @@
+{%- liquid
+  assign threshold = settings.free_shipping_threshold | times: 100
+  assign remaining = threshold | minus: cart.total_price
+  assign progress = cart.total_price | times: 100.0 | divided_by: threshold | at_most: 100 | round
+  if threshold <= 0
+    assign progress = 100
+  endif
+  assign up = section.settings.upsell_product
+  assign upv = up.selected_or_first_available_variant
+  if section.settings.upsell_variant != blank
+    for v in up.variants
+      assign a = v.title | downcase | strip
+      assign b = section.settings.upsell_variant | downcase | strip
+      if a == b
+        assign upv = v
+        break
+      endif
+    endfor
+  endif
+  assign in_cart = false
+  for item in cart.items
+    if item.variant_id == upv.id
+      assign in_cart = true
+    endif
+  endfor
+-%}
+<div class="drawer drawer--cart" id="CartDrawer" data-drawer="cart" aria-hidden="true" role="dialog" aria-modal="true" aria-label="{{ 'cart.title' | t }}" tabindex="-1">
+  <div class="drawer__panel" data-cart-root>
+    <div class="drawer__head">
+      <span class="drawer__title">{{ 'cart.title' | t }}{% if cart.item_count > 0 %} <span class="drawer__count">({{ cart.item_count }})</span>{% endif %}</span>
+      <button type="button" class="drawer__close" data-drawer-close aria-label="{{ 'general.close' | t }}">{% render 'icon', name: 'close', size: 22 %}</button>
+    </div>
+
+    {%- if cart.item_count > 0 and threshold > 0 -%}
+      <div class="cart-progress">
+        <p class="cart-progress__text">
+          {%- if remaining > 0 -%}
+            {%- assign remaining_money = remaining | money -%}
+            {{ 'cart.shipping_remaining_html' | t: amount: remaining_money }}
+          {%- else -%}
+            {{ 'cart.shipping_unlocked' | t }}
+          {%- endif -%}
+        </p>
+        <div class="cart-progress__bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="{{ progress }}"><span style="width: {{ progress }}%"></span></div>
+      </div>
+    {%- endif -%}
+
+    <div class="drawer__body">
+      {%- if cart.item_count == 0 -%}
+        <div class="cart-empty">
+          <p class="cart-empty__title">{{ 'cart.empty' | t }}</p>
+          <a class="btn btn--primary" href="{{ section.settings.empty_link | default: up.url | default: routes.all_products_collection_url }}">{{ 'cart.shop_now' | t }}</a>
+          {%- if up != blank -%}
+            <p class="cart-empty__eyebrow">{{ section.settings.empty_title }}</p>
+            {%- for v in up.variants limit: 3 -%}
+              {%- capture packs_s -%}{% render 'variant-packs', variant: v, fallback: forloop.index %}{%- endcapture -%}
+              <div class="cart-suggest">
+                {% render 'pack-visual', packs: packs_s, class: 'cart-suggest__visual' %}
+                <div class="cart-suggest__info">
+                  <p class="cart-suggest__title">{{ up.title | split: ' – ' | first }}</p>
+                  <p class="cart-suggest__variant">{{ v.title | downcase | capitalize }}</p>
+                  <p class="cart-suggest__price">{{ v.price | money }}{% if v.compare_at_price > v.price %} <s>{{ v.compare_at_price | money }}</s>{% endif %}</p>
+                </div>
+                <form method="post" action="{{ routes.cart_add_url }}" data-add-to-cart>
+                  <input type="hidden" name="id" value="{{ v.id }}">
+                  <button type="submit" class="btn btn--primary btn--xs"{% unless v.available %} disabled{% endunless %}>{{ 'cart.add' | t }}</button>
+                </form>
+              </div>
+            {%- endfor -%}
+          {%- endif -%}
+        </div>
+      {%- else -%}
+        <ul class="cart-items" role="list">
+          {%- for item in cart.items -%}
+            <li class="cart-item">
+              <a href="{{ item.url }}" class="cart-item__img">
+                {%- if item.image -%}{{ item.image | image_url: width: 200 | image_tag: alt: item.title, loading: 'lazy' }}{%- endif -%}
+              </a>
+              <div class="cart-item__info">
+                <a href="{{ item.url }}" class="cart-item__title">{{ item.product.title | split: ' – ' | first }}</a>
+                {%- unless item.product.has_only_default_variant -%}<p class="cart-item__variant">{{ item.variant.title | downcase | capitalize }}</p>{%- endunless -%}
+                {%- for discount in item.line_level_discount_allocations -%}
+                  <p class="cart-item__discount">{% render 'icon', name: 'tag', size: 13 %}{{ discount.discount_application.title }} (-{{ discount.amount | money }})</p>
+                {%- endfor -%}
+                <div class="qty" data-line="{{ forloop.index }}">
+                  <button type="button" class="qty__btn" data-qty="{{ item.quantity | minus: 1 }}" aria-label="{{ 'cart.decrease' | t }}">{% render 'icon', name: 'minus', size: 14 %}</button>
+                  <span class="qty__val">{{ item.quantity }}</span>
+                  <button type="button" class="qty__btn" data-qty="{{ item.quantity | plus: 1 }}" aria-label="{{ 'cart.increase' | t }}">{% render 'icon', name: 'plus', size: 14 %}</button>
+                </div>
+              </div>
+              <div class="cart-item__end">
+                <p class="cart-item__price">
+                  {%- if item.original_line_price > item.final_line_price -%}<s>{{ item.original_line_price | money }}</s>{%- endif -%}
+                  {{ item.final_line_price | money }}
+                </p>
+                <button type="button" class="cart-item__remove" data-line="{{ forloop.index }}" data-qty-remove aria-label="{{ 'cart.remove' | t }}">{{ 'cart.remove' | t }}</button>
+              </div>
+            </li>
+          {%- endfor -%}
+        </ul>
+
+        {%- if up != blank and upv != blank and in_cart == false and upv.available -%}
+          {%- capture upacks -%}{% render 'variant-packs', variant: upv, fallback: up.variants.size %}{%- endcapture -%}
+          <div class="cart-upsell">
+            <p class="cart-upsell__eyebrow">{{ section.settings.upsell_title }}</p>
+            <div class="cart-suggest">
+              {% render 'pack-visual', packs: upacks, from: '#FFE7A0', to: '#FFB547', class: 'cart-suggest__visual' %}
+              <div class="cart-suggest__info">
+                <p class="cart-suggest__title">{{ upv.title | downcase | capitalize }}</p>
+                <p class="cart-suggest__price">{{ upv.price | money }}{% if upv.compare_at_price > upv.price %} <s>{{ upv.compare_at_price | money }}</s>{% endif %}</p>
+              </div>
+              <form method="post" action="{{ routes.cart_add_url }}" data-add-to-cart>
+                <input type="hidden" name="id" value="{{ upv.id }}">
+                <button type="submit" class="btn btn--primary btn--xs">{{ 'cart.add' | t }}</button>
+              </form>
+            </div>
+          </div>
+        {%- endif -%}
+      {%- endif -%}
+    </div>
+
+    {%- if cart.item_count > 0 -%}
+      <div class="drawer__foot">
+        {%- for discount in cart.cart_level_discount_applications -%}
+          <p class="drawer__row drawer__row--discount"><span>{% render 'icon', name: 'tag', size: 14 %} {{ discount.title }}</span><span>-{{ discount.total_allocated_amount | money }}</span></p>
+        {%- endfor -%}
+        <p class="drawer__row drawer__row--total"><span>{{ 'cart.subtotal' | t }}</span><span>{{ cart.total_price | money }}</span></p>
+        <p class="drawer__taxes">{{ 'cart.taxes' | t }}</p>
+        <form action="{{ routes.cart_url }}" method="post">
+          <button type="submit" name="checkout" class="btn btn--primary btn--lg btn--block btn--3d">{{ 'cart.checkout' | t }} · {{ cart.total_price | money }}</button>
+        </form>
+        <p class="drawer__reassure">{% render 'icon', name: 'lock', size: 14 %} {{ 'cart.secure' | t }}</p>
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Panier (tiroir)",
+  "settings": [
+    { "type": "product", "id": "upsell_product", "label": "Produit suggéré" },
+    { "type": "text", "id": "upsell_variant", "label": "Variante suggérée (titre exact)", "default": "LOT DE 3" },
+    { "type": "text", "id": "upsell_title", "label": "Titre de la suggestion", "default": "Complète ta routine" },
+    { "type": "text", "id": "empty_title", "label": "Panier vide — titre", "default": "Nos formats" },
+    { "type": "url", "id": "empty_link", "label": "Panier vide — lien du bouton" }
+  ]
+}
+{% endschema %}
