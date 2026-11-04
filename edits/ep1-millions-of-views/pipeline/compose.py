@@ -217,7 +217,7 @@ wavfile.write(f"{work}/sfx.wav", SR, mix[:int(TOTAL * SR)].astype(np.float32))
 json.dump({"cues": sorted(cues, key=lambda c: c[1]), "overlays": overlays, "total": TOTAL}, open(f"{work}/plan.json", "w"), indent=1)
 
 # ---------------------------------------------------------------- final render
-inputs = ["-i", f"{work}/cut4k.mov", "-i", f"{work}/sfx.wav"]
+inputs = ["-i", os.environ.get("CUT", f"{work}/cut4k.mov"), "-i", f"{work}/sfx.wav"]
 for p, *_ in overlays: inputs += ["-loop", "1", "-i", p]
 chain = "[0:v]"; fc = []
 for k, (p, x, y, a, b) in enumerate(overlays):

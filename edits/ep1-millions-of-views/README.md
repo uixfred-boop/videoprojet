@@ -21,3 +21,20 @@ The sources were two raw takes: take A (10291) is the first half of the script a
 ## Placeholders to replace
 - The "designer vs developer" card and the "≈ 3,000,000 views" badge stand in for the real clips and the real view count (`[montre des extraits]` / `[montre la vidéo]`).
 - The end profile card shows "Fred · web designer" and has no @handle.
+
+## Background replacement versions (v3)
+These are the same edit and grade with the wall swapped for a reference room, rendered at 4K and gitignored (they're 348/356 MB):
+- `ep1_bg-lamp_4K.mp4`: warm lamp corner. The plate is reframed so the lamp sits beside the head with the window on the other side.
+- `ep1_bg-living-room_4K.mp4`: living room with cove lighting and lit shelves.
+
+How they're built:
+1. `matte.py` runs Robust Video Matting (ResNet-50, ONNX) on every frame of both raw takes. The model is recurrent, so edges stay stable over time. It outputs alpha and a de-spilled foreground.
+2. `composite.py <take> <alpha> <fgr> <plate> <plate.json> <out>`:
+   - White-balances the person to take A each frame.
+   - Pulls his colour toward the plate with a partial Lab transfer.
+   - Adds warm side light from the practical's side and a light wrap at the silhouette edge.
+   - Uses RVM's de-spilled colour on soft edges, so the old grey wall doesn't halo.
+   - Gives the plate a slight blur (σ 4 px at 1080) and grain matched to the phone footage.
+3. `render_clips.py … <lut> <variant>` renders from `comp_<take>_<variant>.mp4`; the white balance is already done at this point, so it only applies the LUT, 4K upscale and zooms. `compose.py` then runs with `CUT=` pointing to that cut, with the original cut's audio muxed in.
+
+Per-plate settings (crop, blur, colour match, wrap, grain, side light) are in `pipeline/backgrounds/*.json`.

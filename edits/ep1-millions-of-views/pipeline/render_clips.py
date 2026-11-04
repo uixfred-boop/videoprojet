@@ -8,6 +8,10 @@ work = sys.argv[2]
 W = json.load(open(f"{work}/words.json"))
 OW, OH = 2160, 3840
 LUT = sys.argv[3]
+# optional background variant: sources are the composited takes (already white-balanced)
+VAR = sys.argv[4] if len(sys.argv) > 4 else ""
+if VAR: SRC = {k: f"comp_{k}_{VAR}.mp4" for k in SRC}
+CLIPS_DIR = f"clips4k_{VAR}" if VAR else "clips4k"
 WARM = np.array([1.015, 1.0, 0.975])  # tiny warm bias on top of take A's balance
 
 
@@ -18,13 +22,14 @@ def wall_rgb(path, t):
     return r
 
 
-REF = wall_rgb(f"{work}/{SRC['A']}", 5.0); TARGET = REF / REF.mean() * WARM  # take A as shot = the look
+REF = wall_rgb(f"{work}/rawA.mp4", 5.0); TARGET = REF / REF.mean() * WARM  # take A as shot = the look
 manifest = []
 for cid, c in W.items():
     src, s, e = c["src"], c["start"], c["end"]; dur = round((e - s) * FPS) / FPS
     path = f"{work}/{SRC[src]}"
     rgb = wall_rgb(path, s + dur / 2)
     gains = TARGET / (rgb / rgb.mean()); gains /= gains.mean()
+    if VAR: gains = np.ones(3)
     ax, ay = ANCHOR[src]
     z = "1"
     if cid in ZOOMS:
@@ -48,7 +53,7 @@ for cid, c in W.items():
           f"crop={OW}:{OH}:'(iw-{OW})*{ax}':'(ih-{OH})*{ay}',"
           f"{sharp},fps={FPS},format=yuv420p")
     af = f"afade=t=in:d=0.012,afade=t=out:st={dur-0.015:.3f}:d=0.015"
-    out = f"{work}/clips4k/{cid}.mp4"
+    out = f"{work}/{CLIPS_DIR}/{cid}.mp4"
     subprocess.run(["ffmpeg", "-loglevel", "error", "-y", "-ss", f"{s:.3f}", "-i", path, "-t", f"{dur:.3f}",
                     "-vf", vf, "-af", af, "-r", str(FPS), "-c:v", "libx264", "-preset", "fast", "-crf", "12",
                     "-c:a", "pcm_s16le", "-ar", "48000", "-ac", "1", out.replace(".mp4", ".mov")], check=True)
@@ -56,5 +61,5 @@ for cid, c in W.items():
     manifest.append(cid)
     print(cid, src, f"{s:.2f}+{dur:.2f}", "gains", gains.round(3), c.get("zoom", ""))
 json.dump(W, open(f"{work}/words.json", "w"), indent=1)
-with open(f"{work}/clips4k/list.txt", "w") as f:
+with open(f"{work}/{CLIPS_DIR}/list.txt", "w") as f:
     for cid in manifest: f.write(f"file '{cid}.mov'\n")
