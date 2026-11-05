@@ -1,0 +1,14 @@
+{
+  "_script": "I. THE MISTAKE",
+  "_note": "Chapter title card, YouTube 16:9, same pace as fred-intro (155 BPM). Casing kept as written. 'why' fields are ignored by the renderer.",
+  "size": [1920, 1080],
+  "fps": 30,
+  "bpm": 155,
+  "leadInSeconds": 0.4,
+  "tailSeconds": 0.6,
+  "shots": [
+    {"text": "I.", "move": "punch", "beats": 2, "why": "chapter number, opens a new section"},
+    {"text": "THE", "move": "cut", "beats": 1.5, "exit": "slide", "why": "function word, no emphasis; slides away to set up the card"},
+    {"text": "MISTAKE", "move": "invert", "variant": "skew", "beats": 4, "exit": "wipe", "why": "key word: a strong, negative word, held as the chapter name"}
+  ]
+}
