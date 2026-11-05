@@ -1,0 +1,400 @@
+{
+ "k1": {
+  "src": "A",
+  "start": 0.1,
+  "end": 3.033333333333333,
+  "words": [
+   [
+    "This",
+    0.0
+   ],
+   [
+    "portfolio",
+    0.23
+   ],
+   [
+    "got",
+    0.45
+   ],
+   [
+    "me",
+    0.73
+   ],
+   [
+    "$7,000",
+    0.91
+   ],
+   [
+    "from",
+    1.53
+   ],
+   [
+    "one",
+    1.89
+   ],
+   [
+    "single",
+    2.17
+   ],
+   [
+    "client.",
+    2.41
+   ]
+  ],
+  "heard": "This portfolio got me a $7 ,000 on one single year.",
+  "matched": 5,
+  "zoom": {
+   "kind": "snap",
+   "t": 0.88
+  },
+  "dur": 2.933333333333333
+ },
+ "k2": {
+  "src": "A",
+  "start": 3.1,
+  "end": 3.7,
+  "words": [
+   [
+    "But",
+    0.0
+   ]
+  ],
+  "heard": "But it.",
+  "matched": 1,
+  "dur": 0.6
+ },
+ "k3": {
+  "src": "A",
+  "start": 4.0,
+  "end": 6.633333333333334,
+  "words": [
+   [
+    "on",
+    0.0
+   ],
+   [
+    "the",
+    0.2
+   ],
+   [
+    "call,",
+    0.32
+   ],
+   [
+    "the",
+    0.84
+   ],
+   [
+    "client",
+    0.9
+   ],
+   [
+    "asked",
+    1.1
+   ],
+   [
+    "me",
+    1.34
+   ],
+   [
+    "one",
+    1.76
+   ],
+   [
+    "question:",
+    2.04
+   ]
+  ],
+  "heard": "On the call, the client asked me one question you",
+  "matched": 9,
+  "dur": 2.6333333333333333
+ },
+ "k4": {
+  "src": "A",
+  "start": 7.133333333333334,
+  "end": 8.333333333333334,
+  "words": [
+   [
+    "\"Have",
+    0.0
+   ],
+   [
+    "you",
+    0.2
+   ]
+  ],
+  "heard": "have you",
+  "matched": 2,
+  "dur": 1.2
+ },
+ "k5": {
+  "src": "A",
+  "start": 9.2,
+  "end": 11.733333333333333,
+  "words": [
+   [
+    "ever",
+    0.05
+   ],
+   [
+    "done",
+    0.46
+   ],
+   [
+    "a",
+    0.8
+   ],
+   [
+    "project",
+    1.3
+   ],
+   [
+    "like",
+    1.84
+   ],
+   [
+    "mine?\"",
+    2.08
+   ]
+  ],
+  "heard": "Have you ever done a project like mine?",
+  "matched": 6,
+  "dur": 2.533333333333333
+ },
+ "k6": {
+  "src": "A",
+  "start": 12.066666666666666,
+  "end": 15.4,
+  "words": [
+   [
+    "And",
+    0.0
+   ],
+   [
+    "honestly,",
+    0.44
+   ],
+   [
+    "the",
+    1.48
+   ],
+   [
+    "answer",
+    1.56
+   ],
+   [
+    "was...",
+    2.02
+   ],
+   [
+    "no.",
+    2.84
+   ]
+  ],
+  "heard": "And honestly, the answer was... no.",
+  "matched": 6,
+  "zoom": {
+   "kind": "slow",
+   "t": 0.0
+  },
+  "dur": 3.3333333333333335
+ },
+ "k7": {
+  "src": "A",
+  "start": 15.766666666666667,
+  "end": 20.366666666666667,
+  "words": [
+   [
+    "In",
+    0.0
+   ],
+   [
+    "this",
+    0.48
+   ],
+   [
+    "video,",
+    0.74
+   ],
+   [
+    "I'll",
+    1.3
+   ],
+   [
+    "show",
+    1.54
+   ],
+   [
+    "you",
+    1.64
+   ],
+   [
+    "how",
+    2.02
+   ],
+   [
+    "I",
+    2.293
+   ],
+   [
+    "built",
+    2.567
+   ],
+   [
+    "this",
+    2.84
+   ],
+   [
+    "site,",
+    3.26
+   ],
+   [
+    "how",
+    3.74
+   ],
+   [
+    "I",
+    3.9
+   ],
+   [
+    "got",
+    4.16
+   ],
+   [
+    "it",
+    4.32
+   ]
+  ],
+  "heard": "In this video, I'll show you how to build this site, how I got it you",
+  "matched": 13,
+  "dur": 4.6
+ },
+ "k8": {
+  "src": "A",
+  "start": 21.266666666666666,
+  "end": 22.466666666666665,
+  "words": [
+   [
+    "in",
+    0.05
+   ],
+   [
+    "front",
+    0.11
+   ],
+   [
+    "of",
+    0.17
+   ],
+   [
+    "the",
+    0.23
+   ],
+   [
+    "right",
+    0.5
+   ],
+   [
+    "clients...",
+    0.85
+   ]
+  ],
+  "heard": "...to the right client.",
+  "matched": 2,
+  "dur": 1.2
+ },
+ "k9": {
+  "src": "A",
+  "start": 22.533333333333335,
+  "end": 26.333333333333332,
+  "words": [
+   [
+    "and",
+    0.0
+   ],
+   [
+    "what",
+    0.42
+   ],
+   [
+    "I",
+    0.84
+   ],
+   [
+    "said",
+    1.06
+   ],
+   [
+    "to",
+    1.28
+   ],
+   [
+    "that",
+    1.54
+   ],
+   [
+    "question.",
+    1.78
+   ],
+   [
+    "Because",
+    2.06
+   ],
+   [
+    "that",
+    2.51
+   ],
+   [
+    "answer",
+    2.96
+   ]
+  ],
+  "heard": "and what I say to that question because the answer",
+  "matched": 8,
+  "dur": 3.8
+ },
+ "k10": {
+  "src": "A",
+  "start": 26.566666666666666,
+  "end": 27.266666666666666,
+  "words": [
+   [
+    "is",
+    0.0
+   ],
+   [
+    "what",
+    0.28
+   ]
+  ],
+  "heard": "is what",
+  "matched": 2,
+  "dur": 0.7
+ },
+ "k11": {
+  "src": "A",
+  "start": 27.433333333333334,
+  "end": 28.366666666666667,
+  "words": [
+   [
+    "closed",
+    0.05
+   ],
+   [
+    "the",
+    0.5
+   ],
+   [
+    "deal.",
+    0.8
+   ]
+  ],
+  "heard": "Close the deal.",
+  "matched": 2,
+  "zoom": {
+   "kind": "snap",
+   "t": 0.020000000000000004
+  },
+  "dur": 0.9333333333333333
+ }
+}
