@@ -1,54 +1,73 @@
 # videoprojet: standing rules for motion text
 
-These rules apply to **every** motion text, caption, title, lower third and
-on-screen word in this project unless the user says otherwise for one shot.
+These rules apply to **every** motion text, caption, title and on-screen word
+in this project unless the user says otherwise for one shot. The style comes
+from `references/motion-style-reference.mp4` (notes in `references/README.md`).
+Exact values are in `motion-text/style.json`.
 
 ## 1. Typeface (mandatory)
 
-- **Font: Grandstander Medium (weight 500), for all text.** No other family,
-  no other weight.
-- Font file: `assets/fonts/Grandstander-Medium.ttf` (fixed-weight file, which
-  works in After Effects, Premiere, DaVinci Resolve, CapCut and ffmpeg).
-- Web / Remotion / HTML: import `motion-text/grandstander.css` and use
-  `font-family: "Grandstander"; font-weight: 500;`.
-- ffmpeg `drawtext`: `fontfile=assets/fonts/Grandstander-Medium.ttf`.
-- Show emphasis with scale, color or motion, never with a different weight
-  or font.
-- Design tokens (sizes, spacing, timing) are in `motion-text/style.json`.
+- **Grandstander Medium (weight 500) for all text.** No other family, no other
+  weight. File: `assets/fonts/Grandstander-Medium.ttf`.
+- Emphasis comes from motion, scale or the inverted card, never from another
+  font or weight. A lean/italic look is a shear applied to the letters.
+- Web / Remotion: `motion-text/grandstander.css`. ffmpeg: `fontfile=assets/fonts/Grandstander-Medium.ttf`.
+- Use curly apostrophes (it’s, don’t).
 
-## 2. Read the text first, then pick the motion
+## 2. Look
 
-Before animating, read the line and decide what it **means** and how it
-**feels**. The motion should express that meaning, not just decorate it.
-Use the table below as the default mapping (details and timings are in
-`motion-text/style.json` → `moods`).
+- Black and white only: background `#0A0A0A`, text `#FFFFFF`, words not yet
+  said `#535353`. Inverted card: white background, text `#282828`.
+- No accent color, no outline, no shadow, no box.
+- Centered, one line, 1 to 3 words on screen at a time. Font size about 17% of
+  frame height, shrunk to fit 82% of the frame width.
+- Keep the casing as written (mostly lowercase).
 
-| What the text expresses              | Motion                                                        |
-|--------------------------------------|---------------------------------------------------------------|
-| Energy, excitement, a punchline      | Pop / overshoot scale-in, word by word, small bounce          |
-| Calm, emotion, reflection            | Slow fade + gentle rise, letter spacing opening slightly      |
-| Information, a fact, an instruction  | Clean slide-in, line by line, no bounce                       |
-| A number, a price, a statistic       | Count-up or a quick scale punch on the number only            |
-| A question                           | Words arrive one by one, short hold, small tilt on the "?"    |
-| Urgency, warning, "stop"             | Fast snap-in, short shake, high contrast color                |
-| Humor, irony                         | Playful wobble or squash & stretch, slightly off-beat timing  |
-| A list or steps                      | Staggered entry, one item per beat                            |
-| Call to action (subscribe, link…)    | Scale punch + a gentle looping pulse while it stays on screen |
+## 3. Rhythm
 
-Rules:
-- **Find the key word** of each line (the word that carries the meaning) and
-  give it the emphasis: larger scale, accent color, or its own beat. Only one
-  key word per line, two at most.
-- **Pace follows the voice/music**: words should land on the spoken syllable
-  or on the beat. Keep text on screen long enough to read (about 3 words per
-  second at minimum).
-- **Exit is softer than entry**: exits should be quicker and less flashy.
-- If a line mixes moods, follow the mood of the key word.
-- If the meaning is unclear, ask the user rather than guess.
+- Hard cuts between shots, no crossfades. Every cut lands on the beat
+  (reference: about 155 BPM).
+- Normal pace: one shot every 1 to 2 beats. Climax: one word every half beat
+  (about 0.2 s). Speed up toward the end.
+- Ask for the music or its BPM; without one, use 155 BPM.
 
-## 3. Reference style
+## 4. Read the text, then choose the move
 
-The user said they would share a reference for the motion text style. It has
-not been received yet. When it arrives, put it in `references/` and update
-this file and `motion-text/style.json` to match it (colors, stroke/shadow,
-casing, timing). The reference then takes priority over the defaults above.
+Before animating, split the text the way it is spoken, find the **key word of
+each sentence** (the word the sentence is really about) and decide what each
+part is doing. Then pick the move:
+
+| What the words are doing                                   | Move                                   | Reference example                |
+|------------------------------------------------------------|----------------------------------------|----------------------------------|
+| Opening, greeting, first word of a new idea                | `punch` (scale from 165% to 100%)      | Hi, This, rhythmic               |
+| A question or phrase that builds as it is said             | `build` (words wiped in one by one)    | How are you?                     |
+| **Key word / punchline** of a sentence                     | `invert` (white card, dark text)       | typography, perfect, important   |
+|  · a name, product or "proud" word                         | `invert` + `track` (spacing opens up)  | promos                           |
+|  · an exclamation, strong feeling, a short punchy word     | `invert` + `skew` (end leans, straightens) | yeah!, short, important      |
+|  · the suspense payoff, a question to the viewer           | `invert` (plain fade to dark)          | ready?                           |
+| A list of qualities, "X and Y", "X with Y"                 | `karaoke` (gray phrase, said word white) | Simple and powerful            |
+| Build-up, suspense, words leading to a reveal              | `letters` (gray→white, left to right)  | it’s getting hot… faster…        |
+| Small linking words between two ideas                      | `wipe` or `cut`                        | tool, for                        |
+| Fast imperative or motivational run                        | `cut`, half a beat each                | Dream big and work hard          |
+
+Exits: `cut` by default. Use `slide` (speeds off to the right while dimming)
+on the shot just before an inverted card or at the end of a section. Use
+`wipe` to close a phrase that was built up.
+
+Rules of thumb:
+- At most **one inverted card per sentence**, about 1 shot in 7. That is what
+  keeps it hitting hard.
+- Function words ("the", "and", "to") never get the invert or a big punch.
+- If the meaning or the key word is unclear, ask rather than guess.
+
+## 5. How to deliver
+
+1. Write the shot list as a timeline in `motion-text/timelines/<name>.json`
+   (format documented at the top of `motion-text/render.py`;
+   example: `motion-text/examples/demo.json`).
+2. Render it: `python3 motion-text/render.py <timeline>.json out.mp4`
+   (add `--beat` for a guide beat when there is no music; set `"audio"` in the
+   timeline to use the real track, `"size": [1080, 1920]` for vertical).
+3. Check a contact sheet of the render before handing it over.
+4. If the user edits in another tool (After Effects, Premiere, CapCut…), give
+   the same shot list with moves, timings and values from `style.json`.

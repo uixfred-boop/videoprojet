@@ -1,0 +1,25 @@
+{
+  "size": [1920, 1080],
+  "fps": 30,
+  "bpm": 155,
+  "shots": [
+    {"text": "Hey", "move": "punch", "beats": 1},
+    {"text": "got a minute?", "move": "build", "beats": 3, "exit": "wipe"},
+    {"text": "This", "move": "punch", "beats": 1},
+    {"text": "is", "move": "cut", "beats": 1},
+    {"text": "Grandstander", "move": "invert", "variant": "track", "beats": 2, "exit": "wipe"},
+    {"text": "round friendly bold", "move": "karaoke", "beats": 3, "exit": "slide"},
+    {"text": "every", "move": "letters", "beats": 1},
+    {"text": "word", "move": "letters", "beats": 1},
+    {"text": "on the", "move": "wipe", "beats": 1},
+    {"text": "beat", "move": "invert", "variant": "skew", "beats": 2},
+    {"text": "read", "move": "cut", "beats": 0.5},
+    {"text": "the", "move": "cut", "beats": 0.5},
+    {"text": "text", "move": "cut", "beats": 0.5},
+    {"text": "feel", "move": "cut", "beats": 0.5},
+    {"text": "it", "move": "cut", "beats": 0.5},
+    {"text": "move!", "move": "invert", "variant": "skew", "beats": 1.5},
+    {"text": "ready?", "move": "invert", "beats": 2, "exit": "wipe"},
+    {"text": "let's go", "move": "punch", "beats": 2, "exit": "slide"}
+  ]
+}
