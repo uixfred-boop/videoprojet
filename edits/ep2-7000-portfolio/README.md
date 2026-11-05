@@ -21,3 +21,13 @@ The source is one native-4K take (`1103(1).mp4`, 28.4 s), shared from Google Dri
 
 ## Order
 `matte.py` → `composite2.py` (in ≤2 parallel frame chunks; 3 at 4K runs out of memory) → concat into `comp.mp4` → `align.py` → `render16.py` → `compose16.py` → two-pass 45 Mbps encode.
+
+## Background only, black hair (v3, latest)
+The latest deliverable is `ep2_background-only_black-hair_4K.mp4`. It is the full uncut take (28.4 s) with the new background, the person re-centred, and no cuts, zooms, text or SFX. It is tagged BT.709 and is 138 MB, so it is gitignored.
+
+`hair.py` builds the hair mask from three things multiplied together, then smooths it over time:
+- the MediaPipe hair segmenter, run on a head crop each frame
+- the RVM person matte, shifted 200 px like the composite
+- a darkness gate, which protects skin at the hairline
+
+Masked pixels lose all colour and are darkened to neutral black; a little texture is kept so the hair doesn't look painted. Measured on a sample frame, the hair goes from RGB (14, 14, 20), a blue-grey, to (9, 9, 9). The rest of the frame is unchanged. MediaPipe needs `libegl1` on Linux.
