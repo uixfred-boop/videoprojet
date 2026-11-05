@@ -60,7 +60,17 @@ Rules of thumb:
 - Function words ("the", "and", "to") never get the invert or a big punch.
 - If the meaning or the key word is unclear, ask rather than guess.
 
-## 5. How to deliver
+## 5. Chapter titles (user's choice)
+
+A chapter title is **one single shot on the white card, no black** (no black
+lead-in or tail either: `"pad": "invert"`). The chapter number appears alone
+in the center, then slides left while the chapter name appears beside it. The
+name leans and straightens as it lands, then the whole title is wiped out.
+Keep the user's wording and casing (e.g. "I. MISTAKES").
+Template: `motion-text/timelines/chapter-1-mistakes.json` (`build` +
+`"invert": true` + `"variant": "skew"`, `"wordAt": [0, 2]`, `"shiftSeconds": 0.25`).
+
+## 6. How to deliver
 
 1. Write the shot list as a timeline in `motion-text/timelines/<name>.json`
    (format documented at the top of `motion-text/render.py`;

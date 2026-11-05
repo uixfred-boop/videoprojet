@@ -18,7 +18,11 @@ TIMELINE.json:
 Each shot lasts "beats" (at "bpm") or "sec" seconds. Moves: punch, cut,
 build, karaoke, letters, wipe, invert (variant: track | skew).
 Exits: cut (default), slide, wipe. Optional per shot: "scale" (size
-multiplier), "y" (vertical offset as a fraction of frame height).
+multiplier), "y" (vertical offset as a fraction of frame height),
+"invert": true (put any move on the white card), and for build:
+"wordAt" (beat at which each word appears, e.g. [0, 2]) and
+"shiftSeconds" (how long the line takes to slide over for a new word).
+Timeline option "pad": "invert" makes the lead-in and tail white.
 --beat adds a simple kick/hat track at the timeline's bpm so the sync
 can be judged when there is no music yet.
 """
@@ -134,7 +138,7 @@ def render_frame(shot, t, d, W, H):
     variant = shot.get("variant")
     exit_kind = shot.get("exit", "cut")
     text = shot["text"].replace("'", "\u2019")  # curly apostrophe, as in the reference
-    invert = move == "invert"
+    invert = move == "invert" or bool(shot.get("invert"))
 
     bg = rgb(C["invertBackground"] if invert else C["background"])
     img = Image.new("RGBA", (W, H), bg + (255,))
@@ -168,18 +172,18 @@ def render_frame(shot, t, d, W, H):
     text_col = rgb(C["text"])
     inactive = rgb(C["inactive"])
     if invert:
-        text_col = lerp_rgb(rgb(C["invertTextStart"]), rgb(C["invertText"]), ease_out(t / M["invertFadeSeconds"]))
+        text_col = rgb(C["invertText"])
 
     words = text.split(" ")
     clip = None  # (x0, x1) in frame coordinates
+    word_start = [0.0] * len(words)  # when each word appears (build only)
 
     if move == "build":
         n = len(words)
-        span = d * 0.7
-        per = span / n
-        k = min(n - 1, int(t / per)) if per > 0 else n - 1
-        local = t - k * per
-        reveal = ease_out(local / M["buildWipeSeconds"])
+        word_start = shot.get("_word_times") or [i * d * 0.7 / n for i in range(n)]
+        k = max(i for i in range(n) if word_start[i] <= t or i == 0)
+        local = t - word_start[k]
+        reveal = ease_out(local / shot.get("shiftSeconds", M["buildWipeSeconds"]))
         vis_prev = " ".join(words[:k])
         vis_now = " ".join(words[:k + 1])
         f = font(size)
@@ -216,15 +220,20 @@ def render_frame(shot, t, d, W, H):
     for gi, (ch, gx, wi) in enumerate(glyphs):
         col = text_col
         skew = 0.0
+        tw = t - word_start[wi]  # time since this glyph's word appeared
+        if invert:
+            col = lerp_rgb(rgb(C["invertTextStart"]), rgb(C["invertText"]), ease_out(tw / M["invertFadeSeconds"]))
         if move == "karaoke":
             active = min(len(words) - 1, int(t / (d * 0.85 / len(words))))
             col = text_col if wi == active else inactive
         if move == "letters":
             lt = (t - gi * M["lettersStaggerSeconds"]) / M["lettersFadeSeconds"]
             col = lerp_rgb(inactive, text_col, ease_out(lt))
-        if invert and variant == "skew":
-            delay = (gi - n_glyphs * 0.5) * M["skewStaggerSeconds"]
-            skew = M["skewStart"] * (1 - ease_out((t - delay) / M["skewSettleSeconds"]))
+        if invert and variant == "skew" and (move != "build" or wi == len(words) - 1):
+            group = [g for g in glyphs if g[2] == wi] if move == "build" else glyphs
+            idx = next(j for j, g in enumerate(group) if g[1] == gx and g[2] == wi)
+            delay = (idx - len(group) * 0.5) * M["skewStaggerSeconds"]
+            skew = M["skewStart"] * (1 - ease_out((tw - delay) / M["skewSettleSeconds"]))
         if dim > 0:
             col = lerp_rgb(col, rgb(C["exitDim"]) if not invert else rgb(C["invertTextStart"]), dim)
         draw_glyph(layer, ch, x_start + x_offset + gx, baseline, size, col, skew=skew)
@@ -282,6 +291,9 @@ def main():
     tail = tl.get("tailSeconds", 0.5)
 
     # Snap shot boundaries to whole frames so cuts land exactly.
+    for s in shots:
+        if "wordAt" in s:
+            s["_word_times"] = [b * 60.0 / bpm for b in s["wordAt"]]
     spans, cur = [], lead_in
     for s in shots:
         d = shot_duration(s, bpm)
@@ -303,7 +315,8 @@ def main():
     cmd += ["-c:v", "libx264", "-pix_fmt", "yuv420p", "-crf", "16", "-preset", "medium", args.out]
     proc = subprocess.Popen(cmd, stdin=subprocess.PIPE)
 
-    empty = Image.new("RGB", (W, H), rgb(C["background"])).tobytes()
+    pad = C["invertBackground"] if tl.get("pad") == "invert" else C["background"]
+    empty = Image.new("RGB", (W, H), rgb(pad)).tobytes()
     si = 0
     for fi in range(nframes):
         t = fi / fps

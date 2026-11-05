@@ -1,0 +1,23 @@
+{
+  "_script": "I. MISTAKES",
+  "_note": "Chapter title card, YouTube 16:9, 155 BPM. One single shot on the white card, no black: \"I.\" appears alone, then slides left while \"MISTAKES\" appears beside it. 'why' fields are ignored by the renderer.",
+  "size": [1920, 1080],
+  "fps": 30,
+  "bpm": 155,
+  "pad": "invert",
+  "leadInSeconds": 0.3,
+  "tailSeconds": 0.4,
+  "shots": [
+    {
+      "text": "I. MISTAKES",
+      "move": "build",
+      "invert": true,
+      "variant": "skew",
+      "wordAt": [0, 2],
+      "shiftSeconds": 0.25,
+      "beats": 7,
+      "exit": "wipe",
+      "why": "chapter number first, then the chapter name pushes it left; the name leans as it lands"
+    }
+  ]
+}
