@@ -1,0 +1,46 @@
+{
+  "_note": "Motion text standard. Defaults until the user's reference style is received; then update colors/effects/timing to match it.",
+  "font": {
+    "family": "Grandstander",
+    "weight": 500,
+    "style": "Medium",
+    "file": "assets/fonts/Grandstander-Medium.ttf",
+    "license": "assets/fonts/OFL.txt"
+  },
+  "layout": {
+    "sizePercentOfFrameHeight": { "title": 9, "caption": 5.5, "keyWord": 11, "lowerThird": 4 },
+    "lineHeight": 1.1,
+    "maxWordsPerLine": 4,
+    "maxLines": 2,
+    "safeMarginPercent": 8
+  },
+  "emphasis": {
+    "keyWordScale": 1.25,
+    "keyWordsPerLineMax": 2,
+    "method": ["scale", "accentColor", "ownBeat"],
+    "neverChangeFontOrWeight": true
+  },
+  "timing": {
+    "minReadingWordsPerSecond": 3,
+    "syncTo": "voice syllables or music beat",
+    "exitDurationRatioToEntry": 0.6
+  },
+  "moods": {
+    "energetic":     { "entry": "pop scale 0 -> 1.15 -> 1", "unit": "word", "durationMs": 250, "staggerMs": 80,  "easing": "back-out" },
+    "calm":          { "entry": "fade + rise 20px, tracking opens +2%", "unit": "line", "durationMs": 700, "staggerMs": 0, "easing": "sine-out" },
+    "informative":   { "entry": "slide-in 40px + fade", "unit": "line", "durationMs": 350, "staggerMs": 120, "easing": "cubic-out" },
+    "number":        { "entry": "count-up or scale punch 1 -> 1.3 -> 1 on the number", "unit": "number", "durationMs": 500, "easing": "expo-out" },
+    "question":      { "entry": "word by word, hold, tilt 6deg on '?'", "unit": "word", "durationMs": 220, "staggerMs": 140, "easing": "back-out" },
+    "urgent":        { "entry": "snap-in + shake 3 cycles", "unit": "line", "durationMs": 150, "staggerMs": 0, "easing": "expo-out" },
+    "funny":         { "entry": "wobble / squash & stretch, slightly off-beat", "unit": "word", "durationMs": 300, "staggerMs": 90, "easing": "elastic-out" },
+    "list":          { "entry": "staggered slide-in, one item per beat", "unit": "item", "durationMs": 300, "staggerMs": 400, "easing": "cubic-out" },
+    "callToAction":  { "entry": "scale punch, then looping pulse 1 -> 1.05", "unit": "line", "durationMs": 300, "loopPulseMs": 1200, "easing": "back-out" }
+  },
+  "colors": {
+    "_note": "Placeholders. Replace with the reference style's palette.",
+    "text": "#FFFFFF",
+    "accent": "#FFD23F",
+    "stroke": "#000000",
+    "strokeWidthPercentOfFontSize": 6
+  }
+}

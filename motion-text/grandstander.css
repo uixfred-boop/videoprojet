@@ -1,0 +1,15 @@
+/* Grandstander Medium: the only typeface for motion text in this project. */
+@font-face {
+  font-family: "Grandstander";
+  src: url("../assets/fonts/Grandstander-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: block;
+}
+
+.motion-text {
+  font-family: "Grandstander", sans-serif;
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: 0;
+}
