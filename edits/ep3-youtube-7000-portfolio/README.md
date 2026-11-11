@@ -2,7 +2,11 @@
 
 The edit follows the reference breakdown in `editing-style/YOUTUBE_REFERENCE_KALLAWAY.md`.
 
-**Deliverable:** `ep3_7000-portfolio_youtube_4K.mp4`.
+**Deliverables:**
+- `ep3_7000-portfolio_youtube_upload_4K.mp4`: the upload copy, H.264 at about 9.6 Mbps so it fits the 400 MB limit for sending files.
+- `ep3_7000-portfolio_youtube_4K.mp4`: the 45 Mbps master, sent in 4 byte-split parts that are rejoined with `cat` or `copy /b`.
+
+Master specs:
 - **Video:** 3840×2160, 30 fps, 4:58 (8,942 frames), H.264 High@5.2 two-pass at 45 Mbps, BT.709.
 - **Audio:** voice only, AAC 320 kbps, −14.5 LUFS, loudness range 2.4 LU.
 - **Size:** about 1.5 GB, so it is gitignored and delivered directly.
@@ -22,7 +26,12 @@ The edit follows the reference breakdown in `editing-style/YOUTUBE_REFERENCE_KAL
   - **Edges:** a choke, plus edge darkening (fg·α²) so the old grey wall never rims the hair. Setup A uses a stronger choke because its wall was lighter.
   - **Matte timing:** the matte files store millisecond timestamps, while the camera file uses exact 1/30 s ones. If the compositor pairs frames by timestamp, every third frame gets the previous frame's matte, which shows as a flickering light rim when the head moves. `thclip.py` instead seeks both inputs half a frame before the first wanted frame and re-times them by frame index, so frame N of the picture always gets matte N.
 - **Two camera setups matched:** setup B is scaled 0.975 and lowered 8.5 % so the head size and headroom match setup A. The ending take (setup C) is white-balanced on skin to match B.
-- **Grade:** per-setup white balance from the wall, then `person.cube` (gentle contrast) and `look.cube` on the whole frame (cool shadows, warm highlights, deep blacks with detail), plus a light vignette.
+- **Grade (v2, after Fred's feedback that he looked washed out and greyish):**
+  - **Person:** setup A's colour is kept as shot. Then `person_warm.cube` is applied, which is the approved episode-1 `fred-warm-natural` look: gentle S-curve, neutral shadows, warm highlights, +5 % saturation, no lifted blacks. A light luma-only sharpen follows.
+  - **Matched to C:** Fred picked the ending take (setup C) as the look for everything. `make_match.py` measures skin colour and luma quantiles per setup (`skinstats.py` → `skin_stats.json`) and builds `match_A.cube` / `match_B.cube`. These bring A and B onto C: R/G, B/G and the 5–95 % skin luma spread all land within about 1 %. The colour move is weighted to skin-like colours, so teeth, eyes and the black hoodie stay neutral.
+  - **Room:** the plate carries its own moody look (`plate_look.cube`: cool shadows, warm practicals, no black lift), pre-applied once. Nothing cool is graded over the skin. A light vignette goes over the whole frame.
+  - **Colour matrix:** every RGB→YUV conversion (person, plate, graphics) uses BT.709, which matches the file's tags. The first version converted with BT.601, which shifted skin and the blue UI slightly.
+  - **v1 for reference:** wall-based white balance, `person.cube` plus a whole-frame `look.cube` with cool shadows and a 1 % black lift. On dark skin this read as ashy.
 - **Reframing:** wide 1.0, medium 1.05 and tight 1.10, switched on cuts, with slow push-ins (+4 %) on build-ups. Zooms are anchored high so the head always keeps headroom.
 
 ## Graphics (blue glass system, `gfx.py` + `scene.py`)

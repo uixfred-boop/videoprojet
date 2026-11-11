@@ -5,13 +5,14 @@ Positions are in 1920x1080 points (top-left of the visible element, padding/glow
 A "video" item plays a clip (screen recording) scaled into a box: {"src","ss","w","h"} placed under its frame png."""
 import json, subprocess, sys
 W, H, K, FPS = 3840, 2160, 2, 30
+TO709 = "scale=out_color_matrix=bt709:out_range=tv"   # RGB graphics -> YUV with the matrix the file is tagged with
 spec = json.load(open(sys.argv[1])); out = sys.argv[2]
 dur = spec["dur"]
 inputs, fc = [], []
 base = spec["base"]
 if base["type"] == "bg":
     inputs += ["-loop", "1", "-framerate", str(FPS), "-t", f"{dur:.3f}", "-i", base["path"]]
-    fc.append(f"[0:v]format=yuv444p,setpts=PTS-STARTPTS[b0]")
+    fc.append(f"[0:v]{TO709},format=yuv444p,setpts=PTS-STARTPTS[b0]")
 elif base["type"] == "video":
     inputs += ["-ss", f"{base['ss']:.3f}", "-t", f"{dur:.3f}", "-i", base["path"]]
     fc.append(f"[0:v]setpts=PTS-STARTPTS,fps={FPS},scale={W}:{H},format=yuv444p[b0]")
@@ -37,7 +38,7 @@ for i, it in enumerate(spec["items"]):
     fade = f"fade=t=in:st={t0}:d={d * 0.8:.3f}:alpha=1"
     if it.get("out"):
         fade += f",fade=t=out:st={t1 - 0.25:.3f}:d=0.25:alpha=1"
-    fc.append(f"[{n}:v]format=yuva444p,{fade}[p{i}]")
+    fc.append(f"[{n}:v]{TO709},format=yuva444p,{fade}[p{i}]")
     fc.append(f"[{cur}][p{i}]overlay=x='{xe}':y='{ye}':eval=frame:enable='between(t,{t0},{t1})'[c{i}]")
     cur = f"c{i}"; n += 1
 fc.append(f"[{cur}]fps={FPS},format=yuv420p[v]")

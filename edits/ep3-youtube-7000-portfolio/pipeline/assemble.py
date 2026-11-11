@@ -2,6 +2,7 @@
 Every shot is brought to its exact frame count first, so picture and voice stay locked for the whole video."""
 import json, os, subprocess, sys
 E, OUT = sys.argv[1], sys.argv[2]
+KBPS = int(sys.argv[3]) if len(sys.argv) > 3 else 45000   # 45 Mbps master; ~9600 for a copy under 400 MB
 FPS = 30
 S = json.load(open(f"{E}/shots.json"))["shots"]
 probe = lambda p: int(subprocess.run(["ffprobe", "-v", "error", "-count_frames", "-select_streams", "v:0", "-show_entries",
@@ -22,10 +23,12 @@ for i, s in enumerate(S):
 lst = f"{E}/final_list.txt"
 with open(lst, "w") as f:
     for p in files: f.write(f"file '{p}'\n")
-subprocess.run(["ffmpeg", "-loglevel", "error", "-y", "-f", "concat", "-safe", "0", "-i", lst, "-c", "copy", f"{E}/video_only.mp4"], check=True)
+if not os.path.exists(f"{E}/video_only.mp4"):
+    subprocess.run(["ffmpeg", "-loglevel", "error", "-y", "-f", "concat", "-safe", "0", "-i", lst, "-c", "copy", f"{E}/video_only.mp4"], check=True)
 print("video frames", probe(f"{E}/video_only.mp4"), "expected", sum(round((s["t1"] - s["t0"]) * FPS) for s in S), flush=True)
-v = ["-c:v", "libx264", "-preset", "slow", "-b:v", "45M", "-maxrate", "60M", "-bufsize", "90M", "-pix_fmt", "yuv420p",
-     "-profile:v", "high", "-level", "5.2", *BT709, "-passlogfile", f"{E}/x264final"]
+v = ["-c:v", "libx264", "-preset", "slow", "-b:v", f"{KBPS}k", "-maxrate", f"{int(KBPS * (1.33 if KBPS > 20000 else 1.67))}k",
+     "-bufsize", f"{KBPS * 2}k", "-x264-params", "aq-mode=3", "-pix_fmt", "yuv420p",
+     "-profile:v", "high", "-level", "5.2" if KBPS > 20000 else "5.1", *BT709, "-passlogfile", f"{E}/x264final{KBPS}"]
 subprocess.run(["ffmpeg", "-loglevel", "error", "-y", "-i", f"{E}/video_only.mp4", *v, "-pass", "1", "-an", "-f", "null", "/dev/null"], check=True)
 subprocess.run(["ffmpeg", "-loglevel", "error", "-y", "-i", f"{E}/video_only.mp4", "-i", f"{E}/vo_master.wav", "-map", "0:v", "-map", "1:a",
                 *v, "-pass", "2", "-tag:v", "avc1", "-c:a", "aac", "-b:a", "320k", "-ar", "48000", "-ac", "2",
