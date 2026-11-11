@@ -20,6 +20,7 @@ The edit follows the reference breakdown in `editing-style/YOUTUBE_REFERENCE_KAL
 ## Picture
 - **Background:** every talking-head frame is matted with Robust Video Matting. The alpha is stored at 1080p, and the 4K compositing is done in ffmpeg (`thclip.py`) over the episode-2 room plate (`plate4k.png`, built from `edits/ep2-7000-portfolio/pipeline/plate.webp`).
   - **Edges:** a choke, plus edge darkening (fg·α²) so the old grey wall never rims the hair. Setup A uses a stronger choke because its wall was lighter.
+  - **Matte timing:** the matte files store millisecond timestamps, while the camera file uses exact 1/30 s ones. If the compositor pairs frames by timestamp, every third frame gets the previous frame's matte, which shows as a flickering light rim when the head moves. `thclip.py` instead seeks both inputs half a frame before the first wanted frame and re-times them by frame index, so frame N of the picture always gets matte N.
 - **Two camera setups matched:** setup B is scaled 0.975 and lowered 8.5 % so the head size and headroom match setup A. The ending take (setup C) is white-balanced on skin to match B.
 - **Grade:** per-setup white balance from the wall, then `person.cube` (gentle contrast) and `look.cube` on the whole frame (cool shadows, warm highlights, deep blacks with detail), plus a light vignette.
 - **Reframing:** wide 1.0, medium 1.05 and tight 1.10, switched on cuts, with slow push-ins (+4 %) on build-ups. Zooms are anchored high so the head always keeps headroom.

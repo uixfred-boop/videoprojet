@@ -1,12 +1,17 @@
 """Render one talking-head clip at 4K: matte -> person over the room plate -> setup scale -> reframe -> grade.
 usage: thclip.py <work> <src> <start> <end> <setup A|B> <zoom> <push 0|1> <out.mov>"""
-import json, subprocess, sys
+import json, math, subprocess, sys
 work, src, s, e, setup, zoom, push, out = sys.argv[1:9]
 SHIFT = float(sys.argv[9]) if len(sys.argv) > 9 else None   # side-panel layout: move the person horizontally (fraction of width)
 s, e, zoom, push = float(s), float(e), float(zoom), int(push)
 cfg = json.load(open(f"{work}/setups.json"))[setup]
 W, H, FPS = 3840, 2160, 30
 dur = round((e - s) * FPS) / FPS
+# Both inputs are seeked half a frame before the first wanted frame and re-timed by frame index. The matte files store
+# millisecond timestamps (1/1000), the camera file exact 1/30 s ones: timing by PTS paired some frames with the previous
+# frame's matte, which shows as a flickering rim on head moves.
+k0 = math.ceil(s * FPS - 1e-9)
+seek = (k0 - 0.5) / FPS
 a_off = cfg["alpha_offset"]
 sc = cfg["scale"]                       # person scale, anchored on the bottom edge (headroom + same size across setups)
 pw, ph = int(W * sc) // 2 * 2, int(H * sc) // 2 * 2
@@ -16,9 +21,9 @@ g = cfg["gains"]
 z = f"{zoom}+0.04*t/{dur:.3f}" if push else f"{zoom}"
 fax, fay = cfg["face"]
 fc = (
-    f"[0:v]setpts=PTS-STARTPTS,format=gbrpf32le,colorchannelmixer=rr={g[0]:.4f}:gg={g[1]:.4f}:bb={g[2]:.4f},"
+    f"[0:v]setpts=N/({FPS}*TB),format=gbrpf32le,colorchannelmixer=rr={g[0]:.4f}:gg={g[1]:.4f}:bb={g[2]:.4f},"
     f"lut3d={work}/person.cube:interp=tetrahedral,format=gbrp,scale={pw}:{ph}:flags=lanczos[fg];"
-    f"[1:v]setpts=PTS-STARTPTS,format=gray,scale={W}:{H}:flags=bicubic,"
+    f"[1:v]setpts=N/({FPS}*TB),format=gray,scale={W}:{H}:flags=bicubic,"
     f"lut=y='clip((val-{cfg.get('choke_lo', 28)})*255/{cfg.get('choke_rng', 210)},0,255)',scale={pw}:{ph}:flags=bicubic,split=3[a1][a2][a3];"
     f"[a1]format=gbrp[argb];[a3]format=gbrp[argb2];[fg][argb]blend=all_mode=multiply,format=gbrp[fgd0];"
     f"[fgd0][argb2]blend=all_mode=multiply:all_opacity={cfg.get('edge_extra', 0)},format=gbrp[fgd];"   # edge darkening: fg*a(*a), then *a by overlay
@@ -32,8 +37,8 @@ fc = (
 )
 af = f"afade=t=in:d=0.012,afade=t=out:st={dur - 0.015:.3f}:d=0.015"
 cmd = ["ffmpeg", "-loglevel", "error", "-y",
-       "-ss", f"{s:.3f}", "-t", f"{dur + 0.2:.3f}", "-i", src,
-       "-ss", f"{s - a_off:.3f}", "-t", f"{dur + 0.2:.3f}", "-i", f"{work}/matte/{cfg['alpha']}",
+       "-ss", f"{seek:.4f}", "-t", f"{dur + 0.2:.3f}", "-i", src,
+       "-ss", f"{seek - a_off:.4f}", "-t", f"{dur + 0.2:.3f}", "-i", f"{work}/matte/{cfg['alpha']}",
        "-i", f"{work}/plate4k.png",
        "-filter_complex", fc, "-map", "[v]", "-map", "0:a", "-af", af + f",atrim=0:{dur:.4f}", "-frames:v", str(round(dur * FPS)),
        "-c:v", "libx264", "-preset", "fast", "-crf", "14", "-x264-params", "keyint=30",
