@@ -29,6 +29,9 @@ fax, fay = cfg["face"]
 TO709 = "scale=out_color_matrix=bt709:out_range=tv"
 # setups A and B are matched onto setup C's skin tone and contrast (the look Fred picked): make_match.py -> match_A/B.cube
 match = f"lut3d={work}/match_{setup}.cube:interp=tetrahedral," if setup in ("A", "B") else ""
+# then every setup is brought onto the episode-2 reference Fred chose (skin tone + true black hoodie/hair): make_refmatch.py
+match += f"lut3d={work}/ref_{setup}.cube:interp=tetrahedral,"
+PLATE = cfgs.get("_plate", "plate4k_graded.png")
 fc = (
     f"[0:v]setpts=N/({FPS}*TB),unsharp=5:5:0.45:5:5:0,format=gbrpf32le,"
     f"colorchannelmixer=rr={g[0]:.4f}:gg={g[1]:.4f}:bb={g[2]:.4f},"
@@ -48,7 +51,7 @@ af = f"afade=t=in:d=0.012,afade=t=out:st={dur - 0.015:.3f}:d=0.015"
 cmd = ["ffmpeg", "-loglevel", "error", "-y",
        "-ss", f"{seek:.4f}", "-t", f"{dur + 0.2:.3f}", "-i", src,
        "-ss", f"{seek - a_off:.4f}", "-t", f"{dur + 0.2:.3f}", "-i", f"{work}/matte/{cfg['alpha']}",
-       "-i", f"{work}/plate4k_graded.png",
+       "-i", f"{work}/{PLATE}",
        "-filter_complex", fc, "-map", "[v]", "-map", "0:a", "-af", af + f",atrim=0:{dur:.4f}", "-frames:v", str(round(dur * FPS)),
        "-c:v", "libx264", "-preset", "fast", "-crf", "14", "-x264-params", "keyint=30",
        "-colorspace", "bt709", "-color_primaries", "bt709", "-color_trc", "bt709",
