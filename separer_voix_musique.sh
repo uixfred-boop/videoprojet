@@ -37,7 +37,7 @@ stems="$work/sep/htdemucs_ft/audio"
 # 3. Exporter : FLAC (sans perte) + MP3 320 kb/s
 for pair in "vocals:voix" "no_vocals:musique_fond"; do
   stem="${pair%%:*}"; name="${pair##*:}"
-  ffmpeg -v error -y -i "$stems/$stem.wav" -c:a flac -sample_fmt s16 "$out/$name.flac"
+  ffmpeg -v error -y -i "$stems/$stem.wav" -af aresample=osf=s16:dither_method=triangular -c:a flac "$out/$name.flac"
   ffmpeg -v error -y -i "$stems/$stem.wav" -c:a libmp3lame -b:a 320k "$out/$name.mp3"
 done
 
