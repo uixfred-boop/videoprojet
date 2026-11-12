@@ -1,0 +1,103 @@
+   0.00-   2.44 This portfolio got me $7,000 on one single client.
+   2.58-   5.56 But on the call, the client asked me one question:
+   5.74-   8.90 "Have you ever done a project like mine?"
+   8.90-  11.58 And honestly, the answer was no.
+  11.80-  19.60 In this video, I'll show you how I built this site, how I got it in front of the right clients, and what I said to that question.
+  19.72-  23.30 Because that answer is what closed the deal.
+  23.30-  25.40 So I'm Fred, a web designer.
+  25.58-  28.46 For a long time, I made the most classic mistake on the internet:
+  28.62-  31.28 chasing views instead of chasing value.
+  31.28-  32.90 I had millions of views on Instagram.
+  32.90-  35.42 Likes, comments, but zero clients.
+  35.42-  37.52 No system to find them, no real projects.
+  37.52-  39.80 So I wanted to prove something to myself:
+  39.80-  45.88 that I could design something good and smart to land a real big client.
+  45.88-  49.52 Before designing anything, I asked myself one simple question:
+  49.52-  52.20 What actually makes a client say yes?
+  52.20-  53.50 It's not the prettiest design.
+  53.50-  54.60 It's not the lowest price.
+  54.60-  56.56 It's the moment they think:
+  56.56-  58.28 "This guy gets my business."
+  58.62-  60.34 Without them having to explain a thing.
+  60.46-  63.22 Everything you're about to see comes from that idea.
+  63.22-  68.42 And the first decision it forced me to make had nothing to do with design.
+  68.42-  69.14 I chose one industry:
+  69.14-  69.74 construction.
+  69.74-  70.80 For three reasons.
+  70.80-  72.26 First, real money.
+  72.38-  74.86 A single new project can pay for the whole website.
+  75.06-  77.84 Second, they don't have time for the tech side.
+  77.84-  80.95 And their clients choose them based on past projects.
+  80.95-  82.94 So a website that really shows off their work?
+  82.94-  83.44 That's gold.
+  83.44-  86.40 Three, premium work means premium prices.
+  86.40-  88.50 And that choice changed everything.
+  88.50-  91.66 I wasn't making a portfolio anymore.
+  91.66-  97.18 I was making the portfolio a construction business owner would actually want to open.
+  97.18-  99.01 I studied a lot of portfolios.
+  99.01- 100.96 The best ones didn't use fancy effects.
+ 100.96- 102.14 They controlled your attention.
+ 102.14- 106.36 What you look at first, what you look at next, and why you keep scrolling.
+ 106.36- 108.34 That's when it hit me.
+ 108.34- 109.60 I wasn't designing pages.
+ 109.60- 111.18 I was designing a path.
+ 111.18- 115.70 A path that answers the client's questions one by one, before he even asks them.
+ 115.70- 121.00 So instead of asking myself "What can I add?", I asked "What can I remove?"
+ 121.00- 121.60 Fewer colors.
+ 121.60- 122.46 Less decoration.
+ 122.46- 123.30 More space.
+ 123.30- 125.46 And way more room for the visuals.
+ 125.46- 128.92 Because if your work is good, you don't need to shout.
+ 128.92- 131.28 You just need to give it the right stage.
+ 131.28- 137.69 Then I designed everything mobile-first, because your future client won't open your site on a big screen.
+ 137.69- 140.98 He'll open it on his phone, between two job sites.
+ 140.98- 142.43 I built it in Framer.
+ 142.43- 143.86 Transitions that pull you forward.
+ 143.86- 146.94 Motion you feel without really noticing it.
+ 146.94- 149.36 I spent hours on things nobody will ever see.
+ 149.36- 150.24 Three pixels here.
+ 150.24- 152.62 A transition that's a hair too fast there.
+ 152.62- 158.50 But all those little details nobody notices one by one add up to a feeling everyone notices.
+ 158.50- 180.56 For the first time, the strategy and design were pulling in the same direction.
+ 180.56- 182.48 And I was proud of it.
+ 182.48- 184.50 But that wasn't enough.
+ 184.50- 189.58 Because a portfolio, no matter how good it looks, is worthless until it brings you a client.
+ 189.58- 195.12 Since I knew exactly who I'd built this site for, I knew exactly who to contact.
+ 195.30- 196.54 Construction companies.
+ 196.54- 197.38 Nobody else.
+ 197.60- 201.20 And this is the most important advice in this whole video:
+ 201.36- 203.02 have a clear persona.
+ 203.02- 206.96 If you talk to everyone, nobody feels like you're talking to them.
+ 207.08- 210.00 So that's who I reached out to.
+ 210.00- 212.14 And one of them replied.
+ 212.14- 213.35 He wanted a discovery call.
+ 213.35- 214.08 My system worked.
+ 214.08- 218.28 And by the way, you'll find this system in the first comment.
+ 218.28- 221.96 Looking back, this portfolio didn't make me a better designer.
+ 221.96- 225.28 It didn't teach me a new skill.
+ 225.28- 226.66 I was the exact same designer.
+ 226.66- 231.18 The only thing that changed was how a client saw my work.
+ 231.18- 234.32 And for me, that difference was worth $7,000.
+ 234.32- 235.90 Let me be honest with you.
+ 236.20- 240.26 This worked for me, with one client.
+ 240.26- 243.34 But it's not a guarantee.
+ 243.64- 248.12 Your result will depend on your work and your outreach.
+ 248.44- 251.56 It's not simple or magic.
+ 251.56- 255.68 But it's exactly what I wish I'd had when I was starting out.
+ 255.82- 257.08 So I packaged it.
+ 257.08- 259.06 First, the Framer portfolio template.
+ 259.06- 262.20 So you don't start from a blank page.
+ 262.38- 264.68 You just add your projects, your industry, your brand.
+ 264.90- 266.17 Second, the First Client Kit.
+ 266.17- 269.02 An interactive system to help you land your first real client.
+ 269.28- 275.68 Because as you saw in the story, the portfolio alone wouldn't have gotten me anywhere without the system behind it.
+ 275.86- 278.00 Everything is in the first pinned comment and in the description.
+ 278.22- 278.86 It's all for me.
+ 278.92- 280.10 I hope this helps.
+ 280.44- 284.96 This is a brand-new channel, so if you got something out of this video, subscribe.
+ 284.96- 286.88 It really makes a difference.
+ 286.88- 288.26 And tell me in the comments:
+ 288.26- 292.58 if you had to pick one industry today, which one would it be?
+ 292.58- 296.14 You can also find me on Instagram, the link is in my profile.
+ 296.14- 297.10 See you on the next one.
+ 297.10- 297.58 Thank you.
