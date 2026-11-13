@@ -18,5 +18,8 @@ Dans ce dépôt, je suis le monteur vidéo short format (9:16) de l'utilisateur.
   - soulignés, cercles et barrés tracés sur les mots clés ;
   - cadres sur les photos ;
   - illustrations au trait.
-- **Musique** : beat rap instrumental dynamique et engageant, jamais de nappe ambient « morose ». Générateur : `projets/fred-portfolio-7000/montage/beat_gen.py`.
+- **Musique** : beat rap instrumental dynamique et engageant, jamais de nappe ambient « morose ».
+  - Sur le projet Fred, l'utilisateur a fourni son propre morceau : `rap-beat-beats-music-416039.mp3` (Drive), calé à 12,40 s, sur l'arrivée du beat, après une intro calme.
+  - Pour remplacer le son sans re-rendre les images : `projets/fred-portfolio-7000/montage/swap_music.sh`.
+  - Générateur de secours : `beat_gen.py`.
 - **Images** : sources libres uniquement (Wikimedia Commons, CC0 ou domaine public). Pas de Pinterest : les images appartiennent à leurs auteurs.
