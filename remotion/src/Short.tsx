@@ -8,13 +8,14 @@ import {Photo} from './scenes/Photo';
 import {Screen} from './scenes/Screen';
 import {Converge, Dimension, Dots, Line, Stack, Steps, Strike} from './scenes/Diagrams';
 import {Cta, Illustration, Reels} from './scenes/Graphics';
+import {Draw} from './scenes/Draw';
 import {SceneProps, ShortData} from './types';
 
 const SCENES: Record<string, React.FC<SceneProps>> = {
   face: Face, plate: Plate, photo: Photo, screen: Screen, line: Line, strike: Strike, dots: Dots,
-  steps: Steps, stack: Stack, dimension: Dimension, converge: Converge, reels: Reels, illustration: Illustration,
+  steps: Steps, stack: Stack, dimension: Dimension, converge: Converge, reels: Reels, illustration: Illustration, draw: Draw,
 };
-const WHOOSH = new Set(['screen', 'reels', 'illustration', 'line', 'stack', 'dimension', 'converge', 'dots', 'steps']);
+const WHOOSH = new Set(['screen', 'reels', 'illustration', 'line', 'stack', 'dimension', 'converge', 'dots', 'steps', 'draw', 'photo']);
 
 export type ShortProps = {data: ShortData; voiceSrc: string};
 
@@ -53,9 +54,15 @@ export const Short: React.FC<ShortProps> = ({data, voiceSrc}) => {
             volume={(f) => interpolate(f, [0, 2, (v.src1 - v.src0) * fps - 3, (v.src1 - v.src0) * fps], [0, 1, 1, 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})} />
         </Sequence>
       ))}
-      {/* musique de fond continue */}
-      <Audio src={staticFile('audio/music.wav')}
-        volume={(f) => interpolate(f, [0, 10, data.cta.from, data.cta.from + 10, total - 16, total], [0, 0.22, 0.22, 0.4, 0.4, 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})} />
+      {/* beat rap instrumental, légèrement effacé quand la voix parle (vad), remonté sur le CTA */}
+      <Audio src={staticFile('audio/beat.wav')}
+        volume={(f) => {
+          const vad: string = (data as any).vad ?? '';
+          let on = 0;
+          for (let k = f - 6; k <= f + 6; k++) if (vad[k] === '1') on++;
+          const base = f >= data.cta.from ? interpolate(f, [data.cta.from, data.cta.from + 8], [0.2, 0.5], {extrapolateRight: 'clamp'}) : 0.27 - 0.08 * (on / 13);
+          return base * interpolate(f, [0, 3, total - 16, total], [0, 1, 1, 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
+        }} />
       {sfx.map((s, i) => (
         <Sequence key={`s${i}`} from={Math.max(0, s.at)}>
           <Audio src={staticFile(`audio/${s.src}`)} volume={s.vol} />

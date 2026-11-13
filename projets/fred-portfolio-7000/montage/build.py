@@ -11,14 +11,15 @@ FPS = 30
 PAD_IN, PAD_OUT = 0.03, 0.12
 CTA_DUR = 2.4
 
-spec_mod = importlib.util.spec_from_file_location("spec", HERE / "spec.py")
+import os
+spec_mod = importlib.util.spec_from_file_location("spec", HERE / os.environ.get("SPEC", "spec_v2.py"))
 spec = importlib.util.module_from_spec(spec_mod); spec_mod.loader.exec_module(spec)
 WORDS = json.load(open(HERE.parent / "transcript" / "mots_alignes.json"))["words"]
 
 def norm(s):
     return re.sub(r"[^a-z0-9$]", "", s.lower().replace("’", "'"))
 
-TAG = re.compile(r"\{([bisxmg]):([^}]*)\}")
+TAG = re.compile(r"\{([bisxmg])(?:~([ucs]))?:([^}]*)\}")
 
 def parse_lockup(markup):
     quoted = markup.startswith(">")
@@ -28,8 +29,8 @@ def parse_lockup(markup):
     for m in TAG.finditer(markup):
         for w in markup[pos:m.start()].split():
             toks.append({"text": w, "style": "base"})
-        for w in m.group(2).split():
-            toks.append({"text": w, "style": m.group(1)})
+        for w in m.group(3).split():
+            toks.append({"text": w, "style": m.group(1), **({"deco": m.group(2)} if m.group(2) else {})})
         pos = m.end()
     for w in markup[pos:].split():
         toks.append({"text": w, "style": "base"})
@@ -143,11 +144,20 @@ def build(sid, sh):
             out_lockups.append({
                 "from": fr(lt0), "to": fr(nxt), "scene": i, "quoted": L["quoted"],
                 "hidden": bool(p.get("hide")),
-                "words": [{"text": w["text"], "style": w["style"], "at": fr(w["t"]) - fr(lt0)} for w in L["words"]],
+                "words": [dict({"text": w["text"], "style": w["style"], "at": fr(w["t"]) - fr(lt0)}, **({"deco": w["deco"]} if w.get("deco") else {})) for w in L["words"]],
             })
     total = voice_end + CTA_DUR
     voice = [{"src0": round(max(0.0, a - PAD_IN), 3), "src1": round(b + PAD_OUT, 3), "from": fr(offs[k])} for k, (a, b) in enumerate(segs)]
+    import numpy as np
+    env = voice_env(); nfr = fr(total); vad = np.zeros(nfr, bool)
+    for k, (a, b) in enumerate(segs):
+        s0 = max(0.0, a - PAD_IN)
+        for f in range(fr(offs[k]), min(nfr, fr(offs[k] + (b + PAD_OUT) - s0))):
+            i = int((s0 + f / FPS - offs[k]) / 0.02)
+            vad[f] = i < len(env) and env[i] > -38
+    vad = np.convolve(vad.astype(float), np.ones(9), "same") > 0
     data = {
+        "vad": "".join("1" if v else "0" for v in vad),
         "id": sid, "titre": sh["titre"], "fps": FPS, "durationInFrames": fr(total),
         "voiceEnd": fr(voice_end), "voice": voice, "scenes": out_scenes, "lockups": out_lockups,
         "cta": {"from": fr(voice_end), "to": fr(total), "word": sh["cta"][0], "line": sh["cta"][1]},

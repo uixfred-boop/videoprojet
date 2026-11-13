@@ -1,4 +1,5 @@
 {
+ "vad": "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111110111111111111111111111111111111111111111111111111111101111111111111111111111111111111111111111111100000001111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111101111111111111111111111111111111111111111111111111101111111111111111111111111111111111101111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111100000000000000000000000000000000000000000000000000000000000000000000",
  "id": "short6",
  "titre": "Have a clear persona",
  "fps": 30,
@@ -23,9 +24,10 @@
  ],
  "scenes": [
   {
-   "type": "face",
+   "type": "screen",
+   "src": "scr_site.mp4",
    "from": 0,
-   "to": 21,
+   "to": 65,
    "srcStart": 184.91,
    "idx": 0,
    "pieces": [
@@ -36,26 +38,12 @@
    ]
   },
   {
-   "type": "screen",
-   "src": "scr_site.mp4",
-   "from": 21,
-   "to": 65,
-   "srcStart": 185.62,
-   "idx": 1,
-   "pieces": [
-    {
-     "from": 0,
-     "src": 185.62
-    }
-   ]
-  },
-  {
    "type": "plate",
-   "bg": "navy",
+   "bg": "blue",
    "from": 65,
    "to": 140,
    "srcStart": 187.08,
-   "idx": 2,
+   "idx": 1,
    "pieces": [
     {
      "from": 0,
@@ -69,7 +57,7 @@
    "from": 140,
    "to": 182,
    "srcStart": 189.58,
-   "idx": 3,
+   "idx": 2,
    "pieces": [
     {
      "from": 0,
@@ -78,12 +66,13 @@
    ]
   },
   {
-   "type": "face",
-   "revealAt": 11,
+   "type": "draw",
+   "icon": "target",
+   "bg": "navy",
    "from": 182,
    "to": 312,
    "srcStart": 190.98,
-   "idx": 4,
+   "idx": 3,
    "pieces": [
     {
      "from": 0,
@@ -101,7 +90,7 @@
    "from": 312,
    "to": 349,
    "srcStart": 195.3,
-   "idx": 5,
+   "idx": 4,
    "pieces": [
     {
      "from": 0,
@@ -115,7 +104,7 @@
    "from": 349,
    "to": 381,
    "srcStart": 196.54,
-   "idx": 6,
+   "idx": 5,
    "pieces": [
     {
      "from": 0,
@@ -124,13 +113,12 @@
    ]
   },
   {
-   "type": "face",
-   "zoom": 1.22,
-   "cy": 540,
+   "type": "plate",
+   "bg": "navy",
    "from": 381,
    "to": 494,
    "srcStart": 197.6,
-   "idx": 7,
+   "idx": 6,
    "pieces": [
     {
      "from": 0,
@@ -144,7 +132,7 @@
    "from": 494,
    "to": 543,
    "srcStart": 201.36,
-   "idx": 8,
+   "idx": 7,
    "pieces": [
     {
      "from": 0,
@@ -158,7 +146,7 @@
    "from": 543,
    "to": 665,
    "srcStart": 203.02,
-   "idx": 9,
+   "idx": 8,
    "pieces": [
     {
      "from": 0,
@@ -185,7 +173,7 @@
    "from": 665,
    "to": 846,
    "srcStart": 207.08,
-   "idx": 10,
+   "idx": 9,
    "pieces": [
     {
      "from": 0,
@@ -203,7 +191,7 @@
    "from": 846,
    "to": 916,
    "srcStart": 213.352,
-   "idx": 11,
+   "idx": 10,
    "pieces": [
     {
      "from": 0,
@@ -212,12 +200,16 @@
    ]
   },
   {
-   "type": "plate",
-   "bg": "paper",
+   "type": "photo",
+   "src": "b_phone_hand.jpg",
+   "focus": [
+    0.6,
+    0.5
+   ],
    "from": 916,
    "to": 993,
    "srcStart": 215.68,
-   "idx": 12,
+   "idx": 11,
    "pieces": [
     {
      "from": 0,
@@ -253,7 +245,7 @@
   {
    "from": 21,
    "to": 65,
-   "scene": 1,
+   "scene": 0,
    "quoted": false,
    "hidden": false,
    "words": [
@@ -292,7 +284,7 @@
   {
    "from": 65,
    "to": 88,
-   "scene": 2,
+   "scene": 1,
    "quoted": false,
    "hidden": false,
    "words": [
@@ -304,14 +296,15 @@
     {
      "text": "worthless",
      "style": "b",
-     "at": 7
+     "at": 7,
+     "deco": "s"
     }
    ]
   },
   {
    "from": 88,
    "to": 140,
-   "scene": 2,
+   "scene": 1,
    "quoted": false,
    "hidden": false,
    "words": [
@@ -350,7 +343,7 @@
   {
    "from": 140,
    "to": 182,
-   "scene": 3,
+   "scene": 2,
    "quoted": false,
    "hidden": false,
    "words": [
@@ -372,14 +365,15 @@
     {
      "text": "exactly",
      "style": "i",
-     "at": 28
+     "at": 28,
+     "deco": "u"
     }
    ]
   },
   {
    "from": 182,
    "to": 265,
-   "scene": 4,
+   "scene": 3,
    "quoted": false,
    "hidden": false,
    "words": [
@@ -418,7 +412,7 @@
   {
    "from": 265,
    "to": 312,
-   "scene": 4,
+   "scene": 3,
    "quoted": false,
    "hidden": false,
    "words": [
@@ -457,7 +451,7 @@
   {
    "from": 312,
    "to": 349,
-   "scene": 5,
+   "scene": 4,
    "quoted": false,
    "hidden": false,
    "words": [
@@ -476,26 +470,28 @@
   {
    "from": 349,
    "to": 381,
-   "scene": 6,
+   "scene": 5,
    "quoted": false,
    "hidden": false,
    "words": [
     {
      "text": "Nobody",
      "style": "s",
-     "at": 0
+     "at": 0,
+     "deco": "c"
     },
     {
      "text": "else.",
      "style": "s",
-     "at": 13
+     "at": 13,
+     "deco": "c"
     }
    ]
   },
   {
    "from": 381,
    "to": 444,
-   "scene": 7,
+   "scene": 6,
    "quoted": false,
    "hidden": false,
    "words": [
@@ -527,7 +523,8 @@
     {
      "text": "important",
      "style": "b",
-     "at": 34
+     "at": 34,
+     "deco": "c"
     },
     {
      "text": "advice",
@@ -539,7 +536,7 @@
   {
    "from": 444,
    "to": 494,
-   "scene": 7,
+   "scene": 6,
    "quoted": false,
    "hidden": false,
    "words": [
@@ -568,7 +565,7 @@
   {
    "from": 494,
    "to": 543,
-   "scene": 8,
+   "scene": 7,
    "quoted": false,
    "hidden": false,
    "words": [
@@ -590,14 +587,15 @@
     {
      "text": "persona.",
      "style": "s",
-     "at": 26
+     "at": 26,
+     "deco": "u"
     }
    ]
   },
   {
    "from": 543,
    "to": 579,
-   "scene": 9,
+   "scene": 8,
    "quoted": false,
    "hidden": false,
    "words": [
@@ -631,7 +629,7 @@
   {
    "from": 579,
    "to": 619,
-   "scene": 9,
+   "scene": 8,
    "quoted": false,
    "hidden": false,
    "words": [
@@ -655,7 +653,7 @@
   {
    "from": 619,
    "to": 665,
-   "scene": 9,
+   "scene": 8,
    "quoted": false,
    "hidden": false,
    "words": [
@@ -684,7 +682,7 @@
   {
    "from": 665,
    "to": 745,
-   "scene": 10,
+   "scene": 9,
    "quoted": false,
    "hidden": false,
    "words": [
@@ -728,7 +726,7 @@
   {
    "from": 745,
    "to": 809,
-   "scene": 10,
+   "scene": 9,
    "quoted": false,
    "hidden": false,
    "words": [
@@ -762,7 +760,7 @@
   {
    "from": 809,
    "to": 846,
-   "scene": 10,
+   "scene": 9,
    "quoted": false,
    "hidden": false,
    "words": [
@@ -796,7 +794,7 @@
   {
    "from": 846,
    "to": 868,
-   "scene": 11,
+   "scene": 10,
    "quoted": false,
    "hidden": false,
    "words": [
@@ -813,14 +811,15 @@
     {
      "text": "worked.",
      "style": "s",
-     "at": 22
+     "at": 22,
+     "deco": "u"
     }
    ]
   },
   {
    "from": 868,
    "to": 916,
-   "scene": 11,
+   "scene": 10,
    "quoted": false,
    "hidden": false,
    "words": [
@@ -849,7 +848,7 @@
   {
    "from": 916,
    "to": 952,
-   "scene": 12,
+   "scene": 11,
    "quoted": false,
    "hidden": false,
    "words": [
@@ -878,7 +877,7 @@
   {
    "from": 952,
    "to": 993,
-   "scene": 12,
+   "scene": 11,
    "quoted": false,
    "hidden": false,
    "words": [
@@ -895,12 +894,14 @@
     {
      "text": "first",
      "style": "i",
-     "at": 10
+     "at": 10,
+     "deco": "u"
     },
     {
      "text": "comment.",
      "style": "i",
-     "at": 28
+     "at": 28,
+     "deco": "u"
     }
    ]
   }

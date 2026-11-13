@@ -29,6 +29,10 @@ export const placement = (s: Scene): Place => {
       return {...base, y: 1500, K: 120, sat: 40, plain: 54, aroll: true};
     case 'converge':
       return {...base, y: 1520, K: 130, sat: 42, plain: 58, dark: true, accentOnPaper: true};
+    case 'draw': {
+      const dark = s.bg === 'paper';
+      return {...base, y: 1450, K: 132, sat: 42, plain: 58, dark, accentOnPaper: dark};
+    }
     case 'dots':
     case 'steps':
       return {...base, y: 360, K: 120, sat: 40, plain: 56, dark: true, accentOnPaper: true};
@@ -59,6 +63,24 @@ const WordSpan: React.FC<{w: Word; f: number; aroll: boolean; color: string; sty
   const local = f - w.at;
   const o = aroll ? interpolate(local, [0, 5], [0.4, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp', easing: Easing.out(Easing.quad)}) : 1;
   return <span style={{color, opacity: o * (w.style === 'g' ? 0.45 : 1), ...style}}>{w.text}</span>;
+};
+
+// Lignes qui se dessinent sur le mot clé : souligné, cercle, barré
+const Deco: React.FC<{kind: string; f: number; color: string}> = ({kind, f, color}) => {
+  const p = interpolate(f, [0, 9], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp', easing: Easing.inOut(Easing.cubic)});
+  if (p <= 0) return null;
+  const common = {position: 'absolute' as const, pointerEvents: 'none' as const, overflow: 'visible' as const};
+  if (kind === 'c') {
+    const L = 1000;
+    return (
+      <svg style={{...common, left: '-14%', top: '-30%', width: '128%', height: '160%'}} viewBox="0 0 200 100" preserveAspectRatio="none">
+        <path d="M 108 8 C 40 2, 4 22, 6 52 C 8 84, 70 96, 120 92 C 176 88, 198 64, 194 40 C 190 16, 150 4, 92 10" fill="none" stroke={color} strokeWidth={2.4} strokeLinecap="round"
+          vectorEffect="non-scaling-stroke" pathLength={L} strokeDasharray={L} strokeDashoffset={L * (1 - p)} style={{strokeWidth: 7}} />
+      </svg>
+    );
+  }
+  const y = kind === 's' ? '52%' : '104%';
+  return <div style={{...common, left: '-2%', top: y, height: kind === 's' ? 8 : 9, width: `${104 * p}%`, background: color, borderRadius: 6, transform: kind === 's' ? 'rotate(-3deg)' : undefined, transformOrigin: 'left center'}} />;
 };
 
 const join = (els: React.ReactNode[]) => els.flatMap((e, i) => (i ? [' ', e] : [e]));
@@ -104,6 +126,16 @@ export const LockupView: React.FC<{l: Lockup; s: Scene}> = ({l, s}) => {
       <WordSpan key={i} w={w} f={f} aroll={P.aroll && ks !== 'x'} color={ks === 'm' && f >= keyStart ? markerFg : w.style === 'base' ? fg : keyColor} style={w.style === 'base' ? {...satStyle} : {}} />
     ));
     const hasPre = vis(pre).length > 0, hasPost = vis(post).length > 0;
+    const deco = key.find((w) => (w as any).deco) ? (key.find((w) => (w as any).deco) as any).deco : null;
+    const decoColor = ks === 'x' ? '#FFFFFF' : P.dark ? C.blue : s.type === 'plate' && s.bg === 'blue' ? C.paper : C.halo;
+    // compteur : « $7,000 » qui monte de 0
+    let countText: string | null = null;
+    if (s.count && /^\$[\d,]+/.test(keyText) && f >= keyStart) {
+      const target = parseInt(keyText.replace(/[^\d]/g, ''), 10);
+      const v = Math.round(interpolate(f - keyStart, [0, 16], [0, target], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp', easing: Easing.out(Easing.cubic)}) / 10) * 10;
+      countText = '$' + v.toLocaleString('en-US') + keyText.replace(/^\$[\d,]+/, '');
+    }
+    const punch = interpolate(f - keyStart, [0, 7], [0.86, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp', easing: Easing.out(Easing.back(1.6))});
     body = (
       <div style={{display: 'inline-flex', flexDirection: 'column', alignItems: 'center', maxWidth: 960}}>
         {hasPre && (
@@ -111,11 +143,12 @@ export const LockupView: React.FC<{l: Lockup; s: Scene}> = ({l, s}) => {
             {join(vis(pre).map((w, i) => <WordSpan key={i} w={w} f={f} aroll={P.aroll} color={fg} />))}
           </div>
         )}
-        <div style={{position: 'relative', lineHeight: 0.95, whiteSpace: 'nowrap', ...kf, ...halo, padding: ks === 'x' || ks === 'm' ? '2px 22px 14px' : 0}}>
+        <div style={{position: 'relative', lineHeight: 0.95, whiteSpace: 'nowrap', ...kf, ...halo, padding: ks === 'x' || ks === 'm' ? '2px 22px 14px' : 0, transform: `scale(${punch})`}}>
           {(ks === 'x' || ks === 'm') && (
             <div style={{position: 'absolute', inset: 0, background: ks === 'x' ? C.blue : markerBg, clipPath: `inset(0 ${100 - wipe * 100}% 0 0)`}} />
           )}
-          <span style={{position: 'relative'}}>{join(keyEls)}</span>
+          <span style={{position: 'relative'}}>{countText !== null ? <span style={{color: keyColor}}>{countText}</span> : join(keyEls)}</span>
+          {deco && f >= keyStart && <Deco kind={deco} f={f - keyStart - 1} color={decoColor} />}
         </div>
         {hasPost && (
           <div style={{...satStyle, alignSelf: pre.length ? 'flex-end' : 'center', marginRight: pre.length ? 8 : 0, marginTop: ks === 'x' || ks === 'm' ? 10 : 4, maxWidth: 940, textAlign: 'right'}}>
@@ -128,7 +161,7 @@ export const LockupView: React.FC<{l: Lockup; s: Scene}> = ({l, s}) => {
   const qColor = P.dark ? C.blue : s.type === 'plate' && s.bg === 'blue' ? 'rgba(255,255,255,0.55)' : C.halo;
   return (
     <AbsoluteFill style={{pointerEvents: 'none'}}>
-      <div style={{position: 'absolute', top: P.y, left: 50, right: 50, transform: 'translateY(-50%)', display: 'flex', justifyContent: 'center'}}>
+      <div style={{position: 'absolute', top: P.y, left: 50, right: 50, transform: `translateY(calc(-50% + ${interpolate(f, [0, 6], [18, 0], {extrapolateRight: 'clamp', easing: Easing.out(Easing.cubic)})}px))`, opacity: interpolate(f, [0, 3], [0.2, 1], {extrapolateRight: 'clamp'}), display: 'flex', justifyContent: 'center'}}>
         <div style={{position: 'relative'}}>
           {l.quoted && (
             <div style={{position: 'absolute', left: -70, top: -130, fontFamily: FONT.serif, fontSize: 260, lineHeight: 1, color: qColor}}>“</div>
