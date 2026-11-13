@@ -1,0 +1,875 @@
+{
+ "id": "short5",
+ "titre": "Details nobody notices",
+ "fps": 30,
+ "durationInFrames": 1029,
+ "voiceEnd": 957,
+ "voice": [
+  {
+   "src0": 131.25,
+   "src1": 132.325,
+   "from": 0
+  },
+  {
+   "src0": 132.775,
+   "src1": 139.845,
+   "from": 32
+  },
+  {
+   "src0": 139.995,
+   "src1": 145.305,
+   "from": 244
+  },
+  {
+   "src0": 145.595,
+   "src1": 156.945,
+   "from": 404
+  },
+  {
+   "src0": 157.255,
+   "src1": 158.62,
+   "from": 744
+  },
+  {
+   "src0": 176.87,
+   "src1": 182.6,
+   "from": 785
+  }
+ ],
+ "scenes": [
+  {
+   "type": "screen",
+   "src": "scr_hero.mp4",
+   "morph": true,
+   "from": 0,
+   "to": 180,
+   "srcStart": 131.25,
+   "idx": 0,
+   "pieces": [
+    {
+     "from": 0,
+     "src": 131.25
+    },
+    {
+     "from": 32,
+     "src": 132.775
+    }
+   ]
+  },
+  {
+   "type": "photo",
+   "src": "iran_workers.jpg",
+   "focus": [
+    0.3,
+    0.5
+   ],
+   "phoneOverlay": "scr_mobile.mp4",
+   "from": 180,
+   "to": 274,
+   "srcStart": 137.685,
+   "idx": 1,
+   "pieces": [
+    {
+     "from": 0,
+     "src": 137.685
+    },
+    {
+     "from": 64,
+     "src": 139.995
+    }
+   ]
+  },
+  {
+   "type": "screen",
+   "src": "scr_mobile.mp4",
+   "phone": true,
+   "from": 274,
+   "to": 444,
+   "srcStart": 140.98,
+   "idx": 2,
+   "pieces": [
+    {
+     "from": 0,
+     "src": 140.98
+    },
+    {
+     "from": 130,
+     "src": 145.595
+    }
+   ]
+  },
+  {
+   "type": "dimension",
+   "src": "scr_editor.mp4",
+   "from": 444,
+   "to": 614,
+   "srcStart": 146.94,
+   "idx": 3,
+   "pieces": [
+    {
+     "from": 0,
+     "src": 146.94
+    }
+   ]
+  },
+  {
+   "type": "plate",
+   "bg": "blue",
+   "from": 614,
+   "to": 788,
+   "srcStart": 152.62,
+   "idx": 4,
+   "pieces": [
+    {
+     "from": 0,
+     "src": 152.62
+    },
+    {
+     "from": 130,
+     "src": 157.255
+    },
+    {
+     "from": 171,
+     "src": 176.87
+    }
+   ]
+  },
+  {
+   "type": "converge",
+   "from": 788,
+   "to": 896,
+   "srcStart": 176.95,
+   "idx": 5,
+   "pieces": [
+    {
+     "from": 0,
+     "src": 176.95
+    }
+   ]
+  },
+  {
+   "type": "face",
+   "from": 896,
+   "to": 957,
+   "srcStart": 180.56,
+   "idx": 6,
+   "pieces": [
+    {
+     "from": 0,
+     "src": 180.56
+    }
+   ]
+  }
+ ],
+ "lockups": [
+  {
+   "from": 0,
+   "to": 74,
+   "scene": 0,
+   "quoted": false,
+   "hidden": false,
+   "words": [
+    {
+     "text": "Then",
+     "style": "base",
+     "at": 1
+    },
+    {
+     "text": "I",
+     "style": "base",
+     "at": 22
+    },
+    {
+     "text": "designed",
+     "style": "base",
+     "at": 35
+    },
+    {
+     "text": "everything",
+     "style": "base",
+     "at": 49
+    },
+    {
+     "text": "mobile-first,",
+     "style": "b",
+     "at": 59
+    }
+   ]
+  },
+  {
+   "from": 74,
+   "to": 127,
+   "scene": 0,
+   "quoted": false,
+   "hidden": false,
+   "words": [
+    {
+     "text": "because",
+     "style": "base",
+     "at": 0
+    },
+    {
+     "text": "your",
+     "style": "base",
+     "at": 11
+    },
+    {
+     "text": "future",
+     "style": "base",
+     "at": 21
+    },
+    {
+     "text": "client",
+     "style": "base",
+     "at": 37
+    }
+   ]
+  },
+  {
+   "from": 127,
+   "to": 180,
+   "scene": 0,
+   "quoted": false,
+   "hidden": false,
+   "words": [
+    {
+     "text": "won't",
+     "style": "base",
+     "at": 0
+    },
+    {
+     "text": "open",
+     "style": "base",
+     "at": 13
+    },
+    {
+     "text": "your",
+     "style": "base",
+     "at": 20
+    },
+    {
+     "text": "site",
+     "style": "base",
+     "at": 24
+    },
+    {
+     "text": "on",
+     "style": "base",
+     "at": 30
+    },
+    {
+     "text": "a",
+     "style": "base",
+     "at": 34
+    },
+    {
+     "text": "big",
+     "style": "base",
+     "at": 36
+    },
+    {
+     "text": "screen.",
+     "style": "base",
+     "at": 41
+    }
+   ]
+  },
+  {
+   "from": 180,
+   "to": 234,
+   "scene": 1,
+   "quoted": false,
+   "hidden": false,
+   "words": [
+    {
+     "text": "He'll",
+     "style": "base",
+     "at": 0
+    },
+    {
+     "text": "open",
+     "style": "base",
+     "at": 8
+    },
+    {
+     "text": "it",
+     "style": "base",
+     "at": 16
+    },
+    {
+     "text": "on",
+     "style": "base",
+     "at": 16
+    },
+    {
+     "text": "his",
+     "style": "base",
+     "at": 28
+    },
+    {
+     "text": "phone,",
+     "style": "base",
+     "at": 35
+    }
+   ]
+  },
+  {
+   "from": 234,
+   "to": 274,
+   "scene": 1,
+   "quoted": false,
+   "hidden": false,
+   "words": [
+    {
+     "text": "between",
+     "style": "i",
+     "at": 0
+    },
+    {
+     "text": "two",
+     "style": "i",
+     "at": 17
+    },
+    {
+     "text": "job",
+     "style": "i",
+     "at": 27
+    },
+    {
+     "text": "sites.",
+     "style": "i",
+     "at": 33
+    }
+   ]
+  },
+  {
+   "from": 274,
+   "to": 317,
+   "scene": 2,
+   "quoted": false,
+   "hidden": false,
+   "words": [
+    {
+     "text": "I",
+     "style": "base",
+     "at": 0
+    },
+    {
+     "text": "built",
+     "style": "base",
+     "at": 7
+    },
+    {
+     "text": "it",
+     "style": "base",
+     "at": 13
+    },
+    {
+     "text": "in",
+     "style": "base",
+     "at": 21
+    },
+    {
+     "text": "Framer.",
+     "style": "i",
+     "at": 34
+    }
+   ]
+  },
+  {
+   "from": 317,
+   "to": 360,
+   "scene": 2,
+   "quoted": false,
+   "hidden": false,
+   "words": [
+    {
+     "text": "Transitions",
+     "style": "base",
+     "at": 0
+    },
+    {
+     "text": "that",
+     "style": "base",
+     "at": 16
+    },
+    {
+     "text": "pull",
+     "style": "base",
+     "at": 22
+    },
+    {
+     "text": "you",
+     "style": "base",
+     "at": 28
+    },
+    {
+     "text": "forward.",
+     "style": "base",
+     "at": 32
+    }
+   ]
+  },
+  {
+   "from": 360,
+   "to": 396,
+   "scene": 2,
+   "quoted": false,
+   "hidden": false,
+   "words": [
+    {
+     "text": "Motion",
+     "style": "i",
+     "at": 0
+    },
+    {
+     "text": "you",
+     "style": "base",
+     "at": 22
+    },
+    {
+     "text": "feel",
+     "style": "base",
+     "at": 28
+    }
+   ]
+  },
+  {
+   "from": 396,
+   "to": 444,
+   "scene": 2,
+   "quoted": false,
+   "hidden": false,
+   "words": [
+    {
+     "text": "without",
+     "style": "base",
+     "at": 0
+    },
+    {
+     "text": "really",
+     "style": "base",
+     "at": 14
+    },
+    {
+     "text": "noticing",
+     "style": "base",
+     "at": 24
+    },
+    {
+     "text": "it.",
+     "style": "base",
+     "at": 41
+    }
+   ]
+  },
+  {
+   "from": 444,
+   "to": 481,
+   "scene": 3,
+   "quoted": false,
+   "hidden": false,
+   "words": [
+    {
+     "text": "I",
+     "style": "base",
+     "at": 0
+    },
+    {
+     "text": "spent",
+     "style": "base",
+     "at": 2
+    },
+    {
+     "text": "hours",
+     "style": "base",
+     "at": 13
+    },
+    {
+     "text": "on",
+     "style": "base",
+     "at": 21
+    },
+    {
+     "text": "things",
+     "style": "base",
+     "at": 25
+    }
+   ]
+  },
+  {
+   "from": 481,
+   "to": 517,
+   "scene": 3,
+   "quoted": false,
+   "hidden": false,
+   "words": [
+    {
+     "text": "nobody",
+     "style": "base",
+     "at": 0
+    },
+    {
+     "text": "will",
+     "style": "base",
+     "at": 13
+    },
+    {
+     "text": "ever",
+     "style": "base",
+     "at": 24
+    },
+    {
+     "text": "see.",
+     "style": "base",
+     "at": 30
+    }
+   ]
+  },
+  {
+   "from": 517,
+   "to": 543,
+   "scene": 3,
+   "quoted": false,
+   "hidden": false,
+   "words": [
+    {
+     "text": "Three",
+     "style": "b",
+     "at": 0
+    },
+    {
+     "text": "pixels",
+     "style": "b",
+     "at": 10
+    },
+    {
+     "text": "here.",
+     "style": "base",
+     "at": 17
+    }
+   ]
+  },
+  {
+   "from": 543,
+   "to": 581,
+   "scene": 3,
+   "quoted": false,
+   "hidden": false,
+   "words": [
+    {
+     "text": "A",
+     "style": "base",
+     "at": 0
+    },
+    {
+     "text": "transition",
+     "style": "base",
+     "at": 2
+    },
+    {
+     "text": "that's",
+     "style": "base",
+     "at": 25
+    }
+   ]
+  },
+  {
+   "from": 581,
+   "to": 614,
+   "scene": 3,
+   "quoted": false,
+   "hidden": false,
+   "words": [
+    {
+     "text": "a",
+     "style": "base",
+     "at": 0
+    },
+    {
+     "text": "hair",
+     "style": "base",
+     "at": 3
+    },
+    {
+     "text": "too",
+     "style": "base",
+     "at": 12
+    },
+    {
+     "text": "fast",
+     "style": "base",
+     "at": 18
+    },
+    {
+     "text": "there.",
+     "style": "base",
+     "at": 27
+    }
+   ]
+  },
+  {
+   "from": 614,
+   "to": 664,
+   "scene": 4,
+   "quoted": false,
+   "hidden": false,
+   "words": [
+    {
+     "text": "But",
+     "style": "base",
+     "at": 0
+    },
+    {
+     "text": "all",
+     "style": "base",
+     "at": 8
+    },
+    {
+     "text": "those",
+     "style": "base",
+     "at": 24
+    },
+    {
+     "text": "little",
+     "style": "base",
+     "at": 33
+    },
+    {
+     "text": "details",
+     "style": "base",
+     "at": 42
+    }
+   ]
+  },
+  {
+   "from": 664,
+   "to": 717,
+   "scene": 4,
+   "quoted": false,
+   "hidden": false,
+   "words": [
+    {
+     "text": "nobody",
+     "style": "base",
+     "at": 0
+    },
+    {
+     "text": "notices",
+     "style": "base",
+     "at": 12
+    },
+    {
+     "text": "one",
+     "style": "base",
+     "at": 22
+    },
+    {
+     "text": "by",
+     "style": "base",
+     "at": 43
+    },
+    {
+     "text": "one",
+     "style": "base",
+     "at": 47
+    }
+   ]
+  },
+  {
+   "from": 717,
+   "to": 756,
+   "scene": 4,
+   "quoted": false,
+   "hidden": false,
+   "words": [
+    {
+     "text": "add",
+     "style": "base",
+     "at": 0
+    },
+    {
+     "text": "up",
+     "style": "base",
+     "at": 10
+    },
+    {
+     "text": "to",
+     "style": "base",
+     "at": 16
+    },
+    {
+     "text": "a",
+     "style": "m",
+     "at": 23
+    },
+    {
+     "text": "feeling",
+     "style": "m",
+     "at": 26
+    }
+   ]
+  },
+  {
+   "from": 756,
+   "to": 788,
+   "scene": 4,
+   "quoted": false,
+   "hidden": false,
+   "words": [
+    {
+     "text": "everyone",
+     "style": "base",
+     "at": 0
+    },
+    {
+     "text": "notices.",
+     "style": "base",
+     "at": 13
+    }
+   ]
+  },
+  {
+   "from": 788,
+   "to": 809,
+   "scene": 5,
+   "quoted": false,
+   "hidden": false,
+   "words": [
+    {
+     "text": "For",
+     "style": "base",
+     "at": 0
+    },
+    {
+     "text": "the",
+     "style": "base",
+     "at": 4
+    },
+    {
+     "text": "first",
+     "style": "base",
+     "at": 9
+    },
+    {
+     "text": "time,",
+     "style": "base",
+     "at": 15
+    }
+   ]
+  },
+  {
+   "from": 809,
+   "to": 838,
+   "scene": 5,
+   "quoted": false,
+   "hidden": false,
+   "words": [
+    {
+     "text": "the",
+     "style": "base",
+     "at": 0
+    },
+    {
+     "text": "strategy",
+     "style": "base",
+     "at": 0
+    },
+    {
+     "text": "and",
+     "style": "base",
+     "at": 9
+    },
+    {
+     "text": "design",
+     "style": "base",
+     "at": 20
+    }
+   ]
+  },
+  {
+   "from": 838,
+   "to": 896,
+   "scene": 5,
+   "quoted": false,
+   "hidden": false,
+   "words": [
+    {
+     "text": "were",
+     "style": "base",
+     "at": 0
+    },
+    {
+     "text": "pulling",
+     "style": "base",
+     "at": 6
+    },
+    {
+     "text": "in",
+     "style": "base",
+     "at": 16
+    },
+    {
+     "text": "the",
+     "style": "base",
+     "at": 22
+    },
+    {
+     "text": "same",
+     "style": "base",
+     "at": 36
+    },
+    {
+     "text": "direction.",
+     "style": "base",
+     "at": 46
+    }
+   ]
+  },
+  {
+   "from": 896,
+   "to": 957,
+   "scene": 6,
+   "quoted": false,
+   "hidden": false,
+   "words": [
+    {
+     "text": "And",
+     "style": "base",
+     "at": 0
+    },
+    {
+     "text": "I",
+     "style": "base",
+     "at": 11
+    },
+    {
+     "text": "was",
+     "style": "base",
+     "at": 27
+    },
+    {
+     "text": "proud",
+     "style": "i",
+     "at": 35
+    },
+    {
+     "text": "of",
+     "style": "base",
+     "at": 44
+    },
+    {
+     "text": "it.",
+     "style": "base",
+     "at": 53
+    }
+   ]
+  }
+ ],
+ "cta": {
+  "from": 957,
+  "to": 1029,
+  "word": "PORTFOLIO",
+  "line": "and I'll send you the template."
+ }
+}

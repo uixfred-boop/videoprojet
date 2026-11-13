@@ -1,3 +1,8 @@
 projets/*/rush/
 projets/*/render/
 *.mp4
+*.wav
+remotion/node_modules/
+remotion/out/
+remotion/public/rush/
+__pycache__/

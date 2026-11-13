@@ -1,0 +1,714 @@
+{
+ "id": "short1",
+ "titre": "The $7,000 question",
+ "fps": 30,
+ "durationInFrames": 892,
+ "voiceEnd": 820,
+ "voice": [
+  {
+   "src0": 0.0,
+   "src1": 2.725,
+   "from": 0
+  },
+  {
+   "src0": 2.895,
+   "src1": 11.7,
+   "from": 82
+  },
+  {
+   "src0": 218.25,
+   "src1": 224.505,
+   "from": 346
+  },
+  {
+   "src0": 224.755,
+   "src1": 228.245,
+   "from": 534
+  },
+  {
+   "src0": 228.395,
+   "src1": 234.44,
+   "from": 638
+  }
+ ],
+ "scenes": [
+  {
+   "type": "face",
+   "from": 0,
+   "to": 77,
+   "srcStart": 0.0,
+   "idx": 0,
+   "pieces": [
+    {
+     "from": 0,
+     "src": 0.0
+    }
+   ]
+  },
+  {
+   "type": "face",
+   "from": 77,
+   "to": 167,
+   "srcStart": 2.58,
+   "idx": 1,
+   "pieces": [
+    {
+     "from": 0,
+     "src": 2.58
+    },
+    {
+     "from": 5,
+     "src": 2.895
+    }
+   ]
+  },
+  {
+   "type": "plate",
+   "bg": "blue",
+   "from": 167,
+   "to": 262,
+   "srcStart": 5.74,
+   "idx": 2,
+   "pieces": [
+    {
+     "from": 0,
+     "src": 5.74
+    }
+   ]
+  },
+  {
+   "type": "face",
+   "zoom": 1.22,
+   "cy": 540,
+   "revealAt": 5,
+   "from": 262,
+   "to": 347,
+   "srcStart": 8.9,
+   "idx": 3,
+   "pieces": [
+    {
+     "from": 0,
+     "src": 8.9
+    },
+    {
+     "from": 84,
+     "src": 218.25
+    }
+   ]
+  },
+  {
+   "type": "plate",
+   "bg": "navy",
+   "from": 347,
+   "to": 371,
+   "srcStart": 218.28,
+   "idx": 4,
+   "pieces": [
+    {
+     "from": 0,
+     "src": 218.28
+    }
+   ]
+  },
+  {
+   "type": "face",
+   "revealAt": 29,
+   "from": 371,
+   "to": 457,
+   "srcStart": 219.1,
+   "idx": 5,
+   "pieces": [
+    {
+     "from": 0,
+     "src": 219.1
+    }
+   ]
+  },
+  {
+   "type": "plate",
+   "bg": "paper",
+   "from": 457,
+   "to": 549,
+   "srcStart": 221.96,
+   "idx": 6,
+   "pieces": [
+    {
+     "from": 0,
+     "src": 221.96
+    },
+    {
+     "from": 77,
+     "src": 224.755
+    }
+   ]
+  },
+  {
+   "type": "face",
+   "from": 549,
+   "to": 591,
+   "srcStart": 225.28,
+   "idx": 7,
+   "pieces": [
+    {
+     "from": 0,
+     "src": 225.28
+    }
+   ]
+  },
+  {
+   "type": "line",
+   "variant": "thin",
+   "from": 591,
+   "to": 722,
+   "srcStart": 226.66,
+   "idx": 8,
+   "pieces": [
+    {
+     "from": 0,
+     "src": 226.66
+    },
+    {
+     "from": 47,
+     "src": 228.395
+    }
+   ]
+  },
+  {
+   "type": "plate",
+   "bg": "blue",
+   "from": 722,
+   "to": 820,
+   "srcStart": 231.18,
+   "idx": 9,
+   "pieces": [
+    {
+     "from": 0,
+     "src": 231.18
+    }
+   ]
+  }
+ ],
+ "lockups": [
+  {
+   "from": 0,
+   "to": 77,
+   "scene": 0,
+   "quoted": false,
+   "hidden": false,
+   "words": [
+    {
+     "text": "This",
+     "style": "base",
+     "at": 0
+    },
+    {
+     "text": "portfolio",
+     "style": "base",
+     "at": 3
+    },
+    {
+     "text": "got",
+     "style": "base",
+     "at": 18
+    },
+    {
+     "text": "me",
+     "style": "base",
+     "at": 24
+    },
+    {
+     "text": "$7,000",
+     "style": "b",
+     "at": 27
+    },
+    {
+     "text": "on",
+     "style": "base",
+     "at": 37
+    },
+    {
+     "text": "one",
+     "style": "base",
+     "at": 44
+    },
+    {
+     "text": "single",
+     "style": "base",
+     "at": 55
+    },
+    {
+     "text": "client.",
+     "style": "base",
+     "at": 60
+    }
+   ]
+  },
+  {
+   "from": 77,
+   "to": 111,
+   "scene": 1,
+   "quoted": false,
+   "hidden": false,
+   "words": [
+    {
+     "text": "But",
+     "style": "base",
+     "at": 0
+    },
+    {
+     "text": "on",
+     "style": "base",
+     "at": 13
+    },
+    {
+     "text": "the",
+     "style": "base",
+     "at": 21
+    },
+    {
+     "text": "call,",
+     "style": "base",
+     "at": 25
+    }
+   ]
+  },
+  {
+   "from": 111,
+   "to": 167,
+   "scene": 1,
+   "quoted": false,
+   "hidden": false,
+   "words": [
+    {
+     "text": "the",
+     "style": "base",
+     "at": 0
+    },
+    {
+     "text": "client",
+     "style": "base",
+     "at": 7
+    },
+    {
+     "text": "asked",
+     "style": "base",
+     "at": 14
+    },
+    {
+     "text": "me",
+     "style": "base",
+     "at": 35
+    },
+    {
+     "text": "one",
+     "style": "i",
+     "at": 40
+    },
+    {
+     "text": "question:",
+     "style": "i",
+     "at": 45
+    }
+   ]
+  },
+  {
+   "from": 167,
+   "to": 262,
+   "scene": 2,
+   "quoted": true,
+   "hidden": false,
+   "words": [
+    {
+     "text": "Have",
+     "style": "base",
+     "at": 0
+    },
+    {
+     "text": "you",
+     "style": "base",
+     "at": 5
+    },
+    {
+     "text": "ever",
+     "style": "base",
+     "at": 11
+    },
+    {
+     "text": "done",
+     "style": "base",
+     "at": 44
+    },
+    {
+     "text": "a",
+     "style": "base",
+     "at": 59
+    },
+    {
+     "text": "project",
+     "style": "base",
+     "at": 70
+    },
+    {
+     "text": "like",
+     "style": "i",
+     "at": 80
+    },
+    {
+     "text": "mine?",
+     "style": "i",
+     "at": 86
+    }
+   ]
+  },
+  {
+   "from": 262,
+   "to": 292,
+   "scene": 3,
+   "quoted": false,
+   "hidden": false,
+   "words": [
+    {
+     "text": "And",
+     "style": "base",
+     "at": 0
+    },
+    {
+     "text": "honestly,",
+     "style": "base",
+     "at": 7
+    }
+   ]
+  },
+  {
+   "from": 292,
+   "to": 347,
+   "scene": 3,
+   "quoted": false,
+   "hidden": false,
+   "words": [
+    {
+     "text": "the",
+     "style": "base",
+     "at": 0
+    },
+    {
+     "text": "answer",
+     "style": "base",
+     "at": 22
+    },
+    {
+     "text": "was",
+     "style": "base",
+     "at": 35
+    },
+    {
+     "text": "no.",
+     "style": "b",
+     "at": 42
+    }
+   ]
+  },
+  {
+   "from": 347,
+   "to": 371,
+   "scene": 4,
+   "quoted": false,
+   "hidden": false,
+   "words": [
+    {
+     "text": "Looking",
+     "style": "base",
+     "at": 0
+    },
+    {
+     "text": "back,",
+     "style": "base",
+     "at": 14
+    }
+   ]
+  },
+  {
+   "from": 371,
+   "to": 432,
+   "scene": 5,
+   "quoted": false,
+   "hidden": false,
+   "words": [
+    {
+     "text": "this",
+     "style": "base",
+     "at": 0
+    },
+    {
+     "text": "portfolio",
+     "style": "base",
+     "at": 14
+    },
+    {
+     "text": "didn't",
+     "style": "base",
+     "at": 32
+    },
+    {
+     "text": "make",
+     "style": "base",
+     "at": 44
+    },
+    {
+     "text": "me",
+     "style": "base",
+     "at": 55
+    }
+   ]
+  },
+  {
+   "from": 432,
+   "to": 457,
+   "scene": 5,
+   "quoted": false,
+   "hidden": false,
+   "words": [
+    {
+     "text": "a",
+     "style": "base",
+     "at": 0
+    },
+    {
+     "text": "better",
+     "style": "i",
+     "at": 4
+    },
+    {
+     "text": "designer.",
+     "style": "i",
+     "at": 13
+    }
+   ]
+  },
+  {
+   "from": 457,
+   "to": 549,
+   "scene": 6,
+   "quoted": false,
+   "hidden": false,
+   "words": [
+    {
+     "text": "It",
+     "style": "base",
+     "at": 0
+    },
+    {
+     "text": "didn't",
+     "style": "base",
+     "at": 7
+    },
+    {
+     "text": "teach",
+     "style": "base",
+     "at": 28
+    },
+    {
+     "text": "me",
+     "style": "base",
+     "at": 37
+    },
+    {
+     "text": "a",
+     "style": "s",
+     "at": 48
+    },
+    {
+     "text": "new",
+     "style": "s",
+     "at": 64
+    },
+    {
+     "text": "skill.",
+     "style": "s",
+     "at": 85
+    }
+   ]
+  },
+  {
+   "from": 549,
+   "to": 591,
+   "scene": 7,
+   "quoted": false,
+   "hidden": false,
+   "words": [
+    {
+     "text": "I",
+     "style": "base",
+     "at": 0
+    },
+    {
+     "text": "was",
+     "style": "base",
+     "at": 9
+    },
+    {
+     "text": "the",
+     "style": "base",
+     "at": 16
+    },
+    {
+     "text": "exact",
+     "style": "base",
+     "at": 20
+    },
+    {
+     "text": "same",
+     "style": "b",
+     "at": 27
+    },
+    {
+     "text": "designer.",
+     "style": "base",
+     "at": 34
+    }
+   ]
+  },
+  {
+   "from": 591,
+   "to": 652,
+   "scene": 8,
+   "quoted": false,
+   "hidden": false,
+   "words": [
+    {
+     "text": "The",
+     "style": "base",
+     "at": 0
+    },
+    {
+     "text": "only",
+     "style": "base",
+     "at": 9
+    },
+    {
+     "text": "thing",
+     "style": "base",
+     "at": 23
+    },
+    {
+     "text": "that",
+     "style": "base",
+     "at": 36
+    },
+    {
+     "text": "changed",
+     "style": "base",
+     "at": 50
+    }
+   ]
+  },
+  {
+   "from": 652,
+   "to": 722,
+   "scene": 8,
+   "quoted": false,
+   "hidden": false,
+   "words": [
+    {
+     "text": "was",
+     "style": "base",
+     "at": 0
+    },
+    {
+     "text": "how",
+     "style": "base",
+     "at": 12
+    },
+    {
+     "text": "a",
+     "style": "base",
+     "at": 22
+    },
+    {
+     "text": "client",
+     "style": "base",
+     "at": 25
+    },
+    {
+     "text": "saw",
+     "style": "i",
+     "at": 37
+    },
+    {
+     "text": "my",
+     "style": "i",
+     "at": 47
+    },
+    {
+     "text": "work.",
+     "style": "i",
+     "at": 54
+    }
+   ]
+  },
+  {
+   "from": 722,
+   "to": 763,
+   "scene": 9,
+   "quoted": false,
+   "hidden": false,
+   "words": [
+    {
+     "text": "And",
+     "style": "base",
+     "at": 0
+    },
+    {
+     "text": "for",
+     "style": "base",
+     "at": 16
+    },
+    {
+     "text": "me,",
+     "style": "base",
+     "at": 20
+    },
+    {
+     "text": "that",
+     "style": "base",
+     "at": 26
+    },
+    {
+     "text": "difference",
+     "style": "base",
+     "at": 36
+    }
+   ]
+  },
+  {
+   "from": 763,
+   "to": 820,
+   "scene": 9,
+   "quoted": false,
+   "hidden": false,
+   "words": [
+    {
+     "text": "was",
+     "style": "base",
+     "at": 0
+    },
+    {
+     "text": "worth",
+     "style": "base",
+     "at": 7
+    },
+    {
+     "text": "$7,000.",
+     "style": "s",
+     "at": 19
+    }
+   ]
+  }
+ ],
+ "cta": {
+  "from": 820,
+  "to": 892,
+  "word": "PORTFOLIO",
+  "line": "and I'll send you the template."
+ }
+}

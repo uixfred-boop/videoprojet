@@ -1,0 +1,914 @@
+{
+ "id": "short6",
+ "titre": "Have a clear persona",
+ "fps": 30,
+ "durationInFrames": 1065,
+ "voiceEnd": 993,
+ "voice": [
+  {
+   "src0": 184.91,
+   "src1": 209.585,
+   "from": 0
+  },
+  {
+   "src0": 209.835,
+   "src1": 217.605,
+   "from": 740
+  },
+  {
+   "src0": 217.755,
+   "src1": 218.4,
+   "from": 973
+  }
+ ],
+ "scenes": [
+  {
+   "type": "face",
+   "from": 0,
+   "to": 21,
+   "srcStart": 184.91,
+   "idx": 0,
+   "pieces": [
+    {
+     "from": 0,
+     "src": 184.91
+    }
+   ]
+  },
+  {
+   "type": "screen",
+   "src": "scr_site.mp4",
+   "from": 21,
+   "to": 65,
+   "srcStart": 185.62,
+   "idx": 1,
+   "pieces": [
+    {
+     "from": 0,
+     "src": 185.62
+    }
+   ]
+  },
+  {
+   "type": "plate",
+   "bg": "navy",
+   "from": 65,
+   "to": 140,
+   "srcStart": 187.08,
+   "idx": 2,
+   "pieces": [
+    {
+     "from": 0,
+     "src": 187.08
+    }
+   ]
+  },
+  {
+   "type": "plate",
+   "bg": "paper",
+   "from": 140,
+   "to": 182,
+   "srcStart": 189.58,
+   "idx": 3,
+   "pieces": [
+    {
+     "from": 0,
+     "src": 189.58
+    }
+   ]
+  },
+  {
+   "type": "face",
+   "revealAt": 11,
+   "from": 182,
+   "to": 312,
+   "srcStart": 190.98,
+   "idx": 4,
+   "pieces": [
+    {
+     "from": 0,
+     "src": 190.98
+    }
+   ]
+  },
+  {
+   "type": "photo",
+   "src": "nara_silhouettes.jpg",
+   "focus": [
+    0.5,
+    0.4
+   ],
+   "from": 312,
+   "to": 349,
+   "srcStart": 195.3,
+   "idx": 5,
+   "pieces": [
+    {
+     "from": 0,
+     "src": 195.3
+    }
+   ]
+  },
+  {
+   "type": "plate",
+   "bg": "paper",
+   "from": 349,
+   "to": 381,
+   "srcStart": 196.54,
+   "idx": 6,
+   "pieces": [
+    {
+     "from": 0,
+     "src": 196.54
+    }
+   ]
+  },
+  {
+   "type": "face",
+   "zoom": 1.22,
+   "cy": 540,
+   "from": 381,
+   "to": 494,
+   "srcStart": 197.6,
+   "idx": 7,
+   "pieces": [
+    {
+     "from": 0,
+     "src": 197.6
+    }
+   ]
+  },
+  {
+   "type": "plate",
+   "bg": "blue",
+   "from": 494,
+   "to": 543,
+   "srcStart": 201.36,
+   "idx": 8,
+   "pieces": [
+    {
+     "from": 0,
+     "src": 201.36
+    }
+   ]
+  },
+  {
+   "type": "dots",
+   "label": "Construction business owner",
+   "from": 543,
+   "to": 665,
+   "srcStart": 203.02,
+   "idx": 9,
+   "pieces": [
+    {
+     "from": 0,
+     "src": 203.02
+    }
+   ]
+  },
+  {
+   "type": "steps",
+   "nodes": [
+    {
+     "text": "Outreach",
+     "at": 45
+    },
+    {
+     "text": "1 reply",
+     "at": 129
+    },
+    {
+     "text": "Discovery call",
+     "at": 167
+    }
+   ],
+   "from": 665,
+   "to": 846,
+   "srcStart": 207.08,
+   "idx": 10,
+   "pieces": [
+    {
+     "from": 0,
+     "src": 207.08
+    },
+    {
+     "from": 75,
+     "src": 209.835
+    }
+   ]
+  },
+  {
+   "type": "plate",
+   "bg": "blue",
+   "from": 846,
+   "to": 916,
+   "srcStart": 213.352,
+   "idx": 11,
+   "pieces": [
+    {
+     "from": 0,
+     "src": 213.352
+    }
+   ]
+  },
+  {
+   "type": "plate",
+   "bg": "paper",
+   "from": 916,
+   "to": 993,
+   "srcStart": 215.68,
+   "idx": 12,
+   "pieces": [
+    {
+     "from": 0,
+     "src": 215.68
+    },
+    {
+     "from": 57,
+     "src": 217.755
+    }
+   ]
+  }
+ ],
+ "lockups": [
+  {
+   "from": 0,
+   "to": 21,
+   "scene": 0,
+   "quoted": false,
+   "hidden": false,
+   "words": [
+    {
+     "text": "A",
+     "style": "base",
+     "at": 1
+    },
+    {
+     "text": "portfolio,",
+     "style": "base",
+     "at": 13
+    }
+   ]
+  },
+  {
+   "from": 21,
+   "to": 65,
+   "scene": 1,
+   "quoted": false,
+   "hidden": false,
+   "words": [
+    {
+     "text": "no",
+     "style": "base",
+     "at": 0
+    },
+    {
+     "text": "matter",
+     "style": "base",
+     "at": 12
+    },
+    {
+     "text": "how",
+     "style": "base",
+     "at": 17
+    },
+    {
+     "text": "good",
+     "style": "base",
+     "at": 23
+    },
+    {
+     "text": "it",
+     "style": "base",
+     "at": 37
+    },
+    {
+     "text": "looks,",
+     "style": "base",
+     "at": 44
+    }
+   ]
+  },
+  {
+   "from": 65,
+   "to": 88,
+   "scene": 2,
+   "quoted": false,
+   "hidden": false,
+   "words": [
+    {
+     "text": "is",
+     "style": "base",
+     "at": 0
+    },
+    {
+     "text": "worthless",
+     "style": "b",
+     "at": 7
+    }
+   ]
+  },
+  {
+   "from": 88,
+   "to": 140,
+   "scene": 2,
+   "quoted": false,
+   "hidden": false,
+   "words": [
+    {
+     "text": "until",
+     "style": "x",
+     "at": 0
+    },
+    {
+     "text": "it",
+     "style": "x",
+     "at": 14
+    },
+    {
+     "text": "brings",
+     "style": "x",
+     "at": 14
+    },
+    {
+     "text": "you",
+     "style": "x",
+     "at": 14
+    },
+    {
+     "text": "a",
+     "style": "x",
+     "at": 31
+    },
+    {
+     "text": "client.",
+     "style": "x",
+     "at": 37
+    }
+   ]
+  },
+  {
+   "from": 140,
+   "to": 182,
+   "scene": 3,
+   "quoted": false,
+   "hidden": false,
+   "words": [
+    {
+     "text": "Since",
+     "style": "base",
+     "at": 0
+    },
+    {
+     "text": "I",
+     "style": "base",
+     "at": 12
+    },
+    {
+     "text": "knew",
+     "style": "base",
+     "at": 23
+    },
+    {
+     "text": "exactly",
+     "style": "i",
+     "at": 28
+    }
+   ]
+  },
+  {
+   "from": 182,
+   "to": 265,
+   "scene": 4,
+   "quoted": false,
+   "hidden": false,
+   "words": [
+    {
+     "text": "who",
+     "style": "base",
+     "at": 0
+    },
+    {
+     "text": "I'd",
+     "style": "base",
+     "at": 7
+    },
+    {
+     "text": "built",
+     "style": "base",
+     "at": 41
+    },
+    {
+     "text": "this",
+     "style": "base",
+     "at": 49
+    },
+    {
+     "text": "site",
+     "style": "base",
+     "at": 63
+    },
+    {
+     "text": "for,",
+     "style": "base",
+     "at": 72
+    }
+   ]
+  },
+  {
+   "from": 265,
+   "to": 312,
+   "scene": 4,
+   "quoted": false,
+   "hidden": false,
+   "words": [
+    {
+     "text": "I",
+     "style": "base",
+     "at": 0
+    },
+    {
+     "text": "knew",
+     "style": "base",
+     "at": 7
+    },
+    {
+     "text": "exactly",
+     "style": "i",
+     "at": 11
+    },
+    {
+     "text": "who",
+     "style": "base",
+     "at": 21
+    },
+    {
+     "text": "to",
+     "style": "base",
+     "at": 26
+    },
+    {
+     "text": "contact.",
+     "style": "base",
+     "at": 31
+    }
+   ]
+  },
+  {
+   "from": 312,
+   "to": 349,
+   "scene": 5,
+   "quoted": false,
+   "hidden": false,
+   "words": [
+    {
+     "text": "Construction",
+     "style": "s",
+     "at": 0
+    },
+    {
+     "text": "companies.",
+     "style": "s",
+     "at": 14
+    }
+   ]
+  },
+  {
+   "from": 349,
+   "to": 381,
+   "scene": 6,
+   "quoted": false,
+   "hidden": false,
+   "words": [
+    {
+     "text": "Nobody",
+     "style": "s",
+     "at": 0
+    },
+    {
+     "text": "else.",
+     "style": "s",
+     "at": 13
+    }
+   ]
+  },
+  {
+   "from": 381,
+   "to": 444,
+   "scene": 7,
+   "quoted": false,
+   "hidden": false,
+   "words": [
+    {
+     "text": "And",
+     "style": "base",
+     "at": 0
+    },
+    {
+     "text": "this",
+     "style": "base",
+     "at": 4
+    },
+    {
+     "text": "is",
+     "style": "base",
+     "at": 11
+    },
+    {
+     "text": "the",
+     "style": "base",
+     "at": 17
+    },
+    {
+     "text": "most",
+     "style": "base",
+     "at": 24
+    },
+    {
+     "text": "important",
+     "style": "b",
+     "at": 34
+    },
+    {
+     "text": "advice",
+     "style": "base",
+     "at": 42
+    }
+   ]
+  },
+  {
+   "from": 444,
+   "to": 494,
+   "scene": 7,
+   "quoted": false,
+   "hidden": false,
+   "words": [
+    {
+     "text": "in",
+     "style": "base",
+     "at": 0
+    },
+    {
+     "text": "this",
+     "style": "base",
+     "at": 13
+    },
+    {
+     "text": "whole",
+     "style": "base",
+     "at": 28
+    },
+    {
+     "text": "video:",
+     "style": "base",
+     "at": 33
+    }
+   ]
+  },
+  {
+   "from": 494,
+   "to": 543,
+   "scene": 8,
+   "quoted": false,
+   "hidden": false,
+   "words": [
+    {
+     "text": "have",
+     "style": "base",
+     "at": 0
+    },
+    {
+     "text": "a",
+     "style": "base",
+     "at": 9
+    },
+    {
+     "text": "clear",
+     "style": "base",
+     "at": 15
+    },
+    {
+     "text": "persona.",
+     "style": "s",
+     "at": 26
+    }
+   ]
+  },
+  {
+   "from": 543,
+   "to": 579,
+   "scene": 9,
+   "quoted": false,
+   "hidden": false,
+   "words": [
+    {
+     "text": "If",
+     "style": "base",
+     "at": 0
+    },
+    {
+     "text": "you",
+     "style": "base",
+     "at": 6
+    },
+    {
+     "text": "talk",
+     "style": "base",
+     "at": 13
+    },
+    {
+     "text": "to",
+     "style": "base",
+     "at": 19
+    },
+    {
+     "text": "everyone,",
+     "style": "i",
+     "at": 24
+    }
+   ]
+  },
+  {
+   "from": 579,
+   "to": 619,
+   "scene": 9,
+   "quoted": false,
+   "hidden": false,
+   "words": [
+    {
+     "text": "nobody",
+     "style": "base",
+     "at": 0
+    },
+    {
+     "text": "feels",
+     "style": "base",
+     "at": 19
+    },
+    {
+     "text": "like",
+     "style": "base",
+     "at": 31
+    }
+   ]
+  },
+  {
+   "from": 619,
+   "to": 665,
+   "scene": 9,
+   "quoted": false,
+   "hidden": false,
+   "words": [
+    {
+     "text": "you're",
+     "style": "base",
+     "at": 0
+    },
+    {
+     "text": "talking",
+     "style": "base",
+     "at": 9
+    },
+    {
+     "text": "to",
+     "style": "base",
+     "at": 26
+    },
+    {
+     "text": "them.",
+     "style": "base",
+     "at": 35
+    }
+   ]
+  },
+  {
+   "from": 665,
+   "to": 745,
+   "scene": 10,
+   "quoted": false,
+   "hidden": false,
+   "words": [
+    {
+     "text": "So",
+     "style": "base",
+     "at": 0
+    },
+    {
+     "text": "that's",
+     "style": "base",
+     "at": 14
+    },
+    {
+     "text": "who",
+     "style": "base",
+     "at": 26
+    },
+    {
+     "text": "I",
+     "style": "base",
+     "at": 43
+    },
+    {
+     "text": "reached",
+     "style": "base",
+     "at": 45
+    },
+    {
+     "text": "out",
+     "style": "base",
+     "at": 64
+    },
+    {
+     "text": "to.",
+     "style": "base",
+     "at": 80
+    }
+   ]
+  },
+  {
+   "from": 745,
+   "to": 809,
+   "scene": 10,
+   "quoted": false,
+   "hidden": false,
+   "words": [
+    {
+     "text": "And",
+     "style": "base",
+     "at": 0
+    },
+    {
+     "text": "one",
+     "style": "base",
+     "at": 16
+    },
+    {
+     "text": "of",
+     "style": "base",
+     "at": 37
+    },
+    {
+     "text": "them",
+     "style": "base",
+     "at": 42
+    },
+    {
+     "text": "replied.",
+     "style": "base",
+     "at": 49
+    }
+   ]
+  },
+  {
+   "from": 809,
+   "to": 846,
+   "scene": 10,
+   "quoted": false,
+   "hidden": false,
+   "words": [
+    {
+     "text": "He",
+     "style": "base",
+     "at": 0
+    },
+    {
+     "text": "wanted",
+     "style": "base",
+     "at": 4
+    },
+    {
+     "text": "a",
+     "style": "base",
+     "at": 16
+    },
+    {
+     "text": "discovery",
+     "style": "base",
+     "at": 23
+    },
+    {
+     "text": "call.",
+     "style": "base",
+     "at": 32
+    }
+   ]
+  },
+  {
+   "from": 846,
+   "to": 868,
+   "scene": 11,
+   "quoted": false,
+   "hidden": false,
+   "words": [
+    {
+     "text": "My",
+     "style": "base",
+     "at": 0
+    },
+    {
+     "text": "system",
+     "style": "base",
+     "at": 2
+    },
+    {
+     "text": "worked.",
+     "style": "s",
+     "at": 22
+    }
+   ]
+  },
+  {
+   "from": 868,
+   "to": 916,
+   "scene": 11,
+   "quoted": false,
+   "hidden": false,
+   "words": [
+    {
+     "text": "And",
+     "style": "base",
+     "at": 0
+    },
+    {
+     "text": "by",
+     "style": "base",
+     "at": 22
+    },
+    {
+     "text": "the",
+     "style": "base",
+     "at": 35
+    },
+    {
+     "text": "way,",
+     "style": "base",
+     "at": 40
+    }
+   ]
+  },
+  {
+   "from": 916,
+   "to": 952,
+   "scene": 12,
+   "quoted": false,
+   "hidden": false,
+   "words": [
+    {
+     "text": "you'll",
+     "style": "base",
+     "at": 0
+    },
+    {
+     "text": "find",
+     "style": "base",
+     "at": 10
+    },
+    {
+     "text": "this",
+     "style": "base",
+     "at": 19
+    },
+    {
+     "text": "system",
+     "style": "base",
+     "at": 28
+    }
+   ]
+  },
+  {
+   "from": 952,
+   "to": 993,
+   "scene": 12,
+   "quoted": false,
+   "hidden": false,
+   "words": [
+    {
+     "text": "in",
+     "style": "base",
+     "at": 0
+    },
+    {
+     "text": "the",
+     "style": "base",
+     "at": 10
+    },
+    {
+     "text": "first",
+     "style": "i",
+     "at": 10
+    },
+    {
+     "text": "comment.",
+     "style": "i",
+     "at": 28
+    }
+   ]
+  }
+ ],
+ "cta": {
+  "from": 993,
+  "to": 1065,
+  "word": "SYSTEM",
+  "line": "and I'll send you the system."
+ }
+}
