@@ -315,7 +315,23 @@ Un motif peut revenir pour faire rimer deux idées. Dans REF02, la ligne bleue d
 7. **V1** : rendu et envoi. Elle sera à 60-70 % : demander des retours **numérotés**.
 8. **Révisions**.
 9. **Sound design** : musique et bruitages selon §8.
-10. **Rendu final** : H.264, CRF 16-18, AAC 320 kbit/s.
+10. **Rendu final** : H.264, CRF 16-18, AAC 320 kbit/s, puis normalisation du son à -14 LUFS (pic ≤ -1 dBTP).
+
+**Implémentation de référence** : `remotion/` (composants de scènes, moteur de sous-titres) et `projets/fred-portfolio-7000/montage/` (`spec.py` pour le plan scène par scène, `build.py` pour les timings, `audio_gen.py` pour la musique et les bruitages).
+
+### Leçons du projet 1 (rush horizontal déjà monté)
+- **Sous-titres incrustés dans le rush** :
+  - ils donnent le texte exact : les lire par OCR (rapidocr) puis caler ce texte sur les horodatages Whisper ;
+  - forcer `language="en"` : un accent peut faire détecter une autre langue.
+- **Musique d'origine sous la voix** : isoler la voix avec Demucs (`--two-stems=vocals`) avant d'ajouter notre musique. La voix isolée sert aussi à détecter les silences, ce que l'énergie du mixage ne permet pas.
+- **16:9 en très gros plan** : le recadrage plein cadre 9:16 abîme l'image et met le texte sur le visage. Utiliser la **carte visage** (A6 / C2) sur fond bleu nuit, avec les sous-titres sous la carte.
+- **Rush déjà monté** : avant chaque scène visage, vérifier image par image (pas de 0,5 s) les titres, encarts et recadrages d'origine. Selon le cas :
+  - retarder l'apparition de la carte (`revealAt`) ;
+  - ou passer le moment sur une scène sans visage.
+- **Rendu** :
+  - le Chrome de Remotion ne passe pas le proxy pour Google Fonts : servir les polices en local (`@remotion/fonts`) ;
+  - mettre une vraie copie du rush dans `public/`, Remotion ne suit pas les liens symboliques.
+- **Images libres** : sur Wikimedia Commons, passer par les miniatures (`/thumb/…/1920px-…`), car les originaux sont limités en débit. Garder CC0 ou domaine public pour éviter les crédits. Pexels demande une clé d'API.
 
 ---
 
