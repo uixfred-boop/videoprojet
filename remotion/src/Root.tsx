@@ -12,12 +12,16 @@ import short6 from './data/short6.json';
 const ALL = [short1, short2, short3, short4, short5, short6] as unknown as ShortData[];
 // voix isolée par Demucs si disponible, sinon audio d'origine du rush
 const VOICE = process.env.REMOTION_VOICE ?? 'audio/voice.wav';
+// musique de fond : par défaut le beat généré, sinon le son fourni par l'utilisateur
+const MUSIC = process.env.REMOTION_MUSIC ?? 'audio/beat.wav';
+const MUSIC_START = Number(process.env.REMOTION_MUSIC_START ?? 0);
+const MUSIC_GAIN = Number(process.env.REMOTION_MUSIC_GAIN ?? 1);
 
 export const Root: React.FC = () => (
   <>
     {ALL.map((d) => (
       <Composition key={d.id} id={d.id} component={Short as any} durationInFrames={d.durationInFrames} fps={30} width={1080} height={1920}
-        defaultProps={{data: d, voiceSrc: VOICE}} />
+        defaultProps={{data: d, voiceSrc: VOICE, musicSrc: MUSIC, musicStart: MUSIC_START, musicGain: MUSIC_GAIN}} />
     ))}
   </>
 );

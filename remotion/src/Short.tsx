@@ -17,9 +17,9 @@ const SCENES: Record<string, React.FC<SceneProps>> = {
 };
 const WHOOSH = new Set(['screen', 'reels', 'illustration', 'line', 'stack', 'dimension', 'converge', 'dots', 'steps', 'draw', 'photo']);
 
-export type ShortProps = {data: ShortData; voiceSrc: string};
+export type ShortProps = {data: ShortData; voiceSrc: string; musicSrc?: string; musicStart?: number; musicGain?: number};
 
-export const Short: React.FC<ShortProps> = ({data, voiceSrc}) => {
+export const Short: React.FC<ShortProps> = ({data, voiceSrc, musicSrc = 'audio/beat.wav', musicStart = 0, musicGain = 1}) => {
   const fps = data.fps;
   const sfx: {src: string; at: number; vol: number}[] = [];
   data.scenes.forEach((s, i) => {
@@ -55,14 +55,14 @@ export const Short: React.FC<ShortProps> = ({data, voiceSrc}) => {
         </Sequence>
       ))}
       {/* beat rap instrumental, légèrement effacé quand la voix parle (vad), remonté sur le CTA */}
-      <Audio src={staticFile('audio/beat.wav')}
-        volume={(f) => {
+      <Audio src={staticFile(musicSrc)} loop startFrom={Math.round(musicStart * fps)}
+        volume={(f) => musicGain * (() => {
           const vad: string = (data as any).vad ?? '';
           let on = 0;
           for (let k = f - 6; k <= f + 6; k++) if (vad[k] === '1') on++;
           const base = f >= data.cta.from ? interpolate(f, [data.cta.from, data.cta.from + 8], [0.2, 0.5], {extrapolateRight: 'clamp'}) : 0.27 - 0.08 * (on / 13);
           return base * interpolate(f, [0, 3, total - 16, total], [0, 1, 1, 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
-        }} />
+        })()} />
       {sfx.map((s, i) => (
         <Sequence key={`s${i}`} from={Math.max(0, s.at)}>
           <Audio src={staticFile(`audio/${s.src}`)} volume={s.vol} />
